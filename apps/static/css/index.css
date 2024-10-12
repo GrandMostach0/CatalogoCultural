@@ -5,17 +5,52 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* ESTILOS DE LOS PARRAFOS TITULOS SUBTITULOS*/
+.titulo {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+/* subparrafo */
+.titulo {
+    font-size: 2.2em;
+    margin-bottom: 15px;
+}
+
+/* parrafo */
+p{
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+a{
+    text-decoration: none;
+    color: #333;
+}
+
+/* ESTILO DE LOS BUTTONS TAGS*/
+.buttonTag{
+    width: auto;
+    padding: 4px 8px;
+    border: 1px solid rgb(170, 192, 176);
+    border-radius: 10px;
+}
+
+/*
 .ancho{
     max-width: 1200px;
     margin: auto;
     border: 1px solid black;
 }
+*/
 
 /* ESTILOS PARA EL MENU DE NAVEGACIÓN*/
 .menu{
     position: sticky;
     top: 0;
-    padding: 15px 5px;
+    padding: 15px 25px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -27,17 +62,17 @@
     text-decoration: none;
     text-transform: uppercase;
     margin-right: 15px;
+    font-weight: 600;
 }
 
 .menu-opciones a:hover{
-    font-weight: bold;
+    font-weight: bolder;
 }
 
 /* ESTILO DEL BANNER PRINCIPAL */
 .banner-container{
     width: 100%;
     height: 80vh;
-    border: 2px solid black;
     position: relative;
 
     & img{
@@ -60,5 +95,49 @@
     & h2{
         color: white;
         font-size: 3rem;
+    }
+}
+
+/* ESTILO DE LAS SECCIONES*/
+.secciones{
+    max-width: 1300px;
+    margin: 50px auto;
+}
+
+.secciones2 {
+    max-width: 1300px;
+    margin: auto;
+}
+
+/* ESTILO DE LA SECCION DONDE SALEN LOS AUTORES */
+.container-secciones-autores{
+    background-color: rgba(170, 192, 176, 0.5);
+    padding: 10px 0px;
+}
+
+.subseccion{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ESTILOS DE LAS CARDS*/
+.container-cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-flow: dense;
+    gap: 30px;
+}
+
+.card{
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 20%;
+    border-radius: 8px;
+
+    & img{
+        width: 50%;
+        height: 50%;
+        object-fit: cover;
     }
 }
