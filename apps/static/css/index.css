@@ -1,3 +1,64 @@
-header{
-    border: 1px solid red;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.ancho{
+    max-width: 1200px;
+    margin: auto;
+    border: 1px solid black;
+}
+
+/* ESTILOS PARA EL MENU DE NAVEGACIÓN*/
+.menu{
+    position: sticky;
+    top: 0;
+    padding: 15px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 999;
+    background-color: white;
+}
+
+.menu-opciones a{
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-right: 15px;
+}
+
+.menu-opciones a:hover{
+    font-weight: bold;
+}
+
+/* ESTILO DEL BANNER PRINCIPAL */
+.banner-container{
+    width: 100%;
+    height: 80vh;
+    border: 2px solid black;
+    position: relative;
+
+    & img{
+        width: 100%;
+        height: 100%;
+        opacity: 0.6;
+        object-fit: cover;
+    }
+}
+
+.banner-title{
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    text-align: center;
+    text-shadow: 2px 4px 16px rgb(0, 0, 0);
+
+    & h2{
+        color: white;
+        font-size: 3rem;
+    }
 }

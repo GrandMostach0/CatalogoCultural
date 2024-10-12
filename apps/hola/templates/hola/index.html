@@ -10,16 +10,27 @@
 
 </head>
 <body>
-    <header>
-        <div>
-            <h1>Catalogo Cultural</h1>
-        </div>
-        <nav class="menu">
-            <a href="#">Opcion1</a>
-            <a href="#">Opcion2</a>
-            <a href="#">Opcion3</a>
-            <a href="#">Opcion4</a>
-        </nav>
-    </header>
+    <div class="ancho">
+        <header class="menu">
+            <div>
+                <h1>Catalogo Cultural</h1>
+            </div>
+            <nav class="menu-opciones">
+                <a href="#">Inicio</a>
+                <a href="#">Cartelera</a>
+                <a href="#">Actores</a>
+                <a href="#">Escuelas</a>
+                <a href="#">Iniciar Sesión</a>
+            </nav>
+        </header>
+
+        <section class="banner-container">
+            <div class="banner-title">
+                <h2>Catálogo Cultural</h2>
+                <h2>Yucatán</h2>
+            </div>
+            <img src="{% static 'assets/images/banner.jpg' %}" alt="Banner">
+        </section>
+    </div>
 </body>
 </html>
