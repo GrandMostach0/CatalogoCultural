@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mi Página Web</title>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cardPublicaciones.css' %}">
 
 </head>
 <body>
@@ -105,13 +106,107 @@
             </div>
         </section>
 
+        <!---- SECCION DONDE SALE LAS PUBLICACIONES Y EL FILTRO ---->
         <section class="secciones container-publicaciones-filtro">
+            <!---- SECCION DE LAS PUBLICACIONES ---->
             <div class="container-publicaciones">
-                <h1>Hola 1</h1>
-                <p>Hola este es un apartado para poder ver si sale mi informacion</p>
+                <h2>Publicaciones de esta semana</h2>
+
+                <div class="container-cards-publicaciones">
+
+                    <div class="card-publicaciones">
+                        <p style="text-align: right;">DD/MM/AAAA</p>
+                        <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen Publicación">
+                        <div class="card-publicacion-contenido">
+                            <h1>TITULO DE LA PUBLICACIÓN</h1>
+                            <div class="card-publicacion-usuario">
+                                <img src="{% static 'assets/images/AvatarImg.jpg' %}" alt="Imagen Avatar">
+                                <p>Nombre del usuario</p>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam sequi ratione doloremque dolorum recusandae nulla, necessitatibus voluptatibus veritatis tempora? Porro ab tempore inventore officia ratione provident consequatur quaerat, in necessitatibus!</p>
+                            <div class="tag">
+                                <p>Arquitectura</p>
+                            </div>
+                            <div class="button-publicacion">
+                                <a href="#" style="font-weight: bold;">LEER MAS</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-publicaciones">
+                        <p style="text-align: right;">DD/MM/AAAA</p>
+                        <img src="{% static 'assets/images/imgPublicacion2.jpg' %}" alt="Imagen Publicación">
+                        <div class="card-publicacion-contenido">
+                            <h1>TITULO DE LA PUBLICACIÓN</h1>
+                            <div class="card-publicacion-usuario">
+                                <img src="{% static 'assets/images/AvatarImg2.jpg' %}" alt="Imagen Avatar">
+                                <p>Nombre del usuario</p>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam sequi ratione doloremque dolorum
+                                recusandae nulla, necessitatibus voluptatibus veritatis tempora? Porro ab tempore inventore officia ratione
+                                provident consequatur quaerat, in necessitatibus!</p>
+                            <div class="tag">
+                                <p>Artes</p>
+                            </div>
+                            <div class="button-publicacion">
+                                <a href="#" style="font-weight: bold;">LEER MAS</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-publicaciones">
+                        <p style="text-align: right;">DD/MM/AAAA</p>
+                        <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen Publicación">
+                        <div class="card-publicacion-contenido">
+                            <h1>TITULO DE LA PUBLICACIÓN</h1>
+                            <div class="card-publicacion-usuario">
+                                <img src="{% static 'assets/images/AvatarImg.jpg' %}" alt="Imagen Avatar">
+                                <p>Nombre del usuario</p>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam sequi ratione doloremque dolorum
+                                recusandae nulla, necessitatibus voluptatibus veritatis tempora? Porro ab tempore inventore officia ratione
+                                provident consequatur quaerat, in necessitatibus!</p>
+                            <div class="tag">
+                                <p>Música</p>
+                            </div>
+                            <div class="button-publicacion">
+                                <a href="#" style="font-weight: bold;">LEER MAS</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-publicaciones">
+                        <p style="text-align: right;">DD/MM/AAAA</p>
+                        <img src="{% static 'assets/images/imgPublicacion2.jpg' %}" alt="Imagen Publicación">
+                        <div class="card-publicacion-contenido">
+                            <h1>TITULO DE LA PUBLICACIÓN</h1>
+                            <div class="card-publicacion-usuario">
+                                <img src="{% static 'assets/images/AvatarImg2.jpg' %}" alt="Imagen Avatar">
+                                <p>Nombre del usuario</p>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam sequi ratione doloremque dolorum
+                                recusandae nulla, necessitatibus voluptatibus veritatis tempora? Porro ab tempore inventore officia ratione
+                                provident consequatur quaerat, in necessitatibus!</p>
+                            <div class="tag">
+                                <p>Arquitectura</p>
+                            </div>
+                            <div class="button-publicacion">
+                                <a href="#" style="font-weight: bold;">LEER MAS</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paginacion">
+                    <div class="bolita">1</div>
+                    <div class="bolita">1</div>
+                    <div class="bolita">1</div>
+                </div>
+
             </div>
+
+            <!---- SECCION DEL FILTRO ---->
             <div class="container-filtro">
-                <h2>Hola 2</h2>
             </div>
         </section>
 
