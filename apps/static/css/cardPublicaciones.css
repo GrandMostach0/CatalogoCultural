@@ -1,6 +1,5 @@
 /* ESTILO DE LA PARTE DE LA PUBLICACION Y EL FILTRO*/
 .container-publicaciones-filtro {
-    border: 1px solid red;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -111,4 +110,13 @@ select{
     width: 80%;
     padding: 5px 10px;
     border-radius: 10px;
+}
+
+.botones{
+    outline: none;
+    background-color: #3c3c3c;
+    border-radius: 10px;
+    padding: 4px 8px;
+    color: white;
+    margin-right: 10px;
 }
