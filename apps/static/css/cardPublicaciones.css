@@ -22,7 +22,7 @@
 /* estilo de las cards de las publicaciones*/
 .card-publicaciones{
     padding: 10px 15px;
-    border: 1px solid rgb(46, 1, 1);
+    border: 1px solid rgba(46, 1, 1, 0.303);
     border-radius: 10px;
 
     & img{
@@ -95,5 +95,20 @@
 
 /* ESTILO DEL FILTRO*/
 .container-filtro {
+    padding: 10px;
     flex: 1;
+
+    & p{
+        margin: 0;
+    }
+}
+
+.container-filtro-opciones{
+    margin-top: 20px;
+}
+
+select{
+    width: 80%;
+    padding: 5px 10px;
+    border-radius: 10px;
 }
