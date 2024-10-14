@@ -5,6 +5,28 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* ESTILO DEL ROOT */
+/* width */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #4c4c4c;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #2f2f2f;
+}
+
 /* ESTILOS DE LOS PARRAFOS TITULOS SUBTITULOS*/
 .titulo {
     font-size: 2.5em;
@@ -121,13 +143,14 @@ a{
 /* ESTILO DE LA SECCION DONDE SALEN LOS AUTORES */
 .container-secciones-autores{
     background-color: rgba(170, 192, 176, 0.5);
-    padding: 10px 0px;
+    padding: 15px 0px;
 }
 
 .subseccion{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 10px 0px;
 }
 
 /* ESTILOS DE LAS CARDS*/
@@ -147,6 +170,7 @@ a{
 
     & img {
         width: 100%;
+        height: 130px;
         object-fit: cover;
     }
 }
@@ -166,4 +190,23 @@ a{
 .card-button{
     padding-top: 5px;
     text-align: right;
+}
+
+/* ESTILOS DEL FOOTER */
+footer{
+    margin-top: 100px;
+    padding: 15px;
+    background-color: rgba(170, 192, 176, 0.5);
+}
+
+.footer-contenido{
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.footer-secciones a{
+    display: block;
+    margin-bottom: 5px;
 }

@@ -21,7 +21,7 @@
 /* estilo de las cards de las publicaciones*/
 .card-publicaciones{
     padding: 10px 15px;
-    border: 1px solid rgba(46, 1, 1, 0.303);
+    border: 1px solid rgba(46, 1, 1, 0.3);
     border-radius: 10px;
 
     & img{
