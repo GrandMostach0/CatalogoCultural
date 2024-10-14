@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista Escuela</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cardPublicaciones.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/viewEscuela.css' %}">
+</head>
+<body>
+    <div class="ancho">
+        <!---- SECCION MENÚ ---->
+        <header class="menu">
+            <div>
+                <h1 style="font-weight: bold;">Catálogo Cultural</h1>
+            </div>
+            <nav class="menu-opciones">
+                <a href="#">Inicio</a>
+                <a href="#">Cartelera</a>
+                <a href="#">Actores</a>
+                <a href="#">Escuelas</a>
+                <a href="#">Iniciar Sesión</a>
+            </nav>
+        </header>
+        <div class="escuela-direcciones">
+            <p>Inicio/ViewEscuela</p>
+            <p><-- Volver</p>
+        </div>
+
+        <!----- SECCION DEL CONTENIDO DE LA ESCUELA ----->
+        <main class="container-escuela">
+            <div class="escuela-imagen">
+                <img src="{% static 'assets/images/Institucion1.jpg' %}" alt="">
+                <h1>Escuela de Artes Visuales de Yucatán</h1>
+                <div class="escuela-imagen-redSocial">
+                    <h2>Redes Sociales</h2>
+                </div>
+            </div>
+            
+            <div class="escuela-descripcion">
+                <div class="descripcion-seccion">
+                    <h1>Descripción</h1>
+                    <br>
+                    <p>La Escuela de Artes Visuales de Yucatán es una institución dedicada a la enseñanza y promoción de las artes plásticas.
+                    Con más de 20 años de experiencia, ofrecemos una variedad de programas orientados a desarrollar las habilidades
+                    creativas de nuestros estudiantes, desde nivel básico hasta avanzado.</p>
+                </div>
+
+                <div class="descripcion-seccion-informacion">
+                    <h1>Información General</h1>
+                    <br>
+                    <div class="container-informacion">
+                        <div class="seccion-informacion">
+                            <div class="informacion">
+                                <p style="font-weight: bold;">Ubicación:</p>
+                                <p>Calle 60 No. 123, Centro, Mérida, Yucatán</p>
+                            </div>
+                            <div class="informacion">
+                                <p style="font-weight: bold;">Correo Electrónico:</p>
+                                <a href="mailto:contacto@artesyucatan.edu.mx">contacto@artesyucatan.edu.mx</a>
+                            </div>
+                        </div>
+                        
+                        <div class="seccion-informacion">
+                            <div class="informacion">
+                                <p style="font-weight: bold;">Teléfono:</p>
+                                <a href="tel:+529991234567">+52 999 123 4567</a>
+                            </div>
+                            <div class="informacion">
+                                <p style="font-weight: bold;">Horario de atención:</p>
+                                <p>Lunes a Viernes, 9:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+
+        <footer>
+            <div class="footer-contenido">
+                <div class="footer-secciones">
+                    <h3>KLUGE LAB</h3>
+                </div>
+                <div class="footer-secciones">
+                    <h3>Cultura Yucateca</h3>
+                    <p>Descubre y celebra la riqueza cultural Yucateca.</p>
+                </div>
+                <div class="footer-secciones">
+                    <h3>Enlaces Rápidos</h3>
+                    <a href="#">Inicio</a>
+                    <a href="#">Publicaciones</a>
+                    <a href="#">Actores</a>
+                </div>
+                <div class="footer-secciones">
+                    <h3>Siguenos</h3>
+                    <div class="footer-secciones-social">
+                        <p>Logos de red social</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

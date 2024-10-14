@@ -20,5 +20,6 @@ from apps.hola import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.hola_mundo)
+    path('', views.hola_mundo),
+    path('viewEscuela/', views.viewEscuela),
 ]
