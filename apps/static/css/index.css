@@ -211,3 +211,9 @@ footer{
     display: block;
     margin-bottom: 5px;
 }
+
+.footer-secciones-social{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
