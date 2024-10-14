@@ -6,3 +6,6 @@ def hola_mundo(request):
 
 def viewEscuela(request):
     return render(request, 'hola/viewEscuela.html');
+
+def viewSesion(request):
+    return render(request, 'hola/IniciarSecion.html');

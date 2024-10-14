@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio Sesion</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cardPublicaciones.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sesion.css' %}">
+</head>
+<body>
+    <div class="ancho">
+        <main class="container-inicio">
+            <p>Inicio de sesión unicamente para actores culturales</p>
+            <div class="container-form-inicio">
+                <h1>Catálogo cultural</h1>
+                <p>Explora * Conecta</p>
+                <form action="google.com">
+                    <label for="Correo">
+                        Correo Eléctronico:
+                        <input placeholder="correo@gmail.com" type="email" name="Correo" id="Correo">
+                    </label>
+                    <label for="Contrasenia">
+                        Contraseñia:
+                        <input placeholder="Contraseñia" type="password" name="Contrasenia" id="Contrasenia">
+                    </label>
+
+                    <button type="submit">Iniciar Sesión</button>
+                </form>
+                <hr>
+                <br>
+                <a href="#">Crear Cuenta</a>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-contenido">
+                <div class="footer-secciones">
+                    <h3>KLUGE LAB</h3>
+                </div>
+                <div class="footer-secciones">
+                    <h3>Cultura Yucateca</h3>
+                    <p>Descubre y celebra la riqueza cultural Yucateca.</p>
+                </div>
+                <div class="footer-secciones">
+                    <h3>Enlaces Rápidos</h3>
+                    <a href="#">Inicio</a>
+                    <a href="#">Publicaciones</a>
+                    <a href="#">Actores</a>
+                </div>
+                <div class="footer-secciones">
+                    <h3>Siguenos</h3>
+                    <div class="footer-secciones-social">
+                        <a href="#">
+                            <img src="{% static 'assets/icons/insta-icon.svg' %}" alt="Logo Instagram">
+                        </a>
+                        <a href="#">
+                            <img src="{% static 'assets/icons/face-icon.svg' %}" alt="Logo Facebook">
+                        </a>
+                        <a href="#">
+                            <img src="{% static 'assets/icons/twitter-icon.svg' %}" alt="Logo Twitter">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
