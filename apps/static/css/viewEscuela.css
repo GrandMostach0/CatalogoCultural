@@ -15,8 +15,18 @@
     flex: 1;
 }
 
+/* Estilos para ver las redes sociales de la escuela */
 .escuela-imagen-redSocial{
     margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.escuela-imagen-redSocial a img{
+    margin: 0px 5px;
+    width: 120%;
+    height: auto;
 }
 
 .escuela-imagen img{
@@ -36,5 +46,21 @@
     justify-content: space-between;
 }
 
+@media (max-width: 768px) {
+    .container-escuela, .container-informacion{
+        flex-direction: column;
+    }
 
+    .escuela-imagen-redSocial a img{
+        width: 80%;
+        height: auto;
+    }
 
+    h1{
+        font-size: 1.8em;
+    }
+
+    p{
+        font-size: 14px;
+    }
+}
