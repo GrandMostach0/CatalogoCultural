@@ -29,10 +29,44 @@
     height: auto;
 }
 
-.escuela-imagen img{
+/* estilo de la imagen de la escuela */
+.escuelaImagen {
     width: 100%;
     height: 340px;
+    position: relative;
+}
+
+.escuelaImagen img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    cursor: pointer;
+}
+
+/* animación del texto en la imagen */
+.escuelaImagen::after {
+    content: 'Ver imagen';
+    font-weight: bold;
+    font-size: 1.5em;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 85%;
+    height: 85%;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.escuelaImagen:hover::after {
+    opacity: 1;
 }
 
 .escuela-descripcion{
