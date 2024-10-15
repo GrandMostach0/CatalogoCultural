@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista Escuela</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cardPublicaciones.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/viewEscuela.css' %}">
+</head>
+
+<body>
+    <div class="ancho">
+        <!---- SECCION MENÚ ---->
+        <header class="menu">
+            <div>
+                <h1 style="font-weight: bold;">Catálogo Cultural</h1>
+            </div>
+            <nav class="menu-opciones">
+                <a href="#">Inicio</a>
+                <a href="#">Cartelera</a>
+                <a href="#">Actores</a>
+                <a href="#">Escuelas</a>
+                <a href="#">Iniciar Sesión</a>
+            </nav>
+        </header>
+        <div class="escuela-direcciones">
+            <p>Inicio/ViewEscuela</p>
+            <p><-- Volver</p>
+        </div>
+
+        <!----- SECCION DEL PERFIL ----->
+        <main class="container-escuela">
+            <div class="escuela-imagen">
+                <div class="perfil-imagen">
+                    <img src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la escuela">
+                </div>
+                <br>
+                <h1>Mariá José Pat Chable</h1>
+                <p>Artes Plasticas - Docencia</p>
+                <h2>Redes Sociales</h2>
+                <div class="escuela-imagen-redSocial">
+                    <a href="#">
+                        <img src="{% static 'assets/icons/insta-icon.svg' %}" alt="Logo Instagram">
+                    </a>
+                    <a href="#">
+                        <img src="{% static 'assets/icons/face-icon.svg' %}" alt="Logo Facebook">
+                    </a>
+                    <a href="#">
+                        <img src="{% static 'assets/icons/twitter-icon.svg' %}" alt="Logo Twitter">
+                    </a>
+                    <a href="#">
+                        <img src="{% static 'assets/icons/web-icon.svg' %}" alt="Logo Twitter">
+                    </a>
+                </div>
+            </div>
+
+            <div class="escuela-descripcion">
+                <div class="descripcion-seccion">
+                    <h1>Biografía</h1>
+                    <br>
+                    <p>Soy una artista plástica apasionada por crear vibrantes pinturas al óleo que exploran temas de la naturaleza y la
+                    identidad cultural. Mi trabajo ha sido exhibido en galerías de renombre tanto en América Latina como en Europa, captando
+                    la atención de críticos y coleccionistas. Encuentro mi inspiración en mis raíces indígenas y en la rica biodiversidad de
+                    mi país natal, fusionando tradición y modernidad en cada pincelada.</p>
+                </div>
+
+                <div class="descripcion-seccion-informacion">
+                    <h1>Información Personal y Contacto</h1>
+                    <br>
+                    <div class="container-informacion">
+                        <div class="seccion-informacion">
+                            <div class="informacion">
+                                <p style="font-weight: bold;">Edad:</p>
+                                <p>32 años</p>
+                            </div>
+                            <div class="informacion">
+                                <p style="font-weight: bold;">Docente en:</p>
+                                <p>Bellas Artes Yucatán</p>
+                                <p>Escuela de Artes del Estado de Yucatán</p>
+                            </div>
+                        </div>
+
+                        <div class="seccion-informacion">
+                            <div class="informacion">
+                                <p style="font-weight: bold;">Teléfono:</p>
+                                <a href="tel:+529991234567">+52 999 123 4567</a>
+                            </div>
+                            <div class="informacion">
+                                <p style="font-weight: bold;">Horario de atención:</p>
+                                <a href="mailto: usuario@gmail.com">Usuario@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="botones-publicaciones">
+                    <a href="#" class="botones">Crear Publicación</a>
+                    <a href="#" class="botones">Crear Evento</a>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-contenido">
+                <div class="footer-secciones">
+                    <h3>KLUGE LAB</h3>
+                </div>
+                <div class="footer-secciones">
+                    <h3>Cultura Yucateca</h3>
+                    <p>Descubre y celebra la riqueza cultural Yucateca.</p>
+                </div>
+                <div class="footer-secciones">
+                    <h3>Enlaces Rápidos</h3>
+                    <a href="#">Inicio</a>
+                    <a href="#">Publicaciones</a>
+                    <a href="#">Actores</a>
+                </div>
+                <div class="footer-secciones">
+                    <h3>Siguenos</h3>
+                    <div class="footer-secciones-social">
+                        <p>Logos de red social</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

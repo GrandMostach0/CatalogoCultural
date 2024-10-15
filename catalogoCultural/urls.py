@@ -20,7 +20,5 @@ from apps.hola import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.hola_mundo),
-    path('viewEscuela/', views.viewEscuela),
-    path('viewSesion/', views.viewSesion)
+    path('', include('apps.hola.urls')), # URLS de la app 'hola'
 ]

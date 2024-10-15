@@ -9,3 +9,6 @@ def viewEscuela(request):
 
 def viewSesion(request):
     return render(request, 'hola/IniciarSecion.html');
+
+def viewPerfil(request):
+    return render(request, 'hola/viewPerfil.html');

@@ -217,3 +217,10 @@ footer{
     align-items: center;
     justify-content: space-between;
 }
+
+@media (max-width: 768px) {
+
+    .ancho{
+        padding: 0px 10px;
+    }
+}
