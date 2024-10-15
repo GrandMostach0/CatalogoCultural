@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %} Mi página {% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cardPublicaciones.css' %}">
+
+</head>
+
+<body>
+    <div class="ancho">
+
+        <!---- SECCION MENÚ ---->
+        <header class="menu">
+            <div>
+                <h1 style="font-weight: bold;">Catálogo Cultural</h1>
+            </div>
+            <nav class="menu-opciones">
+                <a href="{% url 'index' %}">Inicio</a>
+                <a href="{% url 'cartelera' %}">Cartelera</a>
+                <a href="{% url 'actores' %}">Actores</a>
+                <a href="{% url 'viewEscuela' %}">Escuelas</a>
+                <a href="#">Iniciar Sesión</a>
+            </nav>
+        </header>
+
+        {% block content %}
+        {% endblock %}
+
+        <!---- FOOTER DE LA FINALIDAD ---->
+        <footer>
+            <div class="footer-contenido">
+                <div class="footer-secciones">
+                    <h3>KLUGE LAB</h3>
+                </div>
+                <div class="footer-secciones">
+                    <h3>Cultura Yucateca</h3>
+                    <p>Descubre y celebra la riqueza cultural Yucateca.</p>
+                </div>
+                <div class="footer-secciones">
+                    <h3>Enlaces Rápidos</h3>
+                    <a href="#">Inicio</a>
+                    <a href="#">Publicaciones</a>
+                    <a href="#">Actores</a>
+                </div>
+                <div class="footer-secciones">
+                    <h3>Siguenos</h3>
+                    <div class="footer-secciones-social">
+                        <a href="#">
+                            <img src="{% static 'assets/icons/insta-icon.svg' %}" alt="Logo Instagram">
+                        </a>
+                        <a href="#">
+                            <img src="{% static 'assets/icons/face-icon.svg' %}" alt="Logo Facebook">
+                        </a>
+                        <a href="#">
+                            <img src="{% static 'assets/icons/twitter-icon.svg' %}" alt="Logo Twitter">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

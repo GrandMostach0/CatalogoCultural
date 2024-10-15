@@ -19,9 +19,9 @@
                 <h1 style="font-weight: bold;">Catálogo Cultural</h1>
             </div>
             <nav class="menu-opciones">
-                <a href="#">Inicio</a>
-                <a href="#">Cartelera</a>
-                <a href="#">Actores</a>
+                <a href="{% url 'index' %}">Inicio</a>
+                <a href="{% url 'cartelera' %}">Cartelera</a>
+                <a href="{% url 'actores' %}">Actores</a>
                 <a href="{% url 'viewEscuela' %}">Escuelas</a>
                 <a href="#">Iniciar Sesión</a>
             </nav>

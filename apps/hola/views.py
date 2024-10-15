@@ -12,3 +12,12 @@ def viewSesion(request):
 
 def viewPerfil(request):
     return render(request, 'hola/viewPerfil.html');
+
+def baseCatalogo(request):
+    return render(request, 'hola/CatalogoBase.html');
+
+def viewPageCartelera(request):
+    return render(request, 'hola/cartelera.html');
+
+def viewPageActores(request):
+    return render(request, 'hola/actores.html');
