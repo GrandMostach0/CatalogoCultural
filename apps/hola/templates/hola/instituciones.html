@@ -1,0 +1,168 @@
+{% extends 'hola/CatalogoBase.html' %}
+
+{% load static %}
+
+<!---- Título de la página -->
+{% block title %}Actores Catalogo{% endblock title %}
+
+<!---- Título de los catalogos -->
+{% block titleContainerCards %}Instituciones{% endblock titleContainerCards %}
+
+<!---- Contenido de la página -->
+{% block content %}
+<section class="container-filtro-catalogo">
+    <h2>Filtro</h2>
+    <div class="container-filtro-opciones">
+        <p>Categorías:</p>
+        <select name="discilinas" id="disciplinas">
+            <option value="0">Todos</option>
+            <option value="1">Música</option>
+            <option value="2">Baile</option>
+            <option value="3">Artes</option>
+        </select>
+    </div>
+
+    <div class="container-filtro-opciones">
+        <p>Ubicación:</p>
+        <select name="ubicacionInstitucion" id="dubicacionInstitucion">
+            <option value="0">Todos</option>
+            <option value="1">Mérida</option>
+            <option value="2">Maní</option>
+            <option value="3">Izamal</option>
+        </select>
+    </div>
+
+    <div class="container-filtro-opciones">
+        <p>Tipo:</p>
+        <select name="Mensualidad" id="Mensualidad">
+            <option value="0">Todos</option>
+            <option value="1">Publico</option>
+            <option value="2">Privada</option>
+        </select>
+    </div>
+
+    <div class="container-filtro-opciones">
+        <a href="#" class="botones">Aplicar Cambios</a>
+        <a href="#" class="botones">Restablecer</a>
+    </div>
+</section>
+
+<section class="container-cards-catalogo">
+    <div class="card-catalogo">
+        <div class="card-catalogo-imagen">
+            <img loading="lazy" src="{% static 'assets/images/Institucion1.jpg' %}" alt="Imagen de la card">
+        </div>
+        <div class="card-catalogo-contenido">
+            <h3>Escuelas de Arte del Estado de Yucatán</h3>
+            <p class="etiqueta">Institucion</p>
+            <div class="card-catalogo-contenido-boton">
+                <a href="{% url 'viewEscuela' %}" class="buttonTag"> Visitar Perfil </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-catalogo">
+        <div class="card-catalogo-imagen">
+            <img loading="lazy" src="{% static 'assets/images/Institucion2.png' %}" alt="Imagen de la card">
+        </div>
+        <div class="card-catalogo-contenido">
+            <h3>María Jose Pát Chable</h3>
+            <p class="etiqueta">Artes plásticas - Docente</p>
+            <div class="card-catalogo-contenido-boton">
+                <a href="#" class="buttonTag"> Visitar Perfil </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-catalogo">
+        <div class="card-catalogo-imagen">
+            <img loading="lazy" src="{% static 'assets/images/Institucion3.jpg' %}" alt="Imagen de la card">
+        </div>
+        <div class="card-catalogo-contenido">
+            <h3>María Jose Pát Chable</h3>
+            <p class="etiqueta">Artes plásticas - Docente</p>
+            <div class="card-catalogo-contenido-boton">
+                <a href="#" class="buttonTag"> Visitar Perfil </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-catalogo">
+        <div class="card-catalogo-imagen">
+            <img loading="lazy" src="{% static 'assets/images/Institucion1.jpg' %}" alt="Imagen de la card">
+        </div>
+        <div class="card-catalogo-contenido">
+            <h3>Escuelas de Arte del Estado de Yucatán</h3>
+            <p class="etiqueta">Institucion</p>
+            <div class="card-catalogo-contenido-boton">
+                <a href="{% url 'viewEscuela' %}" class="buttonTag"> Visitar Perfil </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-catalogo">
+        <div class="card-catalogo-imagen">
+            <img loading="lazy" src="{% static 'assets/images/Institucion2.png' %}" alt="Imagen de la card">
+        </div>
+        <div class="card-catalogo-contenido">
+            <h3>María Jose Pát Chable</h3>
+            <p class="etiqueta">Artes plásticas - Docente</p>
+            <div class="card-catalogo-contenido-boton">
+                <a href="#" class="buttonTag"> Visitar Perfil </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-catalogo">
+        <div class="card-catalogo-imagen">
+            <img loading="lazy" src="{% static 'assets/images/Institucion3.jpg' %}" alt="Imagen de la card">
+        </div>
+        <div class="card-catalogo-contenido">
+            <h3>María Jose Pát Chable</h3>
+            <p class="etiqueta">Artes plásticas - Docente</p>
+            <div class="card-catalogo-contenido-boton">
+                <a href="#" class="buttonTag"> Visitar Perfil </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-catalogo">
+        <div class="card-catalogo-imagen">
+            <img loading="lazy" src="{% static 'assets/images/Institucion1.jpg' %}" alt="Imagen de la card">
+        </div>
+        <div class="card-catalogo-contenido">
+            <h3>Escuelas de Arte del Estado de Yucatán</h3>
+            <p class="etiqueta">Institucion</p>
+            <div class="card-catalogo-contenido-boton">
+                <a href="{% url 'viewEscuela' %}" class="buttonTag"> Visitar Perfil </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-catalogo">
+        <div class="card-catalogo-imagen">
+            <img loading="lazy" src="{% static 'assets/images/Institucion2.png' %}" alt="Imagen de la card">
+        </div>
+        <div class="card-catalogo-contenido">
+            <h3>María Jose Pát Chable</h3>
+            <p class="etiqueta">Artes plásticas - Docente</p>
+            <div class="card-catalogo-contenido-boton">
+                <a href="#" class="buttonTag"> Visitar Perfil </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-catalogo">
+        <div class="card-catalogo-imagen">
+            <img loading="lazy" src="{% static 'assets/images/Institucion3.jpg' %}" alt="Imagen de la card">
+        </div>
+        <div class="card-catalogo-contenido">
+            <h3>María Jose Pát Chable</h3>
+            <p class="etiqueta">Artes plásticas - Docente</p>
+            <div class="card-catalogo-contenido-boton">
+                <a href="#" class="buttonTag"> Visitar Perfil </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

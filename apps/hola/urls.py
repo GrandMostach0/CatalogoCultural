@@ -9,4 +9,5 @@ urlpatterns = [
     path('catalogo/', views.baseCatalogo, name="catalogo"),
     path('cartelera/', views.viewPageCartelera, name="cartelera"),
     path('actores/', views.viewPageActores, name="actores"),
+    path('instituciones/', views.viewPageInstituciones, name="instituciones"),
 ]

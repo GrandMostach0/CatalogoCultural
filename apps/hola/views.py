@@ -21,3 +21,6 @@ def viewPageCartelera(request):
 
 def viewPageActores(request):
     return render(request, 'hola/actores.html');
+
+def viewPageInstituciones(request):
+    return render(request, 'hola/instituciones.html');
