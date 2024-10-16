@@ -27,9 +27,48 @@
     overflow: hidden;
 }
 
+.card-catalogo:hover{
+    transform: scale(1.1);
+}
+
 .card-catalogo img{
     width: 100%;
-    height: 130px;
+    height: 150px;
+}
+
+
+.evento{
+    position: relative;
+}
+
+.evento::before{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    content: 'pago/gratis';
+    width: auto;
+    padding: 4px 8px;
+    font-weight: bold;
+    color: white;
+    background-color: red;
+    border-radius: 10px;
+}
+
+.evento::after{
+    position: absolute;
+    bottom: 5%;
+    left: 2%;
+    content: 'categoria';
+    width: auto;
+    padding: 4px 8px;
+    font-weight: bold;
+    color: white;
+    background-color: green;
+    border-radius: 10px;
+}
+
+.evento img{
+    height: 160px;
     object-fit: cover;
 }
 
