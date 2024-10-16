@@ -9,7 +9,7 @@
     <title>{% block title %} Mi página {% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="{% static 'css/cardPublicaciones.css' %}">
-
+    <link rel="stylesheet" href="{% static 'css/catalagos.css' %}">
 </head>
 
 <body>
@@ -29,8 +29,13 @@
             </nav>
         </header>
 
-        {% block content %}
-        {% endblock %}
+        <main class="container-catalago">
+            <h2>Directorio de {% block titleContainerCards%}Titutulo de las cards{% endblock titleContainerCards %}</h2>
+            <div class="container-cards-filtro">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
 
         <!---- FOOTER DE LA FINALIDAD ---->
         <footer>

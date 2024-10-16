@@ -1,0 +1,43 @@
+.container-catalago{
+    max-width: 1200px;
+    margin: auto;
+}
+
+.container-cards-filtro{
+    display: flex;
+    justify-content: center;
+}
+
+.container-filtro-catalogo{
+    flex: 1;
+}
+
+.container-cards-catalogo {
+    flex: 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-flow: dense;
+    gap: 30px;
+}
+
+/* estilos de las cards del catalogo*/
+.card-catalogo{
+    border: 1px solid black;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-catalogo img{
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+}
+
+.card-catalogo-contenido{
+    padding: 10px 5px;
+    text-align: center;
+}
+
+.card-catalogo-contenido-boton{
+    text-align: right;
+}
