@@ -103,9 +103,21 @@
                 </div>
 
                 <section class="botones-publicaciones">
-                    <a href="#" class="botones">Crear Publicación</a>
-                    <a href="#" class="botones">Crear Evento</a>
+                    <a id="abrirModal" href="#" class="botones">Crear Publicación</a>
+                    <a id="abrirModal" href="#" class="botones">Crear Evento</a>
                 </section>
+                
+                <!---- MODAL DE LA VENTANA PARA LOS DATOS -->
+                <div id="myModal" class="modal">
+                    <!-- Contenido del Modal -->
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>Título del Modal</h2>
+                        <p>Este es un modal simple implementado en Django.</p>
+                    </div>
+                </div>
+
+
             </div>
         </main>
 
@@ -133,6 +145,9 @@
             </div>
         </footer>
     </div>
+
+    <!----- IMPLEMENTACION DEL SCRIPT PARA ABIRIR EL MODAL -->
+    <script src="{% static 'js/modal.js' %}"></script>
 </body>
 
 </html>
