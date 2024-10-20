@@ -218,9 +218,26 @@ footer{
     justify-content: space-between;
 }
 
+
 @media (max-width: 768px) {
 
-    .ancho{
+    .ancho {
         padding: 0px 10px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    .footer-contenido{
+        flex-direction: column;
+    }
+
+    .container-filtro{
+        display: none;
     }
 }
