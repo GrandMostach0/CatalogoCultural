@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from datetime import datetime
 
 # Create your views here.
 def hola_mundo(request):
@@ -11,7 +12,8 @@ def viewSesion(request):
     return render(request, 'hola/IniciarSecion.html');
 
 def viewPerfil(request):
-    return render(request, 'hola/viewPerfil.html');
+    fecha_actual = datetime.now().strftime("%d de %B del %Y");
+    return render(request, 'hola/viewPerfil.html', {'fecha_actual': fecha_actual});
 
 def baseCatalogo(request):
     return render(request, 'hola/CatalogoBase.html');

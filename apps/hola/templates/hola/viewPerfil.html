@@ -26,13 +26,19 @@
                 <a href="#">Iniciar Sesión</a>
             </nav>
         </header>
-        <div class="escuela-direcciones">
-            <p>Inicio/ViewEscuela</p>
-            <p><-- Volver</p>
+
+        <div class="RutaPagina">
+            <p>Directorio Actores/Mariá José Pat Chable</p>
+            <a href="{% url 'actores' %}"> &larr; Volver Página</a>
+            <div class="fechaPublicacion">
+                <p class="fecha">{{ fecha_actual }}</p>
+                <hr>
+            </div>
         </div>
 
         <!----- SECCION DEL PERFIL ----->
         <main class="container-escuela">
+            
             <div class="escuela-imagen">
                 <div class="perfil-imagen">
                     <img src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la escuela">
