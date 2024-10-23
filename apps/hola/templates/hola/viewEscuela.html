@@ -5,25 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vista Escuela</title>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <link rel="stylesheet" href="{% static 'css/cardPublicaciones.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/viewEscuela.css' %}">
+    {% include 'style.html' %}
+
 </head>
 <body>
     <div class="ancho">
         <!---- SECCION MENÚ ---->
-        <header class="menu">
-            <div>
-                <h1 style="font-weight: bold;">Catálogo Cultural</h1>
-            </div>
-            <nav class="menu-opciones">
-                <a href="{% url 'index' %}">Inicio</a>
-                <a href="#">Cartelera</a>
-                <a href="#">Actores</a>
-                <a href="#">Escuelas</a>
-                <a href="#">Iniciar Sesión</a>
-            </nav>
-        </header>
+        {% include 'navbar.html' %}
 
         <div class="escuela-direcciones">
             <p>Inicio/ViewEscuela</p>

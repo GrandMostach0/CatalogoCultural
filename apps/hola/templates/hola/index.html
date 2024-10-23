@@ -6,26 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mi Página Web</title>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <link rel="stylesheet" href="{% static 'css/cardPublicaciones.css' %}">
+    
+    {% include 'style.html' %}
+
 
 </head>
 <body>
     <div class="ancho">
 
         <!---- SECCION MENÚ ---->
-        <header class="menu">
-            <div>
-                <h1 style="font-weight: bold;">Catálogo Cultural</h1>
-            </div>
-            <nav class="menu-opciones">
-                <a href="{% url 'index' %}">Inicio</a>
-                <a href="{% url 'cartelera' %}">Cartelera</a>
-                <a href="{% url 'actores' %}">Actores</a>
-                <a href="{% url 'instituciones' %}">Escuelas</a>
-                <a href="{% url 'viewSesion' %}">Iniciar Sesión</a>
-            </nav>
-        </header>
+        {% include 'navbar.html' %}
 
         <!---- SECCION DEL BANNER ---->
         <section class="banner-container">
