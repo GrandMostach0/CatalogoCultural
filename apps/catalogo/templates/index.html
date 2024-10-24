@@ -14,7 +14,7 @@
     <div class="ancho">
 
         <!---- SECCION MENÚ ---->
-        {% include 'navbar.html' %}
+        {% include 'components/navbar.html' %}
 
         <!---- SECCION DEL BANNER ---->
         <section class="banner-container">
@@ -50,7 +50,7 @@
                             <p>María José Pat Chable</p>
                             <p style="color: #717070; font-weight: normal;">Artista - Docente</p>
                             <div class="card-button">
-                                <a href="#" class="buttonTag"> Visitar Perfil </a>
+                                <a href="{% url 'viewPerfil' %}" class="buttonTag"> Visitar Perfil </a>
                             </div>
                         </div>
                     </div>
@@ -288,37 +288,7 @@
         </section>
 
         <!---- FOOTER DE LA FINALIDAD ---->
-        <footer>
-            <div class="footer-contenido">
-                <div class="footer-secciones">
-                    <h3>KLUGE LAB</h3>
-                </div>
-                <div class="footer-secciones">
-                    <h3>Cultura Yucateca</h3>
-                    <p>Descubre y celebra la riqueza cultural Yucateca.</p>
-                </div>
-                <div class="footer-secciones">
-                    <h3>Enlaces Rápidos</h3>
-                    <a href="#">Inicio</a>
-                    <a href="#">Publicaciones</a>
-                    <a href="#">Actores</a>
-                </div>
-                <div class="footer-secciones">
-                    <h3>Siguenos</h3>
-                    <div class="footer-secciones-social">
-                        <a href="#">
-                            <img src="{% static 'assets/icons/insta-icon.svg' %}" alt="Logo Instagram">
-                        </a>
-                        <a href="#">
-                            <img src="{% static 'assets/icons/face-icon.svg' %}" alt="Logo Facebook">
-                        </a>
-                        <a href="#">
-                            <img src="{% static 'assets/icons/twitter-icon.svg' %}" alt="Logo Twitter">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        {% include 'components/footer.html' %}
     </div>
 </body>
 </html>
