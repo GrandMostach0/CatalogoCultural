@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'apps.hola'
+    'apps.catalogo'
 ]
 
 MIDDLEWARE = [
@@ -56,7 +56,7 @@ ROOT_URLCONF = 'catalogoCultural.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'apps/hola/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'apps/catalogo/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

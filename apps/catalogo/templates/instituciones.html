@@ -1,12 +1,12 @@
-{% extends 'hola/CatalogoBase.html' %}
+{% extends 'CatalogoBase.html' %}
 
 {% load static %}
 
 <!---- Título de la página -->
-{% block title %}Actores Catalogo{% endblock title %}
+{% block title %}Instituciones Catalogo{% endblock title %}
 
 <!---- Título de los catalogos -->
-{% block titleContainerCards %}Actores{% endblock titleContainerCards %}
+{% block titleContainerCards %}Instituciones{% endblock titleContainerCards %}
 
 <!---- Contenido de la página -->
 {% block content %}
@@ -50,33 +50,20 @@
 <section class="container-cards-catalogo">
     <div class="card-catalogo">
         <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
+            <img loading="lazy" src="{% static 'assets/images/Institucion1.jpg' %}" alt="Imagen de la card">
         </div>
         <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
+            <h3>Escuelas de Arte del Estado de Yucatán</h3>
+            <p class="etiqueta">Institucion</p>
             <div class="card-catalogo-contenido-boton">
-                <a href="{% url 'viewPerfil' %}" class="buttonTag"> Visitar Perfil </a>
+                <a href="{% url 'viewEscuela' %}" class="buttonTag"> Visitar Perfil </a>
             </div>
         </div>
     </div>
 
     <div class="card-catalogo">
         <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
+            <img loading="lazy" src="{% static 'assets/images/Institucion2.png' %}" alt="Imagen de la card">
         </div>
         <div class="card-catalogo-contenido">
             <h3>María Jose Pát Chable</h3>
@@ -89,33 +76,7 @@
 
     <div class="card-catalogo">
         <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
+            <img loading="lazy" src="{% static 'assets/images/Institucion3.jpg' %}" alt="Imagen de la card">
         </div>
         <div class="card-catalogo-contenido">
             <h3>María Jose Pát Chable</h3>
@@ -128,7 +89,20 @@
 
     <div class="card-catalogo">
         <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
+            <img loading="lazy" src="{% static 'assets/images/Institucion1.jpg' %}" alt="Imagen de la card">
+        </div>
+        <div class="card-catalogo-contenido">
+            <h3>Escuelas de Arte del Estado de Yucatán</h3>
+            <p class="etiqueta">Institucion</p>
+            <div class="card-catalogo-contenido-boton">
+                <a href="{% url 'viewEscuela' %}" class="buttonTag"> Visitar Perfil </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-catalogo">
+        <div class="card-catalogo-imagen">
+            <img loading="lazy" src="{% static 'assets/images/Institucion2.png' %}" alt="Imagen de la card">
         </div>
         <div class="card-catalogo-contenido">
             <h3>María Jose Pát Chable</h3>
@@ -141,7 +115,33 @@
     
     <div class="card-catalogo">
         <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
+            <img loading="lazy" src="{% static 'assets/images/Institucion3.jpg' %}" alt="Imagen de la card">
+        </div>
+        <div class="card-catalogo-contenido">
+            <h3>María Jose Pát Chable</h3>
+            <p class="etiqueta">Artes plásticas - Docente</p>
+            <div class="card-catalogo-contenido-boton">
+                <a href="#" class="buttonTag"> Visitar Perfil </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-catalogo">
+        <div class="card-catalogo-imagen">
+            <img loading="lazy" src="{% static 'assets/images/Institucion1.jpg' %}" alt="Imagen de la card">
+        </div>
+        <div class="card-catalogo-contenido">
+            <h3>Escuelas de Arte del Estado de Yucatán</h3>
+            <p class="etiqueta">Institucion</p>
+            <div class="card-catalogo-contenido-boton">
+                <a href="{% url 'viewEscuela' %}" class="buttonTag"> Visitar Perfil </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-catalogo">
+        <div class="card-catalogo-imagen">
+            <img loading="lazy" src="{% static 'assets/images/Institucion2.png' %}" alt="Imagen de la card">
         </div>
         <div class="card-catalogo-contenido">
             <h3>María Jose Pát Chable</h3>
@@ -154,7 +154,7 @@
     
     <div class="card-catalogo">
         <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
+            <img loading="lazy" src="{% static 'assets/images/Institucion3.jpg' %}" alt="Imagen de la card">
         </div>
         <div class="card-catalogo-contenido">
             <h3>María Jose Pát Chable</h3>
