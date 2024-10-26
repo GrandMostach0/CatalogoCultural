@@ -14,11 +14,4 @@ document.addEventListener("DOMContentLoaded", function() {
     cerrarModal.onclick = function() {
         modal.style.display = "none";  // Ocultar el modal
     }
-
-    // Cuando se hace clic fuera del modal, se cierra
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";  // Ocultar el modal si se hace clic fuera de él
-        }
-    }
 });

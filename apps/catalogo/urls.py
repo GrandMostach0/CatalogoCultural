@@ -6,6 +6,7 @@ urlpatterns = [
     path('viewEscuela/', views.viewEscuela, name="viewEscuela"),
     path('viewSesion/', views.viewSesion, name="viewSesion"),
     path('viewPerfil/', views.viewPerfil, name="viewPerfil"),
+    path('vistaPublicacion/',views.vistaPublicacion, name="vistaPublicacion"),
     path('catalogo/', views.baseCatalogo, name="catalogo"),
     path('cartelera/', views.viewPageCartelera, name="cartelera"),
     path('actores/', views.viewPageActores, name="actores"),

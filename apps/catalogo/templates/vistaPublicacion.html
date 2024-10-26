@@ -1,21 +1,23 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vista Escuela</title>
+    <title>Vista Publicacion</title>
     {% include 'style.html' %}
 
 </head>
+
 <body>
     <div class="ancho">
         <!---- SECCION MENÚ ---->
         {% include 'components/navbar.html' %}
 
         <div class="RutaPagina">
-            <p>Directorio Actores/Escuela de Artes Visuales de Yucatán</p>
-            <a style="font-weight: bold;" href="{% url 'instituciones' %}"> &larr; Volver Página</a>
+            <p>Inicio/El Resplandor de Chichén Itzá: Un Vistazo a la Grandeza de la Arquitectura Maya</p>
+            <a style="font-weight: bold;" href="{% url 'index' %}"> &larr; Volver Página</a>
             <div class="fechaPublicacion">
                 <p class="fecha">{{ fecha_actual }}</p>
                 <hr>
@@ -45,14 +47,16 @@
                     </a>
                 </div>
             </div>
-            
+
             <div class="escuela-descripcion">
                 <div class="descripcion-seccion">
-                    <h1>Descripción</h1>
+                    <h1>El Resplandor de Chichén Itzá: Un Vistazo a la Grandeza de la Arquitectura Maya</h1>
                     <br>
-                    <p>La Escuela de Artes Visuales de Yucatán es una institución dedicada a la enseñanza y promoción de las artes plásticas.
-                    Con más de 20 años de experiencia, ofrecemos una variedad de programas orientados a desarrollar las habilidades
-                    creativas de nuestros estudiantes, desde nivel básico hasta avanzado.</p>
+                    <p>La Escuela de Artes Visuales de Yucatán es una institución dedicada a la enseñanza y promoción de
+                        las artes plásticas.
+                        Con más de 20 años de experiencia, ofrecemos una variedad de programas orientados a desarrollar
+                        las habilidades
+                        creativas de nuestros estudiantes, desde nivel básico hasta avanzado.</p>
                 </div>
 
                 <div class="descripcion-seccion-informacion">
@@ -69,7 +73,7 @@
                                 <a href="mailto:contacto@artesyucatan.edu.mx">contacto@artesyucatan.edu.mx</a>
                             </div>
                         </div>
-                        
+
                         <div class="seccion-informacion">
                             <div class="informacion">
                                 <p style="font-weight: bold;">Teléfono:</p>
@@ -85,74 +89,75 @@
 
             </div>
         </main>
-        
+
         <!-- MODAL PARA SLIDER IMAGENES-->
-         <div class="modal-slider" id="modalSliderImagen">
+        <div class="modal-slider" id="modalSliderImagen">
             <span class="close-slider" id="close-slider">&times;</span>
             <div class="modal-content-slider">
                 <span class="prev">&lt;</span>
 
                 <img id="modalImagen" src="" alt="Imagen amplia">
-                
+
                 <span class="next">&gt;</span>
             </div>
-         </div>
+        </div>
 
 
         <!----- FOOTER DE LA PÁGINA -->
         {% include 'components/footer.html' %}
-        
+
     </div>
 
     <script>
         // Lista de las imagenés del slider
-            const imagenes = [
-                "{% static 'assets/images/Institucion1.jpg' %}",
-                "{% static 'assets/images/Institucion2.png' %}",
-                "{% static 'assets/images/Institucion3.jpg' %}"
-            ];
+        const imagenes = [
+            "{% static 'assets/images/Institucion1.jpg' %}",
+            "{% static 'assets/images/Institucion2.png' %}",
+            "{% static 'assets/images/Institucion3.jpg' %}"
+        ];
 
-            let currentIndex = 0;
-            const escuelaImagen = document.querySelector('.escuelaImagen img');
+        let currentIndex = 0;
+        const escuelaImagen = document.querySelector('.escuelaImagen img');
 
-            const modal_slider = document.getElementById('modalSliderImagen');
-            const modal_imagen = document.getElementById('modalImagen');
-            const close_slider = document.getElementById('close-slider');
-            const prev = document.querySelector('.prev');
-            const next = document.querySelector('.next');
+        const modal_slider = document.getElementById('modalSliderImagen');
+        const modal_imagen = document.getElementById('modalImagen');
+        const close_slider = document.getElementById('close-slider');
+        const prev = document.querySelector('.prev');
+        const next = document.querySelector('.next');
 
-            // Función para mostrar una imagen en el modal
-            function showImage(index) {
-                modal_imagen.src = imagenes[index];
-            }
+        // Función para mostrar una imagen en el modal
+        function showImage(index) {
+            modal_imagen.src = imagenes[index];
+        }
 
-            escuelaImagen.addEventListener('click', function () {
-                modal_slider.style.display = 'flex';
-                currentIndex = 0;
-                showImage(currentIndex);
-            });
+        escuelaImagen.addEventListener('click', function () {
+            modal_slider.style.display = 'flex';
+            currentIndex = 0;
+            showImage(currentIndex);
+        });
 
-            close_slider.addEventListener('click', function () {
+        close_slider.addEventListener('click', function () {
+            modal_slider.style.display = 'none';
+            console.log('click close');
+        });
+
+        prev.addEventListener('click', function () {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : imagenes.length - 1;
+            showImage(currentIndex);
+        });
+
+        next.addEventListener('click', function () {
+            currentIndex = (currentIndex < imagenes.length - 1) ? currentIndex + 1 : 0;
+            showImage(currentIndex);
+        });
+
+        window.addEventListener('click', function (event) {
+            if (event.target === modal_slider) {
                 modal_slider.style.display = 'none';
-                console.log('click close');
-            });
-
-            prev.addEventListener('click', function () {
-                currentIndex = (currentIndex > 0) ? currentIndex - 1 : imagenes.length - 1;
-                showImage(currentIndex);
-            });
-
-            next.addEventListener('click', function () {
-                currentIndex = (currentIndex < imagenes.length - 1) ? currentIndex + 1 : 0;
-                showImage(currentIndex);
-            });
-
-            window.addEventListener('click', function (event) {
-                if (event.target === modal_slider) {
-                    modal_slider.style.display = 'none';
-                }
-            });
+            }
+        });
     </script>
 
 </body>
+
 </html>
