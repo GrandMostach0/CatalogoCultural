@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vista Evento</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     {% include 'style.html' %}
 
 </head>
@@ -61,6 +62,32 @@
                         historia y su influencia duradera en el patrimonio cultural de México.</p>
                 </div>
 
+                <div>
+                    <br>
+                    <h2 style="text-align: center;" >Ubicacion del Evento</h2>
+                    <div id="map"></div>
+                    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+                    <script>
+                        // Inicializa el mapa centrado en las coordenadas deseadas (ajústalas según tu ubicación)
+                        var map = L.map('map', {
+                                center: [20.6767, -88.5678],
+                                zoom: 13,
+                                minZoom: 14, // Nivel mínimo de zoom
+                                maxZoom: 18  // Nivel máximo de zoom
+                            });
+
+                        // Añade el tile layer de OpenStreetMap
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        }).addTo(map);
+
+                        // Añade un marcador en la ubicación deseada
+                        L.marker([20.6767, -88.5678]).addTo(map)
+                            .bindPopup('Aquí está el evento.')
+                            .openPopup();
+                    </script>
+                </div>
+
             </div>
         </main>
 
@@ -83,6 +110,7 @@
     </div>
 
     <script>
+
         // Lista de las imagenés del slider
         const imagenes = [
             "{% static 'assets/images/Institucion1.jpg' %}",
