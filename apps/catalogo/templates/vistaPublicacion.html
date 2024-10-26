@@ -28,63 +28,26 @@
         <main class="container-escuela">
             <div class="escuela-imagen">
                 <div class="escuelaImagen">
-                    <img src="{% static 'assets/images/Institucion1.jpg' %}" alt="Imagen de la escuela">
+                    <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen de la escuela">
                 </div>
                 <br>
-                <h1>Escuela de Artes Visuales de Yucatán</h1>
-                <div class="escuela-imagen-redSocial">
-                    <a href="#">
-                        <img src="{% static 'assets/icons/insta-icon.svg' %}" alt="Logo Instagram">
-                    </a>
-                    <a href="#">
-                        <img src="{% static 'assets/icons/face-icon.svg' %}" alt="Logo Facebook">
-                    </a>
-                    <a href="#">
-                        <img src="{% static 'assets/icons/twitter-icon.svg' %}" alt="Logo Twitter">
-                    </a>
-                    <a href="#">
-                        <img src="{% static 'assets/icons/web-icon.svg' %}" alt="Logo Twitter">
-                    </a>
-                </div>
+                <a href="{% url 'viewPerfil' %}">
+                    <div class="card-publicacion-usuario">
+                        <img src="{% static 'assets/images/AvatarImg.jpg' %}" alt="Imagen Avatar">
+                        <p>Mária José Pat Chable</p>
+                    </div>
+                </a>
             </div>
 
             <div class="escuela-descripcion">
-                <div class="descripcion-seccion">
+                <div style="text-align: center;" class="descripcion-seccion">
                     <h1>El Resplandor de Chichén Itzá: Un Vistazo a la Grandeza de la Arquitectura Maya</h1>
                     <br>
-                    <p>La Escuela de Artes Visuales de Yucatán es una institución dedicada a la enseñanza y promoción de
-                        las artes plásticas.
-                        Con más de 20 años de experiencia, ofrecemos una variedad de programas orientados a desarrollar
-                        las habilidades
-                        creativas de nuestros estudiantes, desde nivel básico hasta avanzado.</p>
-                </div>
-
-                <div class="descripcion-seccion-informacion">
-                    <h1>Información General</h1>
-                    <br>
-                    <div class="container-informacion">
-                        <div class="seccion-informacion">
-                            <div class="informacion">
-                                <p style="font-weight: bold;">Ubicación:</p>
-                                <p>Calle 60 No. 123, Centro, Mérida, Yucatán</p>
-                            </div>
-                            <div class="informacion">
-                                <p style="font-weight: bold;">Correo Electrónico:</p>
-                                <a href="mailto:contacto@artesyucatan.edu.mx">contacto@artesyucatan.edu.mx</a>
-                            </div>
-                        </div>
-
-                        <div class="seccion-informacion">
-                            <div class="informacion">
-                                <p style="font-weight: bold;">Teléfono:</p>
-                                <a href="tel:+529991234567">+52 999 123 4567</a>
-                            </div>
-                            <div class="informacion">
-                                <p style="font-weight: bold;">Horario de atención:</p>
-                                <p>Lunes a Viernes, 9:00 AM - 6:00 PM</p>
-                            </div>
-                        </div>
-                    </div>
+                    <p style="text-align: justify;">Mientras los primeros rayos del sol bañan la majestuosa pirámide de Chichén Itzá, uno no puede evitar sentir la conexión
+                    profunda con una civilización que dominó la península de Yucatán. Este símbolo de la ingeniería y la cosmología maya es
+                    mucho más que un simple monumento; es un testimonio del conocimiento astronómico y arquitectónico que define a una de
+                    las culturas más avanzadas de la antigua Mesoamérica. Exploramos la importancia de este sitio en el contexto de la
+                    historia y su influencia duradera en el patrimonio cultural de México.</p>
                 </div>
 
             </div>
