@@ -99,6 +99,13 @@ a{
     font-weight: bolder;
 }
 
+/* MENU RESPONSIVO */
+.hamburguesa{
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
 /* ESTILO DEL BANNER PRINCIPAL */
 .banner-container{
     width: 100%;
@@ -225,12 +232,47 @@ footer{
         padding: 0px 10px;
     }
 
+    .titulo {
+        font-size: 1.5rem;
+    }
+
     h1 {
         font-size: 1.8em;
     }
 
-    p {
+    p, a{
         font-size: 14px;
+    }
+
+    .hamburguesa {
+        display: block;
+    }
+    
+    .menu-opciones {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 75%;
+        background-color: #f8f9fa;
+        display: flex;
+        flex-direction: column;
+        padding-top: 60px;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+    }
+    
+    .menu-opciones a {
+        margin: 15px 0;
+        font-size: 18px;
+        color: #333;
+    }
+    
+    .menu.show .menu-opciones {
+        transform: translateX(0);
     }
 
     .footer-contenido{

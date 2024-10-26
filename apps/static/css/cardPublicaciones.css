@@ -1,7 +1,6 @@
 /* ESTILO DE LA PARTE DE LA PUBLICACION Y EL FILTRO*/
 .container-publicaciones-filtro {
     display: flex;
-    align-items: center;
     justify-content: space-between;
 }
 

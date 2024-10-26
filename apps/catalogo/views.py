@@ -19,6 +19,10 @@ def vistaPublicacion(request):
     fecha_actual = datetime.now().strftime("%d de %B del %Y")
     return render(request, "vistaPublicacion.html", {"fecha_actual": fecha_actual})
 
+def vistaEvento(request):
+    fecha_actual = datetime.now().strftime("%d de %B del %Y")
+    return render(request, "vistaEvento.html", {"fecha_actual": fecha_actual})
+
 
 def baseCatalogo(request):
     return render(request, 'CatalogoBase.html');

@@ -13,4 +13,11 @@
         <a href="{% url 'instituciones' %}">Escuelas</a>
         <a href="{% url 'viewSesion' %}">Iniciar Sesión</a>
     </nav>
+    <div class="hamburguesa" onclick="toggleMenu()">☰</div>
 </header>
+
+<script>
+    function toggleMenu() {
+        document.querySelector('.menu').classList.toggle('show');
+    }
+</script>

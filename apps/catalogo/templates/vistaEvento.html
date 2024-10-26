@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista Evento</title>
+    {% include 'style.html' %}
+
+</head>
+
+<body>
+    <div class="ancho">
+        <!---- SECCION MENÚ ---->
+        {% include 'components/navbar.html' %}
+
+        <div class="RutaPagina">
+            <p>Inicio/El Resplandor de Chichén Itzá: Un Vistazo a la Grandeza de la Arquitectura Maya</p>
+            <a style="font-weight: bold;" href="{% url 'index' %}"> &larr; Volver Página</a>
+            <div class="fechaPublicacion">
+                <p class="fecha">{{ fecha_actual }}</p>
+                <hr>
+            </div>
+        </div>
+
+        <!----- SECCION DEL CONTENIDO DE LA ESCUELA ----->
+        <main class="container-escuela">
+            <div class="escuela-imagen">
+                <div class="escuelaImagen">
+                    <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen de la escuela">
+                </div>
+                <br>
+                <a href="{% url 'viewPerfil' %}">
+                    <div class="card-publicacion-usuario">
+                        <h4>Autor </h4>
+                        <img src="{% static 'assets/images/AvatarImg.jpg' %}" alt="Imagen Avatar">
+                        <p>Mária José Pat Chable</p>
+                    </div>
+                </a>
+                <br>
+                <h3 style="text-align: left;">Etiqueta</h3>
+                <br>
+                <div class="tag">
+                    <p>Arquitectura</p>
+                </div>
+            </div>
+
+            <div class="escuela-descripcion">
+                <div style="text-align: center;" class="descripcion-seccion">
+                    <h1>El Resplandor de Chichén Itzá: Un Vistazo a la Grandeza de la Arquitectura Maya</h1>
+                    <br>
+                    <p style="text-align: justify;">Mientras los primeros rayos del sol bañan la majestuosa pirámide de
+                        Chichén Itzá, uno no puede evitar sentir la conexión
+                        profunda con una civilización que dominó la península de Yucatán. Este símbolo de la ingeniería
+                        y la cosmología maya es
+                        mucho más que un simple monumento; es un testimonio del conocimiento astronómico y
+                        arquitectónico que define a una de
+                        las culturas más avanzadas de la antigua Mesoamérica. Exploramos la importancia de este sitio en
+                        el contexto de la
+                        historia y su influencia duradera en el patrimonio cultural de México.</p>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- MODAL PARA SLIDER IMAGENES-->
+        <div class="modal-slider" id="modalSliderImagen">
+            <span class="close-slider" id="close-slider">&times;</span>
+            <div class="modal-content-slider">
+                <span class="prev">&lt;</span>
+
+                <img id="modalImagen" src="" alt="Imagen amplia">
+
+                <span class="next">&gt;</span>
+            </div>
+        </div>
+
+
+        <!----- FOOTER DE LA PÁGINA -->
+        {% include 'components/footer.html' %}
+
+    </div>
+
+    <script>
+        // Lista de las imagenés del slider
+        const imagenes = [
+            "{% static 'assets/images/Institucion1.jpg' %}",
+            "{% static 'assets/images/Institucion2.png' %}",
+            "{% static 'assets/images/Institucion3.jpg' %}"
+        ];
+
+        let currentIndex = 0;
+        const escuelaImagen = document.querySelector('.escuelaImagen img');
+
+        const modal_slider = document.getElementById('modalSliderImagen');
+        const modal_imagen = document.getElementById('modalImagen');
+        const close_slider = document.getElementById('close-slider');
+        const prev = document.querySelector('.prev');
+        const next = document.querySelector('.next');
+
+        // Función para mostrar una imagen en el modal
+        function showImage(index) {
+            modal_imagen.src = imagenes[index];
+        }
+
+        escuelaImagen.addEventListener('click', function () {
+            modal_slider.style.display = 'flex';
+            currentIndex = 0;
+            showImage(currentIndex);
+        });
+
+        close_slider.addEventListener('click', function () {
+            modal_slider.style.display = 'none';
+            console.log('click close');
+        });
+
+        prev.addEventListener('click', function () {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : imagenes.length - 1;
+            showImage(currentIndex);
+        });
+
+        next.addEventListener('click', function () {
+            currentIndex = (currentIndex < imagenes.length - 1) ? currentIndex + 1 : 0;
+            showImage(currentIndex);
+        });
+
+        window.addEventListener('click', function (event) {
+            if (event.target === modal_slider) {
+                modal_slider.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+
+</html>
