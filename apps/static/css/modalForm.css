@@ -1,0 +1,13 @@
+input, textarea, select{
+    display: block;
+    padding: 4px 8px;
+    width: 90%;
+}
+
+form{
+    margin-top: 10px;
+}
+
+label{
+    margin: 5px 0px;
+}

@@ -1,16 +1,12 @@
 .container-inicio{
     text-align: center;
     margin-top: 50px;
-    position: relative;
-    height: 70vh;
+    min-height: 70vh;
 }
 
 .container-form-inicio{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50%;
+    width:40%;
+    margin: 20px auto;
 
     & h1{
         text-transform: uppercase;
@@ -23,8 +19,12 @@ form{
 
 label, input{
     display: block;
-    width: 90%;
+    width: 100%;
     margin: auto;
+}
+
+.labelMitad{
+    width: 80%;
 }
 
 input{
@@ -39,4 +39,26 @@ button{
     text-align: center;
     padding: 8px 16px;
     margin: 10px 0px;
+}
+
+.dosOpciones{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media (max-width: 768px){
+    .container-form-inicio{
+        width: 90%;
+    }
+}
+
+@media (max-width: 340px) {
+    .dosOpciones {
+        flex-direction: column;
+    }
+
+    .labelMitad {
+        width: 100%;
+    }
 }

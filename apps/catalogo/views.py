@@ -11,6 +11,9 @@ def viewEscuela(request):
 def viewSesion(request):
     return render(request, 'IniciarSecion.html');
 
+def viewRegister(request):
+    return render(request, 'RegistroSecion.html');
+
 def viewPerfil(request):
     fecha_actual = datetime.now().strftime("%d de %B del %Y");
     return render(request, 'viewPerfil.html', {'fecha_actual': fecha_actual});

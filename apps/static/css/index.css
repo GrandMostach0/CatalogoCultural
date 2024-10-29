@@ -229,7 +229,7 @@ footer{
 @media (max-width: 768px) {
 
     .ancho {
-        padding: 0px 10px;
+        padding: 0px 20px;
     }
 
     .titulo {
@@ -279,7 +279,16 @@ footer{
         flex-direction: column;
     }
 
-    .container-filtro{
-        display: none;
+    .container-publicaciones-filtro{
+        flex-direction: column-reverse;
     }
+
+    .container-filtro select{
+        width: 100%;
+    }
+
+    .filtro-botones{
+        text-align: center;
+    }
+
 }

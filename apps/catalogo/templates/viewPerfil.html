@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vista Escuela</title>
+    
     {% include 'style.html' %}
 
 </head>
@@ -67,13 +68,13 @@
                     <div class="container-informacion">
                         <div class="seccion-informacion">
                             <div class="informacion">
-                                <p style="font-weight: bold;">Edad:</p>
+                                <p>Edad:</p>
                                 <p>32 años</p>
                             </div>
                             <div class="informacion">
                                 <p style="font-weight: bold;">Docente en:</p>
-                                <p>Bellas Artes Yucatán</p>
-                                <p>Escuela de Artes del Estado de Yucatán</p>
+                                <a href="{% url 'viewEscuela' %}">Bellas Artes Yucatán</a><br>
+                                <a href="{% url 'viewEscuela' %}">Escuela de Artes del Estado de Yucatán</a>
                             </div>
                         </div>
 
@@ -83,7 +84,7 @@
                                 <a href="tel:+529991234567">+52 999 123 4567</a>
                             </div>
                             <div class="informacion">
-                                <p style="font-weight: bold;">Horario de atención:</p>
+                                <p style="font-weight: bold;">Correo:</p>
                                 <a href="mailto: usuario@gmail.com">Usuario@gmail.com</a>
                             </div>
                         </div>
@@ -94,46 +95,9 @@
                     <a id="abrirModal" href="#" class="botones">Crear Publicación</a>
                     <a id="abrirModal" href="#" class="botones">Crear Evento</a>
                 </section>
-                
-                <!---- MODAL DE LA VENTANA PARA LOS DATOS -->
-                <div id="myModal" class="modal">
-                    <!-- Contenido del Modal -->
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <h2>Crear Nueva Publicación de Obra o Trabajo</h2>
-                        <form action="#">
-                            <label for="titulo">
-                                Titulo de la Publicación
-                                <input type="text" name="titutlo" placeholder="Titutlo">
-                            </label>
-                            <label for="descripcion">
-                                Descripción
-                                <textarea name="descripcion" id="descripcion"></textarea>
-                            </label>
-                            <div class="#">
-                                <input type="radio" id="contactChoice1" name="contact" value="email" />
-                                <label for="contactChoice1">Email</label>
-                                
-                                <input type="radio" id="contactChoice2" name="contact" value="phone" />
-                                <label for="contactChoice2">Phone</label>
-                            </div>
 
-                            <div class="institucion-opcional">
-                                <label for="institucion-opcion">Institución</label>
-                                <select name="institucion-opcion" id="">
-                                    <option value="0">Seleccione </option>
-                                    <option value="1">Bellas Arte</option>
-                                    <option value="2">Arte de Yucatán</option>
-                                </select>
-                            </div>
+                {% include 'components/modalPublicacion.html' %}
 
-                            <label for="imagenPortada">
-                                Imagen de Portada
-                                <input type="file">
-                            </label>
-
-                            <button type="submit">Publicar</button>
-                        </form>
                     </div>
                 </div>
 

@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio Sesion</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cardPublicaciones.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sesion.css' %}">
+</head>
+
+<body>
+    <div class="ancho">
+        <main class="container-inicio">
+            <p>Inicio de sesión unicamente para actores culturales</p>
+            <div class="container-form-inicio">
+                <a href="{% url 'index' %}">
+                    <h1>Catálogo cultural</h1>
+                </a>
+                <p>Bienvenido a la <strong>Sección de Registro</strong></p>
+                <form action="{% url 'viewPerfil' %}">
+                    <label for="nombre">
+                        Nombre Completo:
+                        <input placeholder="Juan Carlos" type="text" name="nombre" id="nombre">
+                    </label>
+
+                    <div class="dosOpciones">
+                        <label for="primerApellido">
+                            Primer Apellido:
+                            <input class="labelMitad" placeholder="Uc Canul" type="text" name="primerApellido" id="primerApellido">
+                        </label>
+
+                        <label for="segundoApellido">
+                            Segundo Apellido:
+                            <input class="labelMitad" placeholder="Uc Canul" type="text" name="segundoApellido" id="segundoApellido">
+                        </label>
+                    </div>
+
+                    <label for="Correo">
+                        Correo Eléctronico:
+                        <input placeholder="correo@gmail.com" type="email" name="Correo" id="Correo">
+                    </label>
+
+                    <label for="Contrasenia">
+                        Contraseña:
+                        <input placeholder="Contraseña" type="password" name="Contrasenia" id="Contrasenia">
+                    </label>
+
+                    <label for="confirContrasenia">
+                        Verificación contraseña:
+                        <input placeholder="Repita la contraseña" type="password" name="confirContrasenia" id="confirContrasenia">
+                    </label>
+
+                    <div class="dosOpciones">
+                        <label for="disciplina">
+                            Disclipina principal:
+                            <select name="disciplina" id="disciplina">
+                                <option value="0">Seleccione</option>
+                                <option value="1">Música</option>
+                                <option value="2">Danza</option>
+                                <option value="3">Teatro</option>
+                            </select>
+                        </label>
+                    
+                        <label for="subDisciplina">
+                            Subdisciplina:
+                            <input class="labelMitad" placeholder="Uc Canul" type="text" name="segundoApellido" id="segundoApellido">
+                        </label>
+                    </div>
+
+                    <label for="fechaNacimiento">
+                        Ingrese Fecha de Nacimiento:
+                        <input type="date" name="fechaNacimineto" id="fechaNacimiento">
+                    </label>
+
+                    <button type="submit">Registrar</button>
+                </form>
+                <hr>
+                <br>
+                <a href="{% url 'viewSesion' %}">Volver</a>
+            </div>
+        </main>
+
+        <!----- FOOTER DE LA PÁGINA ----->
+        {% include 'components/footer.html' %}
+
+    </div>
+</body>
+
+</html>

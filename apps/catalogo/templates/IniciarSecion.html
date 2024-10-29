@@ -14,9 +14,9 @@
         <main class="container-inicio">
             <p>Inicio de sesión unicamente para actores culturales</p>
             <div class="container-form-inicio">
-                <h1>Catálogo cultural</h1>
+                <a href="{% url 'index' %}"><h1>Catálogo cultural</h1></a>
                 <p>Explora * Conecta</p>
-                <form action="google.com">
+                <form action="{% url 'viewPerfil' %}">
                     <label for="Correo">
                         Correo Eléctronico:
                         <input placeholder="correo@gmail.com" type="email" name="Correo" id="Correo">
@@ -25,12 +25,13 @@
                         Contraseñia:
                         <input placeholder="Contraseñia" type="password" name="Contrasenia" id="Contrasenia">
                     </label>
-
+                    <a href="#"><strong>¿Olvidaste tu contraseña?</strong></a>
+                    <br>
                     <button type="submit">Iniciar Sesión</button>
                 </form>
                 <hr>
                 <br>
-                <a href="#">Crear Cuenta</a>
+                <a href="{% url 'viewRegister' %}">Crear Cuenta</a>
             </div>
         </main>
 

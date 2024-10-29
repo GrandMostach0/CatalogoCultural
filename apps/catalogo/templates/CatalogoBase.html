@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %} Mi página {% endblock title %}</title>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <link rel="stylesheet" href="{% static 'css/cardPublicaciones.css' %}">
-    <link rel="stylesheet" href="{% static 'css/catalagos.css' %}">
+
+    {% include 'style.html' %}
+
 </head>
 
 <body>
@@ -20,6 +20,7 @@
 
         <main class="container-catalago">
             <h2>Directorio de {% block titleContainerCards%}Titutulo de las cards{% endblock titleContainerCards %}</h2>
+            <br>
             <div class="container-cards-filtro">
                 {% block content %}
                 {% endblock %}

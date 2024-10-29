@@ -80,3 +80,22 @@
 .card-catalogo-contenido-boton{
     text-align: right;
 }
+
+@media (max-width: 768px){
+    .container-cards-filtro{
+        flex-direction: column;
+        margin: auto 20px;
+    }
+
+    .container-filtro-catalogo{
+        margin-bottom: 30px;
+    }
+
+    .container-filtro-catalogo select{
+        width: 100%;
+    }
+
+    .filtro-botones{
+        text-align: center;
+    }
+}

@@ -5,6 +5,7 @@ urlpatterns = [
     path("", views.hola_mundo, name="index"),
     path("viewEscuela/", views.viewEscuela, name="viewEscuela"),
     path("viewSesion/", views.viewSesion, name="viewSesion"),
+    path("viewRegistro/", views.viewRegister, name="viewRegister"),
     path("viewPerfil/", views.viewPerfil, name="viewPerfil"),
     path("vistaPublicacion/", views.vistaPublicacion, name="vistaPublicacion"),
     path("vistaEvento/", views.vistaEvento, name="vistaEvento"),

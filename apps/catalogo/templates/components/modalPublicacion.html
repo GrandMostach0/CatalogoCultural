@@ -1,0 +1,52 @@
+<!---- MODAL DE LA VENTANA PARA LOS DATOS -->
+<div id="myModal" class="modal">
+    <!-- Contenido del Modal -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Crear Nueva Publicación de Obra o Trabajo</h2>
+        <form action="#">
+            <label for="titulo">
+                Titulo de la Publicación
+                <input type="text" name="titutlo" placeholder="Titutlo">
+            </label>
+
+            <label for="descripcion">
+                Descripción
+                <textarea name="descripcion" id="descripcion"></textarea>
+            </label>
+
+            <div class="subOpciones">
+                <p>Tipo de Publicación:</p>
+                <input type="radio" id="publicacionPersonal" name="tipoPublicacion" value="personal" />
+                <label for="tipoPublicacion">Personal</label>
+
+                <input type="radio" id="publicacionInstituto" name="tipoPublicacion" value="institucional" />
+                <label for="tipoPublicacion">De alguna escuela</label>
+            </div>
+
+            <div class="institucion-opcional">
+                <label for="institucion-opcion">Institución</label>
+                <select name="institucion-opcion" id="">
+                    <option value="0">Seleccione </option>
+                    <option value="1">Bellas Arte</option>
+                    <option value="2">Arte de Yucatán</option>
+                </select>
+            </div>
+
+            <label for="imagenPortada">
+                Imagen de Portada:
+                <input type="file">
+            </label>
+
+            <div class="imagenesExtras">
+                <label for="imagenExtra1">
+                    Imagenes Extras:
+                    <input type="file">
+                    <input type="file">
+                    <input type="file">
+                    <input type="file">
+                </label>
+            </div>
+
+            <button type="submit">Publicar</button>
+        </form>
