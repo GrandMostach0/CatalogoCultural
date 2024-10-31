@@ -131,8 +131,8 @@
 .modal{
     display: none;
     position: fixed;
-    z-index: 3;
-    padding-top: 250px;
+    z-index: 999;
+    padding-top: 100px;
     left: 0;
     top: 0;
     width: 100%;
@@ -146,15 +146,17 @@
     background-color: #ececec;
     margin: auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid #bfbfbf;
     width: 80%;
     max-width: 500px;
+    max-height: 600px;
     border-radius: 8px;
+    overflow-y: auto;
 }
 
 /* estilo del modal para cerrar */
 .close{
-    color: #aaa;
+    color: #696666;
     float: right;
     font-size: 28px;
     font-weight: bold;

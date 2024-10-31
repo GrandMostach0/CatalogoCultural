@@ -1,13 +1,53 @@
-input, textarea, select{
+form{
+    margin-top: 20px;
+}
+
+.inputs, select{
     display: block;
     padding: 4px 8px;
-    width: 90%;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    margin-top: 5px;
+    margin-bottom: 20px;
 }
 
-form{
-    margin-top: 10px;
+select{
+    display: block;
+    margin-top: 5px;
 }
 
-label{
-    margin: 5px 0px;
+input[type="radio"]{
+    margin-left: 20px;
+}
+
+textarea{
+    min-height: 50px;
+    resize: none;
+}
+
+.inputs:focus{
+    border-color: #007BFF;
+    outline: none;
+}
+
+button{
+    padding: 4px 8px;
+    margin-right: 8px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background-color: #333333;
+    color: azure;
+}
+
+button:hover{
+    transform: scale(1.2);
+}
+
+button[type="reset"]:hover{
+    background-color: #9d2121;
+    transform: scale(1.1);
 }
