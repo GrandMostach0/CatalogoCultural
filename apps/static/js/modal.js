@@ -1,8 +1,9 @@
 // Esperar a que el DOM se cargue
 document.addEventListener("DOMContentLoaded", function() {
     var modal = document.getElementById("myModal");
-    var abrirModal = document.getElementById("abrirModal")
+    var abrirModal = document.getElementById("abrirModal");
     var cerrarModal = document.getElementsByClassName("close")[0];
+    var btnCancelar = document.getElementById("btnCancelar");
 
 
     const radioPersonal = document.getElementById("publicacionPersonal");
@@ -17,6 +18,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     cerrarModal.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    btnCancelar.onclick = function() {
         modal.style.display = "none";
     }
 

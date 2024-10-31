@@ -257,4 +257,8 @@
     .seccion-informacion{
         padding-left: 0px;
     }
+
+    .modal-content{
+        max-width: 100%;
+    }
 }

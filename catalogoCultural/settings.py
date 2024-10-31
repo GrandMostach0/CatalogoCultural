@@ -77,10 +77,16 @@ WSGI_APPLICATION = 'catalogoCultural.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'proyectoResidencia',
+        'USER': 'postgres',          
+        'PASSWORD': 'bernardo09',    
+        'HOST': 'localhost',         
+        'PORT': '5433',              
     }
 }
+
+
 
 
 # Password validation
