@@ -6,12 +6,17 @@
             <h1 style="font-weight: bold;">Catálogo Cultural</h1>
         </a>
     </div>
+
     <nav class="menu-opciones">
         <a href="{% url 'index' %}">Inicio</a>
         <a href="{% url 'cartelera' %}">Cartelera</a>
         <a href="{% url 'actores' %}">Actores</a>
         <a href="{% url 'instituciones' %}">Escuelas</a>
-        <a href="{% url 'viewSesion' %}">Iniciar Sesión</a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Cerrar sesión</a>
+    {% else %}
+        <a href="{% url 'viewSesion' %}">Iniciar sesión</a>
+    {% endif %}
     </nav>
     <div class="hamburguesa" onclick="toggleMenu()">☰</div>
 </header>

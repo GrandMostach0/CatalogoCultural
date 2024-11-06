@@ -16,7 +16,15 @@
             <div class="container-form-inicio">
                 <a href="{% url 'index' %}"><h1>Catálogo cultural</h1></a>
                 <p>Explora * Conecta</p>
-                <form action="{% url 'viewPerfil' %}">
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <p style="color:red;">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
                     <label for="Correo">
                         Correo Eléctronico:
                         <input placeholder="correo@gmail.com" type="email" name="Correo" id="Correo">
@@ -25,12 +33,12 @@
                         Contraseñia:
                         <input placeholder="Contraseñia" type="password" name="Contrasenia" id="Contrasenia">
                     </label>
-                    <a href="#"><strong>¿Olvidaste tu contraseña?</strong></a>
                     <br>
                     <button type="submit">Iniciar Sesión</button>
                 </form>
                 <hr>
                 <br>
+                <a href="#"><strong>¿Olvidaste tu contraseña?</strong></a>
                 <a href="{% url 'viewRegister' %}">Crear Cuenta</a>
             </div>
         </main>

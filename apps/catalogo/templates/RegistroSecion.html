@@ -58,15 +58,15 @@
                             Disclipina principal:
                             <select name="disciplina" id="disciplina">
                                 <option value="0">Seleccione</option>
-                                <option value="1">Música</option>
-                                <option value="2">Danza</option>
-                                <option value="3">Teatro</option>
+                                {% for disciplina in disciplina %}
+                                    <option value="{{ disciplina.id }}" >{{ disciplina.nombre_subdisciplina }}</option>
+                                {% endfor %}
                             </select>
                         </label>
                     
                         <label for="subDisciplina">
                             Subdisciplina:
-                            <select name="disciplina" id="disciplina">
+                            <select name="disciplina" id="Subdisciplina">
                                 <option value="0">Seleccione</option>
                                 <option value="1">Música</option>
                                 <option value="2">Danza</option>
@@ -90,8 +90,31 @@
 
         <!----- FOOTER DE LA PÁGINA ----->
         {% include 'components/footer.html' %}
-
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#disciplina').change(function() {
+            var disciplinaId = $(this).val();
+            $.ajax({
+                url: '{% url "cargar_subdisciplinas" %}',
+                data: {
+                    'disciplina_id': disciplinaId
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#subdisciplina').empty();
+                    $('#subdisciplina').append('<option value="">Seleccione una subdisciplina</option>');
+                    $.each(data, function(index, subdisciplina) {
+                        $('#subdisciplina').append('<option value="' + subdisciplina.id + '">' + subdisciplina.name + '</option>');
+                    });
+                }
+            });
+        });
+    });
+    </script>
+
 </body>
 
 </html>

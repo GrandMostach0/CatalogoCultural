@@ -43,9 +43,7 @@ button{
     color: azure;
 }
 
-button:hover{
-    transform: scale(1.2);
-}
+
 
 button[type="reset"]:hover{
     background-color: #9d2121;

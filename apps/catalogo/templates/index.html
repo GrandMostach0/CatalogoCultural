@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Mi Página Web</title>
-    
-    {% include 'style.html' %}
+    <title>Catálogo Cultural Yucatán</title>
 
+    {% include 'style.html' %}
+    {% include 'Librerias.html' %}
+    
 </head>
 <body>
     <div class="ancho">
@@ -33,67 +34,7 @@
         </section>
 
         <!---- SECCION DONDE SALEN LOS AUTORES ---->
-        <section class="container-secciones-autores">
-            <div class="secciones2">
-                <h2 class="subtitulo">Catálogo Cultural Del Estado de Yucatán</h2>
-
-                <div class="subseccion">
-                    <p>Conoce y contacta a los artistas que ofrecen servicios de arte y cultura en el estado de Yucatán.</p>
-                    <a href="{% url 'actores' %}" class="buttonTag"> Descubré más </a>
-                </div>
-
-                <div class="container-cards">
-                    <div class="card">
-                        <img src="{% static 'assets/images/Avatar-img.jpg' %}" alt="">
-
-                        <div class="card-container">
-                            <p>María José Pat Chable</p>
-                            <p style="color: #717070; font-weight: normal;">Artista - Docente</p>
-                            <div class="card-button">
-                                <a href="{% url 'viewPerfil' %}" class="buttonTag"> Visitar Perfil </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <img src="{% static 'assets/images/Avatar-img.jpg' %}" alt="">
-                    
-                        <div class="card-container">
-                            <p>María José Pat Chable</p>
-                            <p style="color: #717070; font-weight: normal;">Artista</p>
-                            <div class="card-button">
-                                <a href="#" class="buttonTag"> Visitar Perfil </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <img src="{% static 'assets/images/Avatar-img.jpg' %}" alt="">
-                    
-                        <div class="card-container">
-                            <p>María José Pat Chable</p>
-                            <p style="color: #717070; font-weight: normal;">Artista</p>
-                            <div class="card-button">
-                                <a href="#" class="buttonTag"> Visitar Perfil </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <img src="{% static 'assets/images/Avatar-img.jpg' %}" alt="">
-                    
-                        <div class="card-container">
-                            <p>María José Pat Chable</p>
-                            <p style="color: #717070; font-weight: normal;">Artista</p>
-                            <div class="card-button">
-                                <a href="#" class="buttonTag"> Visitar Perfil </a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
+        {% include 'components/seccionActores.html' %}
 
         <!---- SECCION DONDE SALE LAS PUBLICACIONES Y EL FILTRO ---->
         <main class="secciones container-publicaciones-filtro">
@@ -228,70 +169,12 @@
         </main>
 
         <!---- SECCION DE LAS ESCUELAS ---->
-        <section class="container-secciones-autores">
-            <div class="secciones2">
-                <h2 class="subtitulo">Escuelas de Arte</h2>
-        
-                <div class="subseccion">
-                    <p>Conoce y contacta a las diferentes Instituciones Academicas de arté que se encuentran ubicadas en el Estado de Yucatán..</p>
-                    <a href="{% url 'instituciones' %}" class="buttonTag"> Descubré más </a>
-                </div>
-        
-                <div class="container-cards">
-                    <div class="card">
-                        <img src="{% static 'assets/images/Institucion1.jpg' %}" alt="">
-        
-                        <div class="card-container">
-                            <p>Universidad de las Artes de Yucatán</p>
-                            <p style="color: #717070; font-weight: normal;">Institución</p>
-                            <div class="card-button">
-                                <a href="#" class="buttonTag"> Visitar Perfil </a>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="card">
-                        <img src="{% static 'assets/images/Institucion2.png' %}" alt="">
-        
-                        <div class="card-container">
-                            <p>Bellas Artes Yucatán</p>
-                            <p style="color: #717070; font-weight: normal;">Institucion</p>
-                            <div class="card-button">
-                                <a href="#" class="buttonTag"> Visitar Perfil </a>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="card">
-                        <img src="{% static 'assets/images/Institucion3.jpg' %}" alt="">
-        
-                        <div class="card-container">
-                            <p>Palacio de la Música</p>
-                            <p style="color: #717070; font-weight: normal;">Institución</p>
-                            <div class="card-button">
-                                <a href="#" class="buttonTag"> Visitar Perfil </a>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="card">
-                        <img src="{% static 'assets/images/Institucion2.png' %}" alt="">
-        
-                        <div class="card-container">
-                            <p>Bellas Artes Yucatán</p>
-                            <p style="color: #717070; font-weight: normal;">Institución</p>
-                            <div class="card-button">
-                                <a href="#" class="buttonTag"> Visitar Perfil </a>
-                            </div>
-                        </div>
-                    </div>
-        
-                </div>
-            </div>
-        </section>
+        {% include 'components/seccionEscuelas.html' %}
 
         <!---- FOOTER DE LA FINALIDAD ---->
         {% include 'components/footer.html' %}
     </div>
+
+    <script src="{% static 'js/scriptSlider.js' %}" ></script>
 </body>
 </html>
