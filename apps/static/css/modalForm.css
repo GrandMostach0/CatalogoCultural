@@ -24,7 +24,7 @@ input[type="radio"]{
 }
 
 textarea{
-    min-height: 50px;
+    min-height: 150px;
     resize: none;
 }
 

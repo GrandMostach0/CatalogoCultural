@@ -7,54 +7,53 @@
         <form action="#">
             <label for="titulo">
                 Titulo del Evento:
-                <input id="titulo" type="text" class="inputs" name="titulo" placeholder="Titulo">
+                <input id="titulo" type="text" class="inputs" name="titulo" placeholder="Titulo" required>
             </label>
 
             <label for="descripcion">
                 Descripción:
-                <textarea name="descripcion" id="descripcion" class="inputs"></textarea>
+                <textarea rows="5" cols="30" name="descripcion" id="descripcion" class="inputs" required></textarea>
             </label>
 
             <label for="categoria">
                 Categoría:
-                <select name="categoria" id="categoria">
+                <select name="categoria" id="categoria" required>
                     <option value="0">Seleccione la Categoría</option>
                 </select>
             </label>
 
             <label for="clasificacion">
                 Clasificación:
-                <select name="clasificacion" id="clasificacion">
+                <select name="clasificacion" id="clasificacion" required>
                     <option value="0">Seleccione la Categoría</option>
                 </select>
             </label>
 
             <label for="fechaEvento">
                 Fecha del Evento:
-                <input id="fechaEvento" type="date" class="inputs">
+                <input id="fechaEvento" type="date" class="inputs" required>
             </label>
 
             <label for="horaInicioEvento">
                 Hora de inicio del evento:
-                <input id="horaInicioEvento" type="time" class="inputs">
+                <input id="horaInicioEvento" type="time" class="inputs" required>
             </label>
 
             <label for="eventoPaga" class="inputs">
                 ¿El evento es de Paga?
-                <input type="checkbox" name="evento_paga" id="eventoPaga">
+                <input type="checkbox" name="evento_paga" id="eventoPaga" required>
             </label>
 
-            <label for="precioCU">
+            <label class="precioUnitario" for="precioCU">
                 Precio por persona:
-                <input id="precioCU" type="number" name="precioCU" class="inputs" min="1">
+                <input id="precioCU" type="number" name="precioCU" placeholder="Mayor a $10" class="inputs" min="1">
             </label>
 
-            <div class="subOpciones">
+            <div class="subOpciones subOpciones2">
                 <label for="puntoVenta">
                     Punto de Venta:
                 </label>
                 <br>
-                
                 <input type="radio" id="puntoVentaPresencial" name="puntoVenta" value="presencial" checked />
 
                 <label for="puntoVentaPresencial">Presencial</label>
@@ -62,15 +61,28 @@
                 <input type="radio" id="puntoVentaDigital" name="puntoVenta" value="Digital" />
                 <label for="puntoVentaDigital">Digital</label>
             </div>
+            <br>
 
-            <label for="URLPuntoVenta">
+            <label class="URLPuntoVentalbl" for="URLPuntoVenta">
                 Enlace del punto de Venta:
-                <input type="url" id="URLPuntoVenta" name="URLPuntoVenta">
+                <input 
+                placeholder="Ej:https://chat.whatsapp.com/invitacionAlGrupo"
+                type="url" 
+                id="URLPuntoVenta" 
+                name="URLPuntoVenta" 
+                class="inputs">
             </label>
 
             <label for="imagenPortadaEvento">
                 Imagen de Portada:
-                <input class="inputs" type="file" id="imagenPortadaEvento" name="imagenPortada" accept="imagen/*">
+                <input class="inputs" type="file" id="imagenPortadaEvento" name="imagenPortada" accept="imagen/*" required>
+            </label>
+
+            <label for="ubicacion">
+                Ubicaciones comunes:
+                <select name="ubicacion" id="ubicacion" required>
+                    <option value="0">Selecciona una ubicación</option>
+                </select>
             </label>
 
             <button type="submit">Publicar</button>

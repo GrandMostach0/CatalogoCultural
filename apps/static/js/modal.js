@@ -14,16 +14,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     abrirModal.onclick = function(event) {
         event.preventDefault();
-        console.log("MODAL PARA LA PUBLICACION DE OBRAS O TRABAJOS");
         modal.style.display = "block";
+        document.body.style.overflow = "hidden";
     }
 
     cerrarModal.onclick = function() {
         modal.style.display = "none";
+        document.body.style.overflow = "auto";
     }
 
     btnCancelar.onclick = function() {
         modal.style.display = "none";
+        document.body.style.overflow = "auto";
     }
 
     function toggleInstitucionOpcional(){
