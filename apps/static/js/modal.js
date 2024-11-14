@@ -1,7 +1,7 @@
 // Esperar a que el DOM se cargue
 document.addEventListener("DOMContentLoaded", function() {
-    var modal = document.getElementById("myModal");
-    var abrirModal = document.getElementById("abrirModal");
+    var modal = document.getElementById("myModalPublicacion");
+    var abrirModal = document.getElementById("abrirModalPublicacion");
     var cerrarModal = document.getElementsByClassName("close")[0];
     var btnCancelar = document.getElementById("btnCancelar");
 
@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     abrirModal.onclick = function(event) {
         event.preventDefault();
+        console.log("MODAL PARA LA PUBLICACION DE OBRAS O TRABAJOS");
         modal.style.display = "block";
     }
 
