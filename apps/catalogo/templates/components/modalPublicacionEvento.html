@@ -5,8 +5,76 @@
         <span class="close">&times;</span>
         <h2>Nueva Publicación de Evento</h2>
         <form action="#">
+            <label for="titulo">
+                Titulo del Evento:
+                <input id="titulo" type="text" class="inputs" name="titulo" placeholder="Titulo">
+            </label>
+
+            <label for="descripcion">
+                Descripción:
+                <textarea name="descripcion" id="descripcion" class="inputs"></textarea>
+            </label>
+
+            <label for="categoria">
+                Categoría:
+                <select name="categoria" id="categoria">
+                    <option value="0">Seleccione la Categoría</option>
+                </select>
+            </label>
+
+            <label for="clasificacion">
+                Clasificación:
+                <select name="clasificacion" id="clasificacion">
+                    <option value="0">Seleccione la Categoría</option>
+                </select>
+            </label>
+
+            <label for="fechaEvento">
+                Fecha del Evento:
+                <input id="fechaEvento" type="date" class="inputs">
+            </label>
+
+            <label for="horaInicioEvento">
+                Hora de inicio del evento:
+                <input id="horaInicioEvento" type="time" class="inputs">
+            </label>
+
+            <label for="eventoPaga" class="inputs">
+                ¿El evento es de Paga?
+                <input type="checkbox" name="evento_paga" id="eventoPaga">
+            </label>
+
+            <label for="precioCU">
+                Precio por persona:
+                <input id="precioCU" type="number" name="precioCU" class="inputs" min="1">
+            </label>
+
+            <div class="subOpciones">
+                <label for="puntoVenta">
+                    Punto de Venta:
+                </label>
+                <br>
+                
+                <input type="radio" id="puntoVentaPresencial" name="puntoVenta" value="presencial" checked />
+
+                <label for="puntoVentaPresencial">Presencial</label>
+
+                <input type="radio" id="puntoVentaDigital" name="puntoVenta" value="Digital" />
+                <label for="puntoVentaDigital">Digital</label>
+            </div>
+
+            <label for="URLPuntoVenta">
+                Enlace del punto de Venta:
+                <input type="url" id="URLPuntoVenta" name="URLPuntoVenta">
+            </label>
+
+            <label for="imagenPortadaEvento">
+                Imagen de Portada:
+                <input class="inputs" type="file" id="imagenPortadaEvento" name="imagenPortada" accept="imagen/*">
+            </label>
+
             <button type="submit">Publicar</button>
-            <button id="btnCancelar" type="reset" >Cancelar</button>
+            <button id="btnCancelar2" type="reset" >Cancelar</button>
         </form>
     </div>
 </div>

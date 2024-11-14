@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var modal = document.getElementById("myModalProyecto");
     var abrirModal = document.getElementById("abrirModalProyecto");
     var cerrarModal = document.getElementsByClassName("close")[1];
-    var btnCancelar = document.getElementById("btnCancelar");
+    var btnCancelar = document.getElementById("btnCancelar2");
 
     abrirModal.addEventListener("click", function(event){
         event.preventDefault();
