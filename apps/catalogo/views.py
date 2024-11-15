@@ -19,7 +19,7 @@ def viewEscuela(request):
 
 ## METODOS PARA INICIAR SESION
 def viewSesion(request):
-    return render(request, 'IniciarSecion.html');
+    return render(request, 'IniciarSesion.html');
 
 def login_view(request):
     if request.method == 'POST':
@@ -27,20 +27,19 @@ def login_view(request):
         correo = request.POST.get('Correo')
         contrasenia = request.POST.get('Contrasenia')
 
-        # Verificar si el correo y la contraseña son los esperados
-        if correo == 'prueba@gmail.com' and contrasenia == '123':
-            # Simular el inicio de sesión exitoso
-            user = authenticate(request, username='prueba_usuario', password='123')  # Cambia 'prueba_usuario' al nombre de usuario correspondiente
-            if user is None:
-                # Si el usuario no existe, crear uno (opcional)
-                user = User.objects.create_user(username='prueba_usuario', email=correo, password='123')
-            login(request, user)
-            messages.success(request, 'Bienvenido, prueba_usuario!')
-            return redirect('viewPerfil')
-        else:
-            messages.error(request, 'Credenciales incorrectas')
-            
-    return render(request, 'IniciarSecion.html')
+        try:
+            usuario = User.objects.get(email = correo)
+            usuario = authenticate(request, username = usuario.username, password = contrasenia)
+
+            if usuario is not None:
+                login(request, usuario)
+                return redirect('viewPerfil')
+            else:
+                messages.error(request, 'Contraseñia incorrecta.')
+        except User.DoesNotExist:
+            messages.error(request, 'No existe un usuario con este correo.')
+
+    return render(request, 'IniciarSesion.html')
 
 def logout_view(request):
     logout(request)

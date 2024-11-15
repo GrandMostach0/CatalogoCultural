@@ -82,6 +82,7 @@ class Actor(models.Model):
     Telefono_publico_Actor = models.CharField(max_length=10, null=False, blank=True, verbose_name="Telefono Publico")
     Telefono_privado_actor = models.CharField(max_length=10, null=True, blank=True, verbose_name="Telefono Privado")
     id_subdisciplina = models.ForeignKey(Subdisciplinas, on_delete = models.CASCADE, related_name = "subdisciplinas")
+    id_escuela = models.ForeignKey(Escuelas, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.nombre_Actor
