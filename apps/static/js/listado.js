@@ -8,7 +8,6 @@ const listarSubDisciplinas = async(idDisciplina) => {
             data.Subdisciplinas.forEach((subdisciplina) => {
                 opciones += `<option value='${subdisciplina.id}'>${subdisciplina.nombre_subdisciplina}</option>`;
             });
-
             subDisciplina.innerHTML = opciones;
         }else{
             alert("Disciplinas no encontradas");
