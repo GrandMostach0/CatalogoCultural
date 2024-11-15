@@ -1,14 +1,14 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
 from datetime import datetime
 from django.http import JsonResponse
-from .models import Disciplinas, Subdisciplinas
 from django.contrib.auth.models import User
-
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate, logout
+
+### IMPORTACION DE LOS MODULOS
+from django.http import JsonResponse
+from .models import Disciplinas, Subdisciplinas
 
 # Create your views here.
 def hola_mundo(request):
@@ -67,7 +67,6 @@ def vistaEvento(request):
     fecha_actual = datetime.now().strftime("%d de %B del %Y")
     return render(request, "vistaEvento.html", {"fecha_actual": fecha_actual})
 
-
 def baseCatalogo(request):
     return render(request, 'CatalogoBase.html');
 
@@ -79,3 +78,29 @@ def viewPageActores(request):
 
 def viewPageInstituciones(request):
     return render(request, 'instituciones.html');
+
+"""
+MODULO PARA LLENAR LAS LISTAS
+"""
+
+# TABLA DE LAS DISCIPLINAS
+def get_Disciplinas(request):
+    disciplinas = list(Disciplinas.objects.values())
+
+    if disciplinas:
+        data = {'message' : "Success", 'Disciplinas' : disciplinas}
+    else:
+        data = {'message' : "Not Found"}
+    
+    return JsonResponse(data)
+
+def get_Subdisciplinas(request, id_disciplina):
+    subdisciplinas = list(Subdisciplinas.objects.filter(id_disciplina = id_disciplina).values())
+
+    if subdisciplinas:
+        data = {'message' : "Success", 'Subdisciplinas' : subdisciplinas}
+    else:
+        data = {'message' : "Not Found"}
+
+    return JsonResponse(data)
+

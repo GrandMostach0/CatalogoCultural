@@ -7,8 +7,8 @@ urlpatterns = [
     path("", views.hola_mundo, name="index"),
     path("viewEscuela/", views.viewEscuela, name="viewEscuela"),
     path("viewSesion/", views.viewSesion, name="viewSesion"),
-    path('login/', views.login_view, name='login'),
-    path('logout/', views.logout_view, name='logout'),
+    path("login/", views.login_view, name="login"),
+    path("logout/", views.logout_view, name="logout"),
     path("viewRegistro/", views.viewRegister, name="viewRegister"),
     path("cargar_subdisciplinas/", views.cargar_subdisciplinas, name="cargar_subdisciplinas"),
     path("viewPerfil/", views.viewPerfil, name="viewPerfil"),
@@ -18,6 +18,8 @@ urlpatterns = [
     path("cartelera/", views.viewPageCartelera, name="cartelera"),
     path("actores/", views.viewPageActores, name="actores"),
     path("instituciones/", views.viewPageInstituciones, name="instituciones"),
+    path("disciplinas/", views.get_Disciplinas, name="get_disciplinas"),
+    path("subdisciplinas/<int:id_disciplina>", views.get_Subdisciplinas, name="get_subdisciplinas"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
