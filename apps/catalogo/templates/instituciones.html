@@ -48,121 +48,36 @@
 </section>
 
 <section class="container-cards-catalogo">
+
+    {% for escuela in page_obj %}
     <div class="card-catalogo">
         <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Institucion1.jpg' %}" alt="Imagen de la card">
+            <img loading="lazy" src="{{ escuela.url_imagen_escuela.url }}" alt="Imagen de la card">
         </div>
         <div class="card-catalogo-contenido">
-            <h3>Escuelas de Arte del Estado de Yucatán</h3>
+            <h3>{{ escuela.nombre_escuela }}</h3>
             <p class="etiqueta">Institucion</p>
             <div class="card-catalogo-contenido-boton">
                 <a href="{% url 'viewEscuela' %}" class="buttonTag"> Visitar Perfil </a>
             </div>
         </div>
     </div>
-
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Institucion2.png' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Institucion3.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Institucion1.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>Escuelas de Arte del Estado de Yucatán</h3>
-            <p class="etiqueta">Institucion</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="{% url 'viewEscuela' %}" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Institucion2.png' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Institucion3.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Institucion1.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>Escuelas de Arte del Estado de Yucatán</h3>
-            <p class="etiqueta">Institucion</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="{% url 'viewEscuela' %}" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Institucion2.png' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Institucion3.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
+    {% endfor %}
 </section>
+
+<!-- Paginación -->
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; Primera</a>
+        <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+    {% endif %}
+
+    <span class="current">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+    {% endif %}
+</div>
+
 {% endblock %}

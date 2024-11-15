@@ -8,7 +8,13 @@ from django.contrib.auth import login, authenticate, logout
 
 ### IMPORTACION DE LOS MODULOS
 from django.http import JsonResponse
-from .models import Disciplinas, Subdisciplinas
+from .models import Disciplinas, Subdisciplinas, Escuelas
+
+#### LISTVIEW PARA MOSTRAR CARDS
+from django.views.generic import ListView
+
+# PRUEBA
+from django.core.paginator import Paginator
 
 # Create your views here.
 def hola_mundo(request):
@@ -50,11 +56,6 @@ def viewRegister(request):
     disclipinas = Disciplinas.objects.all();
     return render(request, 'RegistroSecion.html', {'disclipinas': disclipinas});
 
-def cargar_subdisciplinas(request):
-    disciplina_id = request.GET.get('disciplina_id')
-    subdisciplinas = Subdisciplinas.objects.filter(disciplina_id = disciplina_id).values('nombre_subdisciplina')
-    return JsonResponse(list(subdisciplinas), safe=False)
-
 def viewPerfil(request):
     fecha_actual = datetime.now().strftime("%d de %B del %Y");
     return render(request, 'viewPerfil.html', {'fecha_actual': fecha_actual});
@@ -77,7 +78,19 @@ def viewPageActores(request):
     return render(request, 'actores.html');
 
 def viewPageInstituciones(request):
-    return render(request, 'instituciones.html');
+    escuelas = Escuelas.objects.all()
+    paginator = Paginator(escuelas, 2)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'instituciones.html', {'page_obj': page_obj});
+
+class EscuelaView(ListView):
+    model = Escuelas
+    template_name = 'instituciones.html'
+    context_object_name = "escuela"
+
 
 """
 MODULO PARA LLENAR LAS LISTAS
