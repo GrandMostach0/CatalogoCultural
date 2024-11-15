@@ -18,8 +18,8 @@ urlpatterns = [
     path("cartelera/", views.viewPageCartelera, name="cartelera"),
     path("actores/", views.viewPageActores, name="actores"),
     path("instituciones/", views.viewPageInstituciones, name="instituciones"),
-    path("disciplinas/", views.get_Disciplinas, name="get_disciplinas"),
-    path("subdisciplinas/<int:id_disciplina>", views.get_Subdisciplinas, name="get_subdisciplinas"),
+    path("viewRegistro/disciplinas/", views.get_Disciplinas, name="get_disciplinas"),
+    path("viewRegistro/subdisciplinas/<int:id_disciplina>", views.get_Subdisciplinas, name="get_subdisciplinas"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
