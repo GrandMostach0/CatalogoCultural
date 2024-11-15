@@ -83,6 +83,11 @@
     text-align: right;
 }
 
+.pagination{
+    text-align: center;
+    margin: 10px auto;
+}
+
 @media (max-width: 768px){
     .container-cards-filtro{
         flex-direction: column;
