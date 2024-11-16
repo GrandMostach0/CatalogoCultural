@@ -14,8 +14,8 @@
         {% include 'components/navbar.html' %}
 
         <div class="RutaPagina">
-            <p>Directorio Escuela/{{ Escuela.nombre_escuela }}</p>
-            <a style="font-weight: bold;" href="{% url 'CatalogoEscuelas' %}"> &larr; Volver Página</a>
+            <p>Escuelas/ {{ Escuela.nombre_escuela }}</p>
+            <a style="font-weight: bold;" href="{% url 'DirectorioEscuelas' %}"> &larr; Volver Página</a>
             <div class="fechaPublicacion">
                 <p class="fecha">{{ fecha_actual }}</p>
                 <hr>
