@@ -3,6 +3,9 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+# Implementación de vistas basadas en clases
+from .views import EscuelaListView
+
 urlpatterns = [
     path("", views.hola_mundo, name="index"),
     path("viewEscuela/", views.viewEscuela, name="viewEscuela"),
@@ -16,8 +19,8 @@ urlpatterns = [
     path("catalogo/", views.baseCatalogo, name="catalogo"),
     path("cartelera/", views.viewPageCartelera, name="cartelera"),
     path("actores/", views.viewPageActores, name="actores"),
-    path("pageInstituciones/", views.EscuelaView.as_view(), name='pageInstituciones'),
     path("instituciones/", views.viewPageInstituciones, name="instituciones"),
+    path("CatalogoEscuelas/", EscuelaListView.as_view(), name="CatalogoEscuelas"),
     path("viewRegistro/disciplinas/", views.get_Disciplinas, name="get_disciplinas"),
     path("viewRegistro/subdisciplinas/<int:id_disciplina>", views.get_Subdisciplinas, name="get_subdisciplinas"),
 ]

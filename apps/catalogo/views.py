@@ -77,6 +77,9 @@ def viewPageCartelera(request):
 def viewPageActores(request):
     return render(request, 'actores.html');
 
+# -----------------------------
+#   ESCUELAS / INSTITUCIONES
+# -----------------------------
 def viewPageInstituciones(request):
     escuelas = Escuelas.objects.all()
     paginator = Paginator(escuelas, 2)
@@ -86,10 +89,13 @@ def viewPageInstituciones(request):
 
     return render(request, 'instituciones.html', {'page_obj': page_obj});
 
-class EscuelaView(ListView):
+class EscuelaListView(ListView):
     model = Escuelas
     template_name = 'instituciones.html'
-    context_object_name = "escuela"
+    context_object_name = "Escuelas"
+
+    # paginacion
+    paginate_by = 9
 
 
 """
