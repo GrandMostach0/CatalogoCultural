@@ -59,6 +59,7 @@ class Escuelas(models.Model):
     descripcion = models.TextField(verbose_name="Descripcion")
     telefono_escuela = models.CharField(max_length=10, null=False, blank=False, verbose_name="Telefono")
     correo_escuela = models.CharField(max_length=100, null=False, blank=False, verbose_name="Correo")
+    ubicacion_escuela = models.CharField(max_length=100, null=True, blank=True, verbose_name="Ubicacion");
     hora_atencion = models.CharField(max_length=50, verbose_name="Horario Atencion")
     paginaOficial = models.URLField(verbose_name="Pagina Oficial", null=True, blank=True)
 
