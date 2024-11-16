@@ -11,7 +11,7 @@ from django.http import JsonResponse
 from .models import Disciplinas, Subdisciplinas, Escuelas
 
 #### LISTVIEW PARA MOSTRAR CARDS
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 # PRUEBA
 from django.core.paginator import Paginator
@@ -19,9 +19,6 @@ from django.core.paginator import Paginator
 # Create your views here.
 def hola_mundo(request):
     return render(request, 'index.html');
-
-def viewEscuela(request):
-    return render(request, 'viewEscuela.html');
 
 ## METODOS PARA INICIAR SESION
 def viewSesion(request):
@@ -89,6 +86,7 @@ def viewPageInstituciones(request):
 
     return render(request, 'instituciones.html', {'page_obj': page_obj});
 
+# funcion para listar las escuelas
 class EscuelaListView(ListView):
     model = Escuelas
     template_name = 'instituciones.html'
@@ -96,6 +94,15 @@ class EscuelaListView(ListView):
 
     # paginacion
     paginate_by = 9
+
+def viewEscuela(request):
+    return render(request, 'viewEscuela.html');
+
+# Funcion para mostrar los detalles de una escuela
+class EscuelaDetailView(DetailView):
+    model = Escuelas
+    template_name = "viewEscuela.html"
+    context_object_name = "Escuela"
 
 
 """

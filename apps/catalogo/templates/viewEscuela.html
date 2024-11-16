@@ -14,8 +14,8 @@
         {% include 'components/navbar.html' %}
 
         <div class="RutaPagina">
-            <p>Directorio Actores/Escuela de Artes Visuales de Yucatán</p>
-            <a style="font-weight: bold;" href="{% url 'instituciones' %}"> &larr; Volver Página</a>
+            <p>Directorio Escuela/{{ Escuela.nombre_escuela }}</p>
+            <a style="font-weight: bold;" href="{% url 'CatalogoEscuelas' %}"> &larr; Volver Página</a>
             <div class="fechaPublicacion">
                 <p class="fecha">{{ fecha_actual }}</p>
                 <hr>
@@ -26,10 +26,10 @@
         <main class="container-escuela">
             <div class="escuela-imagen">
                 <div class="escuelaImagen">
-                    <img src="{% static 'assets/images/Institucion1.jpg' %}" alt="Imagen de la escuela">
+                    <img loading="lazy" src="{{ Escuela.url_imagen_escuela.url }}" alt="Imagen de la escuela">
                 </div>
                 <br>
-                <h1>Escuela de Artes Visuales de Yucatán</h1>
+                <h1>{{ Escuela.nombre_escuela }}</h1>
                 <div class="escuela-imagen-redSocial">
                     <a href="#">
                         <img src="{% static 'assets/icons/insta-icon.svg' %}" alt="Logo Instagram">
@@ -40,7 +40,7 @@
                     <a href="#">
                         <img src="{% static 'assets/icons/twitter-icon.svg' %}" alt="Logo Twitter">
                     </a>
-                    <a href="#">
+                    <a href="{{ Escuela.paginaOficial }}" target="_blank">
                         <img src="{% static 'assets/icons/web-icon.svg' %}" alt="Logo Twitter">
                     </a>
                 </div>
@@ -50,9 +50,7 @@
                 <div class="descripcion-seccion">
                     <h1>Descripción</h1>
                     <br>
-                    <p>La Escuela de Artes Visuales de Yucatán es una institución dedicada a la enseñanza y promoción de las artes plásticas.
-                    Con más de 20 años de experiencia, ofrecemos una variedad de programas orientados a desarrollar las habilidades
-                    creativas de nuestros estudiantes, desde nivel básico hasta avanzado.</p>
+                    <p>{{ Escuela.descripcion }}.</p>
                 </div>
 
                 <div class="descripcion-seccion-informacion">
@@ -67,18 +65,18 @@
                             <div class="informacion">
                                 <br>
                                 <p style="font-weight: bold;">Correo Electrónico:</p>
-                                <a href="mailto:contacto@artesyucatan.edu.mx">contacto@artesyucatan.edu.mx</a>
+                                <a href="mailto:contacto@artesyucatan.edu.mx">{{ Escuela.correo_escuela }}</a>
                             </div>
                         </div>
                         
                         <div class="seccion-informacion">
                             <div class="informacion">
                                 <p style="font-weight: bold;">Teléfono:</p>
-                                <a href="tel:+529991234567">+52 999 123 4567</a>
+                                <a href="tel:+529991234567">{{ Escuela.telefono_escuela }}</a>
                             </div>
                             <div class="informacion">
                                 <p style="font-weight: bold;">Horario de atención:</p>
-                                <p>Lunes a Viernes, 9:00 AM - 6:00 PM</p>
+                                <p>{{ Escuela.hora_atencion }}</p>
                             </div>
                         </div>
                     </div>

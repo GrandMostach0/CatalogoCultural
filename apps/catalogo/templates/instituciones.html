@@ -58,7 +58,7 @@
             <h3>{{ escuela.nombre_escuela }}</h3>
             <p class="etiqueta">Institucion</p>
             <div class="card-catalogo-contenido-boton">
-                <a href="{% url 'viewEscuela' %}" class="buttonTag"> Visitar Perfil </a>
+                <a href="{% url 'PerfilEscuela' escuela.pk %}" class="buttonTag"> Visitar Perfil </a>
             </div>
         </div>
     </div>
