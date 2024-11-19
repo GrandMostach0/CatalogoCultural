@@ -17,7 +17,7 @@ from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator
 
 # Create your views here.
-def hola_mundo(request):
+def Inicio(request):
     return render(request, 'index.html');
 
 ## METODOS PARA INICIAR SESION
@@ -120,10 +120,9 @@ class EscuelaDetailView(DetailView):
     context_object_name = "Escuela"
 
 
-"""
-MODULO PARA LLENAR LAS LISTAS
-"""
-
+# -----------------------------
+#   SECCION PARA EL LISTADO DE LAS DISCIPLINAS
+# -----------------------------
 # TABLA DE LAS DISCIPLINAS
 def get_Disciplinas(request):
     disciplinas = list(Disciplinas.objects.values())

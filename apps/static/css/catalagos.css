@@ -1,5 +1,6 @@
 .container-catalago{
     max-width: 1200px;
+    min-height: 80vh;
     margin: auto;
 }
 

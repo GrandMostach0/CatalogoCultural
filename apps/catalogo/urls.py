@@ -7,7 +7,8 @@ from django.conf import settings
 from .views import EscuelaListView, EscuelaDetailView, ActoresListView, ActoresDetailView
 
 urlpatterns = [
-    path("", views.hola_mundo, name="index"),
+    path("", views.Inicio, name="index"),
+    path("disciplinas/", views.get_Disciplinas, name="get_disciplinasi"),
     path("viewSesion/", views.viewSesion, name="viewSesion"),
     path("login/", views.login_view, name="login"),
     path("logout/", views.logout_view, name="logout"),

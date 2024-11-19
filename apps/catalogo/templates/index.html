@@ -53,36 +53,7 @@
             </div>
 
             <!---- SECCION DEL FILTRO ---->
-            <div class="container-filtro">
-                <h2>Filtro</h2>
-                <div class="container-filtro-opciones">
-                    <p>Categorías:</p>
-                    <select name="discilinas" id="disciplinas">
-                        <option value="0">Todos</option>
-                        <option value="1">Música</option>
-                        <option value="2">Baile</option>
-                        <option value="3">Artes</option>
-                        <option value="4">Literatura</option>
-                        <option value="5">Artes</option>
-                        <option value="6">Artes</option>
-                    </select>
-                </div>
-
-                <div class="container-filtro-opciones">
-                    <p>Fecha de Publicación:</p>
-                    <select name="discilinas" id="Subdisciplinas">
-                        <option value="0">Todos</option>
-                        <option value="1">Esta Semana</option>
-                        <option value="2">Ultimas dos semanas</option>
-                        <option value="3">Todos</option>
-                    </select>
-                </div>
-
-                <div class="container-filtro-opciones filtro-botones">
-                    <a href="#" class="botones">Aplicar Cambios</a>
-                    <a href="#" class="botones">Restablecer</a>
-                </div>
-            </div>
+            {% include 'components/filtroIndex.html' %}
         </main>
 
         <!---- SECCION DE LAS ESCUELAS ---->
@@ -93,5 +64,6 @@
     </div>
 
     <script src="{% static 'js/scriptSlider.js' %}" ></script>
+    <script src="{% static 'js/listado.js' %}" ></script>
 </body>
 </html>
