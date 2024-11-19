@@ -48,121 +48,21 @@
 </section>
 
 <section class="container-cards-catalogo">
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="{% url 'viewPerfil' %}" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
 
+    {% for actor in Actor %}
     <div class="card-catalogo">
         <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
+            <img loading="lazy" src="{{ actor.url_image_actor.url }}" alt="Imagen de la card">
         </div>
         <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
+            <h3>{{ actor.nombre_completo}}</h3>
+            <p class="etiqueta">{{ actor.id_subdisciplina }}</p>
             <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
+                <a href="{% url 'PerfilActor' actor.pk %}" class="buttonTag"> Visitar Perfil </a>
             </div>
         </div>
     </div>
+    {% endfor %}
 
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>María Jose Pát Chable</h3>
-            <p class="etiqueta">Artes plásticas - Docente</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Visitar Perfil </a>
-            </div>
-        </div>
-    </div>
 </section>
 {% endblock %}

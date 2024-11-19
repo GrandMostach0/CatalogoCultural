@@ -75,7 +75,7 @@ class Escuelas(models.Model):
 class Actor(models.Model):
     url_image_actor = models.ImageField(upload_to="imagenes/", null=True, blank=True,verbose_name="Image Perfil")
     nombre_Actor = models.CharField(max_length=80, null=False, blank=False, verbose_name="Nombres")
-    primero_apellido_Actor = models.CharField(max_length=80, null=False, blank=False, verbose_name="Primer Apellido")
+    primer_apellido_Actor = models.CharField(max_length=80, null=False, blank=False, verbose_name="Primer Apellido")
     segundo_apellido_Actor = models.CharField(max_length=80, null=False, blank=False, verbose_name="Segundo Apellido")
     biografia_Actor = models.TextField(null=True, blank=True, verbose_name="Biografia")
     correo_publico_Actor = models.CharField(max_length=100, null=False, blank=True, verbose_name="Correo Publico")
@@ -87,6 +87,10 @@ class Actor(models.Model):
 
     def __str__(self):
         return self.nombre_Actor
+    
+    ## funcion para mostrar el nombre del actorc completo
+    def nombre_completo(self):
+        return f"{self.nombre_Actor} {self.primer_apellido_Actor} {self.segundo_apellido_Actor}"
 
     class Meta:
         verbose_name = "Actor"

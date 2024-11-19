@@ -17,8 +17,8 @@
         {% include 'components/navbar.html' %}
 
         <div class="RutaPagina">
-            <p>Directorio Actores/Mariá José Pat Chable</p>
-            <a href="{% url 'actores' %}"> &larr; Volver Página</a>
+            <p>Directorio Actores/ {{ actor.nombre_completo }}</p>
+            <a href="{% url 'DirectorioActores' %}"> &larr; Volver Página</a>
             <div class="fechaPublicacion">
                 <p class="fecha">{{ fecha_actual }}</p>
                 <hr>
@@ -30,24 +30,20 @@
             
             <div class="escuela-imagen">
                 <div class="perfil-imagen">
-                    <img src="{% static 'assets/images/Avatar-img.jpg' %}" alt="Imagen de la escuela">
+                    <img src="{{ actor.url_image_actor.url }}" alt="Imagen de Perfil del Actor">
                 </div>
                 <br>
-                {% if user.is_authenticated %}
-                    <h1>{{user.username}}</h1>
-                {% else %}
-                    <h1>Mariá José Pat Chable</h1>
-                {% endif %}
-                <p>Artes Plasticas - Docencia</p>
+                <h1>{{ actor.nombre_completo }}</h1>
+                <p>{{ actor.id_subdisciplina }}</p>
                 <h2>Redes Sociales</h2>
                 <div class="escuela-imagen-redSocial">
-                    <a href="#">
+                    <a href="https://www.instagram.com/" target="_blank">
                         <img src="{% static 'assets/icons/insta-icon.svg' %}" alt="Logo Instagram">
                     </a>
-                    <a href="#">
+                    <a href="https://www.facebook.com/" target="_blank">
                         <img src="{% static 'assets/icons/face-icon.svg' %}" alt="Logo Facebook">
                     </a>
-                    <a href="#">
+                    <a href="https://x.com/" target="_blank">
                         <img src="{% static 'assets/icons/twitter-icon.svg' %}" alt="Logo Twitter">
                     </a>
                     <a href="#">
@@ -60,7 +56,7 @@
                 <div class="descripcion-seccion">
                     <h1>Biografía</h1>
                     <br>
-                    <p>Soy una artista plástica apasionada por crear vibrantes pinturas al óleo que exploran temas de la naturaleza y la identidad cultural. Mi trabajo ha sido exhibido en galerías de renombre tanto en América Latina como en Europa, captando la atención de críticos y coleccionistas. Encuentro mi inspiración en mis raíces indígenas y en la rica biodiversidad de mi país natal, fusionando tradición y modernidad en cada pincelada.</p>
+                    <p>{{ actor.biografia_Actor }}</p>
                 </div>
 
                 <div class="descripcion-seccion-informacion">
@@ -82,11 +78,11 @@
                         <div class="seccion-informacion">
                             <div class="informacion">
                                 <p style="font-weight: bold;">Teléfono:</p>
-                                <a href="tel:+529991234567">+52 999 123 4567</a>
+                                <a href="tel:+529991234567">{{ actor.Telefono_publico_Actor }}</a>
                             </div>
                             <div class="informacion">
                                 <p style="font-weight: bold;">Correo:</p>
-                                <a href="mailto: usuario@gmail.com">Usuario@gmail.com</a>
+                                <a href="mailto: usuario@gmail.com">{{ actor.correo_publico_Actor }}</a>
                             </div>
                         </div>
                     </div>

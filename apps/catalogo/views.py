@@ -79,7 +79,7 @@ def viewPageActores(request):
 class ActoresListView(ListView):
     model = Actor
     template_name = 'actores.html'
-    context_object_name = 'actor'
+    context_object_name = 'Actor'
 
     # paginacion
     paginate_by = 9
