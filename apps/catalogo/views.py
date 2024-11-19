@@ -8,7 +8,7 @@ from django.contrib.auth import login, authenticate, logout
 
 ### IMPORTACION DE LOS MODULOS
 from django.http import JsonResponse
-from .models import Disciplinas, Subdisciplinas, Escuelas
+from .models import Disciplinas, Subdisciplinas, Escuelas, Actor
 
 #### LISTVIEW PARA MOSTRAR CARDS
 from django.views.generic import ListView, DetailView
@@ -70,10 +70,25 @@ def baseCatalogo(request):
 
 def viewPageCartelera(request):
     return render(request, 'cartelera.html');
-
+# -----------------------------
+#   ACTORES
+# -----------------------------
 def viewPageActores(request):
-    return render(request, 'actores.html');
+    return render(request, 'actores.html')
 
+class ActoresListView(ListView):
+    model = Actor
+    template_name = 'actores.html'
+    context_object_name = 'actor'
+
+    # paginacion
+    paginate_by = 9
+
+class ActoresDetailView(DetailView):
+    model = Actor
+    template_name = 'viewPerfil.html'
+    context_object_name = 'actor'
+    
 # -----------------------------
 #   ESCUELAS / INSTITUCIONES
 # -----------------------------
