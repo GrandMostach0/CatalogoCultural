@@ -1,10 +1,11 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
 from datetime import datetime
 from django.http import JsonResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate, logout
 
 ### IMPORTACION DE LOS MODULOS
 from django.http import JsonResponse
@@ -31,6 +32,7 @@ def Inicio(request):
 def viewSesion(request):
     return render(request, 'IniciarSesion.html');
 
+######## FUNCION PARA LA VISTA DE INICIO
 def login_view(request):
     if request.method == 'POST':
         # Obtener los datos del formulario
@@ -51,15 +53,18 @@ def login_view(request):
 
     return render(request, 'IniciarSesion.html')
 
+###### FUNCION PARA SALIR DE SESION
 def logout_view(request):
     logout(request)
     messages.success(request, 'Has cerrado sesión exitosamente')
     return redirect('viewSesion')
 
+#### PAGINA PARA EL REGISTRO DE NUEVOS ACTORES
 def viewRegister(request):
     disclipinas = Disciplinas.objects.all();
     return render(request, 'RegistroSecion.html', {'disclipinas': disclipinas});
 
+# FUNCION QUE SIRVE PARA EL ENVIO DE LOS DATOS A LA BASE DE DATOS
 def registroForm(request):
     if request.method == 'POST':
         # Recibir los datos del formulario
@@ -103,6 +108,7 @@ def registroForm(request):
             messages.error(request, 'Subdisciplinas no encontradas')
             return redirect('RegistroSecion.html')
 
+# TEMPLATE QUE SIRVE PARA MOSTRAR LA INFORMACION DE LOS ACTORES
 def viewPerfil(request):
     fecha_actual = datetime.now().strftime("%d de %B del %Y");
     return render(request, 'viewPerfil.html', {'fecha_actual': fecha_actual});
@@ -111,17 +117,30 @@ def vistaPublicacion(request):
     fecha_actual = datetime.now().strftime("%d de %B del %Y")
     return render(request, "vistaPublicacion.html", {"fecha_actual": fecha_actual})
 
+
+# -----------------------------
+#  EDICION DE PERFIL DE UN USUARIO
+# -----------------------------
+@login_required
+def editarPerfil(request):
+    actor = Actor.objects.get(user = request.user) # obtenemos el actor actual
+
+    if request.method == 'POST':
+        actor.nombre_Actor = request.POST.get('nombre', actor.nombre_Actor)
+
 def vistaEvento(request):
     fecha_actual = datetime.now().strftime("%d de %B del %Y")
     return render(request, "vistaEvento.html", {"fecha_actual": fecha_actual})
 
+# TEMPLATE QUE SIRVE COMO BASE PARA LA LISTA DE EVENTOS Y LA LISTA DE LOS ACTORES
 def baseCatalogo(request):
     return render(request, 'CatalogoBase.html');
 
 def viewPageCartelera(request):
     return render(request, 'cartelera.html');
+
 # -----------------------------
-#   ACTORES
+#   LISTADO DE LOS ACTORES
 # -----------------------------
 def viewPageActores(request):
     return render(request, 'actores.html')
@@ -140,7 +159,7 @@ class ActoresDetailView(DetailView):
     context_object_name = 'actor'
     
 # -----------------------------
-#   ESCUELAS / INSTITUCIONES
+#   LISTADO DE LAS ESCUELAS / INSTITUCIONES
 # -----------------------------
 def viewPageInstituciones(request):
     escuelas = Escuelas.objects.all()
@@ -171,7 +190,7 @@ class EscuelaDetailView(DetailView):
 
 
 # -----------------------------
-#   SECCION PARA EL LISTADO DE LAS DISCIPLINAS
+#  SECCION APARA LA OBTENCION DE LOS DATOS DE LA BASE DE DATOS QUE PUEDA SERVIR EN LA PARTE DE FILTROS
 # -----------------------------
 # TABLA DE LAS DISCIPLINAS
 def get_Disciplinas(request):

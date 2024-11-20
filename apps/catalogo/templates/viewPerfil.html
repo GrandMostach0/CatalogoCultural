@@ -60,6 +60,14 @@
             </div>
 
             <div class="escuela-descripcion">
+
+                {% if actor.user == request.user %}
+                    <a id="editarPerfilForm" href="#" title="Editar Perfil">
+                        <img src="{% static 'assets/icons/editar-icon.svg' %}" alt="Editar Perfil icon">
+                        Editar Perfil 
+                    </a>
+                {% endif %}
+
                 <div class="descripcion-seccion">
                     <h1>Biografía</h1>
                     <br>
@@ -95,10 +103,13 @@
                     </div>
                 </div>
 
-                <section class="botones-publicaciones">
-                    <a id="abrirModalPublicacion" href="#" class="botones">Crear Publicación</a>
-                    <a id="abrirModalProyecto" href="#" class="botones">Crear Evento</a>
-                </section>
+                {% if actor.user == request.user %}
+                    <section class="botones-publicaciones">
+                        <a id="abrirModalPublicacion" href="#" class="botones">Crear Publicación</a>
+                        <a id="abrirModalProyecto" href="#" class="botones">Crear Evento</a>
+                    </section>
+                {% endif %}
+
 
                 {% include 'components/modalPublicacion.html' %}
                 {% include 'components/modalPublicacionEvento.html' %}
