@@ -12,18 +12,24 @@
         <div class="swiper">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
+
+                    {% for actor in actores %}
+
                     <div class="swiper-slide ">
-                        <img src="{% static 'assets/images/Avatar-img.jpg' %}" alt="">
+                        <img src="{{ actor.url_image_actor.url }}" alt="Imagen del Actor">
         
                         <div class="card-container">
-                            <p>María José Pat Chable</p>
-                            <p style="color: #717070; font-weight: normal;">Artista - Docente</p>
+                            <p>{{ actor.nombre_completo }}</p>
+                            <p style="color: #717070; font-weight: normal;">{{ actor.id_subdisciplina }}</p>
                             <div class="card-button">
-                                <a href="#" class="buttonTag"> Visitar Perfil </a>
+                                <a href="{% url 'PerfilActor' actor.pk %}" class="buttonTag"> Visitar Perfil </a>
                             </div>
                         </div>
                     </div>
-        
+
+                    {% endfor %}
+                    
+                    <!-- documentacion prueba 
                     <div class="swiper-slide ">
                         <img src="{% static 'assets/images/Avatar-img.jpg' %}" alt="">
                     
@@ -95,19 +101,7 @@
                             </div>
                         </div>
                     </div>
-        
-                    <div class="swiper-slide ">
-                        <img src="{% static 'assets/images/Avatar-img.jpg' %}" alt="">
-                    
-                        <div class="card-container">
-                            <p>María José Pat Chable</p>
-                            <p style="color: #717070; font-weight: normal;">Artista</p>
-                            <div class="card-button">
-                                <a href="#" class="buttonTag"> Visitar Perfil </a>
-                            </div>
-                        </div>
-                    </div>
-        
+                        -->
                 </div>
             </div>
 

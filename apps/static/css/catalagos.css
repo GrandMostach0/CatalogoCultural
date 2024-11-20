@@ -19,14 +19,17 @@
     padding: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(200px, 290px));
     grid-auto-flow: dense;
     gap: 30px;
+    max-height: 100%;
 }
 
 /* estilos de las cards del catalogo*/
 .card-catalogo{
     border: 1px solid black;
     border-radius: 10px;
+    max-height: 400px;
     overflow: hidden;
 }
 
