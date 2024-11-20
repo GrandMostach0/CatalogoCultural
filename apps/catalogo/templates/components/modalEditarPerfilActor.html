@@ -1,0 +1,63 @@
+<div id="editarPerfilModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Editar Información</h2>
+
+        <form action="#" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label for="imagenPerfil">
+                Imagen de Perfil:
+                <input id="imagenPerfil" name="imagenPerfil" class="inputs" type="file">
+            </label>
+
+            <label for="nombre">
+                Nombres:
+                <input class="inputs" type="text" placeholder="Juan Carlos" name="nombre" id="nombre" value="{{ actor.nombre_Actor }}">
+            </label>
+
+            <div class="dosOpciones">
+                <label for="primerApellido">
+                    Primer Apellido:
+                    <input class="inputs" class="labelMitad" placeholder="Uc" type="text" name="primerApellido" id="primerApellido" value="{{ actor.primer_apellido_Actor }}">
+                </label>
+
+                <label for="segundoApellido">
+                    Segundo Apellido:
+                    <input class="inputs" class="labelMitad" placeholder="Canul" type="text" name="segundoApellido" id="segundoApellido" value="{{ actor.segundo_apellido_Actor }}">
+                </label>
+            </div>
+
+            <label for="biografia">
+                Biografía:
+                <textarea rows="5" cols="30" class="inputs" name="biografia" id="biografia" placeholder="Cuentanos tu carrera artistica">
+                    {{ actor.biografia_Actor}}
+                </textarea>
+            </label>
+
+            <label for="correo_publico">
+                Correo Eléctronico Publico:
+                <input class="inputs" placeholder="correo@gmail.com" type="email" name="correo_publico" id="correo_publico" value="{{ actor.correo_publico_Actor }}">
+            </label>
+
+            <label style="font-weight: bold;" for="correo_privado">
+                Correo Eléctronico Privado:
+                <input class="inputs" placeholder="correo@gmail.com" type="email" name="correo_privado" id="correo_privado" value="{{ actor.correo_privado_actor }}">
+            </label>
+
+            <label for="telefono_publico">
+                Télefono Público:
+                <input class="inputs" type="text" maxlength="10" placeholder="9994550000" id="telefono_publico" name="telefono_publico" value="{{ actor.Telefono_publico_Actor}}">
+            </label>
+
+            <label style="font-weight: bold;" for="telefono_privado">
+                Télefono Privado:
+                <input class="inputs" type="text" maxlength="10" placeholder="9994550000" id="telefono_privado" name="telefono_privado" value="{{ actor.Telefono_privado_actor }}">
+            </label>
+
+            <button type="submit">Modificar</button>
+            <button id="btnCancelar3" type="reset">Cancelar</button>
+        </form>
+
+    </div>
+</div>

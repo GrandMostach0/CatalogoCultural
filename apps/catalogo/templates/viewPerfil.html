@@ -62,7 +62,7 @@
             <div class="escuela-descripcion">
 
                 {% if actor.user == request.user %}
-                    <a id="editarPerfilForm" href="#" title="Editar Perfil">
+                    <a id="abrirEditarPerfilModal" href="#" title="Editar Perfil">
                         <img src="{% static 'assets/icons/editar-icon.svg' %}" alt="Editar Perfil icon">
                         Editar Perfil 
                     </a>
@@ -113,10 +113,7 @@
 
                 {% include 'components/modalPublicacion.html' %}
                 {% include 'components/modalPublicacionEvento.html' %}
-
-                    </div>
-                </div>
-
+                {% include 'components/modalEditarPerfilActor.html' %}
 
             </div>
         </main>
@@ -128,6 +125,7 @@
     <!----- IMPLEMENTACION DEL SCRIPT PARA ABIRIR EL MODAL -->
     <script src="{% static 'js/modal.js' %}"></script>
     <script src="{% static 'js/modalProyecto.js' %}"></script>
+    <script src="{% static 'js/ediciones/modalEditarPerfil.js' %}" ></script>
 </body>
 
 </html>

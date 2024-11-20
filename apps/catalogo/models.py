@@ -88,7 +88,7 @@ class Actor(models.Model):
     id_escuela = models.ForeignKey(Escuelas, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return self.nombre_Actor
+        return f"{self.nombre_Actor} {self.primer_apellido_Actor} {self.segundo_apellido_Actor}"
     
     ## funcion para mostrar el nombre del actorc completo
     def nombre_completo(self):
