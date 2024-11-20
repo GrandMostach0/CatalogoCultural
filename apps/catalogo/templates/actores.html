@@ -51,9 +51,15 @@
 
     {% for actor in Actor %}
     <div class="card-catalogo">
+        
         <div class="card-catalogo-imagen">
-            <img loading="lazy" src="{{ actor.url_image_actor.url }}" alt="Imagen de la card">
+            {% if actor.url_image_actor %}
+                <img loading="lazy" src="{{ actor.url_image_actor.url }}" alt="Imagen de la card">
+            {% else %}
+                <img loading="lazy" src="{% static 'assets/images/default/imagenPerfil.jpg' %}" alt="Imagen de Perfil del Actor">
+            {% endif %}
         </div>
+
         <div class="card-catalogo-contenido">
             <h3>{{ actor.nombre_completo}}</h3>
             <p class="etiqueta">{{ actor.id_subdisciplina }}</p>

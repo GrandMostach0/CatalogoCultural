@@ -98,7 +98,7 @@ def registroForm(request):
             )
 
             messages.success(request, 'Registro exitoso')
-            return redirect('index')
+            return redirect('viewSesion')
         except Subdisciplinas.DoesNotExist:
             messages.error(request, 'Subdisciplinas no encontradas')
             return redirect('RegistroSecion.html')

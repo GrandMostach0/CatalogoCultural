@@ -29,9 +29,16 @@
         <main class="container-escuela">
             
             <div class="escuela-imagen">
+
                 <div class="perfil-imagen">
-                    <img src="{{ actor.url_image_actor.url }}" alt="Imagen de Perfil del Actor">
+                    {% if actor.url_image_actor %}
+                        <img src="{{ actor.url_image_actor.url }}" alt="Imagen de Perfil del Actor">
+                    {% else %}
+                        <img src="{% static 'assets/images/default/imagenPerfil.jpg' %}" alt="Imagen de Perfil del Actor">
+                    {% endif %}
                 </div>
+
+
                 <br>
                 <h1>{{ actor.nombre_completo }}</h1>
                 <p>{{ actor.id_subdisciplina }}</p>
