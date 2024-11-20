@@ -38,12 +38,12 @@ def login_view(request):
         contrasenia = request.POST.get('Contrasenia')
 
         try:
-            usuario = User.objects.get(email = correo)
+            usuario = User.objects.get(username = correo)
             usuario = authenticate(request, username = usuario.username, password = contrasenia)
 
             if usuario is not None:
                 login(request, usuario)
-                return redirect('viewPerfil')
+                return redirect('index')
             else:
                 messages.error(request, 'Contraseñia incorrecta.')
         except User.DoesNotExist:
@@ -59,6 +59,49 @@ def logout_view(request):
 def viewRegister(request):
     disclipinas = Disciplinas.objects.all();
     return render(request, 'RegistroSecion.html', {'disclipinas': disclipinas});
+
+def registroForm(request):
+    if request.method == 'POST':
+        # Recibir los datos del formulario
+        nombre = request.POST.get('nombre')
+        primer_apellido = request.POST.get('primerApellido')
+        segundo_apellido = request.POST.get('segundoApellido')
+        correo = request.POST.get('Correo')
+        contrasenia = request.POST.get('Contrasenia')
+        confir_contrasenia = request.POST.get('confirContrasenia')
+        disciplina = request.POST.get('disciplina')
+        subdisciplina = request.POST.get('subDisciplina')
+        fecha_nacimiento = request.POST.get('fechaNacimineto')
+
+        # validacion simple de contraseña
+        if contrasenia != confir_contrasenia:
+            messages.error(request, 'Las contraseñas con coinciden')
+            return render(request, 'RegistroSecion.html')
+        
+        # validacion para ver si ya existe el usuario
+        if User.objects.filter(username = correo).exists():
+            messages.error(request, 'El correo ya existe')
+            return render(request, 'RegistroSecion.html')
+
+        usuario = User.objects.create_user(username=correo, password=contrasenia)
+
+        # creacion del usuario en django
+        try:
+            subdisciplina_obj = Subdisciplinas.objects.get(id=subdisciplina)
+            actor = Actor.objects.create(
+                user = usuario,
+                nombre_Actor = nombre,
+                primer_apellido_Actor = primer_apellido,
+                segundo_apellido_Actor = segundo_apellido,
+                correo_privado_actor = correo,
+                id_subdisciplina = subdisciplina_obj,
+            )
+
+            messages.success(request, 'Registro exitoso')
+            return redirect('index')
+        except Subdisciplinas.DoesNotExist:
+            messages.error(request, 'Subdisciplinas no encontradas')
+            return redirect('RegistroSecion.html')
 
 def viewPerfil(request):
     fecha_actual = datetime.now().strftime("%d de %B del %Y");

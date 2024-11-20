@@ -25,6 +25,7 @@ urlpatterns = [
     path("PerfilEscuela/<int:pk>/", EscuelaDetailView.as_view(), name="PerfilEscuela"),
     path("viewRegistro/disciplinas/", views.get_Disciplinas, name="get_disciplinas"),
     path("viewRegistro/subdisciplinas/<int:id_disciplina>", views.get_Subdisciplinas, name="get_subdisciplinas"),
+    path("registroForm/", views.registroForm, name="registroForm"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

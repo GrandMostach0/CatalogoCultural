@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -73,6 +74,7 @@ class Escuelas(models.Model):
 
 # TABLA DEL ACTOR
 class Actor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="Actor_perfil", null=True, blank=True)
     url_image_actor = models.ImageField(upload_to="imagenes/", null=True, blank=True,verbose_name="Image Perfil")
     nombre_Actor = models.CharField(max_length=80, null=False, blank=False, verbose_name="Nombres")
     primer_apellido_Actor = models.CharField(max_length=80, null=False, blank=False, verbose_name="Primer Apellido")

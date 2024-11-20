@@ -19,8 +19,16 @@
                 <a href="{% url 'index' %}">
                     <h1>Catálogo cultural</h1>
                 </a>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <p style="color:red;">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+
                 <p>Bienvenido a la <strong>Sección de Registro</strong></p>
-                <form action="{% url 'index' %}">
+                <form method="POST" action="{% url 'registroForm' %}">
+                    {% csrf_token %}
                     <label for="nombre">
                         Nombre Completo:
                         <input placeholder="Juan Carlos" type="text" name="nombre" id="nombre">
@@ -29,12 +37,12 @@
                     <div class="dosOpciones">
                         <label for="primerApellido">
                             Primer Apellido:
-                            <input class="labelMitad" placeholder="Uc Canul" type="text" name="primerApellido" id="primerApellido">
+                            <input class="labelMitad" placeholder="Uc" type="text" name="primerApellido" id="primerApellido">
                         </label>
 
                         <label for="segundoApellido">
                             Segundo Apellido:
-                            <input class="labelMitad" placeholder="Uc Canul" type="text" name="segundoApellido" id="segundoApellido">
+                            <input class="labelMitad" placeholder="Canul" type="text" name="segundoApellido" id="segundoApellido">
                         </label>
                     </div>
 
@@ -62,17 +70,18 @@
                     
                         <label for="subDisciplina">
                             Subdisciplina:
-                            <select name="disciplina" id="subDisciplina">
-                                <option value="0">Seleccione una Opción</option>
+                            <select name="subDisciplina" id="subDisciplina">
                             </select>
                         </label>
                     </div>
                     <br>
+
+                    <!-- Fecha de nacimiento 
                     <label for="fechaNacimiento">
                         Ingrese Fecha de Nacimiento:
                         <input type="date" name="fechaNacimineto" id="fechaNacimiento">
                     </label>
-
+                        -->
                     <button type="submit">Registrar</button>
                 </form>
                 <hr>
@@ -81,7 +90,7 @@
             </div>
         </main>
 
-        <!----- FOOTER DE LA PÁGINA ----->
+        <!-- FOOTER DE LA PÁGINA -->
         {% include 'components/footer.html' %}
         <script src="{% static 'js/listado.js' %}"></script>
     </div>
