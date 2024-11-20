@@ -6,25 +6,29 @@
 
         <div class="subseccion">
             <p>Conoce y contacta a las diferentes Instituciones Academicas de arté que se encuentran ubicadas en el Estado de Yucatán..</p>
-            <a href="#" class="buttonTag"> Descubré más </a>
+            <a href="{% url 'DirectorioEscuelas' %}" class="buttonTag"> Descubré más </a>
         </div>
 
         <div class="swiper">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
 
+                    {% for escuela in escuelas %}
                     <div class="swiper-slide">
-                        <img src="{% static 'assets/images/Institucion1.jpg' %}" alt="">
+                        <img src="{{ escuela.url_imagen_escuela.url }}" alt="Imagen de la escuela">
         
                         <div class="card-container">
-                            <p>Universidad de las Artes de Yucatán</p>
-                            <p style="color: #717070; font-weight: normal;">Institución</p>
+                            <p>{{ escuela.nombre_escuela }}</p>
+                            <p style="color: #717070; font-weight: normal;">Escuela</p>
                             <div class="card-button">
-                                <a href="#" class="buttonTag"> Visitar Perfil </a>
+                                <a href="{% url 'PerfilEscuela' escuela.pk %}" class="buttonTag"> Visitar Perfil </a>
                             </div>
                         </div>
                     </div>
-        
+
+                    {% endfor %}
+
+                    <!-- documentacion de pruebas 
                     <div class="swiper-slide">
                         <img src="{% static 'assets/images/Institucion2.png' %}" alt="">
         
@@ -108,7 +112,7 @@
                             </div>
                         </div>
                     </div>
-        
+                    -->
                 </div>
             </div>
 
