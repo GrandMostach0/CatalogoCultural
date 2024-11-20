@@ -18,8 +18,14 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 def Inicio(request):
-    actores_pupulares = Actor.objects.all()[:7]
-    return render(request, 'index.html', {"actores": actores_pupulares})
+    actores_pupulares = Actor.objects.all()[:7] # actores populares
+    escuelas_populares = Escuelas.objects.all()[:7] # escuelas populares
+
+    context = {
+        'actores': actores_pupulares,
+        'escuelas': escuelas_populares
+    }
+    return render(request, 'index.html', context)
 
 ## METODOS PARA INICIAR SESION
 def viewSesion(request):
