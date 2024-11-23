@@ -103,12 +103,11 @@
                     </div>
                 </div>
 
-                {% if actor.user == request.user %}
+                
                     <section class="botones-publicaciones">
                         <a id="abrirModalPublicacion" href="#" class="botones">Crear Publicación</a>
                         <a id="abrirModalProyecto" href="#" class="botones">Crear Evento</a>
                     </section>
-                {% endif %}
 
 
                 {% include 'components/modalPublicacion.html' %}
