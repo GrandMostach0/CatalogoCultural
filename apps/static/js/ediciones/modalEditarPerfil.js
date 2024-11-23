@@ -1,3 +1,22 @@
+const listarCatalogoRedesSociales = async() => {
+    try {
+        const response = await fetch("catalogoSocial/")
+        const data2 = await response.json();
+        console.log(data2);
+    }catch(error){
+        console.log(error);
+    }
+}
+
+const cargaInicial = async() => {
+    await listarCatalogoRedesSociales();
+}
+
+window.addEventListener("load", async () => {
+    await listarCatalogoRedesSociales();
+});
+
+
 document.addEventListener("DOMContentLoaded", function() {
     var modal = document.getElementById("editarPerfilModal");
     var abrirModal = document.getElementById("abrirEditarPerfilModal");
@@ -33,12 +52,12 @@ document.addEventListener("DOMContentLoaded", function() {
         // Crear el select y el input de URL
         var selectRedSocial = document.createElement("select");
         selectRedSocial.classList.add("redes-select");
-        selectRedSocial.name = "red_social[]"; // Asegúrate de que el nombre sea el mismo para todos los campos
-        selectRedSocial.innerHTML = `
-            <option value="facebook">Facebook</option>
-            <option value="instagram">Instagram</option>
-            <option value="twitter">Twitter</option>
-        `;
+        selectRedSocial.name = "red_social[]";
+
+        // Crear las opciones de redes sociales registradas
+        var opciones = '';
+
+        selectRedSocial.innerHTML = opciones;
 
         var inputUrlRedSocial = document.createElement("input");
         inputUrlRedSocial.type = "url";

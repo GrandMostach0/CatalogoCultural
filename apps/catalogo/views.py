@@ -6,10 +6,11 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 
 ### IMPORTACION DE LOS MODULOS
 from django.http import JsonResponse
-from .models import Disciplinas, Subdisciplinas, Escuelas, Actor
+from .models import Disciplinas, Subdisciplinas, Escuelas, Actor, RedSocial, Cat_redSocial
 
 #### LISTVIEW PARA MOSTRAR CARDS
 from django.views.generic import ListView, DetailView
@@ -49,7 +50,8 @@ def login_view(request):
 
             if usuario is not None:
                 login(request, usuario)
-                return redirect('index')
+                actor = Actor.objects.get(user=usuario)
+                return redirect('PerfilActor', pk=actor.id)
             else:
                 messages.error(request, 'Contraseñia incorrecta.')
         except User.DoesNotExist:
@@ -126,11 +128,34 @@ def vistaPublicacion(request):
 #  EDICION DE PERFIL DE UN USUARIO
 # -----------------------------
 @login_required
-def editarPerfil(request):
+def editarPerfil(request,):
     actor = Actor.objects.get(user = request.user) # obtenemos el actor actual
+    catalogo_redes_sociales = Cat_redSocial.objects.all()
 
     if request.method == 'POST':
-        actor.nombre_Actor = request.POST.get('nombre', actor.nombre_Actor)
+        if actor.user == request.user:
+            actor.nombre_Actor = request.POST.get('nombre', actor.nombre_Actor)
+            actor.primer_apellido_Actor = request.POST.get('primeroApellido', actor.primer_apellido_Actor)
+            actor.segundo_apellido_Actor = request.POST.get('segundoApellido', actor.segundo_apellido_Actor)
+            actor.biografia_Actor = request.POST.get('biografia', actor.biografia_Actor)
+            actor.correo_privado_actor = request.POST.get('correoPublico', actor.correo_privado_actor)
+            actor.correo_publico_Actor = request.POST.get('correoPrivado', actor.correo_publico_Actor)
+            actor.Telefono_privado_actor = request.POST.get('telefonoPrivado', actor.Telefono_privado_actor)
+            actor.Telefono_publico_Actor = request.POST.get('telefonoPublico', actor.Telefono_publico_Actor)
+
+            # Guardar las redes sociales
+            redes_sociales = request.POST.getlist('red_social[]')
+            urls_redes = request.POST.getlist('url_red_social[]')
+
+            for red, url in zip(redes_sociales, urls_redes):
+                red_social = Cat_redSocial.objects.get(nombre_redSocial = red)
+                RedSocial.objects.get(id_actor = actor, id_redSocial = red_social, enlace_redSocial = url)
+            
+            actor.save()
+
+            return redirect('PerfilActor', actor_id = actor.id)
+    
+    return render(request, 'viewPerfil.html', {'actor':actor, 'cat_redes_sociales': catalogo_redes_sociales})
 
 def vistaEvento(request):
     fecha_actual = datetime.now().strftime("%d de %B del %Y")
@@ -161,7 +186,21 @@ class ActoresDetailView(DetailView):
     model = Actor
     template_name = 'viewPerfil.html'
     context_object_name = 'actor'
-    
+
+    # obtencion de los datos de las redes sociales
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        actor = self.object  # El actor ya está en el contexto
+
+        actor_content_type = ContentType.objects.get_for_model(Actor)
+
+        # Verificamos si el actor tiene redes sociales
+        redes = RedSocial.objects.filter(content_type=actor_content_type, object_id=actor.id)
+
+        # Agregamos la variable 'redes' al contexto para usarla en la plantilla
+        context['redes_sociales'] = redes
+        context['tiene_redes'] = redes.exists()
+        return context
 # -----------------------------
 #   LISTADO DE LAS ESCUELAS / INSTITUCIONES
 # -----------------------------
@@ -216,4 +255,3 @@ def get_Subdisciplinas(request, id_disciplina):
         data = {'message' : "Not Found"}
 
     return JsonResponse(data)
-

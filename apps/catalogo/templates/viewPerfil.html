@@ -44,18 +44,22 @@
                 <p>{{ actor.id_subdisciplina }}</p>
                 <h2>Redes Sociales</h2>
                 <div class="escuela-imagen-redSocial">
-                    <a href="https://www.instagram.com/" target="_blank">
-                        <img src="{% static 'assets/icons/insta-icon.svg' %}" alt="Logo Instagram">
-                    </a>
-                    <a href="https://www.facebook.com/" target="_blank">
-                        <img src="{% static 'assets/icons/face-icon.svg' %}" alt="Logo Facebook">
-                    </a>
-                    <a href="https://x.com/" target="_blank">
-                        <img src="{% static 'assets/icons/twitter-icon.svg' %}" alt="Logo Twitter">
-                    </a>
-                    <a href="#">
-                        <img src="{% static 'assets/icons/web-icon.svg' %}" alt="Logo Twitter">
-                    </a>
+                    {% if tiene_redes %}
+                        <a href="https://www.instagram.com/" target="_blank">
+                            <img src="{% static 'assets/icons/insta-icon.svg' %}" alt="Logo Instagram">
+                        </a>
+                        <a href="https://www.facebook.com/" target="_blank">
+                            <img src="{% static 'assets/icons/face-icon.svg' %}" alt="Logo Facebook">
+                        </a>
+                        <a href="https://x.com/" target="_blank">
+                            <img src="{% static 'assets/icons/twitter-icon.svg' %}" alt="Logo Twitter">
+                        </a>
+                        <a href="#">
+                            <img src="{% static 'assets/icons/web-icon.svg' %}" alt="Logo Twitter">
+                        </a>
+                    {% else %}
+                        <p><strong>Este Perfil no tiene redes Sociales </strong></p>
+                    {% endif %}
                 </div>
             </div>
 
@@ -103,12 +107,12 @@
                     </div>
                 </div>
 
-                
+                {% if actor.user == request.user %}
                     <section class="botones-publicaciones">
                         <a id="abrirModalPublicacion" href="#" class="botones">Crear Publicación</a>
                         <a id="abrirModalProyecto" href="#" class="botones">Crear Evento</a>
                     </section>
-
+                {% endif %}
 
                 {% include 'components/modalPublicacion.html' %}
                 {% include 'components/modalPublicacionEvento.html' %}

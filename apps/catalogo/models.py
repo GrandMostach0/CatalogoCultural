@@ -1,5 +1,8 @@
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -133,32 +136,6 @@ class publicacionEventos(models.Model):
         verbose_name_plural = "PublicacionEventos"
         db_table = "PublicacionEvento"
 
-# TABLA CATALOGO REDSOCIAL (Cat_redSocial)
-class Cat_redSocial(models.Model):
-    nombre_redSocial = models.CharField(max_length=80, verbose_name="Red Social", blank=False)
-
-    def __str__(self):
-        return self.nombre_redSocial
-
-    class Meta:
-        verbose_name = "CatalogoRedSocial"
-        verbose_name_plural = "CatalogoRedesSociales"
-        db_table = "CatalogoRedesSociales"
-
-# TABLA REDES SOCIALES (RedSocial)
-class RedSocial(models.Model):
-    enlace_redSocial = models.CharField(max_length=500, verbose_name="enlace")
-    actor = models.ForeignKey(Actor, on_delete=models.CASCADE, null=True, related_name="Redes_Sociales")
-    id_redSocial = models.ForeignKey(Cat_redSocial, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.id_redSocial.nombre_redSocial} - {self.enlace_redSocial}"
-
-    class Meta:
-        verbose_name = "RedSocial"
-        verbose_name_plural = "RedesSociales"
-        db_table = "RedSocial"
-
 # TABLA DE LAS PUBLICACIONES
 class Imagenes_publicaciones(models.Model):
     url_imagen = models.ImageField(upload_to="imagenes/", null=True, blank=True, verbose_name="imageneURL")
@@ -171,3 +148,33 @@ class Imagenes_publicaciones(models.Model):
         verbose_name = "imagenPublicacion"
         verbose_name_plural = "imagenPublicaciones"
         db_table = "ImagenPublicaciones"
+
+# TABLA CATALOGO REDSOCIAL (Cat_redSocial)
+class Cat_redSocial(models.Model):
+    nombre_redSocial = models.CharField(max_length=80, verbose_name="Red Social", blank=False)
+    logo = models.ImageField(upload_to='logos_redes/', null=True, blank=True)
+
+    def __str__(self):
+        return self.nombre_redSocial
+
+    class Meta:
+        verbose_name = "CatalogoRedSocial"
+        verbose_name_plural = "CatalogoRedesSociales"
+        db_table = "CatalogoRedesSociales"
+
+# TABLA REDES SOCIALES (RedSocial)
+class RedSocial(models.Model):
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    enlace_redSocial = models.CharField(max_length=500, verbose_name="enlace")
+    id_redSocial = models.ForeignKey(Cat_redSocial, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.id_redSocial.nombre_redSocial} - {self.enlace_redSocial}"
+
+    class Meta:
+        verbose_name = "RedSocial"
+        verbose_name_plural = "RedesSociales"
+        db_table = "RedSocial"
