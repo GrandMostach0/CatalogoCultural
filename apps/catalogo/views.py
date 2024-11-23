@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -10,7 +11,7 @@ from django.contrib.contenttypes.models import ContentType
 
 ### IMPORTACION DE LOS MODULOS
 from django.http import JsonResponse
-from .models import Disciplinas, Subdisciplinas, Escuelas, Actor, RedSocial, Cat_redSocial
+from .models import Disciplinas, Subdisciplinas, Escuelas, Actor, RedSocial, Cat_redSocial, Imagenes_publicaciones
 
 #### LISTVIEW PARA MOSTRAR CARDS
 from django.views.generic import ListView, DetailView
@@ -237,8 +238,17 @@ class EscuelaDetailView(DetailView):
 
         Escuela_content_type = ContentType.objects.get_for_model(Escuelas)
 
-        # Verificamos si el actor tiene redes sociales
+        # Verificamos si la escuela tiene redes sociales
         redes = RedSocial.objects.filter(content_type=Escuela_content_type, object_id=Escuela.id)
+
+        # Verificamos si la escuela tiene mas de 1 imagen
+        imagenes = Imagenes_publicaciones.objects.filter(content_type=Escuela_content_type, object_id=Escuela.id)
+
+        # Crear una lista de URLs de las imágenes
+        imagenes_urls = [imagen.url_imagen.url for imagen in imagenes]
+
+        # Pasar las URLs de las imágenes al contexto
+        context['imagenes_urls'] = json.dumps(imagenes_urls)
 
         # Agregamos la variable 'redes' al contexto para usarla en la plantilla
         context['redes_sociales'] = redes

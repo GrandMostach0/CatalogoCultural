@@ -43,6 +43,18 @@ class Audiencia(models.Model):
         verbose_name_plural = "Audiencias"
         db_table = "audiencia"
 
+# SECUNDARIA
+class Localidad(models.Model):
+    nombre_ubicacion = models.CharField(max_length=50, verbose_name="Lugar")
+
+    def __str__(self):
+        return self.nombre_ubicacion
+    
+    class Meta:
+        verbose_name = "Localidad"
+        verbose_name_plural = "Localidades"
+        db_table = "Localidades"
+
 # TABLA UBICACIONES
 class Ubicaciones_Comunes(models.Model):
     nombre_ubicacion = models.CharField(max_length=100,null=True, verbose_name="Ubicacion")
@@ -67,6 +79,8 @@ class Escuelas(models.Model):
     ubicacion_escuela = models.CharField(max_length=100, null=True, blank=True, verbose_name="Ubicacion");
     hora_atencion = models.CharField(max_length=50, verbose_name="Horario Atencion")
     paginaOficial = models.URLField(verbose_name="Pagina Oficial", null=True, blank=True)
+
+    id_localidad = models.ForeignKey(Localidad, on_delete=models.CASCADE, verbose_name="Localidad", null=True)
 
     def __str__(self):
         return self.nombre_escuela
@@ -144,9 +158,6 @@ class Imagenes_publicaciones(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     url_imagen = models.ImageField(upload_to="imagenesPublicadas/", null=True, blank=True, verbose_name="imageneURL")
-
-    def __str__(self):
-        return self.id_publicacion.titulo_publicacion
 
     class Meta:
         verbose_name = "imagenPublicacion"

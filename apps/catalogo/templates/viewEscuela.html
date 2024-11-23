@@ -74,6 +74,10 @@
                                 <p style="font-weight: bold;">Horario de atención:</p>
                                 <p>{{ Escuela.hora_atencion }}</p>
                             </div>
+                            <div class="informacion">
+                                <p style="font-weight: bold;">Tipo Escuela:</p>
+                                <p>{% if Escuela.tipo_escuela %} Público {% else %} Privado {% endif %}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -99,13 +103,14 @@
         
     </div>
 
-    <script>
+    <script type="text/javascript">
         // Lista de las imagenés del slider
-            const imagenes = [
-                "{{ Escuela.url_imagen_escuela.url }}",
-                "{% static 'assets/images/Institucion2.png' %}",
-                "{% static 'assets/images/Institucion3.jpg' %}"
-            ];
+            const imagenes = JSON.parse('{{ imagenes_urls|escapejs }}');
+
+            if (imagenes.length === 0) {
+                // Agregar una imagen por defecto si no hay imágenes
+                imagenes.push("{% static 'assets/images/default/noFotos.avif' %}");
+            }
 
             let currentIndex = 0;
             const escuelaImagen = document.querySelector('.escuelaImagen img');
