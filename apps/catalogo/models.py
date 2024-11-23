@@ -152,7 +152,7 @@ class Imagenes_publicaciones(models.Model):
 # TABLA CATALOGO REDSOCIAL (Cat_redSocial)
 class Cat_redSocial(models.Model):
     nombre_redSocial = models.CharField(max_length=80, verbose_name="Red Social", blank=False)
-    logo = models.ImageField(upload_to='logos_redes/', null=True, blank=True)
+    logo = models.FileField(upload_to='logos_redes/', null=True, blank=True)
 
     def __str__(self):
         return self.nombre_redSocial

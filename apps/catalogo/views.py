@@ -231,6 +231,19 @@ class EscuelaDetailView(DetailView):
     template_name = "viewEscuela.html"
     context_object_name = "Escuela"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        Escuela = self.object  # El actor ya está en el contexto
+
+        Escuela_content_type = ContentType.objects.get_for_model(Escuelas)
+
+        # Verificamos si el actor tiene redes sociales
+        redes = RedSocial.objects.filter(content_type=Escuela_content_type, object_id=Escuela.id)
+
+        # Agregamos la variable 'redes' al contexto para usarla en la plantilla
+        context['redes_sociales'] = redes
+        context['tiene_redes'] = redes.exists()
+        return context
 
 # -----------------------------
 #  SECCION APARA LA OBTENCION DE LOS DATOS DE LA BASE DE DATOS QUE PUEDA SERVIR EN LA PARTE DE FILTROS
