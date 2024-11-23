@@ -12,39 +12,13 @@
 {% block content %}
 <section class="container-filtro-catalogo">
     <h2>Filtro</h2>
-    <div class="container-filtro-opciones">
-        <p>Categorías:</p>
-        <select name="discilinas" id="disciplinas">
-            <option value="0">Todos</option>
-            <option value="1">Música</option>
-            <option value="2">Baile</option>
-            <option value="3">Artes</option>
-        </select>
-    </div>
-
-    <div class="container-filtro-opciones">
-        <p>Ubicación:</p>
-        <select name="ubicacionInstitucion" id="dubicacionInstitucion">
-            <option value="0">Todos</option>
-            <option value="1">Mérida</option>
-            <option value="2">Maní</option>
-            <option value="3">Izamal</option>
-        </select>
-    </div>
-
-    <div class="container-filtro-opciones">
-        <p>Tipo:</p>
-        <select name="Mensualidad" id="Mensualidad">
-            <option value="0">Todos</option>
-            <option value="1">Publico</option>
-            <option value="2">Privada</option>
-        </select>
-    </div>
-
-    <div class="container-filtro-opciones">
-        <a href="#" class="botones">Aplicar Cambios</a>
-        <a href="#" class="botones">Restablecer</a>
-    </div>
+    <form method="GET">
+        <!-- El filtro de localidad se renderiza automáticamente con filter.form -->
+        {{ filter.form }}  <!-- Esto renderiza todos los filtros, incluido 'localidad' -->
+        <button type="submit">Filtrar</button>
+        <br>
+        <a href="{% url 'DirectorioEscuelas' %}" class="botones">Restablecer</a>
+    </form>
 </section>
 
 <section class="container-cards-catalogo">

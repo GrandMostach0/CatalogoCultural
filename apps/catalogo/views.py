@@ -18,7 +18,7 @@ from django.views.generic import ListView, DetailView
 
 ## filtros
 from django_filters.views import FilterView
-from .filters import ActorFilter
+from .filters import ActorFilter, EscuelaFilter
 
 # PRUEBA
 from django.core.paginator import Paginator
@@ -215,10 +215,11 @@ def viewPageInstituciones(request):
     return render(request, 'instituciones.html', {'page_obj': page_obj});
 
 # funcion para listar las escuelas
-class EscuelaListView(ListView):
+class EscuelaListView(FilterView):
     model = Escuelas
     template_name = 'instituciones.html'
     context_object_name = "Escuelas"
+    filterset_class = EscuelaFilter
 
     # paginacion
     paginate_by = 9
