@@ -14,6 +14,10 @@ from .models import Disciplinas, Subdisciplinas, Escuelas, Actor
 #### LISTVIEW PARA MOSTRAR CARDS
 from django.views.generic import ListView, DetailView
 
+## filtros
+from django_filters.views import FilterView
+from .filters import ActorFilter
+
 # PRUEBA
 from django.core.paginator import Paginator
 
@@ -145,11 +149,11 @@ def viewPageCartelera(request):
 def viewPageActores(request):
     return render(request, 'actores.html')
 
-class ActoresListView(ListView):
+class ActoresListView(FilterView):
     model = Actor
     template_name = 'actores.html'
     context_object_name = 'Actor'
-
+    filterset_class = ActorFilter
     # paginacion
     paginate_by = 9
 
