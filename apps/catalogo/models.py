@@ -60,6 +60,7 @@ class Ubicaciones_Comunes(models.Model):
 class Escuelas(models.Model):
     url_imagen_escuela = models.ImageField(upload_to="imagenes/", null=False, blank=False, verbose_name="Imagen portada")
     nombre_escuela = models.CharField(max_length=100, verbose_name="Nombre Escuela")
+    tipo_escuela = models.BooleanField(verbose_name="Es público", default=False)
     descripcion = models.TextField(verbose_name="Descripcion")
     telefono_escuela = models.CharField(max_length=10, null=False, blank=False, verbose_name="Telefono")
     correo_escuela = models.CharField(max_length=100, null=False, blank=False, verbose_name="Correo")
@@ -138,8 +139,11 @@ class publicacionEventos(models.Model):
 
 # TABLA DE LAS PUBLICACIONES
 class Imagenes_publicaciones(models.Model):
-    url_imagen = models.ImageField(upload_to="imagenes/", null=True, blank=True, verbose_name="imageneURL")
-    id_publicacion = models.ForeignKey(publicacionObras, on_delete=models.CASCADE, related_name="imagenPublicaciones")
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
+    object_id = models.PositiveIntegerField(null=True)
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    url_imagen = models.ImageField(upload_to="imagenesPublicadas/", null=True, blank=True, verbose_name="imageneURL")
 
     def __str__(self):
         return self.id_publicacion.titulo_publicacion
