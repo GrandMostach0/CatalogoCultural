@@ -160,10 +160,12 @@ class EventosListView(FilterView):
     model = publicacionEventos
     template_name = "cartelera.html"
     context_object_name = "eventos"
-
     filterset_class = EventosFilter
-
     paginate_by = 9
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(publicacion_aprobada = True)
 
 class EventosDetailView(DetailView):
     model = publicacionEventos
