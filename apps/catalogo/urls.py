@@ -5,6 +5,7 @@ from django.conf import settings
 
 # Implementación de vistas basadas en clases
 from .views import EscuelaListView, EscuelaDetailView, ActoresListView, ActoresDetailView, EventosListView, EventosDetailView
+from .api_view import EventosListViewAPI
 
 urlpatterns = [
     path("", views.Inicio, name="index"),
@@ -34,6 +35,9 @@ urlpatterns = [
 
 
     path("listaCatalogoRedes/", views.get_catalogoRedesSociales, name="get_catalogoRedesSociales"),
+
+    path("mi_api/", EventosListViewAPI.as_view(), name="mi_api"),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
