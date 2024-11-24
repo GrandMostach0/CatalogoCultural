@@ -15,6 +15,7 @@ class ActorFilter(FilterSet):
         model = Actor
         fields = ['id_subdisciplina']
 
+
 class EscuelaFilter(FilterSet):
     # Definir los filtros
     localidad = ModelChoiceFilter(
@@ -33,11 +34,5 @@ class EscuelaFilter(FilterSet):
 
     class Meta:
         model = Escuelas
-        fields = ['id_localidad', 'tipo_escuela']
-    
-    # Método de filtro personalizado para tipo_escuela
-    def filter_tipo_escuela(self, queryset, name, value):
-        if value is not None:
-            return queryset.filter(tipo_escuela=value)
-        return queryset
+        fields = ['tipo_escuela']
 

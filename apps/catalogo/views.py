@@ -131,7 +131,7 @@ def vistaPublicacion(request):
 @login_required
 def editarPerfil(request,):
     actor = Actor.objects.get(user = request.user) # obtenemos el actor actual
-    catalogo_redes_sociales = Cat_redSocial.objects.all()
+    catalogo = Cat_redSocial.objects.all()
 
     if request.method == 'POST':
         if actor.user == request.user:
@@ -156,7 +156,7 @@ def editarPerfil(request,):
 
             return redirect('PerfilActor', actor_id = actor.id)
     
-    return render(request, 'viewPerfil.html', {'actor':actor, 'cat_redes_sociales': catalogo_redes_sociales})
+    return render(request, 'viewPerfil.html', {'actor':actor, 'cat_redes_sociales': catalogo})
 
 def vistaEvento(request):
     fecha_actual = datetime.now().strftime("%d de %B del %Y")

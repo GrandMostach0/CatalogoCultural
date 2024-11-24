@@ -14,9 +14,8 @@
     <h2>Filtro</h2>
     <form method="GET">
         <!-- El filtro de localidad se renderiza automáticamente con filter.form -->
-        {{ filter.form }}  <!-- Esto renderiza todos los filtros, incluido 'localidad' -->
+        {{ filter.form.as_p }}  <!-- Esto renderiza todos los filtros, incluido 'localidad' -->
         <button type="submit">Filtrar</button>
-        <br>
         <a href="{% url 'DirectorioEscuelas' %}" class="botones">Restablecer</a>
     </form>
 </section>
