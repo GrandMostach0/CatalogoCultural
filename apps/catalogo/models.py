@@ -140,7 +140,7 @@ class publicacionEventos(models.Model):
     url_imagen_publicacion = models.ImageField(upload_to="imagenes/")
     titulo_publicacion = models.CharField(max_length=150, null=False, blank=False, verbose_name="Titulo")
     descripcion_publicacion = models.TextField(verbose_name="Descripcion")
-    fecha_publicacion = models.DateField(verbose_name="Fecha Publicacion")
+    fecha_inicio = models.DateField(verbose_name="Fecha de inicio", null=True, blank=True)
     hora_inicio = models.TimeField(verbose_name="hora Inicio", null=True, blank=True)
     precio_evento = models.DecimalField(max_digits=5, decimal_places=2,verbose_name="Precio por Persona")
     puntoVenta = models.BooleanField(default=False)

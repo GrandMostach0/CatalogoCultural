@@ -18,7 +18,7 @@ from django.views.generic import ListView, DetailView
 
 ## filtros
 from django_filters.views import FilterView
-from .filters import ActorFilter, EscuelaFilter
+from .filters import ActorFilter, EscuelaFilter, EventosFilter
 
 # PRUEBA
 from django.core.paginator import Paginator
@@ -156,10 +156,12 @@ def vistaEvento(request):
     fecha_actual = datetime.now().strftime("%d de %B del %Y")
     return render(request, "vistaEvento.html", {"fecha_actual": fecha_actual})
 
-class EventosListView(ListView):
+class EventosListView(FilterView):
     model = publicacionEventos
     template_name = "cartelera.html"
     context_object_name = "eventos"
+
+    filterset_class = EventosFilter
 
     paginate_by = 9
 
