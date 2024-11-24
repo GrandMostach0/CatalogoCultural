@@ -3,17 +3,33 @@ from django_filters import FilterSet, ModelChoiceFilter, BooleanFilter, DateFilt
 from .models import Actor, Subdisciplinas, Localidad, Escuelas, Ubicaciones_Comunes, publicacionEventos, Disciplinas, Audiencia
 
 class ActorFilter(FilterSet):
-    # Definir los filtros
+    # Filtro para seleccionar la subdisciplina
     id_subdisciplina = ModelChoiceFilter(
-        queryset = Subdisciplinas.objects.all(),
-        field_name = 'id_subdisciplina',
-        label = 'Subdisciplina',
-        empty_label = 'Todas las subdisciplinas' # opcion por defecto
+        queryset=Subdisciplinas.objects.all(),
+        field_name='id_subdisciplina',
+        label='Subdisciplina',
+        empty_label='Todas las subdisciplinas'  # Opción por defecto
+    )
+
+    # Filtro para verificar si el actor es docente
+    es_docente = BooleanFilter(
+        field_name='id_escuela',
+        method='filter_es_docente',
+        label='Es docente',
     )
 
     class Meta:
         model = Actor
-        fields = ['id_subdisciplina']
+        fields = ['id_subdisciplina', 'es_docente']
+
+    # Método personalizado para filtrar si el actor es docente
+    def filter_es_docente(self, queryset, name, value):
+        if value:
+            # Filtrar actores que tienen escuelas asociadas (son docentes)
+            return queryset.filter(id_escuela__isnull=False)
+        else:
+            # Filtrar actores que no tienen escuelas asociadas (no son docentes)
+            return queryset.filter(id_escuela__isnull=True)
 
 
 class EscuelaFilter(FilterSet):

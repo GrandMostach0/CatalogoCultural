@@ -191,6 +191,17 @@ class ActoresListView(FilterView):
     # paginacion
     paginate_by = 9
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        actores = context['Actor']
+
+        # Enriquecer directamente los actores con atributos adicionales
+        for actor in actores:
+            actor.es_docente = actor.id_escuela.exists()
+            actor.subdisciplina = actor.id_subdisciplina
+
+        return context
+
 class ActoresDetailView(DetailView):
     model = Actor
     template_name = 'viewPerfil.html'

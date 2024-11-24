@@ -34,7 +34,13 @@
 
         <div class="card-catalogo-contenido">
             <h3>{{ actor.nombre_completo}}</h3>
-            <p class="etiqueta">{{ actor.id_subdisciplina }}</p>
+
+            {% if actor.es_docente %}
+                <p>{{ actor.id_subdisciplina }} - Docente</p>
+            {% else %}
+                <p class="etiqueta">{{ actor.id_subdisciplina }}</p>
+            {% endif %}
+
             <div class="card-catalogo-contenido-boton">
                 <a href="{% url 'PerfilActor' actor.pk %}" class="buttonTag"> Visitar Perfil </a>
             </div>
