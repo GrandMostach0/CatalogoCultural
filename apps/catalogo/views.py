@@ -131,7 +131,6 @@ def vistaPublicacion(request):
 @login_required
 def editarPerfil(request,):
     actor = Actor.objects.get(user = request.user) # obtenemos el actor actual
-    catalogo = Cat_redSocial.objects.all()
 
     if request.method == 'POST':
         if actor.user == request.user:
@@ -144,19 +143,10 @@ def editarPerfil(request,):
             actor.Telefono_privado_actor = request.POST.get('telefonoPrivado', actor.Telefono_privado_actor)
             actor.Telefono_publico_Actor = request.POST.get('telefonoPublico', actor.Telefono_publico_Actor)
 
-            # Guardar las redes sociales
-            redes_sociales = request.POST.getlist('red_social[]')
-            urls_redes = request.POST.getlist('url_red_social[]')
-
-            for red, url in zip(redes_sociales, urls_redes):
-                red_social = Cat_redSocial.objects.get(nombre_redSocial = red)
-                RedSocial.objects.get(id_actor = actor, id_redSocial = red_social, enlace_redSocial = url)
-            
             actor.save()
-
-            return redirect('PerfilActor', actor_id = actor.id)
+            return redirect('perfil_actor', actor_id=actor.id)
     
-    return render(request, 'viewPerfil.html', {'actor':actor, 'cat_redes_sociales': catalogo})
+    return render(request, 'viewPerfil.html', {'actor':actor})
 
 def vistaEvento(request):
     fecha_actual = datetime.now().strftime("%d de %B del %Y")
@@ -275,6 +265,16 @@ def get_Subdisciplinas(request, id_disciplina):
 
     if subdisciplinas:
         data = {'message' : "Success", 'Subdisciplinas' : subdisciplinas}
+    else:
+        data = {'message' : "Not Found"}
+
+    return JsonResponse(data)
+
+def get_catalogoRedesSociales(request):
+    nombreRedesSociales = list(Cat_redSocial.objects.values('id', 'nombre_redSocial'))
+
+    if nombreRedesSociales:
+        data = {'message' : "Success", 'NombreRedesSociales' : nombreRedesSociales}
     else:
         data = {'message' : "Not Found"}
 

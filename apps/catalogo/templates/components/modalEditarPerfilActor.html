@@ -55,16 +55,19 @@
                 <input class="inputs" type="text" maxlength="10" placeholder="9994550000" id="telefono_privado" name="telefono_privado" value="{{ actor.Telefono_privado_actor }}">
             </label>
 
-            <label for="redSocial1">Red Social:</label>
-            <select class="inputs" name="redSocial" id="redSocial1">
-                <option value="">Selecciona una red social</option>
-                {% for red_social in cat_redes_sociales %}
-                    <option value="{{ red_social.id }}">{{ red_social.nombre_redSocial }}</option>
-                {% endfor %}
-            </select>
-
-            <button type="button" id="agregar-red-social">Agregar Red Social</button>
+            <div id="redes-container">
+                <div class="red-social">
+                    <label for="redSocial1">Red Social:</label>
+                    <select class="inputs" name="redSocial1" id="redSocial1">
+                        <option value="" selected>Selecciona una red social</option>
+                    </select>
+                    <label for="urlRed1">URL:</label>
+                    <input type="url" class="inputs" name="urlRed1" id="urlRed1" placeholder="Ingresa la URL">
+                </div>
+            </div>
+            <button type="button" id="btn-agregar">Agregar otra red social</button>
             <br>
+            
             <button type="submit">Modificar</button>
             <button id="btnCancelar3" type="reset">Cancelar</button>
         </form>
