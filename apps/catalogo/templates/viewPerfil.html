@@ -40,8 +40,16 @@
 
 
                 <br>
+
+                <!-- Validacion para saber si es docente -->
                 <h1>{{ actor.nombre_completo }}</h1>
+                {% if es_docente %}
+                <p>{{ actor.id_subdisciplina }} - Docente</p>
+                {% else %}
                 <p>{{ actor.id_subdisciplina }}</p>
+                {% endif %}
+
+                <!-- Validacion para saber si tiene redes sociales -->
                 <h2>Redes Sociales</h2>
                 <div class="escuela-imagen-redSocial">
                     {% if tiene_redes %}
@@ -51,7 +59,7 @@
                             </a>
                         {% endfor %}
                     {% else %}
-                        <p><strong>Este Perfil no tiene redes Sociales </strong></p>
+                        <p>Ninguna</p>
                     {% endif %}
                 </div>
             </div>
@@ -80,21 +88,35 @@
                                 <p><strong>Edad:</strong></p>
                                 <p>32 años</p>
                             </div>
+                            {% if es_docente %}
                             <div class="informacion">
                                 <p style="font-weight: bold;">Docente en:</p>
-                                <a href="{% url 'PerfilEscuela' 1%}">Bellas Artes Yucatán</a><br>
-                                <a href="{% url 'PerfilEscuela' 2%}">Escuela de Artes del Estado de Yucatán</a>
+                                <ul>
+                                    {% for escuela in escuelas_asociadas %}
+                                    <li><a href="#">{{ escuela.nombre_escuela}}</a></li>
+                                    <br>
+                                    {% endfor %}
+                                </ul>
                             </div>
+                            {% endif %}
                         </div>
 
                         <div class="seccion-informacion">
                             <div class="informacion">
-                                <p style="font-weight: bold;">Teléfono:</p>
-                                <a href="tel:+529991234567">{{ actor.Telefono_publico_Actor }}</a>
+                                <p style="font-weight: bold;">Teléfono Público:</p>
+                                <p>{{ actor.Telefono_publico_Actor }}</p>
+                                {% if actor.user == request.user %}
+                                <p style="font-weight: bold;">Teléfono Privado[No visible]:</p>
+                                <p>{{ actor.Telefono_publico_Actor}}</p>
+                                {% endif %}
                             </div>
                             <div class="informacion">
-                                <p style="font-weight: bold;">Correo:</p>
-                                <a href="mailto: usuario@gmail.com">{{ actor.correo_publico_Actor }}</a>
+                                <p style="font-weight: bold;">Correo Público:</p>
+                                <p>{{ actor.correo_publico_Actor }}</p>
+                                {% if actor.user == request.user %}
+                                <p style="font-weight: bold;">Correo Privado[No visible]:</p>
+                                <p>{{ actor.correo_privado_actor }}</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

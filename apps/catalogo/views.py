@@ -11,7 +11,7 @@ from django.contrib.contenttypes.models import ContentType
 
 ### IMPORTACION DE LOS MODULOS
 from django.http import JsonResponse
-from .models import Disciplinas, Subdisciplinas, Escuelas, Actor, RedSocial, Cat_redSocial, Imagenes_publicaciones
+from .models import Disciplinas, Subdisciplinas, Escuelas, Actor, RedSocial, Cat_redSocial, Imagenes_publicaciones, publicacionEventos, publicacionObras
 
 #### LISTVIEW PARA MOSTRAR CARDS
 from django.views.generic import ListView, DetailView
@@ -148,9 +148,25 @@ def editarPerfil(request,):
     
     return render(request, 'viewPerfil.html', {'actor':actor})
 
+# -----------------------------
+#   LISTADO DE LOS EVENTOS
+# ----------------------------
 def vistaEvento(request):
+
     fecha_actual = datetime.now().strftime("%d de %B del %Y")
     return render(request, "vistaEvento.html", {"fecha_actual": fecha_actual})
+
+class EventosListView(ListView):
+    model = publicacionEventos
+    template_name = "cartelera.html"
+    context_object_name = "eventos"
+
+    paginate_by = 9
+
+class EventosDetailView(DetailView):
+    model = publicacionEventos
+    template_name = "vistaEvento.html"
+    context_object_name = "evento"
 
 # TEMPLATE QUE SIRVE COMO BASE PARA LA LISTA DE EVENTOS Y LA LISTA DE LOS ACTORES
 def baseCatalogo(request):
@@ -187,10 +203,16 @@ class ActoresDetailView(DetailView):
 
         # Verificamos si el actor tiene redes sociales
         redes = RedSocial.objects.filter(content_type=actor_content_type, object_id=actor.id)
-
         # Agregamos la variable 'redes' al contexto para usarla en la plantilla
         context['redes_sociales'] = redes
         context['tiene_redes'] = redes.exists()
+
+        es_docente = actor.id_escuela.exists()
+        escuelas_asociadas = actor.id_escuela.all()
+
+        context['es_docente'] = es_docente
+        context['escuelas_asociadas'] = escuelas_asociadas
+
         return context
 # -----------------------------
 #   LISTADO DE LAS ESCUELAS / INSTITUCIONES

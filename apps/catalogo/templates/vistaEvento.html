@@ -17,8 +17,8 @@
         {% include 'components/navbar.html' %}
 
         <div class="RutaPagina">
-            <p>Inicio/El Resplandor de Chichén Itzá: Un Vistazo a la Grandeza de la Arquitectura Maya</p>
-            <a style="font-weight: bold;" href="{% url 'index' %}"> &larr; Volver Página</a>
+            <p>Inicio/{{ evento.titulo_publicacion }}</p>
+            <a style="font-weight: bold;" href="{% url 'carteleraEventos' %}"> &larr; Volver Página</a>
             <div class="fechaPublicacion">
                 <p class="fecha">{{ fecha_actual }}</p>
                 <hr>
@@ -32,58 +32,63 @@
                     <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen de la escuela">
                 </div>
                 <br>
-                <a href="#">
+                <a href="{% url 'PerfilActor' evento.id_actor.pk %}">
                     <div class="card-publicacion-usuario">
                         <h4>Autor </h4>
-                        <img src="{% static 'assets/images/AvatarImg.jpg' %}" alt="Imagen Avatar">
-                        <p>Mária José Pat Chable</p>
+                        <img src="{{ evento.id_actor.url_image_actor.url }}" alt="Imagen Avatar">
+                        <p>{{ evento.id_actor }}</p>
                     </div>
                 </a>
                 <br>
                 <h3 style="text-align: left;">Etiqueta</h3>
                 <br>
                 <div class="tag">
-                    <p>Arquitectura</p>
+                    <p>{{evento.id_disciplina.nombre_disciplina}}</p>
                 </div>
                 <div class="detallesEvento">
                     <hr>
                     <h2>Detalles del Evento</h2>
-                    <p>Precio por persona: <span>Gratis</span> </p>
-                    <p>Clasificación: <span>Apto para todo Público</span> </p>
-                    <p>Hora de Inicio: <span>18:30 p.m</span> </p>
-                    <p>Duracion aproximado: <span>1:30hrs</span></p>
-                    <p>Ubicacion: <span>Paseo de Montejo</span></p>
+                    {% if evento.precio_evento > 0 %}
+                    <p><strong>Precio por persona:</strong> ${{evento.precio_evento}}</p>
+                    {% else %}
+                    <p><strong>Precio:</strong> GRATIS</p>
+                    {% endif %}
+
+                    <p><strong>Clasificación:</strong>        {{ evento.id_clasificacion }}</p>
+                    <p><strong>Hora de Inicio:</strong>       {{ evento.hora_inicio }} p.m </p>
+                    <p><strong>Ubicacion:</strong>            {{ evento.id_ubicacionesComunes }}</p>
+                    <p><strong>Direccion:</strong>            {{ evento.id_ubicacionesComunes.direccion_ubicacion }}</p>
                 </div>
             </div>
 
             <div class="escuela-descripcion">
                 <div style="text-align: center;" class="descripcion-seccion">
-                    <h1>El Resplandor de Chichén Itzá: Un Vistazo a la Grandeza de la Arquitectura Maya</h1>
+                    <h1>{{ evento.titulo_publicacion }}</h1>
                     <br>
-                    <p style="text-align: justify;">Mientras los primeros rayos del sol bañan la majestuosa pirámide de
-                        Chichén Itzá, uno no puede evitar sentir la conexión
-                        profunda con una civilización que dominó la península de Yucatán. Este símbolo de la ingeniería
-                        y la cosmología maya es
-                        mucho más que un simple monumento; es un testimonio del conocimiento astronómico y
-                        arquitectónico que define a una de
-                        las culturas más avanzadas de la antigua Mesoamérica. Exploramos la importancia de este sitio en
-                        el contexto de la
-                        historia y su influencia duradera en el patrimonio cultural de México.</p>
+                    <p style="text-align: justify;">{{ evento.descripcion_publicacion }}</p>
                 </div>
+
+                
 
                 <div>
                     <br>
                     <h2 style="text-align: center;" >Ubicacion del Evento</h2>
+
                     <div id="map"></div>
                     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
                     <script>
-                        // Inicializa el mapa centrado en las coordenadas deseadas (ajústalas según tu ubicación)
+                        var nombre = "{{ evento.id_ubicacionesComunes }}"
+                        var lat = "{{ evento.id_ubicacionesComunes.latitud }}";
+                        var lon = "{{ evento.id_ubicacionesComunes.longitud }}";
+                        
+                        // Inicializa el mapa centrado en las coordenadas proporcionadas
                         var map = L.map('map', {
-                                center: [20.6767, -88.5678],
-                                zoom: 13,
-                                minZoom: 14, // Nivel mínimo de zoom
-                                maxZoom: 18  // Nivel máximo de zoom
-                            });
+                            center: [lat, lon],
+                            zoom: 13,
+                            minZoom: 14,  // Nivel mínimo de zoom
+                            maxZoom: 18   // Nivel máximo de zoom
+                        });
 
                         // Añade el tile layer de OpenStreetMap
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -91,8 +96,8 @@
                         }).addTo(map);
 
                         // Añade un marcador en la ubicación deseada
-                        L.marker([20.6767, -88.5678]).addTo(map)
-                            .bindPopup('Aquí está el evento.')
+                        L.marker([lat, lon]).addTo(map)
+                            .bindPopup(nombre)
                             .openPopup();
                     </script>
                 </div>

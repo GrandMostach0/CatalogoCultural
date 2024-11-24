@@ -1,5 +1,6 @@
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -59,6 +60,8 @@ class Localidad(models.Model):
 class Ubicaciones_Comunes(models.Model):
     nombre_ubicacion = models.CharField(max_length=100,null=True, verbose_name="Ubicacion")
     direccion_ubicacion = models.CharField(max_length=350, null=True, blank=False, verbose_name="Direccion")
+    latitud = models.CharField(max_length=100, null=True, blank=True, verbose_name="Latitud")
+    longitud = models.CharField(max_length=100, null=True, blank=True, verbose_name="Longitud")
 
     def __str__(self):
         return self.nombre_ubicacion
@@ -100,10 +103,10 @@ class Actor(models.Model):
     biografia_Actor = models.TextField(null=True, blank=True, verbose_name="Biografia", default="Aún no se ha registrado una biografía.")
     correo_publico_Actor = models.CharField(max_length=100, null=False, blank=True, verbose_name="Correo Publico", default="....")
     correo_privado_actor = models.CharField(max_length=100, null=True, blank=True, verbose_name="Correo Privado", default="...")
-    Telefono_publico_Actor = models.CharField(max_length=10, null=False, blank=True, verbose_name="Telefono Publico")
-    Telefono_privado_actor = models.CharField(max_length=10, null=True, blank=True, verbose_name="Telefono Privado")
+    Telefono_publico_Actor = models.CharField(max_length=10, null=True, blank=True, verbose_name="Telefono Publico", default="...")
+    Telefono_privado_actor = models.CharField(max_length=10, null=True, blank=True, verbose_name="Telefono Privado", default="...")
     id_subdisciplina = models.ForeignKey(Subdisciplinas, on_delete = models.CASCADE, related_name = "subdisciplinas")
-    id_escuela = models.ForeignKey(Escuelas, on_delete=models.CASCADE, null=True, blank=True)
+    id_escuela = models.ManyToManyField(Escuelas, related_name="actores", blank=True)
 
     def __str__(self):
         return f"{self.nombre_Actor} {self.primer_apellido_Actor} {self.segundo_apellido_Actor}"
@@ -138,10 +141,15 @@ class publicacionEventos(models.Model):
     titulo_publicacion = models.CharField(max_length=150, null=False, blank=False, verbose_name="Titulo")
     descripcion_publicacion = models.TextField(verbose_name="Descripcion")
     fecha_publicacion = models.DateField(verbose_name="Fecha Publicacion")
+    hora_inicio = models.TimeField(verbose_name="hora Inicio", null=True, blank=True)
     precio_evento = models.DecimalField(max_digits=5, decimal_places=2,verbose_name="Precio por Persona")
     puntoVenta = models.BooleanField(default=False)
     enlace_venta = models.URLField(verbose_name="URL del punto de venta", null=True, blank=True)
     id_clasificacion = models.ForeignKey(Audiencia, on_delete=models.CASCADE, related_name="clasificacion")
+    id_actor = models.ForeignKey(Actor, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Actor")
+    id_disciplina = models.ForeignKey(Disciplinas, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Categoria Disciplina")
+    id_ubicacionesComunes = models.ForeignKey(Ubicaciones_Comunes, on_delete=models.CASCADE, related_name="Ubicaciones", null=True, blank=True, verbose_name="Ubicacion")
+
 
     def __str__(self):
         return self.titulo_publicacion

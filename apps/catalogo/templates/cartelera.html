@@ -48,123 +48,22 @@
 </section>
 
 <section class="container-cards-catalogo">
+
+    {% for evento in eventos %}
     <div class="card-catalogo">
         <div class="card-catalogo-imagen evento">
             <img loading="lazy" src="{% static 'assets/images/Cartelera1.jpeg' %}" alt="Imagen de la card">
         </div>
         <div class="card-catalogo-contenido">
-            <h3>Show de Futbol Maya</h3>
-            <p class="etiqueta">Evento show</p>
+            <h3>{{ evento.titulo_publicacion }}</h3>
+            <p class="etiqueta">Espectaculo</p>
             <div class="card-catalogo-contenido-boton">
-                <a href="{% url 'vistaEvento' %}" class="buttonTag"> Consultar Evento </a>
+                <a href="{% url 'PerfilEvento' evento.pk %}" class="buttonTag"> Consultar Evento </a>
             </div>
         </div>
     </div>
-
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen evento">
-            <img loading="lazy" src="{% static 'assets/images/Cartelera1.jpeg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>Show de Futbol Maya</h3>
-            <p class="etiqueta">Evento show</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Consultar Evento </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen evento">
-            <img loading="lazy" src="{% static 'assets/images/Cartelera1.jpeg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>Show de Futbol Maya</h3>
-            <p class="etiqueta">Evento show</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Consultar Evento </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen evento">
-            <img loading="lazy" src="{% static 'assets/images/Cartelera1.jpeg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>Show de Futbol Maya</h3>
-            <p class="etiqueta">Evento show</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Consultar Evento </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen evento">
-            <img loading="lazy" src="{% static 'assets/images/Cartelera1.jpeg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>Show de Futbol Maya</h3>
-            <p class="etiqueta">Evento show</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Consultar Evento </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen evento">
-            <img loading="lazy" src="{% static 'assets/images/Cartelera1.jpeg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>Show de Futbol Maya</h3>
-            <p class="etiqueta">Evento show</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Consultar Evento </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen evento">
-            <img loading="lazy" src="{% static 'assets/images/Cartelera1.jpeg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>Show de Futbol Maya</h3>
-            <p class="etiqueta">Evento show</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Consultar Evento </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen evento">
-            <img loading="lazy" src="{% static 'assets/images/Cartelera1.jpeg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>Show de Futbol Maya</h3>
-            <p class="etiqueta">Evento show</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="{% url 'vistaEvento' %}" class="buttonTag"> Consultar Evento </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-catalogo">
-        <div class="card-catalogo-imagen evento">
-            <img loading="lazy" src="{% static 'assets/images/Cartelera1.jpeg' %}" alt="Imagen de la card">
-        </div>
-        <div class="card-catalogo-contenido">
-            <h3>Show de Futbol Maya</h3>
-            <p class="etiqueta">Evento show</p>
-            <div class="card-catalogo-contenido-boton">
-                <a href="#" class="buttonTag"> Consultar Evento </a>
-            </div>
-        </div>
-    </div>
-
-    
+    {% empty %}
+    <p>no hay eventos</p>
+    {% endfor %}
 </section>
 {% endblock %}
