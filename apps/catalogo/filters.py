@@ -35,6 +35,14 @@ class EscuelaFilter(FilterSet):
     class Meta:
         model = Escuelas
         fields = ['tipo_escuela']
+    
+    def filter_tipo_escuela(self, queryset, name, value):
+        """
+        Filtra las escuelas según el tipo (Pública o Privada).
+        """
+        if value is not None:
+            return queryset.filter(**{name: value})
+        return queryset
 
 class EventosFilter(FilterSet):
 
