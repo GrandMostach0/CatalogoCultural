@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     #implementación de django-filters
     'django_filters',
 
+    #implementación de django-restframework
+    'rest_framework',
+
     'apps.catalogo',
 ]
 
