@@ -362,5 +362,15 @@ class panelAdministracionEscuelas(ListView):
 def panelAdministracionPublicaciones(request):
     return render(request, 'panelAdministrativo/adminPublicaciones.html')
 
-def panelAdministracionEventos(request):
-    return render(request, 'panelAdministrativo/adminEventos.html')
+class panelAdministracionEventos(ListView):
+    model = publicacionEventos
+    template_name = 'panelAdministrativo/adminEventos.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        ##Dividir los eventos por aprobados y no aprobados
+        context['eventos_aprobados'] = publicacionEventos.objects.filter(publicacion_aprobada=True)
+        context['eventos_no_aprobados'] = publicacionEventos.objects.filter(publicacion_aprobada=False)
+
+        return context

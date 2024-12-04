@@ -19,11 +19,72 @@
   
   <!-- Contenido de las pestañas -->
   <div id="aceptados" class="tab-content active">
-    <h2>Eventos Aceptados</h2>
-    <p>Aquí se mostrarán los eventos aprobados.</p>
+    <h3>Eventos Aceptados</hr>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Titulo</th>
+                <th>Fecha Publicada</th>
+                <th>Autor</th>
+                <th>Estatus</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for evento in eventos_aprobados %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ evento.titulo_publicacion }}</td>
+                <td>NO SE SABE</td>
+                <td>Aceptado</td>
+                <td>{{ evento.id_actor.nombre_completo }}</td>
+                <td>
+                    <a href="#" class="botones">Editar</a>
+                    <a href="#" class="botones">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
   </div>
+
+
   <div id="pendientes" class="tab-content">
-    <h2>Eventos Pendientes</h2>
-    <p>Aquí se mostrarán los eventos pendientes de aprobación.</p>
+    <h3>Eventos Pendientes</h3>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Titulo</th>
+                <th>Fecha Publicada</th>
+                <th>Autor</th>
+                <th>Estatus</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for evento in eventos_no_aprobados %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ evento.titulo_publicacion }}</td>
+                <td>NO SE SABE</td>
+                <td>Pendiente</td>
+                <td>{{ evento.id_actor.nombre_completo }}</td>
+                <td>
+                    <a href="#" class="botones">Editar</a>
+                    <a href="#" class="botones">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No hay eventos disponibles.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
   </div>
 {% endblock contenido_administrativo %}
