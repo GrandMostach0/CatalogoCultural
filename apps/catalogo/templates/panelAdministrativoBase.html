@@ -61,6 +61,24 @@
         </div>
     </div>
 
+    <script>
+        // Manejo de clics en pestañas
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+      
+        tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            // Remover la clase activa de todas las pestañas y contenidos
+            tabs.forEach(t => t.classList.remove('active'));
+            tabContents.forEach(tc => tc.classList.remove('active'));
+      
+            // Activar la pestaña y el contenido correspondiente
+            tab.classList.add('active');
+            document.getElementById(tab.dataset.target).classList.add('active');
+          });
+        });
+      </script>
+
     <!-- FOOTER DE LA FINALIDAD -->
     {% include 'components/footer.html' %}
 </body>

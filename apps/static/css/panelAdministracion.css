@@ -113,3 +113,29 @@ th, td {
 th{
     background-color: #f4f4f4f4;
 }
+
+
+
+/* pestañas */
+.tabs {
+    display: flex;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+  .tab {
+    margin-right: 1rem;
+    padding: 0.5rem 1rem;
+    border-bottom: 2px solid transparent;
+  }
+  .tab.active {
+    font-weight: bold;
+    border-bottom: 2px solid #006eff;
+    color: #006eff;
+  }
+  /* Contenido de las pestañas */
+  .tab-content {
+    display: none;
+  }
+  .tab-content.active {
+    display: block;
+  }

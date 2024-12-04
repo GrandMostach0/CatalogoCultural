@@ -12,5 +12,18 @@
 {% endblock tituloPestania%}
 
 {% block contenido_administrativo %}
-<p>HOLA SOY DE LA PARTE DE ESCUELAS</p>
+<div class="tabs">
+    <div class="tab active" data-target="aceptados">Aceptados</div>
+    <div class="tab" data-target="pendientes">Pendientes</div>
+  </div>
+  
+  <!-- Contenido de las pestañas -->
+  <div id="aceptados" class="tab-content active">
+    <h2>Publicaciones Aceptados</h2>
+    <p>Aquí se mostrarán los eventos aprobados.</p>
+  </div>
+  <div id="pendientes" class="tab-content">
+    <h2>Publicaciones Pendientes</h2>
+    <p>Aquí se mostrarán los eventos pendientes de aprobación.</p>
+  </div>
 {% endblock contenido_administrativo %}
