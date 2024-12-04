@@ -41,11 +41,17 @@
                         <img src="{% static 'assets/icons/eventos-icon.svg' %}" alt="icono-opcion">
                         Eventos
                     </a>
+
+                    <a href="{% url 'index' %}" class="salirPanel botones">
+                        SALIR
+                    </a>
                 </div>
             </div>
     
             <div class="administracion-informacion">
-                <h1>Hola administrador, bienvenido 👋</h1>
+                <div class="administracion-informacion-titulo">
+                    {% block tituloPestania%}{% endblock tituloPestania%}
+                </div>
 
                 <div class="container-cards-informacion">
                     {% block contenido_administrativo%}

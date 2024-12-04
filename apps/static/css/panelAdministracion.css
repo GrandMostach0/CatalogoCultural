@@ -10,7 +10,6 @@ body{
     padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
-    min-height: 90vh;
 }
 
 .container-administracion{
@@ -19,6 +18,7 @@ body{
 
 .administracion-menu{
     flex: 1;
+    height: 100%;
 }
 
 .administracion-menu-opciones a{
@@ -38,6 +38,13 @@ body{
     margin-right: 10px;
 }
 
+.salirPanel{
+    margin-top: 60px;
+}
+
+.salirPanel:hover{
+    color: black;
+}
 
 
 
@@ -47,6 +54,14 @@ body{
     flex: 3;
     padding-left: 10px;
     background-color: #fff;
+    min-height: 90vh;
+}
+
+.administracion-informacion-titulo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
 }
 
 
