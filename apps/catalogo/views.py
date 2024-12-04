@@ -69,7 +69,7 @@ def logout_view(request):
 #### PAGINA PARA EL REGISTRO DE NUEVOS ACTORES
 def viewRegister(request):
     disclipinas = Disciplinas.objects.all();
-    return render(request, 'RegistroSecion.html', {'disclipinas': disclipinas});
+    return render(request, 'RegistroSecion.html', {'disclipinas': disclipinas})
 
 # FUNCION QUE SIRVE PARA EL ENVIO DE LOS DATOS A LA BASE DE DATOS
 def registroForm(request):
@@ -332,7 +332,20 @@ def panelAdminitracionBase(request):
 
 
 def panelAdministracionInicio(request):
-    return render(request, 'panelAdministrativo/adminInicio.html')
+    # Contar el registro de cada base de datos para mostrar
+    total_usuarios = Actor.objects.count()
+    total_escuelas = Escuelas.objects.count()
+    total_publicaciones = publicacionObras.objects.count()
+    total_eventos = publicacionEventos.objects.count()
+
+    context = {
+        'total_usuarios': total_usuarios,
+        'total_escuelas': total_escuelas,
+        'total_publicaciones': total_publicaciones,
+        'total_eventos': total_eventos
+    }
+
+    return render(request, 'panelAdministrativo/adminInicio.html', context)
 
 def panelAdministracionUsuarios(request):
     return render(request, 'panelAdministrativo/adminUsuarios.html')
