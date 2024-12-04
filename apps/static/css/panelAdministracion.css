@@ -2,10 +2,15 @@
     margin-top: 0px;
 }
 
+body{
+    background-color: rgba(170, 192, 176, 0.5);
+}
+
 .ancho-paneladministracion{
     padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
+    min-height: 90vh;
 }
 
 .container-administracion{
@@ -17,8 +22,32 @@
     border: 1px solid black;
 }
 
+.administracion-menu-opciones a{
+    display: block;
+    padding: 8px 16px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.administracion-menu-opciones a:hover{
+    background-color: #fff;
+}
+
+.administracion-menu-opciones img{
+    border: 1px solid black;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+
+
+
+
+/* Estilop para la administracion de informacion */
 .administracion-informacion{
     flex: 3;
     padding-left: 10px;
     border: 1px solid red;
+    background-color: #fff;
 }
