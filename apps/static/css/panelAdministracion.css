@@ -19,7 +19,6 @@ body{
 
 .administracion-menu{
     flex: 1;
-    border: 1px solid black;
 }
 
 .administracion-menu-opciones a{
@@ -47,7 +46,6 @@ body{
 .administracion-informacion{
     flex: 3;
     padding-left: 10px;
-    border: 1px solid red;
     background-color: #fff;
 }
 
