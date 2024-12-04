@@ -1,0 +1,24 @@
+.footer-exeption{
+    margin-top: 0px;
+}
+
+.ancho-paneladministracion{
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.container-administracion{
+    display: flex;
+}
+
+.administracion-menu{
+    flex: 1;
+    border: 1px solid black;
+}
+
+.administracion-informacion{
+    flex: 3;
+    padding-left: 10px;
+    border: 1px solid red;
+}

@@ -1,0 +1,335 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ESTILO DEL ROOT */
+/* width */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #4c4c4c;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #2f2f2f;
+}
+
+/* ESTILOS DE LOS PARRAFOS TITULOS SUBTITULOS*/
+.titulo {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+/* subparrafo */
+.titulo {
+    font-size: 2.2em;
+    margin-bottom: 15px;
+}
+
+/* parrafo */
+p{
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+a{
+    text-decoration: none;
+    color: #333;
+}
+
+/* ESTILO DE LOS BUTTONS TAGS*/
+.buttonTag{
+    width: auto;
+    padding: 4px 8px;
+    border: 1px solid rgb(170, 192, 176);
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.buttonTag:hover{
+    background-color: #4E4C4C;
+    color: white;
+}
+
+
+
+/*
+.ancho{
+    max-width: 1200px;
+    margin: auto;
+    border: 1px solid black;
+}
+*/
+
+/* ESTILOS PARA EL MENU DE NAVEGACIÓN*/
+.menu{
+    position: sticky;
+    top: 0;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 500;
+    background-color: white;
+}
+
+.menu-opciones a{
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-right: 15px;
+    font-weight: 600;
+}
+
+.menu-opciones a:hover{
+    font-weight: bolder;
+}
+
+/* MENU RESPONSIVO */
+.hamburguesa{
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* ESTILO DEL BANNER PRINCIPAL */
+.banner-container{
+    width: 100%;
+    height: 80vh;
+    position: relative;
+
+    & img{
+        width: 100%;
+        height: 100%;
+        opacity: 0.6;
+        object-fit: cover;
+    }
+}
+
+.banner-title{
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    text-align: center;
+    text-shadow: 2px 4px 16px rgb(0, 0, 0);
+
+    & h2{
+        color: white;
+        font-size: 3rem;
+    }
+}
+
+/* ESTILO DE LAS SECCIONES*/
+.secciones{
+    max-width: 1300px;
+    margin: 50px auto;
+}
+
+.secciones2 {
+    max-width: 1300px;
+    margin: auto;
+    padding-bottom: 10px;
+}
+
+/* ESTILO DE LA SECCION DONDE SALEN LOS AUTORES */
+.container-secciones-autores{
+    background-color: rgba(170, 192, 176, 0.5);
+    padding: 15px 0px;
+}
+
+.subseccion{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0px;
+}
+
+/* ESTILOS DE LAS CARDS*/
+.container-cards {
+    display: flex;
+    justify-content: center;
+    transition: transform 0.5s ease;
+}
+
+.card {
+    width: 20%;
+    max-height: 280px;
+    margin: 0 15px;
+    background-color: #f0f0f0;
+    border: 2px solid #4E4C4C;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.swiper-slide{
+    background-color: #f0f0f0;
+    border: 2px solid #4E4C4C;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+}
+
+.card-container{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+
+    & p{
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+}
+
+.card-button{
+    padding-top: 5px;
+    text-align: right;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* estilos de las flechas del swipper */
+.swiper-button-next, .swiper-button-prev {
+    width: 20px;
+    height: 20px;
+    padding: 4px;
+    border-radius: 10px;
+    background-color: rgba(2, 22, 39, 0.537);
+}
+
+/* Cambia el color de las flechas */
+.swiper-button-next::after, .swiper-button-prev::after {
+    color: rgb(255, 255, 255);
+    font-size: 16px !important;
+}
+
+/* Añade un efecto hover */
+.swiper-button-next:hover, .swiper-button-prev:hover {
+    transform: scale(1.1);
+    background-color: #000000e4;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+/* ESTILOS DEL FOOTER */
+footer{
+    margin-top: 100px;
+    padding: 15px;
+    background-color: rgba(170, 192, 176, 0.5);
+}
+
+.footer-contenido{
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+.footer-secciones a{
+    display: block;
+    margin-bottom: 5px;
+}
+
+.footer-secciones-social{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+@media (max-width: 840px) {
+
+    .ancho {
+        padding: 0px 20px;
+    }
+
+    .titulo {
+        font-size: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    p, a{
+        font-size: 14px;
+    }
+
+    .hamburguesa {
+        display: block;
+    }
+    
+    .menu-opciones {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 75%;
+        background-color: #f8f9fa;
+        display: flex;
+        flex-direction: column;
+        padding-top: 60px;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+    }
+    
+    .menu-opciones a {
+        margin: 15px 0;
+        font-size: 18px;
+        color: #333;
+    }
+    
+    .menu.show .menu-opciones {
+        transform: translateX(0);
+    }
+
+    .footer-contenido{
+        flex-direction: column;
+    }
+
+    .container-publicaciones-filtro{
+        flex-direction: column-reverse;
+    }
+
+    .container-filtro select{
+        width: 100%;
+    }
+
+    .filtro-botones{
+        text-align: center;
+    }
+
+}

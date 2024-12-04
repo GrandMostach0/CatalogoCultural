@@ -308,6 +308,7 @@ def get_Subdisciplinas(request, id_disciplina):
     return JsonResponse(data)
 
 def get_catalogoRedesSociales(request):
+    
     nombreRedesSociales = list(Cat_redSocial.objects.values('id', 'nombre_redSocial'))
 
     if nombreRedesSociales:
@@ -316,3 +317,15 @@ def get_catalogoRedesSociales(request):
         data = {'message' : "Not Found"}
 
     return JsonResponse(data)
+
+
+
+
+
+
+# -----------------------------
+#  SECCION PANEL ADMINSTRATIVO
+# -----------------------------
+
+def panelAdminitracionBase(request):
+    return render(request, 'panelAdministrativoBase.html')

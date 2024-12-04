@@ -1,0 +1,112 @@
+.container-catalago{
+    max-width: 1200px;
+    min-height: 80vh;
+    margin: auto;
+}
+
+.container-cards-filtro{
+    display: flex;
+    justify-content: center;
+}
+
+.container-filtro-catalogo{
+    flex: 1;
+    padding: 20px;
+}
+
+.container-cards-catalogo {
+    flex: 2;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(200px, 290px));
+    grid-auto-flow: dense;
+    gap: 30px;
+    max-height: 100%;
+}
+
+/* estilos de las cards del catalogo*/
+.card-catalogo{
+    border: 1px solid black;
+    border-radius: 10px;
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.card-catalogo:hover{
+    transform: scale(1.1);
+}
+
+.card-catalogo img{
+    width: 100%;
+    height: 150px;
+}
+
+
+.evento{
+    position: relative;
+}
+
+.evento::before{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    content: 'pago/gratis';
+    width: auto;
+    padding: 4px 8px;
+    font-weight: bold;
+    color: white;
+    background-color: red;
+    border-radius: 10px;
+}
+
+.evento::after{
+    position: absolute;
+    bottom: 5%;
+    left: 2%;
+    content: 'categoria';
+    width: auto;
+    padding: 4px 8px;
+    font-weight: bold;
+    color: white;
+    background-color: green;
+    border-radius: 10px;
+}
+
+.evento img{
+    height: 160px;
+    object-fit: cover;
+}
+
+.card-catalogo-contenido{
+    padding: 10px 5px;
+    text-align: center;
+}
+
+.card-catalogo-contenido-boton{
+    text-align: right;
+}
+
+.pagination{
+    text-align: center;
+    margin: 10px auto;
+}
+
+@media (max-width: 768px){
+    .container-cards-filtro{
+        flex-direction: column;
+        margin: auto 20px;
+    }
+
+    .container-filtro-catalogo{
+        margin-bottom: 30px;
+    }
+
+    .container-filtro-catalogo select{
+        width: 100%;
+    }
+
+    .filtro-botones{
+        text-align: center;
+    }
+}

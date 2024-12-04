@@ -1,0 +1,121 @@
+/* ESTILO DE LA PARTE DE LA PUBLICACION Y EL FILTRO*/
+.container-publicaciones-filtro {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Estilo del contenedor de las publicaciones*/
+.container-publicaciones {
+    flex: 2;
+}
+
+.container-cards-publicaciones{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-auto-flow: dense;
+    gap: 30px;
+    padding: 20px;
+}
+
+/* estilo de las cards de las publicaciones*/
+.card-publicaciones{
+    padding: 10px 15px;
+    border: 1px solid rgba(46, 1, 1, 0.3);
+    border-radius: 10px;
+
+    & img{
+        border-radius: 10px;
+        width: 100%;
+        height: 250px;
+    }
+
+    & p{
+        font-size: 1em;
+    }
+
+}
+
+/* estilo de la parte de usuario que hicieron las publicacion*/
+.card-publicacion-usuario {
+    margin: 5px 0px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-publicacion-usuario img {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.card-publicacion-usuario p {
+    margin: 0;
+}
+
+/* estilo de los tags */
+.tag{
+    padding: 2px 4px;
+    width: 100px;
+    text-align: center;
+    background-color: #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+
+    & p{
+        color: #333;
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.button-publicacion{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* estilo de la páginacion */
+.paginacion{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bolita{
+    border: 1px solid black;
+    margin-right: 5px;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+}
+
+/* ESTILO DEL FILTRO*/
+.container-filtro {
+    padding: 10px;
+    flex: 1;
+
+    & p{
+        margin: 0;
+    }
+}
+
+.container-filtro-opciones{
+    margin-top: 20px;
+}
+
+select{
+    width: 80%;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.botones{
+    outline: none;
+    background-color: #3c3c3c;
+    border-radius: 10px;
+    padding: 4px 8px;
+    color: white;
+    margin-right: 10px;
+}

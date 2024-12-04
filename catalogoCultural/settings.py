@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$lnc7(le2jf@_bc3--0%b+^-ba05g3mlq@)wcvb80i@r34i&nd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -81,9 +81,10 @@ WSGI_APPLICATION = 'catalogoCultural.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+       'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'proyectoResidencia',
         'USER': 'postgres',          
         'PASSWORD': 'bernardo09',    

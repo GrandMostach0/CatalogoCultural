@@ -1,0 +1,79 @@
+.container-inicio{
+    text-align: center;
+    margin-top: 50px;
+    min-height: 80vh;
+}
+
+.container-form-inicio{
+    width:40%;
+    margin: 20px auto;
+
+    & h1{
+        text-transform: uppercase;
+    }
+}
+
+form{
+    text-align: left;
+}
+
+label, input{
+    display: block;
+    width: 100%;
+    margin: auto;
+}
+
+.labelMitad{
+    width: 80%;
+}
+
+input{
+    margin: 15px 0px;
+    padding: 8px 16px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+select{
+    border: 1px solid #ccc;
+}
+
+input:focus, select:focus{
+    border-color: #0008ff;
+    outline: none;
+}
+
+input[type="email"]:invalid{
+    border-color: red;
+}
+
+button{
+    width: 100%;
+    text-align: center;
+    padding: 8px 16px;
+    margin: 10px 0px;
+    cursor: pointer;
+}
+
+.dosOpciones{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media (max-width: 768px){
+    .container-form-inicio{
+        width: 90%;
+    }
+}
+
+@media (max-width: 340px) {
+    .dosOpciones {
+        flex-direction: column;
+    }
+
+    .labelMitad {
+        width: 100%;
+    }
+}

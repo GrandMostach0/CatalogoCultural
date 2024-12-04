@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Mi página {% endblock title %}</title>
+
+    {% include 'style.html' %}
+
+</head>
+<body>
+    <div class="ancho-paneladministracion">
+        <div class="container-administracion">
+            <div class="administracion-menu">
+                <h1>Panel Administrativo</h1>
+                <div class="administracion-menu-opciones">
+                    <p>Soy una opcion</p>
+                </div>
+            </div>
+    
+            <div class="administracion-informacion">
+                <p>soy una administracion extra</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- FOOTER DE LA FINALIDAD -->
+    {% include 'components/footer.html' %}
+</body>
+</html>

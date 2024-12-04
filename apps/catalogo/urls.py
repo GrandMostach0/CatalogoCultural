@@ -38,6 +38,9 @@ urlpatterns = [
 
     path("mi_api/", EventosListViewAPI.as_view(), name="mi_api"),
 
+
+    path("administracion/", views.panelAdminitracionBase, name="panelAdminitracionBase"),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
