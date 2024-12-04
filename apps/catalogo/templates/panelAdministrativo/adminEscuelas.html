@@ -12,5 +12,46 @@
 {% endblock tituloPestania%}
 
 {% block contenido_administrativo %}
-<p>HOLA SOY DE LA PARTE DE ESCUELAS</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Télefono</th>
+            <th>Responsable</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for escuela in escuelas %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ escuela.nombre_escuela }}</td>
+            <td>{{ escuela.correo_escuela }}</td>
+            <td>{{ escuela.telefono_escuela }}</td>
+            <td> NO ASIGNADO </td>
+            <td>
+                <a href="#" class="botones">Editar</a>
+                <a href="#" class="botones">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}"><strong>Anterior</strong></a>
+    {% endif %}
+
+    <span class="current">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}"><strong>Siguiente</strong></a>
+    {% endif %}
+</div>
+
 {% endblock contenido_administrativo %}

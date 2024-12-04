@@ -353,8 +353,11 @@ class panelAdministracionUsuarios(ListView):
     context_object_name = 'actores'
     paginate_by = 10
 
-def panelAdministracionEscuelas(request):
-    return render(request, 'panelAdministrativo/adminEscuelas.html')
+class panelAdministracionEscuelas(ListView):
+    model = Escuelas
+    template_name = 'panelAdministrativo/adminEscuelas.html'
+    context_object_name = 'escuelas'
+    paginate_by = 10
 
 def panelAdministracionPublicaciones(request):
     return render(request, 'panelAdministrativo/adminPublicaciones.html')

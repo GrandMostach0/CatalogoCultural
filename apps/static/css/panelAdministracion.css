@@ -53,6 +53,7 @@ body{
 .administracion-informacion{
     flex: 3;
     padding-left: 10px;
+    padding-right: 10px;
     background-color: #fff;
     min-height: 90vh;
 }
