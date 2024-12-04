@@ -40,6 +40,7 @@ urlpatterns = [
 
 
     path("administracion/", views.panelAdminitracionBase, name="panelAdminitracionBase"),
+    path("panelAdministracion/", views.panelAdministracionInicio, name="PanelAdministracion")
 
 ]
 

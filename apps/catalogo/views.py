@@ -329,3 +329,7 @@ def get_catalogoRedesSociales(request):
 
 def panelAdminitracionBase(request):
     return render(request, 'panelAdministrativoBase.html')
+
+
+def panelAdministracionInicio(request):
+    return render(request, 'panelAdministrativo/adminInicio.html')
