@@ -123,6 +123,7 @@ class Actor(models.Model):
 # TABLA DE PUBLIACIONES DE TRAJAJOS/EVENTOS
 class publicacionObras(models.Model):
     url_imagen_publicacion = models.ImageField(upload_to="imagenes/", verbose_name="Imagen Portada", null=False, blank=False)
+    publicacion_aprobada = models.BooleanField(default=False, verbose_name="Aprobado")
     titulo_publicacion = models.CharField(max_length=100, null=False, blank=False, verbose_name="Titulo")
     descripcion_publicacion = models.TextField(null=False, blank=False, verbose_name="Descripcion")
     fecha_publicacion = models.DateField(null=False, blank=False, verbose_name="Fecha Publicacion")
@@ -138,7 +139,7 @@ class publicacionObras(models.Model):
 
 class publicacionEventos(models.Model):
     url_imagen_publicacion = models.ImageField(upload_to="imagenes/")
-    publicacion_aprobada = models.BooleanField(default=False, verbose_name="Aprovado")
+    publicacion_aprobada = models.BooleanField(default=False, verbose_name="Aprobado")
     titulo_publicacion = models.CharField(max_length=150, null=False, blank=False, verbose_name="Titulo")
     descripcion_publicacion = models.TextField(verbose_name="Descripcion")
     fecha_inicio = models.DateField(verbose_name="Fecha de inicio", null=True, blank=True)
