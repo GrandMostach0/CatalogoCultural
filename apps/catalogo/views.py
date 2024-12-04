@@ -333,3 +333,15 @@ def panelAdminitracionBase(request):
 
 def panelAdministracionInicio(request):
     return render(request, 'panelAdministrativo/adminInicio.html')
+
+def panelAdministracionUsuarios(request):
+    return render(request, 'panelAdministrativo/adminUsuarios.html')
+
+def panelAdministracionEscuelas(request):
+    return render(request, 'panelAdministrativo/adminEscuelas.html')
+
+def panelAdministracionPublicaciones(request):
+    return render(request, 'panelAdministrativo/adminPublicaciones.html')
+
+def panelAdministracionEventos(request):
+    return render(request, 'panelAdministrativo/adminEventos.html')

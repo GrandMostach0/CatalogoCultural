@@ -13,29 +13,31 @@
     <div class="ancho-paneladministracion">
         <div class="container-administracion">
             <div class="administracion-menu">
-                <h1>Panel Administrativo</h1>
+                <h1>
+                    <a href="{% url 'PanelAdministracion' %}">Panel Administrativo</a>
+                </h1>
                 <div class="administracion-menu-opciones">
-                    <a href="#">
+                    <a href="{% url 'PanelAdministracion' %}">
                         <img src="{% static 'assets/icons/inicio-icon.svg' %}" alt="icono-opcion">
                         Inicio
                     </a>
 
-                    <a href="#">
+                    <a href="{% url 'PanelAdministracionUsuarios' %}">
                         <img src="{% static 'assets/icons/usuario-icon.svg' %}" alt="icono-opcion">
                         Usuarios
                     </a>
 
-                    <a href="#">
+                    <a href="{% url 'PanelAdministracionEscuelas' %}">
                         <img src="{% static 'assets/icons/escuelas-icon.svg' %}" alt="icono-opcion">
                         Escuelas
                     </a>
 
-                    <a href="#">
+                    <a href="{% url 'PanelAdministracionPublicaciones' %}">
                         <img src="{% static 'assets/icons/publicaciones-icon.svg' %}" alt="icono-opcion">
                         Publicaciones
                     </a>
 
-                    <a href="#">
+                    <a href="{% url 'PanelAdministracionEventos' %}">
                         <img src="{% static 'assets/icons/eventos-icon.svg' %}" alt="icono-opcion">
                         Eventos
                     </a>
