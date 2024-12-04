@@ -48,7 +48,7 @@ body{
 
 
 
-
+/* ------------------------- */
 /* Estilop para la administracion de informacion */
 .administracion-informacion{
     flex: 3;
@@ -95,4 +95,20 @@ body{
 .card-admin-contenido{
     text-align: left;
     font-size: 40px;
+}
+
+/* ESTILOS DE LAS TABLAS */
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th{
+    background-color: #f4f4f4f4;
 }
