@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,27 +16,27 @@
                 <h1>Panel Administrativo</h1>
                 <div class="administracion-menu-opciones">
                     <a href="#">
-                        <img src="" alt="icono-opcion">
+                        <img src="{% static 'assets/icons/inicio-icon.svg' %}" alt="icono-opcion">
                         Inicio
                     </a>
 
                     <a href="#">
-                        <img src="" alt="icono-opcion">
+                        <img src="{% static 'assets/icons/usuario-icon.svg' %}" alt="icono-opcion">
                         Usuarios
                     </a>
 
                     <a href="#">
-                        <img src="" alt="icono-opcion">
+                        <img src="{% static 'assets/icons/escuelas-icon.svg' %}" alt="icono-opcion">
                         Escuelas
                     </a>
 
                     <a href="#">
-                        <img src="" alt="icono-opcion">
+                        <img src="{% static 'assets/icons/publicaciones-icon.svg' %}" alt="icono-opcion">
                         Publicaciones
                     </a>
 
                     <a href="#">
-                        <img src="" alt="icono-opcion">
+                        <img src="{% static 'assets/icons/eventos-icon.svg' %}" alt="icono-opcion">
                         Eventos
                     </a>
                 </div>
@@ -44,9 +45,9 @@
             <div class="administracion-informacion">
                 <h1>Hola administrador, bienvenido 👋</h1>
 
-                <div class="container-cards">
-                    {% block contenido%}
-                    {% endblock contenido %}
+                <div class="container-cards-informacion">
+                    {% block contenido_administrativo%}
+                    {% endblock contenido_administrativo %}
                 </div>
             </div>
         </div>

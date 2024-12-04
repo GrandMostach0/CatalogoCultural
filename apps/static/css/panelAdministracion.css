@@ -34,7 +34,6 @@ body{
 }
 
 .administracion-menu-opciones img{
-    border: 1px solid black;
     width: 20px;
     height: 20px;
     margin-right: 10px;
@@ -50,4 +49,40 @@ body{
     padding-left: 10px;
     border: 1px solid red;
     background-color: #fff;
+}
+
+
+/* ESTILOS DE INICIO DEL PANEL ADMIN */
+.container-cards-administracion{
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-auto-flow: dense;
+    gap: 30px;
+    max-height: 100%;
+}
+
+.card-admin{
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 0px #1d1b1b;
+}
+
+.card-admin-title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    & p{
+        font-weight: bold;
+    }
+}
+
+.card-admin-title img{
+    width: 20px;
+    height: 20px;
+}
+
+.card-admin-contenido{
+    text-align: center;
 }

@@ -5,14 +5,14 @@
 <!-- Título de la página -->
 {% block title %}Inicio{% endblock title %}
 
-{% block contenido %}
+{% block contenido_administrativo %}
 <div class="container-cards-administracion">
 
     <!-- Carta para ver la cantidad de usuarios registrados-->
     <div class="card-admin">
         <div class="card-admin-title">
             <p>Ususarios</p>
-            <img src="" alt="icono-card-admin-title">
+            <img src="{% static 'assets/icons/usuario-icon.svg' %}" alt="icono-card-admin-title">
         </div>
 
         <div class="card-admin-contenido">
@@ -24,7 +24,7 @@
     <div class="card-admin">
         <div class="card-admin-title">
             <p>Escuelas</p>
-            <img src="" alt="icono-card-admin-title">
+            <img src="{% static 'assets/icons/escuelas-icon.svg' %}" alt="icono-card-admin-title">
         </div>
 
         <div class="card-admin-contenido">
@@ -36,7 +36,7 @@
     <div class="card-admin">
         <div class="card-admin-title">
             <p>Publicaciones</p>
-            <img src="" alt="icono-card-admin-title">
+            <img src="{% static 'assets/icons/publicaciones-icon.svg' %}" alt="icono-card-admin-title">
         </div>
 
         <div class="card-admin-contenido">
@@ -48,7 +48,7 @@
     <div class="card-admin">
         <div class="card-admin-title">
             <p>Eventos</p>
-            <img src="" alt="icono-card-admin-title">
+            <img src="{% static 'assets/icons/eventos-icon.svg' %}" alt="icono-card-admin-title">
         </div>
 
         <div class="card-admin-contenido">
@@ -56,4 +56,4 @@
         </div>
     </div>
 </div>
-{% endblock contenido %}
+{% endblock contenido_administrativo %}
