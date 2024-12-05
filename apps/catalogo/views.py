@@ -11,7 +11,7 @@ from django.contrib.contenttypes.models import ContentType
 
 ### IMPORTACION DE LOS MODULOS
 from django.http import JsonResponse
-from .models import Disciplinas, Subdisciplinas, Escuelas, Actor, RedSocial, Cat_redSocial, Imagenes_publicaciones, publicacionEventos, publicacionObras
+from .models import Disciplinas, Subdisciplinas, Escuelas, Actor, RedSocial, Cat_redSocial, Imagenes_publicaciones, publicacionEventos, publicacionObras, Audiencia
 
 #### LISTVIEW PARA MOSTRAR CARDS
 from django.views.generic import ListView, DetailView
@@ -147,6 +147,15 @@ def editarPerfil(request,):
             return redirect('perfil_actor', actor_id=actor.id)
     
     return render(request, 'viewPerfil.html', {'actor':actor})
+
+def crearEvento(request):
+    if request.method == 'POST':
+        # Recibir los datos del formulario
+        titulo = request.POST.get('titulo')
+        descripcion = request.POST.get('descripcion')
+        categoria = request.POST.get('disciplina')
+        clasificacion = request.POST.get('clasificacion')
+        fecha_inicio = request.POST.get('fecha_inicio')
 
 # -----------------------------
 #   LISTADO DE LOS EVENTOS
@@ -318,7 +327,16 @@ def get_catalogoRedesSociales(request):
 
     return JsonResponse(data)
 
+def get_clasificaciones(request):
 
+    clasificaciones = list(Audiencia.objects.values())
+
+    if clasificaciones:
+        data = {'message' : "Success", 'NombreClasificacion' : clasificaciones}
+    else:
+        data = {'message' : "Not Found"}
+
+    return JsonResponse(data)
 
 
 

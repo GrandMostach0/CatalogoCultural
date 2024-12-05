@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", function() {
+
+
+document.addEventListener("DOMContentLoaded", async() => {
     var modal = document.getElementById("myModalProyecto");
     var abrirModal = document.getElementById("abrirModalProyecto");
     var cerrarModal = document.getElementsByClassName("close")[1];
@@ -10,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const subOpciones = document.querySelector('.subOpciones2');
 
     precioUnitario.style.display = 'none';
-    subOpciones.style.display = 'none';
+    subOpciones.style.display = 'block';
     
     // DINAMICA DEL PUNTO DE VENTA
     const presencial = document.getElementById('puntoVentaPresencial');
@@ -18,8 +20,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const urlinput = document.querySelector('.URLPuntoVentalbl');
 
     urlinput.style.display = 'none';
-
-
 
     abrirModal.addEventListener("click", function(event){
         event.preventDefault();
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
             subOpciones.style.display = "block";
         }else{
             precioUnitario.style.display = "none";
-            subOpciones.display.style.display = "none";
+            subOpciones.style.display = 'none';
         }
     }
 
@@ -58,6 +58,8 @@ document.addEventListener("DOMContentLoaded", function() {
             urlinput.style.display = "none";
         }
     }
+
+    await listarClasificaciones();
 
     // asignacion de las funcionalidades
     presencial.addEventListener("change", togglePuntoVenta);

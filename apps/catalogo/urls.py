@@ -24,7 +24,12 @@ urlpatterns = [
 
     path("actores/", views.viewPageActores, name="actores"),
     path("DirectorioActores/", ActoresListView.as_view(), name="DirectorioActores"),
+
+    # PERFIL DEL ACTOR CON SUS RESPECTIVAS OPERACIONES
     path("PerfilActor/<int:pk>/", ActoresDetailView.as_view(), name="PerfilActor"),
+
+    # -> CREAR EVENTO
+
 
     path("DirectorioEscuelas/", EscuelaListView.as_view(), name="DirectorioEscuelas"),
     #path("viewEscuela/", views.viewEscuela, name="viewEscuela"),
@@ -35,6 +40,7 @@ urlpatterns = [
 
 
     path("listaCatalogoRedes/", views.get_catalogoRedesSociales, name="get_catalogoRedesSociales"),
+    path("audiencia/", views.get_clasificaciones, name="get_clasificaciones"),
 
     path("mi_api/", EventosListViewAPI.as_view(), name="mi_api"),
 
