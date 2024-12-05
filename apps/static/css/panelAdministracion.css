@@ -2,6 +2,13 @@
     margin-top: 0px;
 }
 
+.titulo-responsive{
+    display: none;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px 0px;
+}
+
 body{
     background-color: rgba(170, 192, 176, 0.5);
 }
@@ -25,7 +32,6 @@ body{
     display: block;
     padding: 8px 16px;
     margin-top: 20px;
-    font-weight: bold;
 }
 
 .administracion-menu-opciones a:hover{
@@ -38,8 +44,9 @@ body{
     margin-right: 10px;
 }
 
-.salirPanel{
-    margin-top: 60px;
+.administracion-menu-opciones .salirPanel{
+    display: block;
+    margin-top: 80px;
 }
 
 .salirPanel:hover{
@@ -51,7 +58,7 @@ body{
 /* ------------------------- */
 /* Estilop para la administracion de informacion */
 .administracion-informacion{
-    flex: 3;
+    flex: 5;
     padding-left: 10px;
     padding-right: 10px;
     background-color: #fff;
@@ -108,10 +115,27 @@ th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
+    text-wrap: pretty;
 }
 
 th{
     background-color: #f4f4f4f4;
+}
+
+tr:hover{
+    background-color: #d4d2d2;
+}
+
+.botonesTablas{
+    margin: 3px;
+    padding: 4px 8px;
+}
+
+.botonesTablas:hover{
+    border: 1px solid #3e3e3e;
+    background-color: #3e3e3e;
+    color: #ddd;
+    border-radius: 10px;
 }
 
 
@@ -139,3 +163,34 @@ th{
   .tab-content.active {
     display: block;
   }
+
+
+
+  /* RESPONSIVE DATA 
+  @media (max-width: 840px) {
+
+    .titulo-responsive{
+        display: block;
+    }
+
+    .ancho-paneladministracion {
+        padding: 0px 10px;
+    }
+
+    .administracion-menu{
+        display: none;
+    }
+
+    .administracion-informacion{
+        flex: 1;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    th, td {
+        font-size: small;
+    }
+
+}
+
+*/
