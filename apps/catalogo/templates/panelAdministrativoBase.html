@@ -67,6 +67,17 @@
         </div>
     </div>
 
+    <!-- ZONA DE LOS MODALES PARA AGREGAR -->
+    {% include 'components/administracion/agregar/addEscuela.html' %}
+    {% include 'components/administracion/agregar/addEvento.html' %}
+    {% include 'components/administracion/agregar/addPublicacion.html' %}
+    {% include 'components/administracion/agregar/addUsuario.html' %}
+
+    <!-- ZONA DE LOS MODALES PARA EDITAR -->
+    {% include 'components/administracion/editar/editEscuela.html' %}
+    {% include 'components/administracion/editar/editEvento.html' %}
+    {% include 'components/administracion/editar/editPublicacion.html' %}
+    {% include 'components/administracion/editar/editUsuario.html' %}
     <script>
         // Manejo de clics en pestañas
         const tabs = document.querySelectorAll('.tab');
@@ -83,7 +94,9 @@
             document.getElementById(tab.dataset.target).classList.add('active');
           });
         });
-      </script>
+    </script>
+
+    <script src="{% static 'js/modalPanelAdministracion.js' %}"></script>
 
     <!-- FOOTER DE LA FINALIDAD -->
     {% include 'components/footer.html' %}
