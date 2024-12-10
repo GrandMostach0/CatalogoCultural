@@ -160,6 +160,15 @@ def crearEvento(request):
         eventoPaga = request.POST.get('evento_paga')
 
 # -----------------------------
+#   LISTADO DE LAS PUBLICACIONES
+# ----------------------------
+class PublicacionesListView(ListView):
+    model = publicacionObras
+    template_name = "components/publicaciones.html"
+    context_object_name = "publicaciones"
+    paginate_by = 6
+
+# -----------------------------
 #   LISTADO DE LOS EVENTOS
 # ----------------------------
 def vistaEvento(request):

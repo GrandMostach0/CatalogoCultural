@@ -2,85 +2,40 @@
 
 <div class="container-cards-publicaciones">
 
+    {% for publicacion in publicaciones %}
+    <p>{{ publicaciones }}</p>
     <div class="card-publicaciones">
         <p style="text-align: right;">{% now "d/m/Y" %}</p>
         <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen Publicación">
         <div class="card-publicacion-contenido">
-            <h2>TITULO DE LA PUBLICACIÓN</h2>
+            <h2>{{ publicacion.titulo_publicacion }}</h2>
             <div class="card-publicacion-usuario">
                 <img src="" alt="Imagen Avatar">
-                <p>Mária José Pat Chable</p>
+                <p>{{ publicacion.id_actor.nombre_Actor }}</p>
             </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam sequi ratione doloremque dolorum recusandae nulla, necessitatibus voluptatibus veritatis tempora? Porro ab tempore inventore officia ratione provident consequatur quaerat, in necessitatibus!</p>
+            <p>{{ publicacion.descripcion_publicacion }}</p>
             <div class="tag">
-                <p>Arquitectura</p>
+                <p>PUTAS</p>
             </div>
             <div class="button-publicacion">
                 <a href="{% url 'vistaPublicacion' %}" style="font-weight: bold;">LEER MAS</a>
             </div>
         </div>
     </div>
+    {% empty %}
+    <p>NO HAY PUTAS</p>
+    {% endfor %}
 
-    <div class="card-publicaciones">
-        <p style="text-align: right;">{% now "d/m/Y" %}</p>
-        <img src="{% static 'assets/images/imgPublicacion2.jpg' %}" alt="Imagen Publicación">
-        <div class="card-publicacion-contenido">
-            <h2>TITULO DE LA PUBLICACIÓN</h2>
-            <div class="card-publicacion-usuario">
-                <img src="{% static 'assets/images/AvatarImg2.jpg' %}" alt="Imagen Avatar">
-                <p>Nombre del usuario</p>
-            </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam sequi ratione doloremque dolorum
-                recusandae nulla, necessitatibus voluptatibus veritatis tempora? Porro ab tempore inventore officia ratione
-                provident consequatur quaerat, in necessitatibus!</p>
-            <div class="tag">
-                <p>Artes</p>
-            </div>
-            <div class="button-publicacion">
-                <a href="#" style="font-weight: bold;">LEER MAS</a>
-            </div>
-        </div>
-    </div>
+</div>
 
-    <div class="card-publicaciones">
-        <p style="text-align: right;">{% now "d/m/Y" %}</p>
-        <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen Publicación">
-        <div class="card-publicacion-contenido">
-            <h2>TITULO DE LA PUBLICACIÓN</h2>
-            <div class="card-publicacion-usuario">
-                <img src="{% static 'assets/images/AvatarImg.jpg' %}" alt="Imagen Avatar">
-                <p>Nombre del usuario</p>
-            </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam sequi ratione doloremque dolorum
-                recusandae nulla, necessitatibus voluptatibus veritatis tempora? Porro ab tempore inventore officia ratione
-                provident consequatur quaerat, in necessitatibus!</p>
-            <div class="tag">
-                <p>Música</p>
-            </div>
-            <div class="button-publicacion">
-                <a href="#" style="font-weight: bold;">LEER MAS</a>
-            </div>
-        </div>
-    </div>
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}"><strong>Anterior</strong></a>
+    {% endif %}
 
-    <div class="card-publicaciones">
-        <p style="text-align: right;">{% now "d/m/Y" %}</p>
-        <img src="{% static 'assets/images/imgPublicacion2.jpg' %}" alt="Imagen Publicación">
-        <div class="card-publicacion-contenido">
-            <h2>TITULO DE LA PUBLICACIÓN</h2>
-            <div class="card-publicacion-usuario">
-                <img src="{% static 'assets/images/AvatarImg2.jpg' %}" alt="Imagen Avatar">
-                <p>Nombre del usuario</p>
-            </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam sequi ratione doloremque dolorum
-                recusandae nulla, necessitatibus voluptatibus veritatis tempora? Porro ab tempore inventore officia ratione
-                provident consequatur quaerat, in necessitatibus!</p>
-            <div class="tag">
-                <p>Arquitectura</p>
-            </div>
-            <div class="button-publicacion">
-                <a href="#" style="font-weight: bold;">LEER MAS</a>
-            </div>
-        </div>
-    </div>
+    <span class="current">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}"><strong>Siguiente</strong></a>
+    {% endif %}
 </div>
