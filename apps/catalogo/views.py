@@ -155,7 +155,9 @@ def crearEvento(request):
         descripcion = request.POST.get('descripcion')
         categoria = request.POST.get('disciplina')
         clasificacion = request.POST.get('clasificacion')
-        fecha_inicio = request.POST.get('fecha_inicio')
+        fecha_evento = request.POST.get('fecha_evento')
+        fecha_inicio = request.POST.get('hora_inicio')
+        eventoPaga = request.POST.get('evento_paga')
 
 # -----------------------------
 #   LISTADO DE LOS EVENTOS
@@ -446,7 +448,6 @@ def agregarUbicacion(request):
     )
 
     return redirect('/panelAdministracion/Ubicaciones')
-
 
 def eliminarUbicacion(request, pk):
     ubicacion = Ubicaciones_Comunes.objects.get(id=pk)
