@@ -54,7 +54,13 @@ urlpatterns = [
     path("panelAdministracion/Escuelas", panelAdministracionEscuelas.as_view(), name="PanelAdministracionEscuelas"),
     path("panelAdministracion/Publicaciones",panelAdministracionPublicaciones.as_view() , name="PanelAdministracionPublicaciones"),
     path("panelAdministracion/Eventos", panelAdministracionEventos.as_view(), name="PanelAdministracionEventos"),
+
+
+
     path("panelAdministracion/Ubicaciones", panelAdministracionUbicaciones.as_view(), name="PanelAdministracionUbicaciones"),
+    path("agregarUbicacion", views.agregarUbicacion, name="agregarUbicacion"),
+    path("eliminarUbicacion/<int:pk>/", views.eliminarUbicacion, name="eliminarUbicacion"),
+    path("editarUbicacion/<int:pk>/", views.editarUbicacion, name="editarUbicacion"),
 
 ]
 

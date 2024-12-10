@@ -1,10 +1,10 @@
 <!-- MODAL DE LA VENTANA PARA LOS DATOS -->
-<div id="modalUbicación" class="modal">
+<div id="modalUbicacionEdit" class="modal">
     <!-- Contenido del Modal -->
     <div class="modal-content">
         <span class="close clsModUbicacion">&times;</span>
-        <h2>Nueva Ubicación</h2>
-        <form method="POST" action="{% url 'agregarUbicacion' %}">
+        <h2>Editar Ubicación</h2>
+        <form method="POST" action="#">
             {% csrf_token %}
             <label for="nombre_ubicacion">
                 Nombre de la Ubiación:
@@ -13,7 +13,7 @@
                 class="inputs" 
                 type="text" 
                 name="nombre_Ubicacion" 
-                placeholder="Nombre ubicación" required>
+                value="{{ ubicacion.nombre_ubicacion }}" required>
             </label>
 
             <label for="direccion">
@@ -23,7 +23,7 @@
                 class="inputs"
                 id="direccion"
                 name="direccion"
-                placeholder="CALLE No ETC.."
+                value="{{ ubicacion.direccion_ubicacion }}"
                 required>
             </label>
 
@@ -33,6 +33,7 @@
                 id="latitud"
                 class="inputs"
                 name="latitud"
+                value="{{ ubicacion.latitud }}"
                 required>
             </label>
 
@@ -42,10 +43,11 @@
                 id="longitud"
                 name="longitud"
                 class="inputs"
+                value="{{ ubicacion.longitud }}"
                 required>
             </label>
 
-            <button type="submit">Agregar</button>
+            <button type="submit">Editar</button>
             <button id="btnCancelar" type="reset">Cancelar</button>
         </form>
     </div>

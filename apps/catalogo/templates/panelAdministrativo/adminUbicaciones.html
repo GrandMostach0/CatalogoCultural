@@ -21,7 +21,7 @@
             <th>Dirección</th>
             <th>Latitud</th>
             <th>Longitud</th>
-            <th>Acciones</th>
+            <th colspan="2">Acciones</th>
         </tr>
     </thead>
 
@@ -34,8 +34,10 @@
             <td>{{ ubicacion.latitud }}</td>
             <td>{{ ubicacion.longitud }}</td>
             <td>
-                <a href="#" class="botonesTablas btnEditar">Editar</a>
-                <a href="#" class="botonesTablas btnEliminar">Eliminar</a>
+                <a id="abrirModalUbicacion" class="botonesTablas btnEditar">Editar</a>
+            </td>
+            <td>
+                <a href="{% url 'eliminarUbicacion' ubicacion.pk %}" class="botonesTablas btnEliminar">Eliminar</a>
             </td>
         </tr>
         {% empty %}

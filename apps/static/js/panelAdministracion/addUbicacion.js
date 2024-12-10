@@ -2,6 +2,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     var modal = document.getElementById("modalUbicación");
     var abrirModal = document.getElementById("abrirModalUbicacion");
+    var abrirModalEdit = document.getElementById("modalUbicacionEdit");
     var cerrarModal = document.getElementsByClassName("clsModUbicacion")[0];
     var btnCancelar = document.getElementById("btnCancelar");
 
@@ -20,5 +21,4 @@ document.addEventListener("DOMContentLoaded", function() {
         modal.style.display = "none";
         document.body.style.overflow = "auto";
     }
-
 });

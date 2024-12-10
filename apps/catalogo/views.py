@@ -422,9 +422,38 @@ class panelAdministracionEventos(ListView):
         context['eventos_no_aprobados'] = publicacionEventos.objects.filter(publicacion_aprobada=False)
 
         return context
-    
+
+#
+# MODULO DE UBICACIONES
+#
 class panelAdministracionUbicaciones(ListView):
     model = Ubicaciones_Comunes
     template_name = 'panelAdministrativo/adminUbicaciones.html'
     context_object_name = 'Ubicaciones'
     paginate_by = 10
+
+def agregarUbicacion(request):
+    nombre_ubicacion = request.POST['nombre_Ubicacion']
+    direccion = request.POST['direccion']
+    latitud = request.POST['latitud']
+    longitud = request.POST['longitud']
+
+    ubicacion = Ubicaciones_Comunes.objects.create(
+        nombre_ubicacion = nombre_ubicacion,
+        direccion_ubicacion = direccion,
+        latitud = latitud,
+        longitud = longitud
+    )
+
+    return redirect('/panelAdministracion/Ubicaciones')
+
+
+def eliminarUbicacion(request, pk):
+    ubicacion = Ubicaciones_Comunes.objects.get(id=pk)
+    ubicacion.delete()
+    messages.success(request, f'La ubicación "{ubicacion.nombre_ubicacion}" ha sido eliminada con éxito.')
+    return redirect('/panelAdministracion/Ubicaciones')
+
+def editarUbicacion(request, pk):
+    ubicacion = Ubicaciones_Comunes.objects.get(id=pk)
+    return render(request, 'components/administracion/editar/editUbicacion.html', {'ubicacion': ubicacion})
