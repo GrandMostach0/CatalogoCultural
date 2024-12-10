@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 # Implementación de vistas basadas en clases
-from .views import EscuelaListView, EscuelaDetailView, ActoresListView, ActoresDetailView, EventosListView, EventosDetailView, panelAdministracionUsuarios, panelAdministracionEscuelas, panelAdministracionEventos, panelAdministracionPublicaciones
+from .views import EscuelaListView, EscuelaDetailView, ActoresListView, ActoresDetailView, EventosListView, EventosDetailView, panelAdministracionUsuarios, panelAdministracionEscuelas, panelAdministracionEventos, panelAdministracionPublicaciones, panelAdministracionUbicaciones
 from .api_view import EventosListViewAPI
 
 urlpatterns = [
@@ -50,7 +50,8 @@ urlpatterns = [
     path("panelAdministracion/Usuarios", panelAdministracionUsuarios.as_view(), name="PanelAdministracionUsuarios"),
     path("panelAdministracion/Escuelas", panelAdministracionEscuelas.as_view(), name="PanelAdministracionEscuelas"),
     path("panelAdministracion/Publicaciones",panelAdministracionPublicaciones.as_view() , name="PanelAdministracionPublicaciones"),
-    path("panelAdministracion/Eventos", panelAdministracionEventos.as_view(), name="PanelAdministracionEventos")
+    path("panelAdministracion/Eventos", panelAdministracionEventos.as_view(), name="PanelAdministracionEventos"),
+    path("panelAdministracion/Ubicaciones", panelAdministracionUbicaciones.as_view(), name="PanelAdministracionUbicaciones"),
 
 ]
 

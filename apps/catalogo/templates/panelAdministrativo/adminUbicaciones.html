@@ -1,0 +1,61 @@
+{% extends '../panelAdministrativoBase.html' %}
+
+{% load static %}
+
+<!-- Título de la página -->
+{% block title %}Ubicaciones Teatros{% endblock title %}
+
+<!-- Título de la pestaña a visualizar -->
+{% block tituloPestania%}
+<h1>Ubicaciones Teatros</h1>
+<a href="#" class="botones">Agregar +</a>
+{% endblock tituloPestania%}
+
+{% block contenido_administrativo %}
+
+<table>
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nombre Teatro</th>
+            <th>Dirección</th>
+            <th>Latitud</th>
+            <th>Longitud</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for ubicacion in Ubicaciones %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ ubicacion.nombre_ubicacion }}</td>
+            <td>{{ ubicacion.direccion_ubicacion }}</td>
+            <td>{{ ubicacion.latitud }}</td>
+            <td>{{ ubicacion.longitud }}</td>
+            <td>
+                <a href="#" class="botonesTablas btnEditar">Editar</a>
+                <a href="#" class="botonesTablas btnEliminar">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+          <tr>
+              <td colspan="6">No hay Ubicaciones disponibles.</td>
+          </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}"><strong>Anterior</strong></a>
+    {% endif %}
+
+    <span class="current">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}"><strong>Siguiente</strong></a>
+    {% endif %}
+</div>
+
+{% endblock contenido_administrativo %}

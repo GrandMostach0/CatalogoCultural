@@ -1,4 +1,17 @@
+const listarClasificaciones = async() => {
+    try {
+        const response = await fetch('/audiencia/');
+        const data = await response.json();
 
+        if (data.message === 'Success'){
+            console.log(data)
+        }else{
+            console.log("ERROR PENDEJO")
+        }
+    }catch(error) {
+        console.log(error)
+    };
+}
 
 document.addEventListener("DOMContentLoaded", async() => {
     var modal = document.getElementById("myModalProyecto");

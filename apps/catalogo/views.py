@@ -11,7 +11,7 @@ from django.contrib.contenttypes.models import ContentType
 
 ### IMPORTACION DE LOS MODULOS
 from django.http import JsonResponse
-from .models import Disciplinas, Subdisciplinas, Escuelas, Actor, RedSocial, Cat_redSocial, Imagenes_publicaciones, publicacionEventos, publicacionObras, Audiencia
+from .models import Disciplinas, Subdisciplinas, Escuelas, Actor, RedSocial, Cat_redSocial, Imagenes_publicaciones, publicacionEventos, publicacionObras, Audiencia, Ubicaciones_Comunes
 
 #### LISTVIEW PARA MOSTRAR CARDS
 from django.views.generic import ListView, DetailView
@@ -355,12 +355,14 @@ def panelAdministracionInicio(request):
     total_escuelas = Escuelas.objects.count()
     total_publicaciones = publicacionObras.objects.count()
     total_eventos = publicacionEventos.objects.count()
+    total_ubicaciones = Ubicaciones_Comunes.objects.count()
 
     context = {
         'total_usuarios': total_usuarios,
         'total_escuelas': total_escuelas,
         'total_publicaciones': total_publicaciones,
-        'total_eventos': total_eventos
+        'total_eventos': total_eventos,
+        'total_ubicaciones': total_ubicaciones
     }
 
     return render(request, 'panelAdministrativo/adminInicio.html', context)
@@ -402,3 +404,9 @@ class panelAdministracionEventos(ListView):
         context['eventos_no_aprobados'] = publicacionEventos.objects.filter(publicacion_aprobada=False)
 
         return context
+    
+class panelAdministracionUbicaciones(ListView):
+    model = Ubicaciones_Comunes
+    template_name = 'panelAdministrativo/adminUbicaciones.html'
+    context_object_name = 'Ubicaciones'
+    paginate_by = 10
