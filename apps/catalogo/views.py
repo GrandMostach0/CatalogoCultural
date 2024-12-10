@@ -338,8 +338,27 @@ def get_clasificaciones(request):
 
     return JsonResponse(data)
 
+def get_Ubicaciones_Comunes(request):
 
+    ubicaciones = list(Ubicaciones_Comunes.objects.values('id', 'nombre_ubicacion'))
 
+    if ubicaciones:
+        data = {'message': "Success", 'ubicacion' : ubicaciones}
+    else :
+        data = {'message': "Not Found"}
+
+    return JsonResponse(data)
+
+def get_Escuelas(request):
+
+    escuelas = list(Escuelas.objects.values('id', 'nombre_escuela'))
+
+    if escuelas:
+        data = {'message': "Success", 'escuelas' : escuelas}
+    else :
+        data = {'message': "Not Found"}
+    
+    return JsonResponse(data)
 
 # -----------------------------
 #  SECCION PANEL ADMINSTRATIVO
@@ -347,7 +366,6 @@ def get_clasificaciones(request):
 
 def panelAdminitracionBase(request):
     return render(request, 'panelAdministrativoBase.html')
-
 
 def panelAdministracionInicio(request):
     # Contar el registro de cada base de datos para mostrar
