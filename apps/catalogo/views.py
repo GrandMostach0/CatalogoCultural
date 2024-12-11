@@ -8,6 +8,7 @@ from datetime import datetime
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
+from datetime import date
 
 ### IMPORTACION DE LOS MODULOS
 from django.http import JsonResponse
@@ -135,7 +136,7 @@ def editarPerfil(request):
     if request.method == 'POST':
         try:
             if actor.user == request.user:
-                actor.url_image_actor = request.POST.get('imagenPerfil', actor.url_image_actor)
+                actor.url_image_actor = request.FILES.get('imagenPerfil', actor.url_image_actor)
                 actor.nombre_Actor = request.POST.get('nombre', actor.nombre_Actor)
                 actor.primer_apellido_Actor = request.POST.get('primeroApellido', actor.primer_apellido_Actor)
                 actor.segundo_apellido_Actor = request.POST.get('segundoApellido', actor.segundo_apellido_Actor)
@@ -152,16 +153,41 @@ def editarPerfil(request):
     
     return render(request, 'viewPerfil.html', {'actor':actor})
 
-def crearEvento(request):
-    if request.method == 'POST':
-        # Recibir los datos del formulario
-        titulo = request.POST.get('titulo')
-        descripcion = request.POST.get('descripcion')
-        categoria = request.POST.get('disciplina')
-        clasificacion = request.POST.get('clasificacion')
-        fecha_evento = request.POST.get('fecha_evento')
-        fecha_inicio = request.POST.get('hora_inicio')
-        eventoPaga = request.POST.get('evento_paga')
+def crear_publicacion(request):
+    actor = Actor.objects.get(user = request.user)
+
+    if request.method == "POST":
+        try:
+            if actor.user == request.user:
+                titulo = request.POST.get('titulo')
+                descripcion = request.POST.get('descripcion')
+                tipo_publicacion = request.POST.get('tipoPublicacion')
+                id_actor = actor.id
+                imagen_portada = request.FILES.get('imagenPortada')
+                fecha_publicacion = date.today()
+
+                
+                if not titulo or not descripcion or not imagen_portada:
+                    messages.error(request, "Todos los campos son obligatorios.")
+                    return redirect('nombre_de_tu_template')
+        except Exception as e:
+            messages.error(request, f"Ocurrió un error: {str(e)}")
+
+        
+        nueva_publicacion = publicacionObras(
+            titulo_publicacion=titulo,
+            descripcion_publicacion=descripcion,
+            url_imagen_publicacion=imagen_portada,
+            id_actor_id=id_actor,
+            fecha_publicacion=fecha_publicacion
+        )
+
+        nueva_publicacion.save()
+
+        messages.success(request, "Publicación creada exitosamente.")
+        return redirect('PerfilActor', pk=actor.id)
+
+
 
 # -----------------------------
 #   LISTADO DE LAS PUBLICACIONES

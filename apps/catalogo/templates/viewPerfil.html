@@ -90,10 +90,6 @@
                     <br>
                     <div class="container-informacion">
                         <div class="seccion-informacion">
-                            <div class="informacion">
-                                <p><strong>Edad:</strong></p>
-                                <p>32 años</p>
-                            </div>
                             {% if es_docente %}
                             <div class="informacion">
                                 <p style="font-weight: bold;">Docente en:</p>
@@ -105,6 +101,12 @@
                                 </ul>
                             </div>
                             {% endif %}
+
+                            {% if actor.user == request.user %}
+                                <p style="font-weight: bold;">Correo Privado[No visible]:</p>
+                                <p>{{ actor.correo_privado_actor }}</p>
+                            {% endif %}
+
                         </div>
 
                         <div class="seccion-informacion">
@@ -119,10 +121,6 @@
                             <div class="informacion">
                                 <p style="font-weight: bold;">Correo Público:</p>
                                 <p>{{ actor.correo_publico_Actor }}</p>
-                                {% if actor.user == request.user %}
-                                <p style="font-weight: bold;">Correo Privado[No visible]:</p>
-                                <p>{{ actor.correo_privado_actor }}</p>
-                                {% endif %}
                             </div>
                         </div>
                     </div>
