@@ -37,9 +37,9 @@
           <tr>
               <td>{{ forloop.counter }}</td>
               <td>{{ publicacion.titulo_publicacion }}</td>
-              <td>NO SE SABE</td>
-              <td>Aceptado</td>
+              <td>{{ publicacion.fecha_creacion_publicacion }}</td>
               <td>{{ publicacion.id_actor.nombre_completo }}</td>
+              <td>Aceptado</td>
               <td>
                   <a href="#" class="botones">Editar</a>
                   <a href="#" class="botones">Eliminar</a>

@@ -1,23 +1,32 @@
-async function fetchRedesSociales() {
-    try {
-        const response = await fetch("/listaCatalogoRedes/");
+const listaRedes = async () =>{
+    try{
+        const response = await fetch('/listaCatalogoRedes/');
         const data = await response.json();
 
-        if (data.message === "Success") {
-            return data.NombreRedesSociales;
+        console.log(data);
+
+        if(data.message === 'Success'){
+            const setListaRedes = document.getElementById('listaRedSocial01');
+            setListaRedes.innerHTML = '<option value="0"> Seleccione una Red Social </option>'
+
+            data.NombreRedesSociales.forEach(red =>{
+                const option = document.createElement('option');
+                option.value = red.id;
+                option.textContent = red.nombre_redSocial;
+                setListaRedes.appendChild(option);
+            });
+
+            console.log("opciones cargadas correctamente.");
+
         } else {
-            console.log("No se encontraron las redes sociales.");
-            return []; // Devolver un arreglo vacío en caso de fallo
+            console.log("Error: Respuesta inesperada de la API");
         }
-    } catch (error) {
-        console.error("Error al obtener el catálogo", error);
-        return []; // Devolver un arreglo vacío en caso de error
+
+    }catch(error){
+        console.log("Error: ", error);
     }
 }
 
-const cargaInicial = async() => {
-    await fetchRedesSociales();
-}
 
 document.addEventListener("DOMContentLoaded", async function () {
     // Manejo del modal
@@ -26,12 +35,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     var cerrarModal = document.getElementsByClassName("close")[2];
     var btnCerrarModal = document.getElementById("btnCancelar3");
 
-    abrirModal.onclick = function (event) {
+    abrirModal.addEventListener("click", async function(event){
         event.preventDefault();
         modal.style.display = "block";
         document.body.style.overflow = "hidden";
-    };
 
+        // --- LISTA DE LAS REDES SOCIALES ---
+        await listaRedes();
+    });
     cerrarModal.onclick = function () {
         modal.style.display = "none";
         document.body.overflow = "auto";
@@ -41,7 +52,5 @@ document.addEventListener("DOMContentLoaded", async function () {
         modal.style.display = "none";
         document.body.overflow = "auto";
     };
-
-    await cargaInicial();
 
 });

@@ -55,18 +55,52 @@
                 <input class="inputs" type="text" maxlength="10" placeholder="9994550000" id="telefono_privado" name="telefono_privado" value="{{ actor.Telefono_privado_actor }}">
             </label>
 
-            <div id="redes-container">
-                <div class="red-social">
-                    <label for="redSocial1">Red Social:</label>
-                    <select class="inputs" name="redSocial1" id="redSocial1">
-                        <option value="" selected>Selecciona una red social</option>
+            <div class="contenedor-redesSociales">
+                <p style="text-align: center; font-weight: bold;">Redes Sociales:</p>
+
+                <label for="redSocial1" style="font-weight: bold;">Red social 1:</label>
+                <div class="containerRedSocial">
+                    <select name="redSocial1" id="listaRedSocial01">
+                        <option value="0">Selecciona una red Social</option>
                     </select>
-                    <label for="urlRed1">URL:</label>
-                    <input type="url" class="inputs" name="urlRed1" id="urlRed1" placeholder="Ingresa la URL">
+
+                    <input
+                    type="url"
+                    id="redSocial1"
+                    name="redSocial1"
+                    class="inputs"
+                    placeholder="ingrese una URL">
                 </div>
+
+                <label for="redSocial2" style="font-weight: bold;">Red social 2:</label>
+                <div class="containerRedSocial">
+                    <select name="redSocial2" id="listaRedSocial02">
+                        <option value="0">Selecciona una red Social</option>
+                    </select>
+
+                    <input
+                    type="url"
+                    id="redSocial2"
+                    name="redSocial2"
+                    class="inputs"
+                    placeholder="ingrese una URL">
+                </div>
+
+                <label for="redSocial3" style="font-weight: bold;">Red social 3:</label>
+                <div class="containerRedSocial">
+                    <select name="redSocial3" id="listaRedSocial03">
+                        <option value="0">Selecciona una red Social</option>
+                    </select>
+
+                    <input
+                    type="url"
+                    id="redSocial3"
+                    name="redSocial3"
+                    class="inputs"
+                    placeholder="ingrese una URL">
+                </div>
+
             </div>
-            <button type="button" id="btn-agregar">Agregar otra red social</button>
-            <br>
             
             <button type="submit">Modificar</button>
             <button id="btnCancelar3" type="reset">Cancelar</button>
