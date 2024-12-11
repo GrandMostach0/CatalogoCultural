@@ -6,6 +6,7 @@
         <h2>Nueva Ubicación</h2>
         <form method="POST" action="{% url 'agregarUbicacion' %}">
             {% csrf_token %}
+            
             <label for="nombre_ubicacion">
                 Nombre de la Ubiación:
                 <input 

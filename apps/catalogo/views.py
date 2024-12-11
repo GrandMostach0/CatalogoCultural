@@ -28,10 +28,12 @@ from django.core.paginator import Paginator
 def Inicio(request):
     actores_pupulares = Actor.objects.all()[:7] # actores populares
     escuelas_populares = Escuelas.objects.all()[:7] # escuelas populares
+    pubicacionesObras = publicacionObras.objects.all();
 
     context = {
         'actores': actores_pupulares,
-        'escuelas': escuelas_populares
+        'escuelas': escuelas_populares,
+        'publicaciones': pubicacionesObras
     }
     return render(request, 'index.html', context)
 
@@ -187,14 +189,11 @@ def crear_publicacion(request):
         messages.success(request, "Publicación creada exitosamente.")
         return redirect('PerfilActor', pk=actor.id)
 
-
-
 # -----------------------------
 #   LISTADO DE LAS PUBLICACIONES
 # ----------------------------
-class PublicacionesListView(ListView):
     model = publicacionObras
-    template_name = "components/publicaciones.html"
+    template_name = "index.html"
     context_object_name = "publicaciones"
     paginate_by = 6
 
@@ -474,19 +473,22 @@ class panelAdministracionUbicaciones(ListView):
     paginate_by = 10
 
 def agregarUbicacion(request):
-    nombre_ubicacion = request.POST['nombre_Ubicacion']
-    direccion = request.POST['direccion']
-    latitud = request.POST['latitud']
-    longitud = request.POST['longitud']
+    if request.method == 'POST':
+        nombre_ubicacion = request.POST['nombre_Ubicacion']
+        direccion = request.POST['direccion']
+        latitud = request.POST['latitud']
+        longitud = request.POST['longitud']
 
-    ubicacion = Ubicaciones_Comunes.objects.create(
-        nombre_ubicacion = nombre_ubicacion,
-        direccion_ubicacion = direccion,
-        latitud = latitud,
-        longitud = longitud
-    )
+        ubicacion = Ubicaciones_Comunes.objects.create(
+            nombre_ubicacion = nombre_ubicacion,
+            direccion_ubicacion = direccion,
+            latitud = latitud,
+            longitud = longitud
+        )
 
-    return redirect('/panelAdministracion/Ubicaciones')
+        return redirect('/panelAdministracion/Ubicaciones')
+    else:
+        print("no es POST")
 
 def eliminarUbicacion(request, pk):
     ubicacion = Ubicaciones_Comunes.objects.get(id=pk)

@@ -25,6 +25,31 @@ const listarEscuelas = async () => {
     }
 }
 
+const listarDisciplinasProyecto = async () => {
+    try {
+        const response = await fetch('/disciplinas/');
+        const data = await response.json();
+
+        if (data.message === 'Success') {
+            // Limpia el contenido previo del select
+            const setDisciplinas = document.getElementById('listaCatagoriaPublicacion');
+            setDisciplinas.innerHTML = '<option value="0">Seleccione una Categoria</option>';
+
+            data.Disciplinas.forEach(disciplina => {
+                const option = document.createElement('option');
+                option.value = disciplina.id;
+                option.textContent = disciplina.nombre_disciplina;
+                setDisciplinas.appendChild(option);
+            });
+            console.log("Opciones cargadas correctamente.");
+        } else {
+            console.error("Error: Respuesta inesperada de la API.");
+        }
+    } catch (error) {
+        console.error("Error al obtener las Disciplinas:", error);
+    }
+};
+
 document.addEventListener("DOMContentLoaded", async () =>{
     var modal = document.getElementById("myModalPublicacion");
     var abrirModal = document.getElementById("abrirModalPublicacion");
@@ -45,6 +70,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
 
         // --- Cargar la lista de escuelas ---
         await listarEscuelas();
+        await listarDisciplinasProyecto();
     });
 
     cerrarModal.onclick = function() {

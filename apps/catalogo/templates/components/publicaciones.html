@@ -3,7 +3,7 @@
 <div class="container-cards-publicaciones">
 
     {% for publicacion in publicaciones %}
-    <p>{{ publicaciones }}</p>
+    
     <div class="card-publicaciones">
         <p style="text-align: right;">{% now "d/m/Y" %}</p>
         <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen Publicación">
@@ -15,7 +15,7 @@
             </div>
             <p>{{ publicacion.descripcion_publicacion }}</p>
             <div class="tag">
-                <p>PUTAS</p>
+                <p>PENDIENTE</p>
             </div>
             <div class="button-publicacion">
                 <a href="{% url 'vistaPublicacion' %}" style="font-weight: bold;">LEER MAS</a>
@@ -23,7 +23,7 @@
         </div>
     </div>
     {% empty %}
-    <p>NO HAY PUTAS</p>
+    <p>NO NADA POR EL MOMENTO</p>
     {% endfor %}
 
 </div>
