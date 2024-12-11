@@ -23,6 +23,12 @@
                 <p class="fecha">{{ fecha_actual }}</p>
                 <hr>
             </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color:red;">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
         </div>
 
         <!-- SECCION DEL PERFIL -->

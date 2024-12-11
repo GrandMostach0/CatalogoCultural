@@ -27,6 +27,7 @@ urlpatterns = [
 
     # PERFIL DEL ACTOR CON SUS RESPECTIVAS OPERACIONES
     path("PerfilActor/<int:pk>/", ActoresDetailView.as_view(), name="PerfilActor"),
+    path("editarPerfil/", views.editarPerfil, name="editarPerfil"),
 
     # -> CREAR EVENTO
 

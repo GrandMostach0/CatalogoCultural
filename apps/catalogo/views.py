@@ -129,22 +129,26 @@ def vistaPublicacion(request):
 #  EDICION DE PERFIL DE UN USUARIO
 # -----------------------------
 @login_required
-def editarPerfil(request,):
+def editarPerfil(request):
     actor = Actor.objects.get(user = request.user) # obtenemos el actor actual
 
     if request.method == 'POST':
-        if actor.user == request.user:
-            actor.nombre_Actor = request.POST.get('nombre', actor.nombre_Actor)
-            actor.primer_apellido_Actor = request.POST.get('primeroApellido', actor.primer_apellido_Actor)
-            actor.segundo_apellido_Actor = request.POST.get('segundoApellido', actor.segundo_apellido_Actor)
-            actor.biografia_Actor = request.POST.get('biografia', actor.biografia_Actor)
-            actor.correo_privado_actor = request.POST.get('correoPublico', actor.correo_privado_actor)
-            actor.correo_publico_Actor = request.POST.get('correoPrivado', actor.correo_publico_Actor)
-            actor.Telefono_privado_actor = request.POST.get('telefonoPrivado', actor.Telefono_privado_actor)
-            actor.Telefono_publico_Actor = request.POST.get('telefonoPublico', actor.Telefono_publico_Actor)
+        try:
+            if actor.user == request.user:
+                actor.url_image_actor = request.POST.get('imagenPerfil', actor.url_image_actor)
+                actor.nombre_Actor = request.POST.get('nombre', actor.nombre_Actor)
+                actor.primer_apellido_Actor = request.POST.get('primeroApellido', actor.primer_apellido_Actor)
+                actor.segundo_apellido_Actor = request.POST.get('segundoApellido', actor.segundo_apellido_Actor)
+                actor.biografia_Actor = request.POST.get('biografia', actor.biografia_Actor)
+                actor.correo_privado_actor = request.POST.get('correo_publico', actor.correo_privado_actor)
+                actor.correo_publico_Actor = request.POST.get('correo_privado', actor.correo_publico_Actor)
+                actor.Telefono_privado_actor = request.POST.get('telefono_publico', actor.Telefono_privado_actor)
+                actor.Telefono_publico_Actor = request.POST.get('telefono_privado', actor.Telefono_publico_Actor)
 
-            actor.save()
-            return redirect('perfil_actor', actor_id=actor.id)
+                actor.save()
+                return redirect('PerfilActor', pk=actor.id)
+        except Exception as e:
+            messages.error(request, f"Ocurrió un error: {str(e)}")
     
     return render(request, 'viewPerfil.html', {'actor':actor})
 
