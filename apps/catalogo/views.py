@@ -407,6 +407,7 @@ def get_Escuelas(request):
 def panelAdminitracionBase(request):
     return render(request, 'panelAdministrativoBase.html')
 
+@login_required
 def panelAdministracionInicio(request):
     # Contar el registro de cada base de datos para mostrar
     total_usuarios = Actor.objects.count()
@@ -425,18 +426,21 @@ def panelAdministracionInicio(request):
 
     return render(request, 'panelAdministrativo/adminInicio.html', context)
 
+@login_required
 class panelAdministracionUsuarios(ListView):
     model = Actor
     template_name = 'panelAdministrativo/adminUsuarios.html'
     context_object_name = 'actores'
     paginate_by = 10
 
+@login_required
 class panelAdministracionEscuelas(ListView):
     model = Escuelas
     template_name = 'panelAdministrativo/adminEscuelas.html'
     context_object_name = 'escuelas'
     paginate_by = 10
 
+@login_required
 class panelAdministracionPublicaciones(ListView):
     model = publicacionObras
     template_name = 'panelAdministrativo/adminPublicaciones.html'
@@ -450,6 +454,7 @@ class panelAdministracionPublicaciones(ListView):
 
         return context
 
+@login_required
 class panelAdministracionEventos(ListView):
     model = publicacionEventos
     template_name = 'panelAdministrativo/adminEventos.html'
@@ -466,11 +471,28 @@ class panelAdministracionEventos(ListView):
 #
 # MODULO DE UBICACIONES
 #
+
+@login_required
 class panelAdministracionUbicaciones(ListView):
     model = Ubicaciones_Comunes
     template_name = 'panelAdministrativo/adminUbicaciones.html'
     context_object_name = 'Ubicaciones'
     paginate_by = 10
+
+    def post(self, request, *args, **kwargs):
+        nombre_ubicacion = request.POST['nombre_Ubicacion']
+        direccion = request.POST['direccion']
+        latitud = request.POST['latitud']
+        longitud = request.POST['longitud']
+
+        ubicacion = Ubicaciones_Comunes.objects.create(
+            nombre_ubicacion = nombre_ubicacion,
+            direccion_ubicacion = direccion,
+            latitud = latitud,
+            longitud = longitud
+        )
+
+        return redirect('/panelAdministracion/Ubicaciones')
 
 def agregarUbicacion(request):
     if request.method == 'POST':
