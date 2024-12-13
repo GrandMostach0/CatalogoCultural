@@ -1,46 +1,96 @@
 <!-- MODAL DE LA VENTANA PARA LOS DATOS -->
-<div id="modalUbicación" class="modal">
+<div id="modalAddUsuario" class="modal">
     <!-- Contenido del Modal -->
     <div class="modal-content">
-        <span class="close clsModUbicacion">&times;</span>
-        <h2>Nueva Ubicación</h2>
+        <span class="close clsModUsuario">&times;</span>
+        <h2>Nuevo Usuario</h2>
+
         <form method="POST" action="#">
             {% csrf_token %}
-            <label for="nombre_ubicacion">
-                Nombre de la Ubiación:
+            <label for="nombre_usuario">
+                Nombre Usuario:
                 <input 
-                id="nombre_ubicacion"
-                class="inputs" 
-                type="text" 
-                name="nombre_Ubicacion" 
-                placeholder="Nombre ubicación" required>
+                id="nombre_usuario"
+                class="inputs"
+                type="text"
+                name="Juan Manuel"
+                placeholder="Nombres" required>
             </label>
 
-            <label for="direccion">
-                Dirección:
+            <label for="primer_apellido">
+                Primer Apellido:
                 <input 
+                id="primer_apellido"
                 type="text"
                 class="inputs"
-                id="direccion"
-                name="direccion"
-                placeholder="CALLE No ETC.."
+                name="primer_apellido"
+                placeholder="Rodriguez"
                 required>
             </label>
 
-            <label for="latitud">
-                Latitud:
-                <input type="text"
-                id="latitud"
+            <label for="segundo_apellido">
+                Segundo Apellido:
+                <input 
+                id="segundo_apellido"
+                type="text"
                 class="inputs"
-                name="latitud"
+                name="segundo_apellido"
+                placeholder="Hernandéz"
                 required>
             </label>
 
-            <label for="longitud">
-                Longitud:
-                <input type="text"
-                id="longitud"
-                name="longitud"
+            <div class="subOpciones subOpciones2">
+                <label for="tipo_usuario">
+                    Tipo Usuario:
+                </label>
+                <br>
+                <input
+                type="radio"
+                id="tipo_usuario"
+                name="tipo_usuario"
+                value="actor"
+                />
+                <label for="tipo_usuario">Actor</label>
+
+                <input
+                type="radio"
+                id="tipo_usuario_admin"
+                name="tipo_usuario"
+                value="administrador" />
+                <label for="tipo_usuario_admin">Administrador</label>
+
+                <input
+                type="radio"
+                id="tipo_usuario_ambos"
+                name="tipo_usuario"
+                value="Ambos" />
+                <label for="tipo_usuario_ambos">Ambos</label>
+            </div>
+
+            <br>
+            <label for="correo_privado">
+                Correo Privado:
+                <input
+                id="correo_privado"
+                type="email"
+                class="inputs"
+                required>
+            </label>
+
+            <label for="contrasenia">
+                Contraseña:
+                <input
+                id="contrasenia"
+                type="password"
+                class="inputs"
+                required>
+            </label>
+
+            <label for="confir_contrasenia">
+                Confirma Contraseña:
+                <input
+                id="confir_contrasenia"
+                type="password"
                 class="inputs"
                 required>
             </label>

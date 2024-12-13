@@ -2,6 +2,7 @@ import json
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
 from datetime import datetime
@@ -426,22 +427,21 @@ def panelAdministracionInicio(request):
 
     return render(request, 'panelAdministrativo/adminInicio.html', context)
 
-@login_required
-class panelAdministracionUsuarios(ListView):
+class panelAdministracionUsuarios(LoginRequiredMixin, ListView):
     model = Actor
     template_name = 'panelAdministrativo/adminUsuarios.html'
     context_object_name = 'actores'
     paginate_by = 10
 
-@login_required
-class panelAdministracionEscuelas(ListView):
+
+class panelAdministracionEscuelas(LoginRequiredMixin, ListView):
     model = Escuelas
     template_name = 'panelAdministrativo/adminEscuelas.html'
     context_object_name = 'escuelas'
     paginate_by = 10
 
-@login_required
-class panelAdministracionPublicaciones(ListView):
+
+class panelAdministracionPublicaciones(LoginRequiredMixin, ListView):
     model = publicacionObras
     template_name = 'panelAdministrativo/adminPublicaciones.html'
 
@@ -454,8 +454,8 @@ class panelAdministracionPublicaciones(ListView):
 
         return context
 
-@login_required
-class panelAdministracionEventos(ListView):
+
+class panelAdministracionEventos(LoginRequiredMixin, ListView):
     model = publicacionEventos
     template_name = 'panelAdministrativo/adminEventos.html'
 
@@ -472,8 +472,8 @@ class panelAdministracionEventos(ListView):
 # MODULO DE UBICACIONES
 #
 
-@login_required
-class panelAdministracionUbicaciones(ListView):
+
+class panelAdministracionUbicaciones(LoginRequiredMixin, ListView):
     model = Ubicaciones_Comunes
     template_name = 'panelAdministrativo/adminUbicaciones.html'
     context_object_name = 'Ubicaciones'
