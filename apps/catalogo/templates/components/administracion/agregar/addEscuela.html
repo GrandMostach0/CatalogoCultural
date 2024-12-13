@@ -1,0 +1,147 @@
+<!-- MODAL DE LA VENTANA PARA LOS DATOS -->
+<div id="modalAddEscuela" class="modal">
+    <!-- Contenido del Modal -->
+    <div class="modal-content">
+        <span class="close clsModEscuela">&times;</span>
+        <h2>Nueva Escuela</h2>
+        <form method="POST" action="{% url 'agregarUbicacion' %}">
+            {% csrf_token %}
+            
+            <label for="nombre_escuela">
+                Nombre de la Escuela:
+                <input 
+                id="nombre_escuela" 
+                class="inputs" 
+                type="text" 
+                name="nombre_escuela" 
+                placeholder="Nombre ubicación" 
+                required>
+            </label>
+
+            <label for="direccion">
+                Dirección:
+                <input 
+                type="text"
+                class="inputs"
+                id="direccion"
+                name="direccion"
+                placeholder="CALLE No ETC.."
+                required>
+            </label>
+
+            <div class="subOpciones subOpciones2">
+                <label for="tipo_escuela">
+                    Tipo Escuela:
+                </label>
+                <br>
+
+                <input
+                type="radio"
+                id="tipo_escuela_publica"
+                name="tipo_escuela"
+                value="publica"
+                />
+                <label for="tipo_escuela_publica">Pública</label>
+
+                <input
+                type="radio"
+                id="tipo_escuela_privada"
+                name="tipo_escuela"
+                value="privada" />
+                <label for="tipo_escuela_privada">Privada</label>
+
+            </div>
+            <br>
+
+            <label for="correo">
+                Correo Electrónico:
+                <input type="text"
+                id="corre"
+                class="inputs"
+                name="corre"
+                required>
+            </label>
+
+            <label for="telefono">
+                Teléfono:
+                <input
+                id="telefono" 
+                type="text"
+                class="inputs"
+                required>
+            </label>
+
+            <label for="hora_atencion">
+                Hora de atención:
+                <input
+                id="hora_atencion" 
+                type="text"
+                class="inputs"
+                name="hora_atencion"
+                placeholder="8:00 a.m - 12:00 p.m"
+                required>
+            </label>
+
+            <label for="responsable_responsable">
+                Responsable:
+                <input
+                id="responsable_escuela"
+                type="text"
+                class="inputs"
+                placeholder="ingrese el nombre del responsable">
+            </label>
+
+            <label for="descripcion_escuela">
+                Descripción:
+                <textarea
+                class="inputs"
+                name="descripcion"
+                id="descripcion_escuela"
+                rows="5"
+                placeholder="Descripción"
+                required></textarea>
+            </label>
+
+            <label for="imagen_portada">
+                Imagen de Portada:
+                <input
+                id="imagen_portada"
+                type="file"
+                class="inputs"
+                required>
+            </label>
+
+            <p style="text-align: center; font-weight: bold;"> Imagenes Extras:</p>
+
+            <label for="imagenExtra1">
+                Imagen extra 1:
+                <input
+                id="imagenExtra1"
+                type="file"
+                name="imagenExtra1"
+                class="inputs">
+            </label>
+
+            <label for="imagenExtra2">
+                Imagen extra 2:
+                <input
+                id="imagenExtra2"
+                type="file"
+                name="imagenExtra2"
+                class="inputs">
+            </label>
+
+            <label for="imagenExtra3">
+                Imagen extra 3:
+                <input
+                id="imagenExtra3"
+                type="file"
+                name="imagenExtra3"
+                class="inputs">
+            </label>
+
+            <button type="submit">Agregar</button>
+            <button id="btnCancelar" type="reset">Cancelar</button>
+        </form>
+    </div>
+</div>

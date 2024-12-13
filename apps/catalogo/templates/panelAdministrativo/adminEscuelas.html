@@ -8,7 +8,7 @@
 <!-- Título de la pestaña a visualizar -->
 {% block tituloPestania%}
 <h1>Escuelas</h1>
-<a href="#" class="botones">Agregar +</a>
+<a id="abrirModalEscuela" href="#" class="botones">Agregar +</a>
 {% endblock tituloPestania%}
 
 {% block contenido_administrativo %}
@@ -53,5 +53,7 @@
         <a href="?page={{ page_obj.next_page_number }}"><strong>Siguiente</strong></a>
     {% endif %}
 </div>
+
+<script src="{% static 'js/panelAdministracion/addEscuela.js' %}"></script>
 
 {% endblock contenido_administrativo %}
