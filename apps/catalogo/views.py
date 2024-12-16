@@ -567,5 +567,14 @@ def eliminarUbicacion(request, pk):
     return redirect('/panelAdministracion/Ubicaciones')
 
 def editarUbicacion(request, pk):
-    ubicacion = Ubicaciones_Comunes.objects.get(id=pk)
-    return render(request, 'components/administracion/editar/editUbicacion.html', {'ubicacion': ubicacion})
+    try:
+        ubicacionEdit = Ubicaciones_Comunes.objects.filter(id=pk).values().first()
+
+        if ubicacionEdit:
+            data = {'message' : 'Success', 'Ubicaciones_comunes' : ubicacionEdit}
+        else :
+            data = {'message' : 'Not Found'}
+    except Exception as e:
+        data = {'message': 'Error', 'details': str(e)}
+    
+    return JsonResponse(data)

@@ -35,12 +35,13 @@
             <td>{{ ubicacion.longitud }}</td>
             <td>
                 <a href="" 
-                id="abrirModalUbicacion" 
-                class="botonesTablas btnEditar"
+                class="botonesTablas btnEditar abrirModalEditUbicacion"
+                data-id="{{ ubicacion.id }}"
                 >Editar</a>
             </td>
             <td>
-                <a href="{% url 'eliminarUbicacion' ubicacion.pk %}" class="botonesTablas btnEliminar">Eliminar</a>
+                <a href="{% url 'eliminarUbicacion' ubicacion.pk %}" 
+                class="botonesTablas btnEliminar">Eliminar</a>
             </td>
         </tr>
         {% empty %}
