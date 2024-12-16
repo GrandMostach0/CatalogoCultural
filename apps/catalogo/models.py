@@ -95,7 +95,22 @@ class Escuelas(models.Model):
 
 # TABLA DEL ACTOR
 class Actor(models.Model):
+
+    USER_TYPE_CHOICES = [
+        ('actor', 'Actor'),
+        ('administrador', 'Administrador'),
+        ('ambos', 'Ambos'),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="Actor_perfil", null=True, blank=True)
+
+    tipo_usuario = models.CharField(
+        max_length=20,
+        choices=USER_TYPE_CHOICES,
+        default='actor',
+        verbose_name="Tipo de Usuario"
+    )
+
     url_image_actor = models.ImageField(upload_to="imagenes/", null=True, blank=True, verbose_name="Image Perfil", default='imagenes/default/imagenPerfil.jpg')
     nombre_Actor = models.CharField(max_length=80, null=False, blank=False, verbose_name="Nombres")
     primer_apellido_Actor = models.CharField(max_length=80, null=False, blank=False, verbose_name="Primer Apellido")

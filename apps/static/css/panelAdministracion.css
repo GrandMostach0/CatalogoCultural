@@ -126,6 +126,7 @@ tr:hover{
 .botonesTablas{
     margin: 3px;
     padding: 4px 8px;
+    cursor: pointer;
 }
 
 .botonesTablas:hover{
@@ -149,7 +150,7 @@ tr:hover{
     border-bottom: 2px solid transparent;
   }
   .tab.active {
-    font-weight: bold;
+    /*font-weight: bold;*/
     border-bottom: 2px solid #006eff;
     color: #006eff;
   }
