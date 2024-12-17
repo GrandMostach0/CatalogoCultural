@@ -21,7 +21,7 @@
             <th>Correo</th>
             <th>Télefono</th>
             <th>Responsable</th>
-            <th>Acciones</th>
+            <th colspan="2">Acciones</th>
         </tr>
     </thead>
 
@@ -34,8 +34,13 @@
             <td>{{ escuela.telefono_escuela }}</td>
             <td> NO ASIGNADO </td>
             <td>
-                <a href="#" class="botonesTablas btnEditar">Editar</a>
-                <a href="#" class="botonesTablas btnEliminar">Eliminar</a>
+                <a href=""
+                class="botonesTablas btnEditar btnAbrirModalEditEscuela"
+                data-id="{{ escuela.id }}">Editar</a>
+            </td>
+            <td>
+                <a href="#" 
+                class="botonesTablas btnEliminar">Eliminar</a>
             </td>
         </tr>
         {% endfor %}

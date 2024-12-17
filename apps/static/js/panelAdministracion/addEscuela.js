@@ -2,7 +2,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     var modal = document.getElementById("modalAddEscuela");
     var abrirModal = document.getElementById("abrirModalEscuela");
-    var abrirModalEdit = document.getElementById("modalUbicacionEdit");
     var cerrarModal = document.getElementsByClassName("clsModEscuela")[0];
     var btnCancelar = document.getElementById("btnCancelar");
 
@@ -21,4 +20,27 @@ document.addEventListener("DOMContentLoaded", function() {
         modal.style.display = "none";
         document.body.style.overflow = "auto";
     }
+
+    var btnAbrirModalEditEscuela = document.querySelectorAll(".btnAbrirModalEditEscuela");
+    var abrirModalEditEscuela = document.getElementById("modalEditEscuela");
+    var btnCancelarEditEscuela = document.getElementById("btnCancelarEditEscuela");
+    var cerrarModalEditEscuela = document.getElementsByClassName("clsModEditEscuela")[0];
+
+    btnAbrirModalEditEscuela.forEach(btn => {
+        btn.addEventListener("click", (event) => {
+            event.preventDefault();
+            abrirModalEditEscuela.style.display = "block";
+        });
+    });
+
+    btnCancelarEditEscuela.onclick = function() {
+        abrirModalEditEscuela.style.display = "none";
+    }
+
+    cerrarModalEditEscuela.onclick = function() {
+        abrirModalEditEscuela.style.display = "none";
+    }
+
+    
+
 });
