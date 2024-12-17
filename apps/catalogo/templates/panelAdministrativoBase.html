@@ -55,7 +55,15 @@
                     <a href="{% url 'index' %}" class="salirPanel botones">
                         SALIR
                     </a>
+
+                    
                 </div>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <p style="color:red;">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
             </div>
 
             <div class="administracion-informacion">

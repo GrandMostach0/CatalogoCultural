@@ -63,6 +63,7 @@ urlpatterns = [
     path("agregarUbicacion/", views.agregarUbicacion, name="agregarUbicacion"),
     path("eliminarUbicacion/<int:pk>/", views.eliminarUbicacion, name="eliminarUbicacion"),
     path("getUbicacionRegistro/<int:pk>/", views.editarUbicacion, name="editarUbicacion"),
+    path("updateUbicacion", views.updateUbicacion, name="actualizarUbicacion"),
 
 ]
 

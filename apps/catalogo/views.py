@@ -578,3 +578,36 @@ def editarUbicacion(request, pk):
         data = {'message': 'Error', 'details': str(e)}
     
     return JsonResponse(data)
+
+
+from django.shortcuts import redirect
+from django.contrib import messages  # Para mostrar mensajes de éxito o error
+
+def updateUbicacion(request):
+    try:
+        # Obtención de los datos
+        ubicacion_id = request.POST['ubicacion_id']
+        nombre_ubicacion = request.POST['nombre_Ubicacion']
+        direccion = request.POST['direccion']
+        latitud = request.POST['latitud']
+        longitud = request.POST['longitud']
+
+        print(f"Datos recibidos: ID={ubicacion_id}, Nombre={nombre_ubicacion}, Dirección={direccion}, Latitud={latitud}, Longitud={longitud}")
+
+        ubicacion = Ubicaciones_Comunes.objects.get(id=ubicacion_id)
+        ubicacion.nombre_ubicacion = nombre_ubicacion
+        ubicacion.direccion_ubicacion = direccion
+        ubicacion.latitud = latitud
+        ubicacion.longitud = longitud
+        ubicacion.save()
+
+        messages.success(request, 'La ubicación se actualizó correctamente.')
+    except Ubicaciones_Comunes.DoesNotExist:
+
+        messages.error(request, 'La ubicación no existe.')
+    except Exception as e:
+
+        messages.error(request, f'Ocurrió un error al actualizar la ubicación: {str(e)}')
+
+    # Redirigir al panel de administración
+    return redirect('/panelAdministracion/Ubicaciones')

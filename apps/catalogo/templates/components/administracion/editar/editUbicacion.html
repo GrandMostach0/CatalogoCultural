@@ -2,14 +2,23 @@
 <div id="modalUbicacionEdit" class="modal">
     <!-- Contenido del Modal -->
     <div class="modal-content">
-        <span class="close clsModUbicacion">&times;</span>
+        <span class="close clsModUbicacionEdit">&times;</span>
         <h2>Editar Ubicación</h2>
-        <form method="POST" action="#">
+        <form method="POST" action="{% url 'actualizarUbicacion' %}">
             {% csrf_token %}
+
+            <input
+            id="ubicacion_id"
+            type="hidden"
+            class="inputs"
+            name="ubicacion_id"
+            value="{{ ubicacion.id }}"
+            readonly>
+
             <label for="nombre_ubicacion">
                 Nombre de la Ubiación:
                 <input 
-                id="nombre_ubicacion" 
+                id="nombre_ubicacion_edit" 
                 class="inputs" 
                 type="text" 
                 name="nombre_Ubicacion" 
@@ -21,7 +30,7 @@
                 <input 
                 type="text"
                 class="inputs"
-                id="direccion"
+                id="direccion_edit"
                 name="direccion"
                 value="{{ ubicacion.direccion_ubicacion }}"
                 required>
@@ -30,7 +39,7 @@
             <label for="latitud">
                 Latitud:
                 <input type="text"
-                id="latitud"
+                id="latitud_edit"
                 class="inputs"
                 name="latitud"
                 value="{{ ubicacion.latitud }}"
@@ -40,7 +49,7 @@
             <label for="longitud">
                 Longitud:
                 <input type="text"
-                id="longitud"
+                id="longitud_edit"
                 name="longitud"
                 class="inputs"
                 value="{{ ubicacion.longitud }}"
@@ -48,7 +57,7 @@
             </label>
 
             <button type="submit">Editar</button>
-            <button id="btnCancelar" type="reset">Cancelar</button>
+            <button id="btnCancelarEditubicacion" type="reset">Cancelar</button>
         </form>
     </div>
 </div>
