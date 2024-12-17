@@ -489,6 +489,20 @@ class panelAdministracionEscuelas(LoginRequiredMixin, ListView):
     paginate_by = 10
 
 
+def editarEscuela(request,pk):
+    try:
+        escuela = Escuelas.objects.filter(id=pk).values().first()
+
+        if escuela:
+            data = {'message' : "Success", 'Escuela' : escuela}
+        else:
+            data = {'message' : "Not Found"}
+
+    except Exception as e:
+        data = {'message': 'Error', 'details': str(e)}
+    
+    return JsonResponse(data)
+
 class panelAdministracionPublicaciones(LoginRequiredMixin, ListView):
     model = publicacionObras
     template_name = 'panelAdministrativo/adminPublicaciones.html'
@@ -519,8 +533,6 @@ class panelAdministracionEventos(LoginRequiredMixin, ListView):
 #
 # MODULO DE UBICACIONES
 #
-
-
 class panelAdministracionUbicaciones(LoginRequiredMixin, ListView):
     model = Ubicaciones_Comunes
     template_name = 'panelAdministrativo/adminUbicaciones.html'
@@ -567,6 +579,7 @@ def eliminarUbicacion(request, pk):
     return redirect('/panelAdministracion/Ubicaciones')
 
 def editarUbicacion(request, pk):
+
     try:
         ubicacionEdit = Ubicaciones_Comunes.objects.filter(id=pk).values().first()
 
@@ -578,10 +591,6 @@ def editarUbicacion(request, pk):
         data = {'message': 'Error', 'details': str(e)}
     
     return JsonResponse(data)
-
-
-from django.shortcuts import redirect
-from django.contrib import messages  # Para mostrar mensajes de éxito o error
 
 def updateUbicacion(request):
     try:
