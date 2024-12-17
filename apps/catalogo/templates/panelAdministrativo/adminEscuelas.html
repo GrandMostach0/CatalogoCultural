@@ -39,7 +39,7 @@
                 data-id="{{ escuela.id }}">Editar</a>
             </td>
             <td>
-                <a href="#" 
+                <a href="{% url 'eliminarEscuela' escuela.pk %}" 
                 class="botonesTablas btnEliminar">Eliminar</a>
             </td>
         </tr>

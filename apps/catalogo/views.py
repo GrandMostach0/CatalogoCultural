@@ -489,6 +489,13 @@ class panelAdministracionEscuelas(LoginRequiredMixin, ListView):
     paginate_by = 10
 
 
+def eliminarEscuela(request, pk):
+    escuela = Escuelas.objects.get(id = pk)
+    escuela.delete()
+
+    messages.success(request, f'La escuela "{escuela.nombre_escuela}" ha sido eliminada correctamente')
+    return redirect('/panelAdministracion/Escuelas')
+
 def editarEscuela(request,pk):
     try:
         escuela = Escuelas.objects.filter(id=pk).values().first()
