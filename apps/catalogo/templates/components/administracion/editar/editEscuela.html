@@ -4,8 +4,16 @@
     <div class="modal-content">
         <span class="close clsModEditEscuela">&times;</span>
         <h2>Editar Escuela</h2>
-        <form method="POST" action="{% url 'agregarUbicacion' %}">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'actualizarEscuela' %}">
             {% csrf_token %}
+            
+            <input
+            id="escuela_id"
+            type="hidden"
+            class="inputs"
+            name="escuela_id"
+            value="{{ escuela.id }}"
+            readonly>
             
             <label for="nombre_escuela_edit">
                 Nombre de la Escuela:
@@ -68,6 +76,7 @@
                 id="telefono_edit" 
                 type="text"
                 class="inputs"
+                name="telefono"
                 required>
             </label>
 

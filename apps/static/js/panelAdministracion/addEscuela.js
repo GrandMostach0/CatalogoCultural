@@ -37,8 +37,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 const response = await fetch(`/editarEscuela/${data_id_atribute}`);
                 const result = await response.json();
                 if(result.message === "Success"){
-                    console.log(result);
 
+                    document.getElementById("escuela_id").value = result.Escuela.id;
                     document.getElementById("nombre_escuela_edit").value = result.Escuela.nombre_escuela;
                     if(result.Escuela.tipo_escuela){
                         document.getElementById("tipo_escuela_publica_edit").checked = true;
@@ -60,6 +60,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     //document.getElementById("responsable_escuela_edit").value = result.Escuela.;
 
                     abrirModalEditEscuela.style.display = "block";
+                    document.body.style.overflow = "hidden";
+
+
                 }else{
                     console.log("Fallo la carga o no se que pedo")
                 }
@@ -72,10 +75,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     btnCancelarEditEscuela.onclick = function() {
         abrirModalEditEscuela.style.display = "none";
+        document.body.style.overflow = "auto";
     }
 
     cerrarModalEditEscuela.onclick = function() {
         abrirModalEditEscuela.style.display = "none";
+        document.body.style.overflow = "auto";
     }
 
     

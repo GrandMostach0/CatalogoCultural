@@ -510,6 +510,35 @@ def editarEscuela(request,pk):
     
     return JsonResponse(data)
 
+def updateEscuela(request):
+    try:
+        #obtencion de los datos
+        escuela_id = request.POST['escuela_id']
+        nombre_escuela = request.POST['nombre_escuela']
+        direccion = request.POST['direccion']
+        correo = request.POST['corre']
+        telefono = request.POST['telefono']
+        tipo_escuela = request.POST['tipo_escuela']
+        # conversion a booleano
+        tipo_escuela_boolean = True if tipo_escuela == "publica" else False
+
+        escuela = Escuelas.objects.get(id = escuela_id)
+        escuela.nombre_escuela = nombre_escuela
+        escuela.tipo_escuela = tipo_escuela_boolean
+        escuela.ubicacion_escuela = direccion
+        escuela.correo_escuela = correo
+        escuela.telefono_escuela = telefono
+        escuela.save()
+
+        messages.success(request, 'La Escuela se actualizo correctamente.')
+    except Escuelas.DoesNotExist:
+        messages.error(request, 'La Escuela no éxite')
+
+    except Exception as e:
+        messages.error(request, f"Ocurrio un error al actulizar la escuela: {str(e)}")
+    
+    return redirect('/panelAdministracion/Escuelas')
+
 class panelAdministracionPublicaciones(LoginRequiredMixin, ListView):
     model = publicacionObras
     template_name = 'panelAdministrativo/adminPublicaciones.html'
