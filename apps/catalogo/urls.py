@@ -45,6 +45,7 @@ urlpatterns = [
     path("audiencia/", views.get_clasificaciones, name="get_clasificaciones"),
     path("ubicaciones/", views.get_Ubicaciones_Comunes, name="get_ubicaciones_comunes"),
     path("escuelas/", views.get_Escuelas, name="get_Escuelas"),
+    path("municipios/", views.get_municipios, name="get_municipios"),
 
     # RUTA DONDE SE CONSULTA LA API
     path("mi_api/", EventosListViewAPI.as_view(), name="mi_api"),

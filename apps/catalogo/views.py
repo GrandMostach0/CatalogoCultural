@@ -13,7 +13,7 @@ from datetime import date
 
 ### IMPORTACION DE LOS MODULOS
 from django.http import JsonResponse
-from .models import Disciplinas, Subdisciplinas, Escuelas, Actor, RedSocial, Cat_redSocial, Imagenes_publicaciones, publicacionEventos, publicacionObras, Audiencia, Ubicaciones_Comunes
+from .models import Disciplinas, Subdisciplinas, Escuelas, Actor, RedSocial, Cat_redSocial, Imagenes_publicaciones, publicacionEventos, publicacionObras, Audiencia, Ubicaciones_Comunes, Localidad
 
 #### LISTVIEW PARA MOSTRAR CARDS
 from django.views.generic import ListView, DetailView
@@ -339,7 +339,7 @@ class EscuelaDetailView(DetailView):
         return context
 
 # -----------------------------
-#  SECCION APARA LA OBTENCION DE LOS DATOS DE LA BASE DE DATOS QUE PUEDA SERVIR EN LA PARTE DE FILTROS
+#  SECCION DE LAS OPCIONES
 # -----------------------------
 # TABLA DE LAS DISCIPLINAS
 def get_Disciplinas(request):
@@ -405,6 +405,18 @@ def get_Escuelas(request):
         data = {'message': "Not Found"}
     
     return JsonResponse(data)
+
+def get_municipios(request):
+
+    localidades = list(Localidad.objects.values())
+
+    if localidades:
+        data = {'message': "Success", 'Localidad': localidades}
+    else:
+        data = {'message': "Not Found"}
+    
+    return JsonResponse(data)
+
 
 # -----------------------------
 #  SECCION PANEL ADMINSTRATIVO
