@@ -1,3 +1,36 @@
+const listadoLocalidades = async (id_localidad) =>{
+    try{
+        const response = await fetch('/municipios/');
+        const result = await response.json();
+
+        if(result.message === 'Success'){
+            const setListaLocalidades = document.getElementById("ListadoUbicaciones");
+
+            result.Localidad.forEach(local => {
+                const option = document.createElement("option");
+                option.value = local.id;
+                option.textContent = local.nombre_ubicacion;
+
+                //validacion para maracr unicamente su localidad de la persona por mientras
+                if(local.id === id_localidad){
+                    option.selected = true;
+                }
+
+                setListaLocalidades.appendChild(option);
+            });
+        }else{
+            console.log("Error al listar las opciones")
+        }
+
+
+    }catch(e){
+        console.error("Error al obtener el listado", e)
+    }
+};
+
+
+
+
 // Esperar a que el DOM se cargue
 document.addEventListener("DOMContentLoaded", function() {
     var modal = document.getElementById("modalAddEscuela");
@@ -38,6 +71,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 const result = await response.json();
                 if(result.message === "Success"){
 
+                    console.log(result)
+
+                    await listadoLocalidades(result.Escuela.id_localidad_id);
+
                     document.getElementById("escuela_id").value = result.Escuela.id;
                     document.getElementById("nombre_escuela_edit").value = result.Escuela.nombre_escuela;
                     if(result.Escuela.tipo_escuela){
@@ -45,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     }else{
                         document.getElementById("tipo_escuela_privada_edit").checked = true;
                     }
+
 
                     document.getElementById("descripcion_escuela_edit").value = result.Escuela.descripcion;
                     document.getElementById("telefono_edit").value = result.Escuela.telefono_escuela;
