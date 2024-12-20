@@ -21,15 +21,52 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.style.overflow = "auto";
     }
 
+
+    /* SECCION DE LA EDICION DE LA ESCUELA */
     var btnAbrirModalEditEscuela = document.querySelectorAll(".btnAbrirModalEditEscuela");
     var abrirModalEditEscuela = document.getElementById("modalEditEscuela");
     var btnCancelarEditEscuela = document.getElementById("btnCancelarEditEscuela");
     var cerrarModalEditEscuela = document.getElementsByClassName("clsModEditEscuela")[0];
 
     btnAbrirModalEditEscuela.forEach(btn => {
-        btn.addEventListener("click", (event) => {
+        btn.addEventListener("click", async (event) => {
             event.preventDefault();
-            abrirModalEditEscuela.style.display = "block";
+            var data_id_atribute = btn.getAttribute("data-id");
+
+            try{
+                const response = await fetch(`/editarEscuela/${data_id_atribute}`);
+                const result = await response.json();
+                if(result.message === "Success"){
+                    console.log(result);
+
+                    document.getElementById("nombre_escuela_edit").value = result.Escuela.nombre_escuela;
+                    if(result.Escuela.tipo_escuela){
+                        document.getElementById("tipo_escuela_publica_edit").checked = true;
+                    }else{
+                        document.getElementById("tipo_escuela_privada_edit").checked = true;
+                    }
+
+                    document.getElementById("descripcion_escuela_edit").value = result.Escuela.descripcion;
+                    document.getElementById("telefono_edit").value = result.Escuela.telefono_escuela;
+                    document.getElementById("correo_edit").value = result.Escuela.correo_escuela;
+                    
+
+                    if(result.Escuela.ubicacion_escuela === null){
+                        document.getElementById("direccion_edit_escuela").value = "No tiene registro";
+                    }else{
+                        document.getElementById("direccion_edit_escuela").value = result.Escuela.ubicacion_escuela;
+                    }
+                    document.getElementById("hora_atencion_edit").value = result.Escuela.hora_atencion;
+                    //document.getElementById("responsable_escuela_edit").value = result.Escuela.;
+
+                    abrirModalEditEscuela.style.display = "block";
+                }else{
+                    console.log("Fallo la carga o no se que pedo")
+                }
+
+            }catch(e){
+                console.error("Error al obtener los datos", error)
+            }
         });
     });
 
