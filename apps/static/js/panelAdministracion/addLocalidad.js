@@ -21,32 +21,28 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.style.overflow = "auto";
     }
 
-    /* PARTE DE LA EDICION 
-    var abirModalEditUbicacion = document.querySelectorAll(".abrirModalEditUbicacion");
-    var abrirModalEdicionUbicacion = document.getElementById("modalUbicacionEdit");
-    var btnCancelarEditubicacion = document.getElementById("btnCancelarEditubicacion");
-    var cerrarModalEditUbicacion = document.getElementsByClassName("clsModUbicacionEdit")[0];
+    /* PARTE DE LA EDICION */
+    var abirModalEditLocalidad = document.querySelectorAll(".abrirModalEditLocalidad");
+    var abrirModalEdicionLocalidad = document.getElementById("modalEditLocalidad");
+    var btnCancelarEditLocalidad = document.getElementById("btnCancelarEditLocalidad");
+    var cerrarModalEditLocalidad = document.getElementsByClassName("clsModEditLocalidad")[0];
 
-    abirModalEditUbicacion.forEach(btn => {
+    abirModalEditLocalidad.forEach(btn => {
         btn.addEventListener("click", async (event) => {
             event.preventDefault();
             const data_id_atribute = event.target.getAttribute("data-id");
     
             try {
-                const response = await fetch(`/getUbicacionRegistro/${data_id_atribute}`);
+                const response = await fetch(`/getLocalidad/${data_id_atribute}`);
                 const result = await response.json();
 
                 if (result.message === "Success") {
                     console.log(result);
 
-                    document.getElementById("ubicacion_id").value = result.Ubicaciones_comunes.id;
-                    document.getElementById("nombre_ubicacion_edit").value = result.Ubicaciones_comunes.nombre_ubicacion;
-                    document.getElementById("direccion_edit").value = result.Ubicaciones_comunes.direccion_ubicacion
-;
-                    document.getElementById("latitud_edit").value = result.Ubicaciones_comunes.latitud;
-                    document.getElementById("longitud_edit").value = result.Ubicaciones_comunes.longitud;
+                    document.getElementById("localidadEdit_id").value = result.Localidad.id;
+                    document.getElementById("nombre_editlocalidad").value = result.Localidad.nombre_ubicacion;
 
-                    abrirModalEdicionUbicacion.style.display = "block";
+                    abrirModalEdicionLocalidad.style.display = "block";
                     document.body.style.overflow = "hidden";
 
                 } else {
@@ -59,15 +55,14 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     
 
-    btnCancelarEditubicacion.onclick = function() {
-        abrirModalEdicionUbicacion.style.display = "none";
+    btnCancelarEditLocalidad.onclick = function() {
+        abrirModalEdicionLocalidad.style.display = "none";
         document.body.style.overflow = "auto";
     }
 
-    cerrarModalEditUbicacion.onclick = function(){
-        abrirModalEdicionUbicacion.style.display = "none";
+    cerrarModalEditLocalidad.onclick = function(){
+        abrirModalEdicionLocalidad.style.display = "none";
         document.body.style.overflow = "auto";
     }
-    */
 
 });

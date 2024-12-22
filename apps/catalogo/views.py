@@ -700,3 +700,33 @@ def eliminar_localidad(request, pk):
 
     messages.success(request, f'La ubicación "{localidad.nombre_ubicacion}" ha sido eliminada con éxito.')
     return redirect('/panelAdministracion/Localidades')
+
+def get_localidad(request, id):
+    try:
+        localidad = Localidad.objects.filter(id=id).values().first()
+        if Localidad:
+            data = {'message' : 'Success', 'Localidad' : localidad}
+        else :
+            data = {'message' : 'Not Found'}
+    except Exception as e:
+        data = {'message': 'Error', 'details': str(e)}
+    
+    return JsonResponse(data)
+
+def update_localidad(request):
+    try:
+        localidad_id = request.POST['localidad_id']
+        nombre_localidad = request.POST['nombre_Localidad']
+
+        localidad = Localidad.objects.get(id = localidad_id)
+        localidad.nombre_ubicacion = nombre_localidad
+        localidad.save()
+
+        messages.success(request, f'La localidad {localidad.nombre_ubicacion} actualizó correctamente.')
+    except Localidad.DoesNotExist:
+        messages.error(request, 'La Localidad no existe.')
+    except Exception as e:
+        messages.error(request, f'Ocurrió un error al actualizar la Localidad: {str(e)}')
+
+    # Redirigir al panel de administración
+    return redirect('/panelAdministracion/Localidades')

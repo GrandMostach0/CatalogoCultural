@@ -1,0 +1,31 @@
+<!-- MODAL DE LA VENTANA PARA LOS DATOS -->
+<div id="modalEditLocalidad" class="modal">
+    <!-- Contenido del Modal -->
+    <div class="modal-content">
+        <span class="close clsModEditLocalidad">&times;</span>
+        <h2>Nueva Localidad</h2>
+        <form method="POST" action="{% url 'actualizarLocalidad' %}">
+            {% csrf_token %}
+            
+            <input
+            id="localidadEdit_id"
+            type="text"
+            class="inputs"
+            name="localidad_id"
+            readonly>
+
+            <label for="nombre_editlocalidad">
+                Nombre de la localidad:
+                <input 
+                id="nombre_editlocalidad" 
+                class="inputs" 
+                type="text" 
+                name="nombre_Localidad" 
+                placeholder="Nombre de la Localidad" required>
+            </label>
+
+            <button type="submit">Modificar</button>
+            <button id="btnCancelarEditLocalidad" type="reset">Cancelar</button>
+        </form>
+    </div>
+</div>

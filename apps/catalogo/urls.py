@@ -70,11 +70,13 @@ urlpatterns = [
     path("agregarUbicacion/", views.agregarUbicacion, name="agregarUbicacion"),
     path("eliminarUbicacion/<int:pk>/", views.eliminarUbicacion, name="eliminarUbicacion"),
     path("getUbicacionRegistro/<int:pk>/", views.editarUbicacion, name="editarUbicacion"),
-    path("updateUbicacion", views.updateUbicacion, name="actualizarUbicacion"),
+    path("updateUbicacion/", views.updateUbicacion, name="actualizarUbicacion"),
 
     path("panelAdministracion/Localidades", panelAdministracionMunicipios.as_view(), name="PanelAdministracionMunicipios"),
     path("agregarLocalidad", views.agregar_localidad, name="agregarLocalidad"),
     path("eliminarLocalidad/<int:pk>", views.eliminar_localidad, name="eliminarLocalidad"),
+    path("getLocalidad/<int:id>", views.get_localidad, name="getLocalidad"),
+    path("updateLocalidad/", views.update_localidad, name="actualizarLocalidad"),
 
 ]
 
