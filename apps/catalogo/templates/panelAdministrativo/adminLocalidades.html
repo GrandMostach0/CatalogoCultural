@@ -1,0 +1,63 @@
+{% extends '../panelAdministrativoBase.html' %}
+
+{% load static %}
+
+<!-- Título de la página -->
+{% block title %}Localidades{% endblock title %}
+
+<!-- Título de la pestaña a visualizar -->
+{% block tituloPestania%}
+<h1>Municipios de Yucatán</h1>
+<a id="abrirModalLocalidad" href="#" class="botones">Agregar +</a>
+{% endblock tituloPestania%}
+
+{% block contenido_administrativo %}
+
+<table>
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nombre</th>
+            <th colspan="2">Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for localidad in Localidad %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ localidad.nombre_ubicacion }}</td>
+            <td>
+                <a href="" 
+                class="botonesTablas btnEditar abrirModalEditUbicacion"
+                data-id="{{ localidad.id }}"
+                >Editar</a>
+            </td>
+            <td>
+                <a href="{% url 'eliminarUbicacion' localidad.pk %}" 
+                class="botonesTablas btnEliminar">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+          <tr>
+              <td colspan="6">No hay Ubicaciones disponibles.</td>
+          </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}"><strong>Anterior</strong></a>
+    {% endif %}
+
+    <span class="current">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}"><strong>Siguiente</strong></a>
+    {% endif %}
+</div>
+
+<script src="{% static 'js/panelAdministracion/addUbicacion.js' %}"></script>
+
+{% endblock contenido_administrativo %}

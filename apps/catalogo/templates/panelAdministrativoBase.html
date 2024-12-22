@@ -52,6 +52,11 @@
                         Ubicaciones Teatros
                     </a>
 
+                    <a href="{% url 'PanelAdministracionMunicipios' %}">
+                        <img src="{% static 'assets/icons/ubicacion-icon.svg' %}" alt="icono-opcion">
+                        Localidades
+                    </a>
+
                     <a href="{% url 'index' %}" class="salirPanel botones">
                         SALIR
                     </a>
@@ -93,6 +98,7 @@
     {% include 'components/administracion/editar/editPublicacion.html' %}
     {% include 'components/administracion/editar/editUsuario.html' %}
     {% include 'components/administracion/editar/editUbicacion.html' %}
+
     <script>
         // Manejo de clics en pestañas
         const tabs = document.querySelectorAll('.tab');

@@ -668,3 +668,15 @@ def updateUbicacion(request):
 
     # Redirigir al panel de administración
     return redirect('/panelAdministracion/Ubicaciones')
+
+
+
+#
+# MODULO DE MUNICIPIOS
+#
+
+class panelAdministracionMunicipios(LoginRequiredMixin, ListView):
+    model = Localidad
+    template_name = 'panelAdministrativo/adminLocalidades.html'
+    context_object_name = 'Localidad'
+    paginate_by = 10
