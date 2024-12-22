@@ -1,0 +1,24 @@
+<!-- MODAL DE LA VENTANA PARA LOS DATOS -->
+<div id="modalLocalidad" class="modal">
+    <!-- Contenido del Modal -->
+    <div class="modal-content">
+        <span class="close clsModLocalidad">&times;</span>
+        <h2>Nueva Localidad</h2>
+        <form method="POST" action="{% url 'agregarUbicacion' %}">
+            {% csrf_token %}
+            
+            <label for="nombre_localidad">
+                Nombre de la localidad:
+                <input 
+                id="nombre_localidad" 
+                class="inputs" 
+                type="text" 
+                name="nombre_Localidad" 
+                placeholder="Nombre de la Localidad" required>
+            </label>
+
+            <button type="submit">Agregar</button>
+            <button id="btnCancelarLocalidad" type="reset">Cancelar</button>
+        </form>
+    </div>
+</div>
