@@ -74,6 +74,7 @@ urlpatterns = [
 
     path("panelAdministracion/Localidades", panelAdministracionMunicipios.as_view(), name="PanelAdministracionMunicipios"),
     path("agregarLocalidad", views.agregar_localidad, name="agregarLocalidad"),
+    path("eliminarLocalidad/<int:pk>", views.eliminar_localidad, name="eliminarLocalidad"),
 
 ]
 

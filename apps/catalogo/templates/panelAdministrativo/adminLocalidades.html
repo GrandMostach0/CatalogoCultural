@@ -29,12 +29,12 @@
             <td>{{ localidad.nombre_ubicacion }}</td>
             <td>
                 <a href="" 
-                class="botonesTablas btnEditar abrirModalEditUbicacion"
+                class="botonesTablas btnEditar abrirModalEditLocalidad"
                 data-id="{{ localidad.id }}"
                 >Editar</a>
             </td>
             <td>
-                <a href="{% url 'eliminarUbicacion' localidad.pk %}" 
+                <a href="{% url 'eliminarLocalidad' localidad.pk %}" 
                 class="botonesTablas btnEliminar">Eliminar</a>
             </td>
         </tr>

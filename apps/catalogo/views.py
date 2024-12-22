@@ -693,3 +693,10 @@ def agregar_localidad(request):
         return redirect('/panelAdministracion/Localidades')
     else:
         print("no es POST")
+
+def eliminar_localidad(request, pk):
+    localidad = Localidad.objects.get(id=pk)
+    localidad.delete()
+
+    messages.success(request, f'La ubicación "{localidad.nombre_ubicacion}" ha sido eliminada con éxito.')
+    return redirect('/panelAdministracion/Localidades')
