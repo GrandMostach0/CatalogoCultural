@@ -680,3 +680,16 @@ class panelAdministracionMunicipios(LoginRequiredMixin, ListView):
     template_name = 'panelAdministrativo/adminLocalidades.html'
     context_object_name = 'Localidad'
     paginate_by = 10
+
+
+def agregar_localidad(request):
+    if request.method == 'POST':
+        nombre_ubicacion = request.POST['nombre_Localidad']
+
+        ubicacion = Localidad.objects.create(
+            nombre_ubicacion = nombre_ubicacion
+        )
+
+        return redirect('/panelAdministracion/Localidades')
+    else:
+        print("no es POST")

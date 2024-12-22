@@ -73,6 +73,7 @@ urlpatterns = [
     path("updateUbicacion", views.updateUbicacion, name="actualizarUbicacion"),
 
     path("panelAdministracion/Localidades", panelAdministracionMunicipios.as_view(), name="PanelAdministracionMunicipios"),
+    path("agregarLocalidad", views.agregar_localidad, name="agregarLocalidad"),
 
 ]
 

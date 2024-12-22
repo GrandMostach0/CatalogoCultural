@@ -4,7 +4,7 @@
     <div class="modal-content">
         <span class="close clsModLocalidad">&times;</span>
         <h2>Nueva Localidad</h2>
-        <form method="POST" action="{% url 'agregarUbicacion' %}">
+        <form method="POST" action="{% url 'agregarLocalidad' %}">
             {% csrf_token %}
             
             <label for="nombre_localidad">
