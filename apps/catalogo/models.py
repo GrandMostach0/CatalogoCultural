@@ -109,14 +109,14 @@ class Actor(models.Model):
         choices=USER_TYPE_CHOICES,
         default='actor',
         verbose_name="Tipo de Usuario"
-    )
+    )   
 
     url_image_actor = models.ImageField(upload_to="imagenes/", null=True, blank=True, verbose_name="Image Perfil", default='imagenes/default/imagenPerfil.jpg')
-    nombre_Actor = models.CharField(max_length=80, null=False, blank=False, verbose_name="Nombres")
-    primer_apellido_Actor = models.CharField(max_length=80, null=False, blank=False, verbose_name="Primer Apellido")
-    segundo_apellido_Actor = models.CharField(max_length=80, null=False, blank=False, verbose_name="Segundo Apellido")
+    nombre_Actor = models.CharField(max_length=80, null=False, blank=True, verbose_name="Nombres")
+    primer_apellido_Actor = models.CharField(max_length=80, null=True, blank=False, verbose_name="Primer Apellido")
+    segundo_apellido_Actor = models.CharField(max_length=80, null=True, blank=False, verbose_name="Segundo Apellido")
     biografia_Actor = models.TextField(null=True, blank=True, verbose_name="Biografia", default="Aún no se ha registrado una biografía.")
-    correo_publico_Actor = models.CharField(max_length=100, null=False, blank=True, verbose_name="Correo Publico", default="....")
+    correo_publico_Actor = models.CharField(max_length=100, null=True, blank=True, verbose_name="Correo Publico", default="....")
     correo_privado_actor = models.CharField(max_length=100, null=True, blank=True, verbose_name="Correo Privado", default="...")
     Telefono_publico_Actor = models.CharField(max_length=10, null=True, blank=True, verbose_name="Telefono Publico", default="...")
     Telefono_privado_actor = models.CharField(max_length=10, null=True, blank=True, verbose_name="Telefono Privado", default="...")

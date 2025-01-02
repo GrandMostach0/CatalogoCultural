@@ -13,8 +13,8 @@
                 id="nombre_usuario"
                 class="inputs"
                 type="text"
-                name="Juan Manuel"
-                placeholder="Nombres" required>
+                name="nombre_usuario"
+                placeholder="Juan Manuel" required>
             </label>
 
             <label for="primer_apellido">
@@ -67,6 +67,8 @@
                 <label for="tipo_usuario_ambos">Ambos</label>
             </div>
 
+            <br>
+
             <div class="dosOpciones">
                 <label for="disciplina">
                     Disclipina principal:
@@ -79,17 +81,29 @@
                     <select name="subDisciplina" id="listaSubDisciplinaUsuario">
                     </select>
                 </label>
+                <br>
             </div>
 
-            <br>
+            <label for="correo_publico">
+                Correo <strong>Público</strong>:
+                <input
+                id="correo_publico"
+                type="email"
+                class="inputs"
+                name="correo_publico"
+                required>
+            </label>
+
             <label for="correo_privado">
-                Correo Privado:
+                Correo <strong>Privado</strong>:
                 <input
                 id="correo_privado"
                 type="email"
                 class="inputs"
+                name="correo_privado"
                 required>
             </label>
+
 
             <label for="contrasenia">
                 Contraseña:
@@ -97,6 +111,7 @@
                 id="contrasenia"
                 type="password"
                 class="inputs"
+                name="contrasenia"
                 required>
             </label>
 
@@ -106,6 +121,7 @@
                 id="confir_contrasenia"
                 type="password"
                 class="inputs"
+                name="confcontrasenia"
                 required>
             </label>
 

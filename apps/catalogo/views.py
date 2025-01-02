@@ -450,48 +450,94 @@ class panelAdministracionUsuarios(LoginRequiredMixin, ListView):
     context_object_name = 'actores'
     paginate_by = 10
 
-def agregarUsuario(request):
-    if request.method == 'POST':
-        # Recibir los datos del formulario
-        nombre = request.POST.get('nombre')
-        primer_apellido = request.POST.get('primerApellido')
-        segundo_apellido = request.POST.get('segundoApellido')
-        correo = request.POST.get('Correo')
-        contrasenia = request.POST.get('Contrasenia')
-        confir_contrasenia = request.POST.get('confirContrasenia')
+    def post(self, request, *args, **kwargs):
+        nombre = request.POST.get('nombre_usuario')
+        primer_apellido = request.POST.get('primer_apellido')
+        segundo_apellido = request.POST.get('segundo_apellido')
+        tipo_usuario = request.POST.get('tipo_usuario')
         disciplina = request.POST.get('disciplina')
         subdisciplina = request.POST.get('subDisciplina')
-        fecha_nacimiento = request.POST.get('fechaNacimineto')
-
+        correo_publico = request.POST.get('correo_publico')
+        correo_privado = request.POST.get('correo_privado')
+        contrasenia = request.POST.get('contrasenia')
+        confir_contrasenia = request.POST.get('confcontrasenia')
+        
         # validacion simple de contraseña
         if contrasenia != confir_contrasenia:
             messages.error(request, 'Las contraseñas con coinciden')
-            return render(request, 'RegistroSecion.html')
+            return redirect('/panelAdministracion/Usuarios')
         
         # validacion para ver si ya existe el usuario
-        if User.objects.filter(username = correo).exists():
+        if User.objects.filter(username = correo_privado).exists():
             messages.error(request, 'El correo ya existe')
-            return render(request, 'RegistroSecion.html')
+            return redirect('/panelAdministracion/Usuarios')
 
-        usuario = User.objects.create_user(username=correo, password=contrasenia)
+        usuario = User.objects.create_user(username=correo_privado, password=contrasenia)
 
         # creacion del usuario en django
         try:
             subdisciplina_obj = Subdisciplinas.objects.get(id=subdisciplina)
             actor = Actor.objects.create(
+                tipo_usuario = tipo_usuario,
                 user = usuario,
                 nombre_Actor = nombre,
                 primer_apellido_Actor = primer_apellido,
                 segundo_apellido_Actor = segundo_apellido,
-                correo_privado_actor = correo,
+                correo_publico_Actor = correo_publico,
+                correo_privado_actor = correo_privado,
                 id_subdisciplina = subdisciplina_obj,
             )
 
             messages.success(request, 'Registro exitoso')
-            return redirect('viewSesion')
+            return redirect('/panelAdministracion/Usuarios')
         except Subdisciplinas.DoesNotExist:
             messages.error(request, 'Subdisciplinas no encontradas')
-            return redirect('RegistroSecion.html')
+            return redirect('/panelAdministracion/Usuarios')
+
+def agregarUsuario(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre_usuario')
+        primer_apellido = request.POST.get('primer_apellido')
+        segundo_apellido = request.POST.get('segundo_apellido')
+        tipo_usuario = request.POST.get('tipo_usuario')
+        disciplina = request.POST.get('disciplina')
+        subdisciplina = request.POST.get('subDisciplina')
+        correo_publico = request.POST.get('correo_publico')
+        correo_privado = request.POST.get('correo_privado')
+        contrasenia = request.POST.get('contrasenia')
+        confir_contrasenia = request.POST.get('confcontrasenia')
+        
+        # validacion simple de contraseña
+        if contrasenia != confir_contrasenia:
+            messages.error(request, 'Las contraseñas con coinciden')
+            return redirect('/panelAdministracion/Usuarios')
+        
+        # validacion para ver si ya existe el usuario
+        if User.objects.filter(username = correo_privado).exists():
+            messages.error(request, 'El correo ya existe')
+            return redirect('/panelAdministracion/Usuarios')
+
+        usuario = User.objects.create_user(username=correo_privado, password=contrasenia)
+
+        # creacion del usuario en django
+        try:
+            subdisciplina_obj = Subdisciplinas.objects.get(id=subdisciplina)
+            actor = Actor.objects.create(
+                tipo_usuario = tipo_usuario,
+                user = usuario,
+                nombre_Actor = nombre,
+                primer_apellido_Actor = primer_apellido,
+                segundo_apellido_Actor = segundo_apellido,
+                correo_publico_Actor = correo_publico,
+                correo_privado_actor = correo_privado,
+                id_subdisciplina = subdisciplina_obj,
+            )
+
+            messages.success(request, 'Registro exitoso')
+            return redirect('/panelAdministracion/Usuarios')
+        except Subdisciplinas.DoesNotExist:
+            messages.error(request, 'Subdisciplinas no encontradas')
+            return redirect('/panelAdministracion/Usuarios')
 
 
 class panelAdministracionEscuelas(LoginRequiredMixin, ListView):
