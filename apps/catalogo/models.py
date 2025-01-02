@@ -109,7 +109,9 @@ class Actor(models.Model):
         choices=USER_TYPE_CHOICES,
         default='actor',
         verbose_name="Tipo de Usuario"
-    )   
+    )
+
+    is_active = models.BooleanField(default=False, verbose_name="Estado")
 
     url_image_actor = models.ImageField(upload_to="imagenes/", null=True, blank=True, verbose_name="Image Perfil", default='imagenes/default/imagenPerfil.jpg')
     nombre_Actor = models.CharField(max_length=80, null=False, blank=True, verbose_name="Nombres")

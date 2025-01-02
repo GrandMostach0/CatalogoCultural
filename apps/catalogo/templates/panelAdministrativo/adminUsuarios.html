@@ -19,7 +19,6 @@
             <th>Nombre</th>
             <th>Correo Privado</th>
             <th>Télefono Privado</th>
-            <th>Estado</th>
             <th>Rol</th>
             <th>Acciones</th>
         </tr>
@@ -32,8 +31,14 @@
             <td>{{ actor.nombre_completo }}</td>
             <td>{{ actor.correo_privado_actor }}</td>
             <td>{{ actor.Telefono_privado_actor }}</td>
-            <td>activo</td>
-            <td>Actor</td>
+            {% if actor.tipo_usuario == "administrador" %}
+            <td><strong style="color: blue;">Administrador</strong></td>
+            {% elif actor.tipo_usuario == "ambos" %}
+                <td><strong style="color: green;">Ambos</strong></td>
+            {% else %}
+                <td>Usuario</td>
+            {% endif %}
+
             <td>
                 <a href="#" class="botonesTablas">Editar</a>
                 <a href="{% url 'eliminarActor' actor.pk %}" 

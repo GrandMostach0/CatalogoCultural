@@ -542,10 +542,15 @@ def agregarUsuario(request):
 def eliminar_actor(request, pk):
     actor = Actor.objects.get(id = pk)
     usuario = actor.user
-    usuario.delete()
 
-    messages.success(request, f"Actor {actor.nombre_Actor} y su usuario fueron eliminados")
-    return redirect('/panelAdministracion/Usuarios')
+    try:
+        usuario.delete()
+        messages.success(request, f"Actor {actor.nombre_Actor} y su usuario fueron eliminados")
+        return redirect('/panelAdministracion/Usuarios')
+    except Exception as e:
+        messages.error(request, f"Hubo un error al eliminar el actor: {e}")
+        return redirect('/panelAdministracion/Usuarios')
+
 
 class panelAdministracionEscuelas(LoginRequiredMixin, ListView):
     model = Escuelas
