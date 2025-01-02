@@ -9,7 +9,8 @@ from .api_view import EventosListViewAPI
 
 urlpatterns = [
     path("", views.Inicio, name="index"),
-    path("disciplinas/", views.get_Disciplinas, name="get_disciplinasi"),
+    path("disciplinas/", views.get_Disciplinas, name="get_disciplinas"),
+    path("subdisciplina/<int:id_disciplina>", views.get_Subdisciplinas, name="get_subdisciplina"),
     path("viewSesion/", views.viewSesion, name="viewSesion"),
     path("login/", views.login_view, name="login"),
     path("logout/", views.logout_view, name="logout"),

@@ -1,21 +1,26 @@
 const listarSubDisciplinas = async(idDisciplina) => {
     try{
-        const response = await fetch(`/subdisciplinas/${idDisciplina}`);
+        const response = await fetch(`/subdisciplina/${idDisciplina}`);
         const data = await response.json();
 
         if(data.message === "Success"){
 
             console.log(data)
 
-            let opciones = ``;
-            data.Subdisciplinas.forEach((subdisciplina) => {
-                opciones += `<option value='${subdisciplina.id}'>${subdisciplina.nombre_subdisciplina}</option>`;
+            const setSubdisciplina = document.getElementById("listaSubDisciplinaUsuario");
+            setSubdisciplina.innerHTML = "";
+
+            data.Subdisciplinas.forEach(subdisciplina =>{
+                const option = document.createElement("option");
+                option.value = subdisciplina.id;
+                option.textContent = subdisciplina.nombre_subdisciplina;
+
+                setSubdisciplina.appendChild(option);
             });
-            subDisciplina.innerHTML = opciones;
+
         }else{
             alert("Disciplinas no encontradas");
         }
-        console.log(data);
     }catch(error){
         console.log(error);
     }
@@ -27,7 +32,6 @@ const listarDisciplinas = async() => {
         const data = await response.json();
 
         if(data.message === "Success"){
-            console.log(data)
             const setDisciplinas = document.getElementById('listaDisciplinasUsuario');
 
             data.Disciplinas.forEach(disciplina =>{
@@ -47,6 +51,14 @@ const listarDisciplinas = async() => {
     }
 }
 
+const cargaInicial = async() => {
+    await listarDisciplinas();
+
+    document.getElementById("listaDisciplinasUsuario").addEventListener("change", (event)=>{
+        listarSubDisciplinas(event.target.value);
+    })
+}
+
 // Esperar a que el DOM se cargue
 document.addEventListener("DOMContentLoaded", function() {
     var modal = document.getElementById("modalAddUsuario");
@@ -59,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
         modal.style.display = "block";
         document.body.style.overflow = "hidden";
 
-        await listarDisciplinas();
+        await cargaInicial();
     });
 
     cerrarModal.onclick = function() {
