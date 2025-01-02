@@ -4,6 +4,9 @@ const listarSubDisciplinas = async(idDisciplina) => {
         const data = await response.json();
 
         if(data.message === "Success"){
+
+            console.log(data)
+
             let opciones = ``;
             data.Subdisciplinas.forEach((subdisciplina) => {
                 opciones += `<option value='${subdisciplina.id}'>${subdisciplina.nombre_subdisciplina}</option>`;
@@ -24,14 +27,16 @@ const listarDisciplinas = async() => {
         const data = await response.json();
 
         if(data.message === "Success"){
+            console.log(data)
             const setDisciplinas = document.getElementById('listaDisciplinasUsuario');
 
-            data.NombreClasificacion.forEach(clasificacion => {
+            data.Disciplinas.forEach(disciplina =>{
                 const option = document.createElement('option');
-                
-            });
+                option.value = disciplina.id;
+                option.textContent = disciplina.nombre_disciplina;
 
-            disciplina.innerHTML = opciones;
+                setDisciplinas.appendChild(option);
+            });
             listarSubDisciplinas(data.Disciplinas[0].id);
         }else{
             alert("Disciplinas no encontradas");
@@ -42,14 +47,6 @@ const listarDisciplinas = async() => {
     }
 }
 
-const cargaInicial = async() => {
-    await listarDisciplinas();
-
-    disciplina.addEventListener("change", (event) => {
-        listarSubDisciplinas(event.target.value);
-    });
-}
-
 // Esperar a que el DOM se cargue
 document.addEventListener("DOMContentLoaded", function() {
     var modal = document.getElementById("modalAddUsuario");
@@ -57,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var cerrarModal = document.getElementsByClassName("clsModUsuario")[0];
     var btnCancelar = document.getElementById("btnCancelarAddUsuario");
 
-    abrirModal.addEventListener("click", async () =>{
+    abrirModal.addEventListener("click", async (event) =>{
         event.preventDefault();
         modal.style.display = "block";
         document.body.style.overflow = "hidden";
