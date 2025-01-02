@@ -539,6 +539,13 @@ def agregarUsuario(request):
             messages.error(request, 'Subdisciplinas no encontradas')
             return redirect('/panelAdministracion/Usuarios')
 
+def eliminar_actor(request, pk):
+    actor = Actor.objects.get(id = pk)
+    usuario = actor.user
+    usuario.delete()
+
+    messages.success(request, f"Actor {actor.nombre_Actor} y su usuario fueron eliminados")
+    return redirect('/panelAdministracion/Usuarios')
 
 class panelAdministracionEscuelas(LoginRequiredMixin, ListView):
     model = Escuelas

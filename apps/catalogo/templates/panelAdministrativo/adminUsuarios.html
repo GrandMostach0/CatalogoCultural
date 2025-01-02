@@ -36,7 +36,8 @@
             <td>Actor</td>
             <td>
                 <a href="#" class="botonesTablas">Editar</a>
-                <a href="#" class="botonesTablas">Eliminar</a>
+                <a href="{% url 'eliminarActor' actor.pk %}" 
+                class="botonesTablas btnEliminar">Eliminar</a>
             </td>
         </tr>
         {% endfor %}

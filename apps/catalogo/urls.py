@@ -51,10 +51,13 @@ urlpatterns = [
     # RUTA DONDE SE CONSULTA LA API
     path("mi_api/", EventosListViewAPI.as_view(), name="mi_api"),
 
-
+    #--- ADMIN.---
     path("administracion/", views.panelAdminitracionBase, name="panelAdminitracionBase"),
     path("panelAdministracion/", views.panelAdministracionInicio, name="PanelAdministracion"),
+
+    #--- ADMIN. ACTORES ---
     path("panelAdministracion/Usuarios", panelAdministracionUsuarios.as_view(), name="PanelAdministracionUsuarios"),
+    path("eliminarActor/<int:pk>", views.eliminar_actor, name="eliminarActor"),
 
     #--- ADMIN. ESCUELAS ---
     path("panelAdministracion/Escuelas", panelAdministracionEscuelas.as_view(), name="PanelAdministracionEscuelas"),
