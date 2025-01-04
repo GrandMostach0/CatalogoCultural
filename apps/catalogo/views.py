@@ -29,12 +29,17 @@ from django.core.paginator import Paginator
 def Inicio(request):
     actores_pupulares = Actor.objects.all()[:7] # actores populares
     escuelas_populares = Escuelas.objects.all()[:7] # escuelas populares
-    pubicacionesObras = publicacionObras.objects.all();
+    pubicacionesObras = publicacionObras.objects.all()
+    actor = None
+
+    if request.user.is_authenticated:
+        actor = Actor.objects.filter(user=request.user).first()
 
     context = {
         'actores': actores_pupulares,
         'escuelas': escuelas_populares,
-        'publicaciones': pubicacionesObras
+        'publicaciones': pubicacionesObras,
+        'actor': actor
     }
     return render(request, 'index.html', context)
 

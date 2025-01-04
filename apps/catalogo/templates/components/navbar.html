@@ -12,11 +12,15 @@
         <a href="{% url 'carteleraEventos' %}">Cartelera</a>
         <a href="{% url 'DirectorioActores' %}">Actores</a>
         <a href="{% url 'DirectorioEscuelas' %}">Escuelas</a>
-    {% if user.is_authenticated %}
-        <a href="{% url 'logout' %}"><strong>Cerrar sesión</strong></a>
-    {% else %}
-        <a href="{% url 'viewSesion' %}">Iniciar sesión</a>
-    {% endif %}
+        {% if user.is_authenticated %}
+            <a href="{% url 'PerfilActor' actor.pk %}">Perfil</a>
+            {% if actor and actor.tipo_usuario == 'administrador' or actor.tipo_usuario == 'ambos' %}
+            <a href="#">Administrador</a>
+            {% endif %}
+            <a href="{% url 'logout' %}"><strong>Cerrar sesión</strong></a>
+        {% else %}
+            <a href="{% url 'viewSesion' %}">Iniciar sesión</a>
+        {% endif %}
     </nav>
     <div class="hamburguesa" onclick="toggleMenu()">☰</div>
 </header>
