@@ -2,8 +2,7 @@ const listaRedes = async (selectId, red_actor) =>{
     try{
         const response = await fetch('/listaCatalogoRedes/');
         const data = await response.json();
-
-        console.log(data);
+        //console.log(data);
 
         if(data.message === 'Success'){
             const setListaRedes = document.getElementById(selectId);
@@ -22,7 +21,7 @@ const listaRedes = async (selectId, red_actor) =>{
                 setListaRedes.appendChild(option);
             });
 
-            console.log(`opciones cargadas correctamente para ${selectId}`);
+            //console.log(`opciones cargadas correctamente para ${selectId}`);
 
         } else {
             console.log("Error: Respuesta inesperada de la API");
@@ -52,10 +51,20 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             const responseRedes = await fetch(`/getRedesSociales/${data_atribute}`)
             const dataRedes = await responseRedes.json();
-            console.log(dataRedes)
             
             if(data.message === "Success"){
-                console.log(dataRedes)
+                console.log(data)
+                /* INGRENSANDO LOS DATOS DEL PERFIL */
+                document.getElementById("nombre").value = data.Actor.nombre_Actor;
+                document.getElementById("primerApellido").value = data.Actor.primer_apellido_Actor;
+                document.getElementById("segundoApellido").value = data.Actor.segundo_apellido_Actor;
+                document.getElementById("biografia").value = data.Actor.biografia_Actor;
+                document.getElementById("correo_publico").value = data.Actor.correo_publico_Actor;
+                document.getElementById("correo_privado").value = data.Actor.correo_privado_actor;
+                document.getElementById("telefono_publico").value = data.Actor.Telefono_publico_Actor;
+                document.getElementById("telefono_privado").value = data.Actor.Telefono_privado_actor;
+
+                /* LISTAR LAS REDES SOCIALES DEL PERFIL */
                 for (let i = 0; i < 3; i++){
                     const redSocial = dataRedes.RedSocial[i];
                     if(redSocial){
@@ -64,6 +73,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         document.getElementById(`redSocial0${i + 1}`).value = redSocial.enlace_redSocial;
                     }
                 }
+
             }else{
                 console.log("Erro al obtener el dato")
             }
