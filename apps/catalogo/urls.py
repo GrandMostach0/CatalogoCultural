@@ -47,6 +47,7 @@ urlpatterns = [
     path("ubicaciones/", views.get_Ubicaciones_Comunes, name="get_ubicaciones_comunes"),
     path("escuelas/", views.get_Escuelas, name="get_Escuelas"),
     path("municipios/", views.get_municipios, name="get_municipios"),
+    path("getRedesSociales/<int:pk>", views.get_RedesSociales, name="get_RedesSociales"),
 
     # RUTA DONDE SE CONSULTA LA API
     path("mi_api/", EventosListViewAPI.as_view(), name="mi_api"),
@@ -58,6 +59,7 @@ urlpatterns = [
     #--- ADMIN. ACTORES ---
     path("panelAdministracion/Usuarios", panelAdministracionUsuarios.as_view(), name="PanelAdministracionUsuarios"),
     path("eliminarActor/<int:pk>", views.eliminar_actor, name="eliminarActor"),
+    path("getUsuario/<int:pk>", views.get_usuario, name="getUsuario"),
 
     #--- ADMIN. ESCUELAS ---
     path("panelAdministracion/Escuelas", panelAdministracionEscuelas.as_view(), name="PanelAdministracionEscuelas"),

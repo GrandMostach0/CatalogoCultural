@@ -50,9 +50,9 @@
                 <!-- Validacion para saber si es docente -->
                 <h1>{{ actor.nombre_completo }}</h1>
                 {% if es_docente %}
-                <p>{{ actor.id_subdisciplina }} - Docente</p>
+                    <p>{{ actor.id_subdisciplina }} - Docente</p>
                 {% else %}
-                <p>{{ actor.id_subdisciplina }}</p>
+                    <p>{{ actor.id_subdisciplina }}</p>
                 {% endif %}
 
                 <!-- Validacion para saber si tiene redes sociales -->
@@ -73,7 +73,7 @@
             <div class="escuela-descripcion">
 
                 {% if actor.user == request.user %}
-                    <a id="abrirEditarPerfilModal" href="#" title="Editar Perfil">
+                    <a data-id="{{actor.pk}}" id="abrirEditarPerfilModal" href="#" title="Editar Perfil">
                         <img src="{% static 'assets/icons/editar-icon.svg' %}" alt="Editar Perfil icon">
                         Editar Perfil 
                     </a>

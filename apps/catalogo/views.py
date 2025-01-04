@@ -341,7 +341,6 @@ class EscuelaDetailView(DetailView):
 # -----------------------------
 #  SECCION DE LAS OPCIONES
 # -----------------------------
-# TABLA DE LAS DISCIPLINAS
 def get_Disciplinas(request):
     disciplinas = list(Disciplinas.objects.values())
 
@@ -417,6 +416,16 @@ def get_municipios(request):
     
     return JsonResponse(data)
 
+def get_RedesSociales(request, pk):
+
+    redesSociales = RedSocial.objects.filter(content_type_id = pk).values()
+
+    if redesSociales:
+        data = {'message': "Success", "RedSocial" : list(redesSociales)}
+    else:
+        data = {'message': "Not Found"}
+    
+    return JsonResponse(data)
 
 # -----------------------------
 #  SECCION PANEL ADMINSTRATIVO
@@ -444,6 +453,9 @@ def panelAdministracionInicio(request):
 
     return render(request, 'panelAdministrativo/adminInicio.html', context)
 
+#
+# MODULO DE USUARIOS/ACTORES
+#
 class panelAdministracionUsuarios(LoginRequiredMixin, ListView):
     model = Actor
     template_name = 'panelAdministrativo/adminUsuarios.html'
@@ -551,6 +563,22 @@ def eliminar_actor(request, pk):
         messages.error(request, f"Hubo un error al eliminar el actor: {e}")
         return redirect('/panelAdministracion/Usuarios')
 
+def get_usuario(request, pk):
+    try:
+        actor = Actor.objects.filter(id = pk).values().first()
+
+        if actor:
+            data = {'message': "Success", 'Actor': actor}
+        else:
+            data = {'message': "Not Found"}
+    except Exception as e:
+        data = {'message': 'Error', 'details': str(e)}
+    
+    return JsonResponse(data)
+
+#
+# MODULO DE ESCUELAS
+#
 
 class panelAdministracionEscuelas(LoginRequiredMixin, ListView):
     model = Escuelas
@@ -738,7 +766,6 @@ class panelAdministracionMunicipios(LoginRequiredMixin, ListView):
     template_name = 'panelAdministrativo/adminLocalidades.html'
     context_object_name = 'Localidad'
     paginate_by = 10
-
 
 def agregar_localidad(request):
     if request.method == 'POST':

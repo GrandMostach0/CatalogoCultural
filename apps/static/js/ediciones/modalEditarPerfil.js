@@ -1,4 +1,4 @@
-const listaRedes = async () =>{
+const listaRedes = async (selectId, red_actor) =>{
     try{
         const response = await fetch('/listaCatalogoRedes/');
         const data = await response.json();
@@ -6,17 +6,23 @@ const listaRedes = async () =>{
         console.log(data);
 
         if(data.message === 'Success'){
-            const setListaRedes = document.getElementById('listaRedSocial01');
+            const setListaRedes = document.getElementById(selectId);
             setListaRedes.innerHTML = '<option value="0"> Seleccione una Red Social </option>'
 
             data.NombreRedesSociales.forEach(red =>{
                 const option = document.createElement('option');
                 option.value = red.id;
                 option.textContent = red.nombre_redSocial;
+
+                // Marcar la opción correspondiente como seleccionado por defecto
+                if (red.id === red_actor){
+                    option.selected = true;
+                }
+
                 setListaRedes.appendChild(option);
             });
 
-            console.log("opciones cargadas correctamente.");
+            console.log(`opciones cargadas correctamente para ${selectId}`);
 
         } else {
             console.log("Error: Respuesta inesperada de la API");
@@ -26,7 +32,6 @@ const listaRedes = async () =>{
         console.log("Error: ", error);
     }
 }
-
 
 document.addEventListener("DOMContentLoaded", async function () {
     // Manejo del modal
@@ -39,10 +44,37 @@ document.addEventListener("DOMContentLoaded", async function () {
         event.preventDefault();
         modal.style.display = "block";
         document.body.style.overflow = "hidden";
+        const data_atribute = abrirModal.getAttribute("data-id");
 
-        // --- LISTA DE LAS REDES SOCIALES ---
-        await listaRedes();
+        try{
+            const response = await fetch(`/getUsuario/${data_atribute}`);
+            const data = await response.json();
+
+            const responseRedes = await fetch(`/getRedesSociales/${data_atribute}`)
+            const dataRedes = await responseRedes.json();
+            console.log(dataRedes)
+            
+            if(data.message === "Success"){
+                console.log(dataRedes)
+                for (let i = 0; i < 3; i++){
+                    const redSocial = dataRedes.RedSocial[i];
+                    if(redSocial){
+                        const selectId = `listaRedSocial0${i + 1}`;
+                        await listaRedes(selectId, redSocial.id_redSocial_id);
+                        document.getElementById(`redSocial0${i + 1}`).value = redSocial.enlace_redSocial;
+                    }
+                }
+            }else{
+                console.log("Erro al obtener el dato")
+            }
+    
+        }catch(error){
+            console.log("Error: ", error);
+        }
+        
     });
+
+
     cerrarModal.onclick = function () {
         modal.style.display = "none";
         document.body.overflow = "auto";
