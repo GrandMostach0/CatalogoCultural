@@ -221,7 +221,18 @@ class EventosListView(FilterView):
     template_name = "cartelera.html"
     context_object_name = "eventos"
     filterset_class = EventosFilter
+
+    #paginacion
     paginate_by = 9
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if self.request.user.is_authenticated:
+            actor = Actor.objects.filter(user = self.request.user).first()
+            context['actor'] = actor
+        
+        return context
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -261,6 +272,12 @@ class ActoresListView(FilterView):
         for actor in actores:
             actor.es_docente = actor.id_escuela.exists()
             actor.subdisciplina = actor.id_subdisciplina
+        
+        if self.request.user.is_authenticated:
+            actor = Actor.objects.filter(user = self.request.user).first()
+            context['actor'] = actor
+        
+        return context
 
         return context
 
@@ -284,6 +301,7 @@ class ActoresDetailView(DetailView):
 
         es_docente = actor.id_escuela.exists()
         escuelas_asociadas = actor.id_escuela.all()
+        #print(escuelas_asociadas)
 
         context['es_docente'] = es_docente
         context['escuelas_asociadas'] = escuelas_asociadas
@@ -311,6 +329,15 @@ class EscuelaListView(FilterView):
     # paginacion
     paginate_by = 9
 
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+
+        if self.request.user.is_authenticated:
+            actor = Actor.objects.filter(user = self.request.user).first()
+            context['actor'] = actor
+        
+        return context
+
 def viewEscuela(request):
     return render(request, 'viewEscuela.html');
 
@@ -328,19 +355,16 @@ class EscuelaDetailView(DetailView):
 
         # Verificamos si la escuela tiene redes sociales
         redes = RedSocial.objects.filter(content_type=Escuela_content_type, object_id=Escuela.id)
-
         # Verificamos si la escuela tiene mas de 1 imagen
         imagenes = Imagenes_publicaciones.objects.filter(content_type=Escuela_content_type, object_id=Escuela.id)
-
         # Crear una lista de URLs de las imágenes
         imagenes_urls = [imagen.url_imagen.url for imagen in imagenes]
-
         # Pasar las URLs de las imágenes al contexto
         context['imagenes_urls'] = json.dumps(imagenes_urls)
-
         # Agregamos la variable 'redes' al contexto para usarla en la plantilla
         context['redes_sociales'] = redes
         context['tiene_redes'] = redes.exists()
+        context['actor'] = Actor
         return context
 
 # -----------------------------
@@ -368,7 +392,7 @@ def get_Subdisciplinas(request, id_disciplina):
 
 def get_catalogoRedesSociales(request):
     
-    nombreRedesSociales = list(Cat_redSocial.objects.values('id', 'nombre_redSocial'))
+    nombreRedesSociales = list(Cat_redSocial.objects.values())
 
     if nombreRedesSociales:
         data = {'message' : "Success", 'NombreRedesSociales' : nombreRedesSociales}

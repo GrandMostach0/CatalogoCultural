@@ -93,12 +93,27 @@
                             {% if es_docente %}
                             <div class="informacion">
                                 <p style="font-weight: bold;">Docente en:</p>
-                                <ul>
+                                <ul style="list-style: none;">
                                     {% for escuela in escuelas_asociadas %}
-                                    <li><a href="#">{{ escuela.nombre_escuela}}</a></li>
-                                    <br>
+                                        <li><a href="{% url 'PerfilEscuela' escuela.pk %}">{{ escuela.nombre_escuela }}</a></li>
                                     {% endfor %}
                                 </ul>
+                                <div class="container-add-escuela">
+                                    <strong>Solicitarse Unirse a una Escuela:</strong>
+                                    <form method="post" action="">
+                                        <label for="listaEscuelas">
+                                            <select name="listaEscuelas" id="listaEscuelas">
+                                                <option value="0">Seleccione una opcion</option>
+                                            </select>
+                                            <button type="submit">Solicitar</button>
+                                        </label>
+                                    </form>
+                                    <br>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="informacion">
+                                <p>No trabaja en niguna escuela</p>
                             </div>
                             {% endif %}
 

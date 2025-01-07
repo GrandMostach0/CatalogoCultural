@@ -23,7 +23,17 @@ const listaRedes = async (selectId, red_actor) =>{
 
             //console.log(`opciones cargadas correctamente para ${selectId}`);
 
-        } else {
+        } else if(data.message === 'Not Found') {
+            const setListaRedes = document.getElementById(selectId);
+            setListaRedes.innerHTML = '<option value="0"> Seleccione una Red Social </option>'
+
+            data.NombreRedesSociales.forEach(red =>{
+                const option = document.createElement('option');
+                option.value = red.id;
+                option.textContent = red.nombre_redSocial;
+                setListaRedes.appendChild(option);
+            });
+        }else{
             console.log("Error: Respuesta inesperada de la API");
         }
 
@@ -51,6 +61,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             const responseRedes = await fetch(`/getRedesSociales/${data_atribute}`)
             const dataRedes = await responseRedes.json();
+            console.log(dataRedes)
             
             if(data.message === "Success"){
                 console.log(data)
@@ -65,12 +76,23 @@ document.addEventListener("DOMContentLoaded", async function () {
                 document.getElementById("telefono_privado").value = data.Actor.Telefono_privado_actor;
 
                 /* LISTAR LAS REDES SOCIALES DEL PERFIL */
-                for (let i = 0; i < 3; i++){
-                    const redSocial = dataRedes.RedSocial[i];
-                    if(redSocial){
+                if(dataRedes.message === "Success"){
+                    for (let i = 0; i < 3; i++){
+                        const redSocial = dataRedes.RedSocial[i];
+                        console.log(redSocial)
+                        if(redSocial){
+                            const selectId = `listaRedSocial0${i + 1}`;
+                            await listaRedes(selectId, redSocial.id_redSocial_id);
+                            document.getElementById(`redSocial0${i + 1}`).value = redSocial.enlace_redSocial;
+                        }else{
+                            console.log("nadota")
+                        }
+                    }
+                }else if(dataRedes.message === "Not Found"){
+                    console.log("No se encontro las redes sociales del pana")
+                    for (let i = 0; i < 3; i++){
                         const selectId = `listaRedSocial0${i + 1}`;
-                        await listaRedes(selectId, redSocial.id_redSocial_id);
-                        document.getElementById(`redSocial0${i + 1}`).value = redSocial.enlace_redSocial;
+                        await listaRedes(selectId, 0);
                     }
                 }
 
