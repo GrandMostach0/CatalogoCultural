@@ -151,14 +151,17 @@ def editarPerfil(request):
             if actor.user == request.user:
                 actor.url_image_actor = request.FILES.get('imagenPerfil', actor.url_image_actor)
                 actor.nombre_Actor = request.POST.get('nombre', actor.nombre_Actor)
-                actor.primer_apellido_Actor = request.POST.get('primeroApellido', actor.primer_apellido_Actor)
+                actor.primer_apellido_Actor = request.POST.get('primerApellido', actor.primer_apellido_Actor)
                 actor.segundo_apellido_Actor = request.POST.get('segundoApellido', actor.segundo_apellido_Actor)
                 actor.biografia_Actor = request.POST.get('biografia', actor.biografia_Actor)
-                actor.correo_privado_actor = request.POST.get('correo_publico', actor.correo_privado_actor)
-                actor.correo_publico_Actor = request.POST.get('correo_privado', actor.correo_publico_Actor)
-                actor.Telefono_privado_actor = request.POST.get('telefono_publico', actor.Telefono_privado_actor)
-                actor.Telefono_publico_Actor = request.POST.get('telefono_privado', actor.Telefono_publico_Actor)
+                correo_privado = request.POST.get('correo_privado', actor.correo_privado_actor)
+                actor.correo_privado_actor = correo_privado
+                actor.correo_publico_Actor = request.POST.get('correo_publico', actor.correo_publico_Actor)
+                actor.Telefono_privado_actor = request.POST.get('telefono_privado', actor.Telefono_publico_Actor)
+                actor.Telefono_publico_Actor = request.POST.get('telefono_publico', actor.Telefono_privado_actor)
 
+                actor.user.username = correo_privado
+                actor.user.save();
                 actor.save()
                 return redirect('PerfilActor', pk=actor.id)
         except Exception as e:
@@ -277,8 +280,6 @@ class ActoresListView(FilterView):
             actor = Actor.objects.filter(user = self.request.user).first()
             context['actor'] = actor
         
-        return context
-
         return context
 
 class ActoresDetailView(DetailView):
