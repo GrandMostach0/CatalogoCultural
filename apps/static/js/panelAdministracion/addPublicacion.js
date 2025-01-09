@@ -104,6 +104,8 @@ document.addEventListener("DOMContentLoaded", async () =>{
         btn.addEventListener("click", (event) => {
             event.preventDefault();
             console.log("hola soy un modal");
+            const data_id = event.target.getAttribute("data-id");
+            console.log(data_id);
 
             modalEditPublicacion.style.display = "block";
             document.body.style.overflow = "hidden";
