@@ -16,10 +16,10 @@
         {% include 'components/navbar.html' %}
 
         <div class="RutaPagina">
-            <p>Inicio/El Resplandor de Chichén Itzá: Un Vistazo a la Grandeza de la Arquitectura Maya</p>
+            <p>Inicio/ {{ publicacion.titulo_publicacion }}</p>
             <a style="font-weight: bold;" href="{% url 'index' %}"> &larr; Volver Página</a>
             <div class="fechaPublicacion">
-                <p class="fecha">{{ fecha_actual }}</p>
+                <p class="fecha">{{ publicacion.fecha_creacion_publicacion }}</p>
                 <hr>
             </div>
         </div>
@@ -28,33 +28,50 @@
         <main class="container-escuela">
             <div class="escuela-imagen">
                 <div class="escuelaImagen">
-                    <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen de la escuela">
+                    
+                    <!-- VALIDA SI TIENE IMAGEN EN CASO DE NO TENER COLOCA UNO DE BASE -->
+                    {% if publicacion.url_imagen_publicacion %}
+                        <img src="{{ publicacion.url_imagen_publicacion.url }}" alt="Imagen Publicación">
+                    {% else %}
+                        <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen de la escuela">
+                    {% endif %}
+
                 </div>
                 <br>
                 <a href="#">
                     <div class="card-publicacion-usuario">
                         <h4>Autor </h4>
-                        <img src="{% static 'assets/images/AvatarImg.jpg' %}" alt="Imagen Avatar">
-                        <p>{{  }}</p>
+
+                        <!-- VALIDA SI TIENE IMAGEN EN CASO DE NO TENER COLOCA UNO DE BASE -->
+                        {% if publicacion.url_imagen_publicacion %}
+                            <img src="{{ publicacion.id_actor.url_image_actor.url }}" alt="Imagen Publicación">
+                        {% else %}
+                            <img src="{% static 'assets/images/AvatarImg.jpg' %}" alt="Imagen Avatar">
+                        {% endif %}
+                        <p>{{ publicacion.id_actor.nombre_completo }}</p>
                     </div>
                 </a>
                 <br>
                 <h3 style="text-align: left;">Etiqueta</h3>
                 <br>
                 <div class="tag">
-                    <p>Arquitectura</p>
+                    {% if publicacion.id_Disciplina %}
+                        <p>{{ publicacion.id_Disciplina.nombre_disciplina }}</p>
+                    {% else %}
+                        {% if publicacion.publicacion_aprobada %}
+                        <p style="color: greenyellow;">Aprobado</p>
+                        {% else %}
+                        <p style="color: grey;">Pendiente</p>
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
 
             <div class="escuela-descripcion">
                 <div style="text-align: center;" class="descripcion-seccion">
-                    <h1>El Resplandor de Chichén Itzá: Un Vistazo a la Grandeza de la Arquitectura Maya</h1>
+                    <h1>{{ publicacion.titulo_publicacion }}</h1>
                     <br>
-                    <p style="text-align: justify;">Mientras los primeros rayos del sol bañan la majestuosa pirámide de Chichén Itzá, uno no puede evitar sentir la conexión
-                    profunda con una civilización que dominó la península de Yucatán. Este símbolo de la ingeniería y la cosmología maya es
-                    mucho más que un simple monumento; es un testimonio del conocimiento astronómico y arquitectónico que define a una de
-                    las culturas más avanzadas de la antigua Mesoamérica. Exploramos la importancia de este sitio en el contexto de la
-                    historia y su influencia duradera en el patrimonio cultural de México.</p>
+                    <p style="text-align: justify;">{{ publicacion.descripcion_publicacion }}</p>
                 </div>
 
             </div>

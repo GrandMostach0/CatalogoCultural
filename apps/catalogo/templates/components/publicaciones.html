@@ -3,17 +3,21 @@
 <div class="container-cards-publicaciones">
     {% for publicacion in publicaciones %}
     <div class="card-publicaciones">
-        <p style="text-align: right;">{% now "d/m/Y" %}</p>
+        <p style="text-align: right;">{{ publicacion.fecha_creacion_publicacion }}</p>
+       
+        <!-- VALIDA SI TIENE IMAGEN EN CASO DE NO TENER COLOCA UNO DE BASE -->
         {% if publicacion.url_imagen_publicacion %}
             <img src="{{ publicacion.url_imagen_publicacion.url }}" alt="Imagen Publicación">
         {% else %}
             <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen Publicación">
         {% endif %}
+
+
         <div class="card-publicacion-contenido">
             <h2>{{ publicacion.titulo_publicacion }}</h2>
             <div class="card-publicacion-usuario">
                 <img src="{{ publicacion.id_actor.url_image_actor.url }}" alt="Imagen Avatar">
-                <p><a href="{% url 'PerfilActor' publicacion.id_actor.id %}">{{ publicacion.id_actor.nombre_Actor }}</a></p>
+                <p><a href="{% url 'PerfilActor' publicacion.id_actor.id %}">{{ publicacion.id_actor.nombre_completo }}</a></p>
             </div>
             <p>{{ publicacion.descripcion_publicacion }}</p>
             <div class="tag">
@@ -28,7 +32,7 @@
                 {% endif %}
             </div>
             <div class="button-publicacion">
-                <a href="{% url 'vistaPublicacion' %}" style="font-weight: bold;">LEER MÁS</a>
+                <a href="{% url 'vistaPublicacion' publicacion.pk %}" style="font-weight: bold;">LEER MÁS</a>
             </div>
         </div>
     </div>

@@ -155,8 +155,9 @@ class PubliacionesListView(ListView):
     context_object_name = "Publicaciones"
     paginate_by = 4
 
-def vistaPublicacion(request):
+def vistaPublicacion(request, pk):
     fecha_actual = datetime.now().strftime("%d de %B del %Y")
+    publicacion = publicacionObras.objects.get(id = pk)
     actor = None
 
     if request.user.is_authenticated:
@@ -165,7 +166,8 @@ def vistaPublicacion(request):
 
     context = {
         "actor": actor,
-        "fecha_actual": fecha_actual
+        "fecha_actual": fecha_actual,
+        "publicacion": publicacion
     }
 
     return render(request, "vistaPublicacion.html", context)
