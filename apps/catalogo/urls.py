@@ -88,6 +88,7 @@ urlpatterns = [
     #--- ADMIN. CATALOGO REDES SOCIALES ---
     path("panelAdministracion/CatalogoRedes", panelAdministracionRedesSociales.as_view(), name="PanelAdministracionRedesSociales"),
     path("agregarRedSocial/", views.agregar_redSocial, name="agregarRedSocial"),
+    path("eliminarRedSocial/<int:pk>", views.eliminar_redSocial, name="eliminarRedSocial"),
 
 ]
 

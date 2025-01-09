@@ -889,7 +889,14 @@ def agregar_redSocial(request):
             nombre_redSocial = nombre_redSocial,
             logo = logo
         )
-
+        
         return redirect('PanelAdministracionRedesSociales')
     else:
         print("no es POST")
+
+def eliminar_redSocial(request, pk):
+    redSocial = Cat_redSocial.objects.get(id = pk)
+    redSocial.delete()
+
+    messages.success(request, f'La red Social "{redSocial.nombre_redSocial}" ha sido eliminada con éxito.')
+    return redirect('PanelAdministracionRedesSociales')
