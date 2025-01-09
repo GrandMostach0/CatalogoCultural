@@ -413,6 +413,16 @@ def get_catalogoRedesSociales(request):
 
     return JsonResponse(data)
 
+def get_catalogoRedesSocialesConId(request, pk):
+    nombreRedesSociales = list(Cat_redSocial.objects.filter(id = pk).values())
+
+    if nombreRedesSociales:
+        data = {'message' : "Success", 'NombreRedesSociales' : nombreRedesSociales}
+    else:
+        data = {'message' : "Not Found"}
+
+    return JsonResponse(data)
+
 def get_clasificaciones(request):
 
     clasificaciones = list(Audiencia.objects.values())

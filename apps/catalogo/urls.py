@@ -43,6 +43,7 @@ urlpatterns = [
 
     # LISTA DE DONDE SE OBTIENE LA LISTA DE OPCIONES
     path("listaCatalogoRedes/", views.get_catalogoRedesSociales, name="get_catalogoRedesSociales"),
+    path("ConsultalistaCatalogoRedes/<int:pk>", views.get_catalogoRedesSocialesConId, name="consultalistaCatalogoRedesSociales"),
     path("audiencia/", views.get_clasificaciones, name="get_clasificaciones"),
     path("ubicaciones/", views.get_Ubicaciones_Comunes, name="get_ubicaciones_comunes"),
     path("escuelas/", views.get_Escuelas, name="get_Escuelas"),
