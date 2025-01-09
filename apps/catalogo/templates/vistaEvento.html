@@ -20,7 +20,7 @@
             <p>Inicio/{{ evento.titulo_publicacion }}</p>
             <a style="font-weight: bold;" href="{% url 'carteleraEventos' %}"> &larr; Volver Página</a>
             <div class="fechaPublicacion">
-                <p class="fecha">{{ fecha_actual }}</p>
+                <p class="fecha">{{ evento.fecha_creacion_publicacion }}</p>
                 <hr>
             </div>
         </div>
@@ -36,7 +36,7 @@
                     <div class="card-publicacion-usuario">
                         <h4>Autor </h4>
                         <img src="{{ evento.id_actor.url_image_actor.url }}" alt="Imagen Avatar">
-                        <p>{{ evento.id_actor }}</p>
+                        <p>Hola</p>
                     </div>
                 </a>
                 <br>

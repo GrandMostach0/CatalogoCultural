@@ -136,7 +136,18 @@ def viewPerfil(request):
 
 def vistaPublicacion(request):
     fecha_actual = datetime.now().strftime("%d de %B del %Y")
-    return render(request, "vistaPublicacion.html", {"fecha_actual": fecha_actual})
+    actor = None
+
+    if request.user.is_authenticated:
+        #actor = Actor.objects.filter(user=request.user).first()
+        actor = Actor.objects.filter(user = request.user).first()
+
+    context = {
+        "actor": actor,
+        "fecha_actual": fecha_actual
+    }
+
+    return render(request, "vistaPublicacion.html", context)
 
 
 # -----------------------------
@@ -845,3 +856,16 @@ def update_localidad(request):
 
     # Redirigir al panel de administración
     return redirect('/panelAdministracion/Localidades')
+
+
+
+
+#
+# MODULO DE CATALOGOS DE REDES SOCIALES
+#
+
+class panelAdministracionRedesSociales(LoginRequiredMixin, ListView):
+    model = Cat_redSocial
+    template_name = 'panelAdministrativo/adminCatalogoRedes.html'
+    context_object_name = 'RedesSociales'
+    paginate_by = 10

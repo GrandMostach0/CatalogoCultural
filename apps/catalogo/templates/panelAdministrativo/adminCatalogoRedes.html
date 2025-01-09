@@ -3,7 +3,7 @@
 {% load static %}
 
 <!-- Título de la página -->
-{% block title %}Escuelas{% endblock title %}
+{% block title %}Catalogo Redes Sociales{% endblock title %}
 
 <!-- Título de la pestaña a visualizar -->
 {% block tituloPestania%}
@@ -18,28 +18,26 @@
         <tr>
             <th>No</th>
             <th>Nombre</th>
-            <th>Correo</th>
-            <th>Télefono</th>
-            <th>Responsable</th>
+            <th>Imagen</th>
             <th colspan="2">Acciones</th>
         </tr>
     </thead>
 
     <tbody>
-        {% for escuela in escuelas %}
+        {% for redes in RedesSociales %}
         <tr>
             <td>{{ forloop.counter }}</td>
-            <td>{{ escuela.nombre_escuela }}</td>
-            <td>{{ escuela.correo_escuela }}</td>
-            <td>{{ escuela.telefono_escuela }}</td>
-            <td> NO ASIGNADO </td>
+            <td>{{ redes.nombre_redSocial }}</td>
+            <td>
+                <img src="{{ redes.logo.url }}" alt="Icono Redes">
+            </td>
             <td>
                 <a href=""
                 class="botonesTablas btnEditar btnAbrirModalEditEscuela"
-                data-id="{{ escuela.id }}">Editar</a>
+                data-id="{{ redes.id }}">Editar</a>
             </td>
             <td>
-                <a href="{% url 'eliminarEscuela' escuela.pk %}" 
+                <a href="#" 
                 class="botonesTablas btnEliminar">Eliminar</a>
             </td>
         </tr>
@@ -58,10 +56,5 @@
         <a href="?page={{ page_obj.next_page_number }}"><strong>Siguiente</strong></a>
     {% endif %}
 </div>
-
-{% include 'components/administracion/agregar/addEscuela.html' %}
-{% include 'components/administracion/editar/editEscuela.html' %}
-
-<script src="{% static 'js/panelAdministracion/addEscuela.js' %}"></script>
 
 {% endblock contenido_administrativo %}
