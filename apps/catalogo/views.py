@@ -23,25 +23,39 @@ from django_filters.views import FilterView
 from .filters import ActorFilter, EscuelaFilter, EventosFilter
 
 # PRUEBA
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 def Inicio(request):
-    actores_pupulares = Actor.objects.all()[:7] # actores populares
-    escuelas_populares = Escuelas.objects.all()[:7] # escuelas populares
-    pubicacionesObras = publicacionObras.objects.all()
+    actores_pupulares = Actor.objects.all()[:7]  # Actores populares
+    escuelas_populares = Escuelas.objects.all()[:7]  # Escuelas populares
+
+    # Asegúrate de que publicacionObras es el modelo y estamos obteniendo un queryset
+    publicacionesObras = publicacionObras.objects.all()  # Publicaciones completas
     actor = None
 
     if request.user.is_authenticated:
         actor = Actor.objects.filter(user=request.user).first()
 
+    # Lógica de paginación
+    page = request.GET.get('page', 1)
+    paginator = Paginator(publicacionesObras, 4)  # 5 publicaciones por página
+
+    try:
+        publicaciones_paginadas = paginator.page(page)
+    except PageNotAnInteger:
+        publicaciones_paginadas = paginator.page(1)
+    except EmptyPage:
+        publicaciones_paginadas = paginator.page(paginator.num_pages)
+
     context = {
         'actores': actores_pupulares,
         'escuelas': escuelas_populares,
-        'publicaciones': pubicacionesObras,
+        'publicaciones': publicaciones_paginadas,
         'actor': actor
     }
     return render(request, 'index.html', context)
+
 
 ## METODOS PARA INICIAR SESION
 def viewSesion(request):
@@ -133,6 +147,13 @@ def registroForm(request):
 def viewPerfil(request):
     fecha_actual = datetime.now().strftime("%d de %B del %Y");
     return render(request, 'viewPerfil.html', {'fecha_actual': fecha_actual});
+
+
+class PubliacionesListView(ListView):
+    model = publicacionObras
+    template_name = "components/publicaciones.html"
+    context_object_name = "Publicaciones"
+    paginate_by = 4
 
 def vistaPublicacion(request):
     fecha_actual = datetime.now().strftime("%d de %B del %Y")

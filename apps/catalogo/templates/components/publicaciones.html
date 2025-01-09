@@ -1,41 +1,38 @@
 {% load static %}
 
 <div class="container-cards-publicaciones">
-
     {% for publicacion in publicaciones %}
-    
     <div class="card-publicaciones">
         <p style="text-align: right;">{% now "d/m/Y" %}</p>
         <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen Publicación">
         <div class="card-publicacion-contenido">
             <h2>{{ publicacion.titulo_publicacion }}</h2>
             <div class="card-publicacion-usuario">
-                <img src="" alt="Imagen Avatar">
-                <p>{{ publicacion.id_actor.nombre_Actor }}</p>
+                <img src="{{ publicacion.id_actor.url_image_actor.url }}" alt="Imagen Avatar">
+                <p><a href="{% url 'PerfilActor' publicacion.id_actor.id %}">{{ publicacion.id_actor.nombre_Actor }}</a></p>
             </div>
             <p>{{ publicacion.descripcion_publicacion }}</p>
             <div class="tag">
                 <p>PENDIENTE</p>
             </div>
             <div class="button-publicacion">
-                <a href="{% url 'vistaPublicacion' %}" style="font-weight: bold;">LEER MAS</a>
+                <a href="{% url 'vistaPublicacion' %}" style="font-weight: bold;">LEER MÁS</a>
             </div>
         </div>
     </div>
     {% empty %}
-    <p>NO NADA POR EL MOMENTO</p>
+    <p>NO HAY PUBLICACIONES POR EL MOMENTO</p>
     {% endfor %}
-
 </div>
 
 <div class="pagination">
-    {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}"><strong>Anterior</strong></a>
+    {% if publicaciones.has_previous %}
+        <a href="?page={{ publicaciones.previous_page_number }}"><strong>Anterior</strong></a>
     {% endif %}
 
-    <span class="current">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+    <span class="current">Página {{ publicaciones.number }} de {{ publicaciones.paginator.num_pages }}</span>
 
-    {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}"><strong>Siguiente</strong></a>
+    {% if publicaciones.has_next %}
+        <a href="?page={{ publicaciones.next_page_number }}"><strong>Siguiente</strong></a>
     {% endif %}
 </div>
