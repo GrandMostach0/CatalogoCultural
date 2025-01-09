@@ -4,7 +4,7 @@
     <div class="modal-content">
         <span class="close clsModRedSocial">&times;</span>
         <h2>Nueva Rede Social</h2>
-        <form method="POST" action="#">
+        <form method="POST" action="{% url 'agregarRedSocial' %}" enctype="multipart/form-data">
             {% csrf_token %}
 
             <label for="nombre_redSocial">

@@ -879,3 +879,17 @@ class panelAdministracionRedesSociales(LoginRequiredMixin, ListView):
     template_name = 'panelAdministrativo/adminCatalogoRedes.html'
     context_object_name = 'RedesSociales'
     paginate_by = 10
+
+def agregar_redSocial(request):
+    if request.method == 'POST':
+        nombre_redSocial = request.POST['nombre_redSocial']
+        logo = request.FILES['imagenRedSocial']
+
+        ubicacion = Cat_redSocial.objects.create(
+            nombre_redSocial = nombre_redSocial,
+            logo = logo
+        )
+
+        return redirect('PanelAdministracionRedesSociales')
+    else:
+        print("no es POST")
