@@ -1,0 +1,42 @@
+<!-- MODAL DE LA VENTANA PARA LOS DATOS -->
+<div id="modalEditRedSocial" class="modal">
+    <!-- Contenido del Modal -->
+    <div class="modal-content">
+        <span class="close clsModEditRedSocial">&times;</span>
+        <h2>Editar Redes Social</h2>
+        <form method="POST" action="#">
+            {% csrf_token %}
+
+            <input
+            id="redSocial_id"
+            type="text"
+            class="inputs"
+            name="redSocial_id"
+            readonly
+            required>
+
+            <label for="edit_nombre_redSocial">
+                Nombre Rede Social:
+                <input 
+                id="edit_nombre_redSocial" 
+                class="inputs" 
+                type="text" 
+                name="nombre_redSocial" 
+                placeholder="nombre" required>
+            </label>
+
+            <label for="edit_imagenRedSocial">
+                Ingresa la imagen <strong>CSV</strong>:
+                <input
+                id="edit_imagenRedSocial"
+                type="file"
+                class="inputs"
+                name="imagenRedSocial"
+                required>
+            </label>
+
+            <button type="submit">Agregar</button>
+            <button id="btnCancelarEditRedSocial" type="reset">Cancelar</button>
+        </form>
+    </div>
+</div>
