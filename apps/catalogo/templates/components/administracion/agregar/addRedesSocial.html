@@ -1,0 +1,34 @@
+<!-- MODAL DE LA VENTANA PARA LOS DATOS -->
+<div id="modalRedSocial" class="modal">
+    <!-- Contenido del Modal -->
+    <div class="modal-content">
+        <span class="close clsModRedSocial">&times;</span>
+        <h2>Nueva Rede Social</h2>
+        <form method="POST" action="#">
+            {% csrf_token %}
+
+            <label for="nombre_redSocial">
+                Nombre Rede Social:
+                <input 
+                id="nombre_redSocial" 
+                class="inputs" 
+                type="text" 
+                name="nombre_redSocial" 
+                placeholder="nombre" required>
+            </label>
+
+            <label for="imagenRedSocial">
+                Ingresa la imagen <strong>CSV</strong>:
+                <input
+                id="imagenRedSocial"
+                type="file"
+                class="inputs"
+                name="imagenRedSocial"
+                required>
+            </label>
+
+            <button type="submit">Agregar</button>
+            <button id="btnCancelarRedSocial" type="reset">Cancelar</button>
+        </form>
+    </div>
+</div>
