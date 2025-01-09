@@ -900,3 +900,30 @@ def eliminar_redSocial(request, pk):
 
     messages.success(request, f'La red Social "{redSocial.nombre_redSocial}" ha sido eliminada con éxito.')
     return redirect('PanelAdministracionRedesSociales')
+
+def update_redSocial(request):
+    try:
+        redSocial_id = request.POST['redSocial_id']
+        nombre_redSocial= request.POST['nombre_redSocial']
+        logo = request.FILES.get('imagenRedSocial')
+
+        redSocial = Cat_redSocial.objects.get(id = redSocial_id)
+        redSocial.nombre_redSocial = nombre_redSocial
+
+        print(logo)
+
+        if logo:
+            redSocial.logo = logo
+        else:
+            print("NO SE QUE PASA MANO")
+
+        redSocial.save()
+
+        messages.success(request, f'La Red Social {redSocial.nombre_redSocial} actualizó correctamente.')
+    except Cat_redSocial.DoesNotExist:
+        messages.error(request, 'La Red Social no existe.')
+    except Exception as e:
+        messages.error(request, f'Ocurrió un error al actualizar la RedSocial: {str(e)}')
+
+    # Redirigir al panel de administración
+    return redirect('PanelAdministracionRedesSociales')
