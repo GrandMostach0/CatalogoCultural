@@ -146,6 +146,7 @@ class publicacionObras(models.Model):
     descripcion_publicacion = models.TextField(null=False, blank=False, verbose_name="Descripcion")
     fecha_publicacion = models.DateField(null=False, blank=False, verbose_name="Fecha Publicacion")
     id_actor = models.ForeignKey(Actor, on_delete=models.CASCADE, related_name="Publicacion_Obra", null=True, blank=True)
+    id_Disciplina = models.ForeignKey(Disciplinas, on_delete=models.CASCADE, related_name="Categoria", null=True, blank=True)
 
     def __str__(self):
         return self.titulo_publicacion

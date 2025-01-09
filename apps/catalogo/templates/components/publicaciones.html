@@ -4,7 +4,11 @@
     {% for publicacion in publicaciones %}
     <div class="card-publicaciones">
         <p style="text-align: right;">{% now "d/m/Y" %}</p>
-        <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen Publicación">
+        {% if publicacion.url_imagen_publicacion %}
+            <img src="{{ publicacion.url_imagen_publicacion.url }}" alt="Imagen Publicación">
+        {% else %}
+            <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen Publicación">
+        {% endif %}
         <div class="card-publicacion-contenido">
             <h2>{{ publicacion.titulo_publicacion }}</h2>
             <div class="card-publicacion-usuario">
@@ -13,7 +17,15 @@
             </div>
             <p>{{ publicacion.descripcion_publicacion }}</p>
             <div class="tag">
-                <p>PENDIENTE</p>
+                {% if publicacion.id_Disciplina %}
+                    <p>{{ publicacion.id_Disciplina.nombre_disciplina }}</p>
+                {% else %}
+                    {% if publicacion.publicacion_aprobada %}
+                    <p style="color: greenyellow;">Aprobado</p>
+                    {% else %}
+                    <p style="color: grey;">Pendiente</p>
+                    {% endif %}
+                {% endif %}
             </div>
             <div class="button-publicacion">
                 <a href="{% url 'vistaPublicacion' %}" style="font-weight: bold;">LEER MÁS</a>
