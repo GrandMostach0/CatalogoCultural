@@ -501,6 +501,17 @@ def get_RedesSociales(request, pk):
     
     return JsonResponse(data)
 
+def get_Publicaciones(request):
+    
+    publicaciones= list(publicacionObras.objects.values())
+
+    if publicaciones:
+        data = {'message': "Success", 'publicaciones': publicaciones}
+    else:
+        data = {'message': "Not Found"}
+    
+    return JsonResponse(data)
+
 # -----------------------------
 #  SECCION PANEL ADMINSTRATIVO
 # -----------------------------

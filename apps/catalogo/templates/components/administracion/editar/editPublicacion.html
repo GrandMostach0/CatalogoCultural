@@ -7,14 +7,31 @@
         <form method="POST" enctype="multipart/form-data" action="{% url 'crear_publicacion' %}">
             {% csrf_token %}
 
+            <input
+            id="publicacion_id"
+            type="text"
+            class="inputs"
+            name="publicacion_id"
+            readonly>
+
             <label for="titulo">
                 Titulo de la Publicación:
-                <input id="titulo" class="inputs" type="text" name="titulo" placeholder="Titulo">
+                <input
+                id="titulo"
+                class="inputs"
+                type="text"
+                name="titulo"
+                placeholder="Titulo"
+                >
             </label>
 
-            <label for="autor">
+            <label for="autor_publicacion">
                 Autor de Publicación:
-                <select name="autor_publicacion" id="autor"></select>
+                <input
+                id="autor_publicacion"
+                type="text"
+                class="inputs"
+                readonly>
             </label>
 
             <label for="descripcion">
@@ -33,10 +50,18 @@
                 </label>
                 <br>
                 
-                <input type="radio" id="publicacionPersonal" name="tipoPublicacion" value="personal" checked />
+                <input
+                type="radio"
+                id="publicacionPersonal"
+                name="tipoPublicacion"
+                value="personal"/>
                 <label for="tipoPublicacion">Personal</label>
 
-                <input type="radio" id="publicacionInstituto" name="tipoPublicacion" value="institucional" />
+                <input
+                type="radio"
+                id="publicacionInstituto"
+                name="tipoPublicacion"
+                value="institucional" />
                 <label for="tipoPublicacion">De alguna escuela</label>
             </div>
             <br>
@@ -44,8 +69,7 @@
             <div class="institucion-opcional">
                 <label for="institucion-opcional">Institución:</label>
                 <br>
-                <select name="institucion-opcion" id="listarEscuelas">
-                </select>
+                <select name="institucion-opcion" id="listarEscuelas" ></select>
             </div>
 
             <label for="imagenPortada">
@@ -63,7 +87,25 @@
                 </label>
             </div>
 
-            <button type="submit">Publicar</button>
+            <div class="subOpciones">
+                <input
+                type="radio"
+                id="aprobarPublicacion"
+                name="aprobarPublicacion"
+                value="aprobado"/>
+                <label for="aprobarPublicacion">Aprobar</label>
+
+                <input
+                type="radio"
+                id="noAprobarPublicacion"
+                name="aprobarPublicacion"
+                value="false" />
+                <label for="noAprobarPublicacion">No Aprobar</label>
+            </div>
+            
+            <br>
+            
+            <button type="submit">Modificar</button>
             <button id="btnCancelarEditPublicacion" type="reset">Cancelar</button>
         </form>
     </div>
