@@ -31,7 +31,7 @@ def Inicio(request):
     escuelas_populares = Escuelas.objects.all()[:7]  # Escuelas populares
 
     # Asegúrate de que publicacionObras es el modelo y estamos obteniendo un queryset
-    publicacionesObras = publicacionObras.objects.all()  # Publicaciones completas
+    publicacionesObras = publicacionObras.objects.filter(publicacion_aprobada = True)  # Publicaciones completas
     actor = None
 
     if request.user.is_authenticated:

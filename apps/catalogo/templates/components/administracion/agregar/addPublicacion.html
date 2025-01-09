@@ -1,0 +1,70 @@
+<!-- MODAL DE LA VENTANA PARA LOS DATOS -->
+<div id="myModalPublicacion" class="modal">
+    <!-- Contenido del Modal -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Nueva Publicación de Obra o Trabajo</h2>
+        <form method="POST" enctype="multipart/form-data" action="{% url 'crear_publicacion' %}">
+            {% csrf_token %}
+
+            <label for="titulo">
+                Titulo de la Publicación:
+                <input id="titulo" class="inputs" type="text" name="titulo" placeholder="Titulo">
+            </label>
+
+            <label for="autor">
+                Autor de Publicación:
+                <select name="autor_publicacion" id="autor"></select>
+            </label>
+
+            <label for="descripcion">
+                Descripción:
+                <textarea rows="5" cols="30" class="inputs" name="descripcion" id="descripcion"></textarea>
+            </label>
+
+            <label for="catagoria">
+                Categoria:
+                <select name="catagoria" id="listaCatagoriaPublicacion"></select>
+            </label>
+
+            <div class="subOpciones">
+                <label for="tipoPublicacion">
+                    Tipo de Publicación:
+                </label>
+                <br>
+                
+                <input type="radio" id="publicacionPersonal" name="tipoPublicacion" value="personal" checked />
+                <label for="tipoPublicacion">Personal</label>
+
+                <input type="radio" id="publicacionInstituto" name="tipoPublicacion" value="institucional" />
+                <label for="tipoPublicacion">De alguna escuela</label>
+            </div>
+            <br>
+
+            <div class="institucion-opcional">
+                <label for="institucion-opcional">Institución:</label>
+                <br>
+                <select name="institucion-opcion" id="listarEscuelas">
+                </select>
+            </div>
+
+            <label for="imagenPortada">
+                Imagen de Portada:
+                <input id="imagenPortada" class="inputs" type="file">
+            </label>
+
+            <div class="imagenesExtras">
+                <label for="imagenExtra1">
+                    Imagenes Extras:
+                    <input id="imagenExtra1" class="inputs" type="file">
+                    <input id="imagenExtra1" class="inputs" type="file">
+                    <input id="imagenExtra1" class="inputs" type="file">
+                    <input id="imagenExtra1" class="inputs" type="file">
+                </label>
+            </div>
+
+            <button type="submit">Publicar</button>
+            <button id="btnCancelar" type="reset">Cancelar</button>
+        </form>
+    </div>
+</div>

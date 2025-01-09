@@ -8,7 +8,7 @@
 <!-- Título de la pestaña a visualizar -->
 {% block tituloPestania%}
 <h1>Publicaciones</h1>
-<a href="#" class="botones">Agregar +</a>
+<a id="abrirModalPublicacion" href="#" class="botones">Agregar +</a>
 {% endblock tituloPestania%}
 
 {% block contenido_administrativo %}
@@ -19,81 +19,91 @@
 
 <!-- Contenido de las pestañas -->
 <div id="aceptados" class="tab-content active">
-  <h3>Eventos Aceptados</hr>
-  <br>
-  <table>
-      <thead>
-          <tr>
-              <th>No</th>
-              <th>Titulo</th>
-              <th>Fecha Publicada</th>
-              <th>Autor</th>
-              <th>Estatus</th>
-              <th>Acciones</th>
-          </tr>
-      </thead>
-      <tbody>
-          {% for publicacion in publicaciones_aprobados %}
-          <tr>
-              <td>{{ forloop.counter }}</td>
-              <td>{{ publicacion.titulo_publicacion }}</td>
-              <td>{{ publicacion.fecha_creacion_publicacion }}</td>
-              <td>{{ publicacion.id_actor.nombre_completo }}</td>
-              <td>Aceptado</td>
-              <td>
-                  <a href="#" class="botones">Editar</a>
-                  <a href="#" class="botones">Eliminar</a>
-              </td>
-          </tr>
-          {% empty %}
-          <tr>
+    <h3>Eventos Aceptados</h3>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Titulo</th>
+                <th>Fecha Publicada</th>
+                <th>Autor</th>
+                <th>Estatus</th>
+                <th colspan="2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for publicacion in publicaciones_aprobados %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ publicacion.titulo_publicacion }}</td>
+                <td>{{ publicacion.fecha_creacion_publicacion }}</td>
+                <td>{{ publicacion.id_actor.nombre_completo }}</td>
+                <td>Aceptado</td>
+                <td>
+                    <a href="" 
+                    class="botonesTablas btnEditar abrirModalEditPublicacion"
+                    data-id="{{ publicacion.pk }}"
+                    >Editar</a>
+                </td>
+                <td>
+                    <a href="{% url 'eliminarUbicacion' publicacion.pk %}" 
+                    class="botonesTablas btnEliminar">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
               <td colspan="6">No hay Publicaciones disponibles.</td>
-          </tr>
-          {% endfor %}
-      </tbody>
-  </table>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 </div>
 
 
 <div id="pendientes" class="tab-content">
-  <h3>Eventos Pendientes</h3>
-  <br>
-  <table>
-      <thead>
-          <tr>
-              <th>No</th>
-              <th>Titulo</th>
-              <th>Fecha Publicada</th>
-              <th>Autor</th>
-              <th>Estatus</th>
-              <th>Acciones</th>
-          </tr>
-      </thead>
-      <tbody>
-          {% for publicacion in publicaciones_no_aprobados %}
-          <tr>
-              <td>{{ forloop.counter }}</td>
-              <td>{{ publicacion.titulo_publicacion }}</td>
-              <td>NO SE SABE</td>
-              <td>{{ publicacion.id_actor.nombre_completo }}</td>
-              <td>Pendiente</td>
-              <td>
+    <h3>Eventos Pendientes</h3>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Titulo</th>
+                <th>Fecha Publicada</th>
+                <th>Autor</th>
+                <th>Estatus</th>
+                <th colspan="2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for publicacion in publicaciones_no_aprobados %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ publicacion.titulo_publicacion }}</td>
+                <td>NO SE SABE</td>
+                <td>{{ publicacion.id_actor.nombre_completo }}</td>
+                <td>Pendiente</td>
+                <td>
                   <a href="#" class="botonesTablas">Editar</a>
-                  <a href="#" class="botonesTablas">Eliminar</a>
-              </td>
-          </tr>
-          {% empty %}
-          <tr>
-              <td colspan="6">No hay Publicaciones disponibles.</td>
-          </tr>
-          {% endfor %}
-      </tbody>
-  </table>
+                </td>
+                <td>
+                    <a href="#" class="botonesTablas">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No hay Publicaciones disponibles.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 
 {% include 'components/administracion/agregar/addPublicacion.html' %}
 {% include 'components/administracion/editar/editPublicacion.html' %}
+
+<script src="{% static 'js/panelAdministracion/addPublicacion.js' %}"></script>
 
 {% endblock contenido_administrativo %}
