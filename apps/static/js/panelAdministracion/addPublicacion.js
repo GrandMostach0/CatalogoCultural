@@ -131,6 +131,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
         btn.addEventListener("click", async (event) => {
             event.preventDefault();
             const data_id = event.target.getAttribute("data-id");
+            const data_autor = event.target.getAttribute("data-autor");
 
             const response = await fetch(`/obtenerPublicacion/${data_id}`);
             const data = await response.json();
@@ -142,7 +143,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
                 data.publicaciones.forEach(publicacion => {
                     document.getElementById("publicacion_id").value = publicacion.id;
                     document.getElementById("titulo_publicacion").value = publicacion.titulo_publicacion;
-                    document.getElementById("autor_de_publicacion").value = publicacion.id_actor_id;
+                    document.getElementById("autor_de_publicacion").value = data_autor;
                     document.getElementById("descripcion_publicacion").value = publicacion.descripcion_publicacion;
                     if (publicacion.publicacion_aprobada){
                         document.getElementById("aprobarPublicacion").checked = true;
