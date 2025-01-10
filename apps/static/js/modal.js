@@ -1,6 +1,6 @@
-const listarEscuelas = async () => {
+const listarEscuelas = async (id_actor) => {
     try{
-        const response = await fetch('/escuelas/')
+        const response = await fetch(`/escuelaActor/${id_actor}`)
         const data = await response.json();
 
         if (data.message === 'Success'){
@@ -8,6 +8,7 @@ const listarEscuelas = async () => {
             const setEscuelas = document.getElementById('listarEscuelas');
             setEscuelas.innerHTML = '<option value="0">Seleccione una Escuela</option>';
 
+            console.log(data);
             // Agrega las nuevas opciones
             data.escuelas.forEach(escuela =>{
                 const option = document.createElement('option');
@@ -50,41 +51,45 @@ const listarDisciplinasProyecto = async () => {
     }
 };
 
-document.addEventListener("DOMContentLoaded", async () =>{
+document.addEventListener("DOMContentLoaded", async () => {
     var modal = document.getElementById("myModalPublicacion");
     var abrirModal = document.getElementById("abrirModalPublicacion");
     var cerrarModal = document.getElementsByClassName("close")[0];
     var btnCancelar = document.getElementById("btnCancelar");
 
-
     const radioPersonal = document.getElementById("publicacionPersonal");
     const radioInstituto = document.getElementById("publicacionInstituto");
     const institucionOpcional = document.querySelector(".institucion-opcional");
 
-    institucionOpcional.style.display = "none";
+    institucionOpcional.style.display = "none";  // Asegúrate de que esté oculto al inicio
 
     abrirModal.addEventListener("click", async function(event){
         event.preventDefault();
         modal.style.display = "block";
         document.body.style.overflow = "hidden";
 
+        const data_id = event.target.getAttribute("data-id");
+
         // --- Cargar la lista de escuelas ---
-        await listarEscuelas();
+        await listarEscuelas(data_id);
         await listarDisciplinasProyecto();
     });
 
     cerrarModal.onclick = function() {
         modal.style.display = "none";
+        institucionOpcional.style.display = "none";  // Ocultar la parte de institución opcional cuando se cierre
         document.body.style.overflow = "auto";
     }
 
     btnCancelar.onclick = function() {
         modal.style.display = "none";
+        institucionOpcional.style.display = "none";  // Ocultar la parte de institución opcional al cancelar
         document.body.style.overflow = "auto";
     }
 
-    function toggleInstitucionOpcional(){
-        if(radioInstituto.checked){
+    // FUNCION PARA OCULTAR O MOSTRAR LA SELECCION DE LA ESCUELA
+    function toggleInstitucionOpcional() {
+        if (radioInstituto.checked) {
             institucionOpcional.style.display = "block";
         } else {
             institucionOpcional.style.display = "none";
@@ -93,5 +98,4 @@ document.addEventListener("DOMContentLoaded", async () =>{
 
     radioPersonal.addEventListener("change", toggleInstitucionOpcional);
     radioInstituto.addEventListener("change", toggleInstitucionOpcional);
-
 });

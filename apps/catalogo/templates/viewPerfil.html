@@ -98,18 +98,6 @@
                                         <li><a href="{% url 'PerfilEscuela' escuela.pk %}">{{ escuela.nombre_escuela }}</a></li>
                                     {% endfor %}
                                 </ul>
-                                <div class="container-add-escuela">
-                                    <strong>Solicitarse Unirse a una Escuela:</strong>
-                                    <form method="post" action="">
-                                        <label for="listaEscuelas">
-                                            <select name="listaEscuelas" id="listaEscuelas">
-                                                <option value="0">Seleccione una opcion</option>
-                                            </select>
-                                            <button type="submit">Solicitar</button>
-                                        </label>
-                                    </form>
-                                    <br>
-                                </div>
                             </div>
                             {% else %}
                             <div class="informacion">
@@ -117,6 +105,7 @@
                             </div>
                             {% endif %}
 
+                            <br>
                             {% if actor.user == request.user %}
                                 <p style="font-weight: bold;">Correo Privado[No visible]:</p>
                                 <p>{{ actor.correo_privado_actor }}</p>
@@ -143,7 +132,11 @@
 
                 {% if actor.user == request.user %}
                     <section class="botones-publicaciones">
-                        <a id="abrirModalPublicacion" href="#" class="botones">Crear Publicación</a>
+                        <a
+                        id="abrirModalPublicacion"
+                        href="#"
+                        class="botones"
+                        data-id="{{actor.pk}}">Crear Publicación</a>
                         <a id="abrirModalProyecto" href="#" class="botones">Crear Evento</a>
                     </section>
                 {% endif %}

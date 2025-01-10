@@ -47,6 +47,7 @@ urlpatterns = [
     path("audiencia/", views.get_clasificaciones, name="get_clasificaciones"),
     path("ubicaciones/", views.get_Ubicaciones_Comunes, name="get_ubicaciones_comunes"),
     path("escuelas/", views.get_Escuelas, name="get_Escuelas"),
+    path("escuelaActor/<int:pk>/", views.get_escuelas_por_actor, name="escuelaActor"),
     path("municipios/", views.get_municipios, name="get_municipios"),
     path("getRedesSociales/<int:pk>", views.get_RedesSociales, name="get_RedesSociales"),
 

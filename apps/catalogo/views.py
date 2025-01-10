@@ -195,7 +195,7 @@ def editarPerfil(request):
                 actor.Telefono_publico_Actor = request.POST.get('telefono_publico', actor.Telefono_privado_actor)
 
                 actor.user.username = correo_privado
-                actor.user.save();
+                actor.user.save()
                 actor.save()
                 return redirect('PerfilActor', pk=actor.id)
         except Exception as e:
@@ -478,6 +478,28 @@ def get_Escuelas(request):
         data = {'message': "Not Found"}
     
     return JsonResponse(data)
+
+from django.http import JsonResponse
+
+def get_escuelas_por_actor(request, pk):
+    try:
+        # Obtén el actor específico
+        actor = Actor.objects.get(id = pk)
+
+        # Obtén las escuelas relacionadas con el actor
+        escuelas = list(actor.id_escuela.values('id', 'nombre_escuela'))
+
+        if escuelas:
+            data = {'message': "Success", 'escuelas': escuelas}
+        else:
+            data = {'message': "No Schools Found"}
+    except Actor.DoesNotExist:
+        data = {'message': "Actor Not Found"}
+    except Exception as e:
+        data = {'message': "Error", 'details': str(e)}
+
+    return JsonResponse(data)
+
 
 def get_municipios(request):
 
