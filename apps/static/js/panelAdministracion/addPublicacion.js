@@ -15,7 +15,6 @@ const listarEscuelas = async () => {
                 option.textContent = escuela.nombre_escuela;
                 setEscuelas.appendChild(option);
             });
-            console.log("Opciones cargadas correctamente.");
         } else {
             console.log("Error: Respuesta inesperada de la API")
         }
@@ -41,7 +40,6 @@ const listarDisciplinasProyecto = async () => {
                 option.textContent = disciplina.nombre_disciplina;
                 setDisciplinas.appendChild(option);
             });
-            console.log("Opciones cargadas correctamente.");
         } else {
             console.error("Error: Respuesta inesperada de la API.");
         }
@@ -71,7 +69,6 @@ const listarDisciplinasPublicaciones = async (id_disciplina) => {
 
                 setDisciplinas.appendChild(option);
             });
-            console.log("Opciones cargadas correctamente.");
         } else {
             console.error("Error: Respuesta inesperada de la API.");
         }
@@ -143,12 +140,16 @@ document.addEventListener("DOMContentLoaded", async () =>{
                 await listarDisciplinasPublicaciones(data.publicaciones[0].id_Disciplina_id);
 
                 data.publicaciones.forEach(publicacion => {
-                    console.log("DATOS PANAS")
                     document.getElementById("publicacion_id").value = publicacion.id;
                     document.getElementById("titulo_publicacion").value = publicacion.titulo_publicacion;
                     document.getElementById("autor_de_publicacion").value = publicacion.id_actor_id;
                     document.getElementById("descripcion_publicacion").value = publicacion.descripcion_publicacion;
-                    
+                    if (publicacion.publicacion_aprobada){
+                        document.getElementById("aprobarPublicacion").checked = true;
+                    }else{
+                        document.getElementById("aprobarPublicacion").checked = false;
+                        document.getElementById("noAprobarPublicacion").checked = true;
+                    }
                 });
             }else{
                 console.log("Ocurrio un error al realizar la consulta")

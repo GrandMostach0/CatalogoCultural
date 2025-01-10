@@ -39,7 +39,11 @@
                 <td>{{ publicacion.titulo_publicacion }}</td>
                 <td>{{ publicacion.fecha_creacion_publicacion }}</td>
                 <td>{{ publicacion.id_actor.nombre_completo }}</td>
-                <td>Aceptado</td>
+                {% if publicacion.publicacion_aprobada %}
+                    <td>Aprobado</td>
+                {% else %}
+                    <td>Pendiente</td>
+                {% endif %}
                 <td>
                     <a href="" 
                     class="botonesTablas btnEditar abrirModalEditPublicacion"
@@ -81,14 +85,22 @@
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{ publicacion.titulo_publicacion }}</td>
-                <td>NO SE SABE</td>
+                <td>{{ publicacion.fecha_creacion_publicacion }}</td>
                 <td>{{ publicacion.id_actor.nombre_completo }}</td>
-                <td>Pendiente</td>
+                {% if publicacion.publicacion_aprobada %}
+                    <td>Aprobado</td>
+                {% else %}
+                    <td>Pendiente</td>
+                {% endif %}
                 <td>
-                  <a href="#" class="botonesTablas">Editar</a>
+                    <a href="" 
+                    class="botonesTablas btnEditar abrirModalEditPublicacion"
+                    data-id="{{ publicacion.pk }}"
+                    >Editar</a>
                 </td>
                 <td>
-                    <a href="#" class="botonesTablas">Eliminar</a>
+                    <a href="{% url 'eliminarUbicacion' publicacion.pk %}" 
+                    class="botonesTablas btnEliminar">Eliminar</a>
                 </td>
             </tr>
             {% empty %}
