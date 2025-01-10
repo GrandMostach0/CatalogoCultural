@@ -39,9 +39,24 @@
                 </div>
                 <br>
                 <a href="{% url 'PerfilActor' publicacion.id_actor.id %}">
-                    <div class="card-publicacion-usuario">
-                        <h4>Autor </h4>
 
+                    {% if publicacion.tipo_publicacion %}
+                    <div class="card-publicacion-usuario">
+                        <h4>Autor: </h4>
+                        <!-- VALIDA SI TIENE IMAGEN EN CASO DE NO TENER COLOCA UNO DE BASE -->
+                        {% if publicacion.url_imagen_publicacion %}
+                            <img src="{{ publicacion.id_actor.url_image_actor.url }}" alt="Imagen Publicación">
+                        {% else %}
+                            <img src="{% static 'assets/images/AvatarImg.jpg' %}" alt="Imagen Avatar">
+                        {% endif %}
+                        <p>{{ publicacion.id_actor.nombre_completo }} - </p>
+                    </div>
+                    <div class="card-publicacion-usuario">
+                        <p>{{ publicacion.id_Escuela.nombre_escuela }}</p>
+                    </div>
+                    {% else %}
+                    <div class="card-publicacion-usuario">
+                        <h4>Autor: </h4>
                         <!-- VALIDA SI TIENE IMAGEN EN CASO DE NO TENER COLOCA UNO DE BASE -->
                         {% if publicacion.url_imagen_publicacion %}
                             <img src="{{ publicacion.id_actor.url_image_actor.url }}" alt="Imagen Publicación">
@@ -50,6 +65,7 @@
                         {% endif %}
                         <p>{{ publicacion.id_actor.nombre_completo }}</p>
                     </div>
+                    {% endif %}
                 </a>
                 <br>
                 <h3 style="text-align: left;">Etiqueta</h3>
