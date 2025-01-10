@@ -209,34 +209,63 @@ def crear_publicacion(request):
     if request.method == "POST":
         try:
             if actor.user == request.user:
+                id_actor = actor.id
+
                 titulo = request.POST.get('titulo')
                 descripcion = request.POST.get('descripcion')
-                tipo_publicacion = request.POST.get('tipoPublicacion')
-                id_actor = actor.id
-                imagen_portada = request.FILES.get('imagenPortada')
+                categoria = request.POST.get('categoriaPublicacion')
+                imagen_portada = request.FILES.get('imagenPortadaPublicacion')
                 fecha_publicacion = date.today()
 
-                
                 if not titulo or not descripcion or not imagen_portada:
                     messages.error(request, "Todos los campos son obligatorios.")
-                    return redirect('nombre_de_tu_template')
+                    return redirect('PerfilActor', pk=actor.id)
+
+                # datos opcionales
+                tipo_publicacion = request.POST.get('tipoPublicacion')
+                
+                if tipo_publicacion == 'Institucional':
+                    print("PUBLIAION DE UNA ESCUELA GENIAL")
+                    tipo_publicacion = True
+                else:
+                    print("PUBLICACION PERSONAL DEL AUTOR FUCK")
+                    tipo_publicacion = False
+                
+                escuelaOpcional = request.POST.get('institucion-opcion')
+                
+                ## CREACION DE LA PUBLIACION DEPENDIENDO DEL TIPO DE PUBLICACION
+
+                if tipo_publicacion:
+                    nueva_publicacion = publicacionObras(
+                        id_actor_id = id_actor,
+                        titulo_publicacion = titulo,
+                        descripcion_publicacion = descripcion,
+                        tipo_publicacion = tipo_publicacion,
+                        url_imagen_publicacion = imagen_portada,
+                        fecha_creacion_publicacion = date.today(),
+                        id_Disciplina = categoria,
+                        id_Escuela = escuelaOpcional
+                    )
+                    nueva_publicacion.save()
+                else:
+                    nueva_publicacion = publicacionObras(
+                        id_actor_id = id_actor,
+                        titulo_publicacion = titulo,
+                        descripcion_publicacion = descripcion,
+                        tipo_publicacion = tipo_publicacion,
+                        url_imagen_publicacion = imagen_portada,
+                        fecha_creacion_publicacion = date.today(),
+                        id_Disciplina = categoria,
+                        id_Escuela = None
+                    )
+                    nueva_publicacion.save()
+
+                messages.success(request, "Publicación creada exitosamente.")
+                return redirect('PerfilActor', pk=actor.id)
         except Exception as e:
             messages.error(request, f"Ocurrió un error: {str(e)}")
 
-        
-        nueva_publicacion = publicacionObras(
-            titulo_publicacion=titulo,
-            descripcion_publicacion=descripcion,
-            url_imagen_publicacion=imagen_portada,
-            id_actor_id=id_actor,
-            fecha_publicacion=fecha_publicacion
-        )
-
-        nueva_publicacion.save()
-
-        messages.success(request, "Publicación creada exitosamente.")
-        return redirect('PerfilActor', pk=actor.id)
-
+    return redirect('PerfilActor', pk=actor.id)
 # -----------------------------
 #   LISTADO DE LAS PUBLICACIONES
 # ----------------------------

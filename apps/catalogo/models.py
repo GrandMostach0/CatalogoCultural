@@ -141,12 +141,15 @@ class Actor(models.Model):
 class publicacionObras(models.Model):
     url_imagen_publicacion = models.ImageField(upload_to="imagenes/", verbose_name="Imagen Portada", null=False, blank=False)
     publicacion_aprobada = models.BooleanField(default=False, verbose_name="Aprobado")
-    fecha_creacion_publicacion = models.DateField(auto_now_add=True, verbose_name="Fecha de creacion", null=True, blank=True)
     titulo_publicacion = models.CharField(max_length=100, null=False, blank=False, verbose_name="Titulo")
     descripcion_publicacion = models.TextField(null=False, blank=False, verbose_name="Descripcion")
-    fecha_publicacion = models.DateField(null=False, blank=False, verbose_name="Fecha Publicacion")
+    tipo_publicacion = models.BooleanField(default=False, null=True, blank=True, verbose_name="Tipo Publiacion")
+    fecha_creacion_publicacion = models.DateField(auto_now_add=True, verbose_name="Fecha de creacion", null=True, blank=True)
+    fecha_publicacion = models.DateField(null=True, blank=True, verbose_name="Fecha Publicacion")
+
     id_actor = models.ForeignKey(Actor, on_delete=models.CASCADE, related_name="Publicacion_Obra", null=True, blank=True)
     id_Disciplina = models.ForeignKey(Disciplinas, on_delete=models.CASCADE, related_name="Categoria", null=True, blank=True)
+    id_Escuela = models.ForeignKey(Escuelas, on_delete=models.CASCADE, related_name="Publicacion_Escuela", null=True, blank=True)
 
     def __str__(self):
         return self.titulo_publicacion
