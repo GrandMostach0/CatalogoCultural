@@ -749,6 +749,31 @@ def eliminar_publicacionesObras(request, pk):
     messages.success(request, f'La publicacion" {publicacion.titulo_publicacion}" ha sido eliminado con éxito')
     return redirect('PanelAdministracionPublicaciones')
 
+def update_publicacion(request):
+    try:
+        # Obtención de los datos
+        publicacion_id = request.POST.get('publicacion_id')
+        aprobar_publicacion = request.POST.get('aprobarPublicacion')
+
+        if aprobar_publicacion == "True":
+            aprobar_publicacion = True
+        else:
+            aprobar_publicacion = False
+
+        Publicacion = publicacionObras.objects.get(id=publicacion_id)
+
+        Publicacion.publicacion_aprobada = aprobar_publicacion
+        
+        Publicacion.save()
+
+        messages.success(request, 'La Publicación se actualizó correctamente.')
+    except publicacionObras.DoesNotExist:
+        messages.error(request, 'La Publicación no existe.')
+    except Exception as e:
+        messages.error(request, f'Ocurrió un error al actualizar la Publicación: {str(e)}')
+
+    # Redirigir al panel de administración
+    return redirect('PanelAdministracionPublicaciones')
 
 class panelAdministracionEventos(LoginRequiredMixin, ListView):
     model = publicacionEventos

@@ -4,7 +4,7 @@
     <div class="modal-content">
         <span class="close clsModalEditPublicacion">&times;</span>
         <h2>Editar Publicación</h2>
-        <form method="POST" enctype="multipart/form-data" action="{% url 'crear_publicacion' %}">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'actualizarPublicacion' %}">
             {% csrf_token %}
 
             <input
@@ -92,14 +92,14 @@
                 type="radio"
                 id="aprobarPublicacion"
                 name="aprobarPublicacion"
-                value="aprobado"/>
+                value="True"/>
                 <label for="aprobarPublicacion">Aprobar</label>
 
                 <input
                 type="radio"
                 id="noAprobarPublicacion"
                 name="aprobarPublicacion"
-                value="false" />
+                value="False" />
                 <label for="noAprobarPublicacion">No Aprobar</label>
             </div>
             
