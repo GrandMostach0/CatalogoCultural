@@ -742,6 +742,13 @@ class panelAdministracionPublicaciones(LoginRequiredMixin, ListView):
 
         return context
 
+def eliminar_publicacionesObras(request, pk):
+
+    publicacion = publicacionObras.objects.get(id = pk)
+    publicacion.delete()
+    messages.success(request, f'La publicacion" {publicacion.titulo_publicacion}" ha sido eliminado con éxito')
+    return redirect('PanelAdministracionPublicaciones')
+
 
 class panelAdministracionEventos(LoginRequiredMixin, ListView):
     model = publicacionEventos
