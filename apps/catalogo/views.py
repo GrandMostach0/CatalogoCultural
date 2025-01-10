@@ -501,16 +501,23 @@ def get_RedesSociales(request, pk):
     
     return JsonResponse(data)
 
-def get_Publicaciones(request):
-    
-    publicaciones= list(publicacionObras.objects.values())
+def get_Publicaciones(request, pk):
+    try:
+        # Filtrar la publicación específica
+        publicacion = publicacionObras.objects.filter(id=pk).values().first()
 
-    if publicaciones:
-        data = {'message': "Success", 'publicaciones': publicaciones}
-    else:
-        data = {'message': "Not Found"}
-    
+        if publicacion:
+            data = {
+                "message": "Success",
+                "publicaciones": [publicacion],
+            }
+        else:
+            data = {"message": "Not Found"}
+    except Exception as e:
+        data = {"message": "Error", "details": str(e)}
+
     return JsonResponse(data)
+
 
 # -----------------------------
 #  SECCION PANEL ADMINSTRATIVO

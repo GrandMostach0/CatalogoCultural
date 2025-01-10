@@ -50,6 +50,36 @@ const listarDisciplinasProyecto = async () => {
     }
 };
 
+const listarDisciplinasPublicaciones = async (id_disciplina) => {
+    try {
+        const response = await fetch('/disciplinas/');
+        const data = await response.json();
+
+        if (data.message === 'Success') {
+            // Limpia el contenido previo del select
+            const setDisciplinas = document.getElementById('listaCatagoriaPublicacionEdit');
+            setDisciplinas.innerHTML = '<option value="0">Seleccione una Categoria</option>';
+
+            data.Disciplinas.forEach(disciplina => {
+                const option = document.createElement('option');
+                option.value = disciplina.id;
+                option.textContent = disciplina.nombre_disciplina;
+
+                if (disciplina.id === id_disciplina){
+                    option.selected = true;
+                }
+
+                setDisciplinas.appendChild(option);
+            });
+            console.log("Opciones cargadas correctamente.");
+        } else {
+            console.error("Error: Respuesta inesperada de la API.");
+        }
+    } catch (error) {
+        console.error("Error al obtener las Disciplinas:", error);
+    }
+};
+
 document.addEventListener("DOMContentLoaded", async () =>{
     var modal = document.getElementById("myModalPublicacion");
     var abrirModal = document.getElementById("abrirModalPublicacion");
@@ -103,13 +133,26 @@ document.addEventListener("DOMContentLoaded", async () =>{
     abrirModalEditPublicacion.forEach(btn => {
         btn.addEventListener("click", async (event) => {
             event.preventDefault();
-            console.log("hola soy un modal");
             const data_id = event.target.getAttribute("data-id");
-            console.log(data_id);
 
-            const response = await fetch(`/obtenerPublicacion/`);
+            const response = await fetch(`/obtenerPublicacion/${data_id}`);
             const data = await response.json();
-            console.log(data);
+
+            if(data.message === "Success"){
+                console.log(data)
+                await listarDisciplinasPublicaciones(data.publicaciones[0].id_Disciplina_id);
+
+                data.publicaciones.forEach(publicacion => {
+                    console.log("DATOS PANAS")
+                    document.getElementById("publicacion_id").value = publicacion.id;
+                    document.getElementById("titulo_publicacion").value = publicacion.titulo_publicacion;
+                    document.getElementById("autor_de_publicacion").value = publicacion.id_actor_id;
+                    document.getElementById("descripcion_publicacion").value = publicacion.descripcion_publicacion;
+                    
+                });
+            }else{
+                console.log("Ocurrio un error al realizar la consulta")
+            }
 
             modalEditPublicacion.style.display = "block";
             document.body.style.overflow = "hidden";
