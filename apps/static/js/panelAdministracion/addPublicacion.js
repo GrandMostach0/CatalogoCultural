@@ -101,11 +101,15 @@ document.addEventListener("DOMContentLoaded", async () =>{
     var btnCancelarModalEditPublicacion = document.getElementById("btnCancelarEditPublicacion");
 
     abrirModalEditPublicacion.forEach(btn => {
-        btn.addEventListener("click", (event) => {
+        btn.addEventListener("click", async (event) => {
             event.preventDefault();
             console.log("hola soy un modal");
             const data_id = event.target.getAttribute("data-id");
             console.log(data_id);
+
+            const response = await fetch(`/obtenerPublicacion/`);
+            const data = await response.json();
+            console.log(data);
 
             modalEditPublicacion.style.display = "block";
             document.body.style.overflow = "hidden";
