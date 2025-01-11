@@ -2,7 +2,6 @@ const listarEscuelas = async (id_actorEscuela, id_EscuelaActual) => {
     try{
         const response = await fetch(`/escuelaActor/${id_actorEscuela}`)
         const data = await response.json();
-        console.log(data);
 
         if (data.message === 'Success'){
             // Limpi el contenido previo del select
@@ -17,6 +16,31 @@ const listarEscuelas = async (id_actorEscuela, id_EscuelaActual) => {
                 if(escuela.id === id_EscuelaActual){
                     option.selected = true;
                 }
+
+                setEscuelas.appendChild(option);
+            });
+        } else {
+            console.log("Error: Respuesta inesperada de la API")
+        }
+
+    }catch(error){
+        console.error("Error al obtener la lista de escuelas", error)
+    }
+}
+
+const listarEscuelasSin = async () => {
+    try{
+        const response = await fetch('/escuelas/')
+        const data = await response.json();
+
+        if (data.message === 'Success'){
+            const setEscuelas = document.getElementById('listarEscuelasEdit');
+            setEscuelas.innerHTML = '<option value="0">Seleccione una Escuela</option>';
+
+            data.escuelas.forEach(escuela =>{
+                const option = document.createElement('option');
+                option.value = escuela.id;
+                option.textContent = escuela.nombre_escuela;
 
                 setEscuelas.appendChild(option);
             });
@@ -156,6 +180,8 @@ document.addEventListener("DOMContentLoaded", async () =>{
                     const id_Actor_Escuela = data.publicaciones[0].id_actor_id;
                     const id_EscuelaActual = data.publicaciones[0].id_Escuela_id;
                     await listarEscuelas(id_Actor_Escuela, id_EscuelaActual);
+                }else{
+                    await listarEscuelasSin()
                 }
 
                 data.publicaciones.forEach(publicacion => {
