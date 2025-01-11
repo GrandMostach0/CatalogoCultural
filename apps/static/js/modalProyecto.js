@@ -15,7 +15,7 @@ const listarClasificaciones = async () => {
                 option.textContent = clasificacion.nombre_clasificacion;
                 setClasificaciones.appendChild(option);
             });
-            console.log("Opciones cargadas correctamente.");
+            // console.log("Opciones cargadas correctamente.");
         } else {
             console.error("Error: Respuesta inesperada de la API.");
         }
@@ -40,7 +40,7 @@ const listarDisciplinas = async () => {
                 option.textContent = disciplina.nombre_disciplina;
                 setDisciplinas.appendChild(option);
             });
-            console.log("Opciones cargadas correctamente.");
+             // console.log("Opciones cargadas correctamente.");
         } else {
             console.error("Error: Respuesta inesperada de la API.");
         }
@@ -65,7 +65,7 @@ const listarUbicaciones = async () => {
                 option.textContent = ubicacione.nombre_ubicacion;
                 setUbicaciones.appendChild(option);
             });
-            console.log("Opciones cargadas correctamente.");
+            // console.log("Opciones cargadas correctamente.");
         } else {
             console.error("Error: Respuesta inesperada de la API.");
         }
@@ -89,6 +89,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     precioUnitario.style.display = 'none';
     subOpciones.style.display = 'none';
 
+    console.log("PRECION UNITARIO " + precioUnitario.style.display);
+    console.log("SUB OPCIONES DEPENDIENTES DEL ANTERIOR " + subOpciones.style.display);
+
     // --- Dinámica del punto de venta ---
     const presencial = document.getElementById('puntoVentaPresencial');
     const digital = document.getElementById('puntoVentaDigital');
@@ -109,20 +112,39 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     cerrarModal.onclick = function () {
         modal.style.display = "none";
+        urlinput.style.display = 'none';
+        precioUnitario.style.display = 'none';
         document.body.style.overflow = "auto";
     };
 
     btnCancelar.onclick = function () {
         modal.style.display = "none";
+        urlinput.style.display = 'none';
+        precioUnitario.style.display = 'none';
         document.body.style.overflow = "auto";
     };
+
+    // Función para cerrar y restablecer estado
+    const resetModalState = () => {
+        modal.style.display = "none";
+        urlinput.style.display = 'none';
+        precioUnitario.style.display = 'none';
+        subOpciones.style.display = 'none';
+        eventoPaga.checked = false; // Restablece el checkbox
+        document.body.style.overflow = "auto";
+    };
+
+    cerrarModal.onclick = resetModalState;
+    btnCancelar.onclick = resetModalState;
 
     // --- Funcionalidades dinámicas ---
     eventoPaga.addEventListener("change", () => {
         if (eventoPaga.checked) {
+            console.log("PAGO")
             precioUnitario.style.display = "block";
             subOpciones.style.display = "block";
         } else {
+            console.log("GRATIS")
             precioUnitario.style.display = "none";
             subOpciones.style.display = "none";
         }
