@@ -65,9 +65,9 @@
     cursor: pointer;
 }
 
-/* animación del texto en la imagen */
+/* animación del texto en la imagen para indicar que se puede ver mas imagenes*/
 .escuelaImagen::after {
-    content: 'Ver imagen';
+    content: 'Ver imagenes';
     font-weight: bold;
     font-size: 1.5em;
     position: absolute;

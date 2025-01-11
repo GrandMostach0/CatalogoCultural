@@ -6,11 +6,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vista Publicacion</title>
-    {% include 'style.html' %}
 
+    {% include 'style.html' %}
+    {% include 'Librerias.html' %}
+    <link rel="stylesheet" href="{% static 'css/sliderPublicaciones.css' %}">
 </head>
 
 <body>
+
+    <div class="container-swiper-Publicaciones">
+        <p>HOLA QUE ONDA PERROS Y PANITAS </p>
+        <span id="cerrarContainerSwiper">Close</span>
+        
+        <div class="container-content-swiper-publicaciones">
+            <div class="swiper">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="{{ publicacion.url_imagen_publicacion.url }}" alt="Imagen Extra">
+                        </div>
+                        {% for imagenExtra in imagenes_Extras %}
+                            <div class="swiper-slide ">
+                                <img src="{{ imagenExtra.url_imagen.url }}" alt="Imagen Extra">
+                            </div>
+                        {% endfor %}
+                    </div>
+                     <!-- Botones de navegacion -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="ancho">
         <!---- SECCION MENÚ ---->
         {% include 'components/navbar.html' %}
@@ -27,7 +55,7 @@
         <!----- SECCION DEL CONTENIDO DE LA ESCUELA ----->
         <main class="container-escuela">
             <div class="escuela-imagen">
-                <div class="escuelaImagen">
+                <div class="escuelaImagen" id="imagenPortada">
                     
                     <!-- VALIDA SI TIENE IMAGEN EN CASO DE NO TENER COLOCA UNO DE BASE -->
                     {% if publicacion.url_imagen_publicacion %}
@@ -92,74 +120,12 @@
 
             </div>
         </main>
-
-        <!-- MODAL PARA SLIDER IMAGENES-->
-        <div class="modal-slider" id="modalSliderImagen">
-            <span class="close-slider" id="close-slider">&times;</span>
-            <div class="modal-content-slider">
-                <span class="prev">&lt;</span>
-
-                <img id="modalImagen" src="" alt="Imagen amplia">
-
-                <span class="next">&gt;</span>
-            </div>
-        </div>
-
-
         <!----- FOOTER DE LA PÁGINA -->
         {% include 'components/footer.html' %}
 
     </div>
 
-    <script>
-        // Lista de las imagenés del slider
-        const imagenes = [
-            "{{ publicacion.url_imagen_publicacion.url }}",
-            "{% static 'assets/images/Institucion2.png' %}",
-            "{% static 'assets/images/Institucion3.jpg' %}"
-        ];
-
-        let currentIndex = 0;
-        const escuelaImagen = document.querySelector('.escuelaImagen img');
-
-        const modal_slider = document.getElementById('modalSliderImagen');
-        const modal_imagen = document.getElementById('modalImagen');
-        const close_slider = document.getElementById('close-slider');
-        const prev = document.querySelector('.prev');
-        const next = document.querySelector('.next');
-
-        // Función para mostrar una imagen en el modal
-        function showImage(index) {
-            modal_imagen.src = imagenes[index];
-        }
-
-        escuelaImagen.addEventListener('click', function () {
-            modal_slider.style.display = 'flex';
-            currentIndex = 0;
-            showImage(currentIndex);
-        });
-
-        close_slider.addEventListener('click', function () {
-            modal_slider.style.display = 'none';
-            console.log('click close');
-        });
-
-        prev.addEventListener('click', function () {
-            currentIndex = (currentIndex > 0) ? currentIndex - 1 : imagenes.length - 1;
-            showImage(currentIndex);
-        });
-
-        next.addEventListener('click', function () {
-            currentIndex = (currentIndex < imagenes.length - 1) ? currentIndex + 1 : 0;
-            showImage(currentIndex);
-        });
-
-        window.addEventListener('click', function (event) {
-            if (event.target === modal_slider) {
-                modal_slider.style.display = 'none';
-            }
-        });
-    </script>
+    <script src="{% static 'js/scriptSliderPublicaciones.js' %}" ></script>
 
 </body>
 

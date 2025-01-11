@@ -160,6 +160,13 @@ def vistaPublicacion(request, pk):
     publicacion = publicacionObras.objects.get(id = pk)
     actor = None
 
+    content_type = ContentType.objects.get_for_model(publicacionObras)
+
+    imagenes_Extras = Imagenes_publicaciones.objects.filter(
+        content_type = content_type,
+        object_id = publicacion.id
+    )
+
     if request.user.is_authenticated:
         #actor = Actor.objects.filter(user=request.user).first()
         actor = Actor.objects.filter(user = request.user).first()
@@ -167,7 +174,8 @@ def vistaPublicacion(request, pk):
     context = {
         "actor": actor,
         "fecha_actual": fecha_actual,
-        "publicacion": publicacion
+        "publicacion": publicacion,
+        "imagenes_Extras": imagenes_Extras
     }
 
     return render(request, "vistaPublicacion.html", context)
@@ -285,7 +293,6 @@ def crear_publicacion(request):
                             content_type = content_type,
                             object_id = nueva_publicacion.id,
                             url_imagen = imagenE
-
                         )
 
                 messages.success(request, "Publicación creada exitosamente.")
@@ -294,6 +301,32 @@ def crear_publicacion(request):
             messages.error(request, f"Ocurrió un error: {str(e)}")
 
     return redirect('PerfilActor', pk=actor.id)
+
+def content_type(request, publicacion_id):
+    try:
+        # Obtener la publicación principal.
+        publicacion = publicacionObras.objects.get(id=publicacion_id)
+
+        # Obtener el ContentType relacionado con publicacionObras.
+        content_type = ContentType.objects.get_for_model(publicacionObras)
+
+        # Obtener todas las imágenes extras asociadas a esta publicación.
+        imagenes_extras = list(Imagenes_publicaciones.objects.filter(
+            content_type=content_type,
+            object_id=publicacion.id
+        ))
+
+        if imagenes_extras:
+            data = {'message': "Success", 'imagenes_extras': imagenes_extras}
+        else:
+            data = {'message:' 'Not Found'}
+
+        return JsonResponse(data)
+    except publicacionObras.DoesNotExist:
+        data = {'message': "ERROR"}
+        return JsonResponse
+
+
 # -----------------------------
 #   LISTADO DE LAS PUBLICACIONES
 # ----------------------------
