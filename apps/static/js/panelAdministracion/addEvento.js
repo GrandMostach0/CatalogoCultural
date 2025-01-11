@@ -1,11 +1,11 @@
-const listarClasificaciones = async () => {
+const listarClasificaciones = async (clasificacionPublicacion) => {
     try {
         const response = await fetch('/audiencia/');
         const data = await response.json();
 
         if (data.message === 'Success') {
             // Limpia el contenido previo del select
-            const setClasificaciones = document.getElementById('Listaclasificacion');
+            const setClasificaciones = document.getElementById('Listacategoria_Edit');
             setClasificaciones.innerHTML = '<option value="0">Seleccione la Categoría</option>';
 
             // Agrega las nuevas opciones
@@ -13,6 +13,11 @@ const listarClasificaciones = async () => {
                 const option = document.createElement('option');
                 option.value = clasificacion.id;
                 option.textContent = clasificacion.nombre_clasificacion;
+
+                if(clasificacion.id === clasificacionPublicacion){
+                    option.selected = true;
+                }
+                
                 setClasificaciones.appendChild(option);
             });
             // console.log("Opciones cargadas correctamente.");
@@ -24,20 +29,25 @@ const listarClasificaciones = async () => {
     }
 };
 
-const listarDisciplinas = async () => {
+const listarDisciplinas = async (disciplinaPublicacion) => {
     try {
         const response = await fetch('/disciplinas/');
         const data = await response.json();
 
         if (data.message === 'Success') {
             // Limpia el contenido previo del select
-            const setDisciplinas = document.getElementById('Listacategoria');
+            const setDisciplinas = document.getElementById('ListaClasificacionEdit');
             setDisciplinas.innerHTML = '<option value="0">Seleccione una Categoria</option>';
 
             data.Disciplinas.forEach(disciplina => {
                 const option = document.createElement('option');
                 option.value = disciplina.id;
                 option.textContent = disciplina.nombre_disciplina;
+
+                if(disciplina.id === disciplinaPublicacion){
+                    option.selected = true;
+                }
+
                 setDisciplinas.appendChild(option);
             });
              // console.log("Opciones cargadas correctamente.");
@@ -49,20 +59,25 @@ const listarDisciplinas = async () => {
     }
 };
 
-const listarUbicaciones = async () => {
+const listarUbicaciones = async (ubicacionPublicacion) => {
     try {
         const response = await fetch('/ubicaciones/');
         const data = await response.json();
 
         if (data.message === 'Success') {
             // Limpia el contenido previo del select
-            const setUbicaciones = document.getElementById('ListaUbicaciones');
+            const setUbicaciones = document.getElementById('listaUbicacionesEdit');
             setUbicaciones.innerHTML = '<option value="0">Seleccione una Ubicacion</option>';
 
             data.ubicacion.forEach(ubicacione => {
                 const option = document.createElement('option');
                 option.value = ubicacione.id;
                 option.textContent = ubicacione.nombre_ubicacion;
+
+                if(ubicacione.id === ubicacionPublicacion){
+                    option.selected = true;
+                }
+
                 setUbicaciones.appendChild(option);
             });
             // console.log("Opciones cargadas correctamente.");
@@ -107,17 +122,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             const data_id = event.target.getAttribute("data-id");
             const data_autor = event.target.getAttribute("data-autor");
 
-            console.log(data_id)
-            // --- Cargar clasificaciones ---
-            //await listarClasificaciones();
-            //await listarDisciplinas();
-            //await listarUbicaciones();
             try{
                 const response = await fetch(`/obtenerPublicacionEvento/${data_id}`)
                 const data = await response.json();
 
                 if (data.message === "Success"){
                     console.log(data)
+
+                    // --- Cargar clasificaciones ---
+                    await listarClasificaciones(data.publicaciones[0].id_clasificacion_id);
+                    await listarDisciplinas(data.publicaciones[0].id_disciplina_id);
+                    await listarUbicaciones(data.publicaciones[0].id_ubicacionesComunes_id);
 
                     modalEventoEdit.style.display = "block";
                     document.body.style.overflow = "hidden";
@@ -126,15 +141,22 @@ document.addEventListener("DOMContentLoaded", async () => {
                         document.getElementById("id_publicacion").value = data_id;
                         document.getElementById("titulo_evento").value = publicacion.titulo_publicacion;
                         document.getElementById("autor_publicacion").value = data_autor;
-                        document.getElementById("decripcion_evento_edit").value = publicacion.descripcion_publicacion;
-                        document.getElementById("fecha_evento_edit").value = publicacion.fecha_publicacion;
-                        document.getElementById("horaInicioEvento_edit")
-                        document.getElementById("eventoPaga_edit")
-                        document.getElementById("precioCU_edit")
+                        document.getElementById("descripcion_evento_edit").value = publicacion.descripcion_publicacion;
+                        document.getElementById("fechaEvento_edit").value = publicacion.fecha_inicio;
+                        document.getElementById("horaInicioEvento_edit").value = publicacion.hora_inicio;
+
+                        precio = Number(publicacion.precio_evento);
+                        if(precio > 0){
+                            document.getElementById("eventoPaga_edit").checked = true;
+                            document.getElementById("precioCU_edit").value = precio;
+                        }else{
+                            document.getElementById("eventoPaga_edit").checked = false;
+                            document.getElementById("precioCU_edit").value = 0;
+                        }
+                        
                     });
                 }else{
                     console.log("Ocurrio un error al obtener el dato")
-                    console.log(data)
                 }
 
             }catch (e){

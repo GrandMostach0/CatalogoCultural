@@ -355,7 +355,8 @@ def crear_publicacion_evento(request):
                         puntoVenta = "presencial",
                         id_clasificacion_id = clasificacion_evento,
                         id_disciplina_id = categoria_evento,
-                        id_ubicacionesComunes_id = ubicacion_del_evento
+                        id_ubicacionesComunes_id = ubicacion_del_evento,
+                        url_imagen_publicacion = imagen_portada_evento
 
                     )
                     nueva_publicacion.save()
@@ -981,7 +982,7 @@ class panelAdministracionEventos(LoginRequiredMixin, ListView):
 def get_Publicaciones_Eventos(request, pk):
     try:
         # Filtrar la publiacion especifica
-        publicacion = publicacionObras.objects.filter(id = pk).values().first()
+        publicacion = publicacionEventos.objects.filter(id = pk).values().first()
 
         if publicacion:
             data = {
@@ -994,6 +995,7 @@ def get_Publicaciones_Eventos(request, pk):
         data = {"message" : "Error", "details" : str(e)}
     
     return JsonResponse(data)
+
 
 def eliminarPublicacionEvento(request, pk):
     publicacion = publicacionEventos.objects.get(id = pk)

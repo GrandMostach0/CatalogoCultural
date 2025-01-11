@@ -88,7 +88,8 @@
                 <td>
                     <a href="#"
                     class="botonesTablas btnEditar btnAbrirModalEditEvento"
-                    data-id="{{ evento.id }}">Editar</a>
+                    data-id="{{ evento.id }}"
+                    data-autor="{{ evento.id_actor.nombre_completo  }}">Editar</a>
                 </td>
                 <td>
                     <a href="{% url 'eliminarPublicacionEvento' evento.pk %}" 
