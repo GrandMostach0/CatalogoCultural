@@ -29,7 +29,7 @@ urlpatterns = [
     # PERFIL DEL ACTOR CON SUS RESPECTIVAS OPERACIONES
     path("PerfilActor/<int:pk>/", ActoresDetailView.as_view(), name="PerfilActor"),
     path("editarPerfil/", views.editarPerfil, name="editarPerfil"),
-    
+
     # -> CREAR EVENTOS
     path("crear_publicacion/", views.crear_publicacion, name="crear_publicacion"),
     path("crear_publicacionEvento/", views.crear_publicacion_evento, name="crear_publicacion_evento"),
@@ -69,12 +69,15 @@ urlpatterns = [
     path("editarEscuela/<int:pk>", views.editarEscuela, name="editarEscuela"),
     path("updateEscuela", views.updateEscuela, name="actualizarEscuela"),
 
-    #--- ADMIN. PUBLICACIONES ---
+    #--- ADMIN. PUBLICACIONES DE OBRAS ---
     path("panelAdministracion/Publicaciones",panelAdministracionPublicaciones.as_view(), name="PanelAdministracionPublicaciones"),
-    path("panelAdministracion/Eventos", panelAdministracionEventos.as_view(), name="PanelAdministracionEventos"),
     path("obtenerPublicacion/<int:pk>/", views.get_Publicaciones, name="obtenerPublicacion"),
     path("eliminarPublicacion/<int:pk>/", views.eliminar_publicacionesObras, name="eliminarPublicacion"),
     path("updatePublicacion/", views.update_publicacion, name="actualizarPublicacion"),
+
+    #--- ADMIN. PUBLICACIONES DE EVENTOS ---
+    path("panelAdministracion/Eventos", panelAdministracionEventos.as_view(), name="PanelAdministracionEventos"),
+    path("obtenerPublicacionEvento/<int:pk>/", views.get_Publicaciones_Eventos, name="obtenerPublicacionEvento"),
 
     #--- ADMIN. UBICACIONES ---
     path("panelAdministracion/Ubicaciones", panelAdministracionUbicaciones.as_view(), name="PanelAdministracionUbicaciones"),

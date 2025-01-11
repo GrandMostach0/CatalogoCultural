@@ -708,7 +708,22 @@ def get_Publicaciones(request, pk):
 
     return JsonResponse(data)
 
+def get_Publicaciones_Eventos(request, pk):
+    try:
+        # Filtrar la publiacion especifica
+        publicacion = publicacionObras.objects.filter(id = pk).values().first()
 
+        if publicacion:
+            data = {
+                'message' : "Success",
+                'publicaciones' : [publicacion]
+            }
+        else:
+            data = {"message" : "Not Found"}
+    except Exception as e:
+        data = {"message" : "Error", "details" : str(e)}
+    
+    return JsonResponse(data)
 # -----------------------------
 #  SECCION PANEL ADMINSTRATIVO
 # -----------------------------
