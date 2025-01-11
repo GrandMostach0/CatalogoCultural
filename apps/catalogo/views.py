@@ -213,7 +213,6 @@ def editarPerfil(request):
 
 def crear_publicacion(request):
     actor = Actor.objects.get(user = request.user)
-
     if request.method == "POST":
         try:
             if actor.user == request.user:
@@ -223,9 +222,7 @@ def crear_publicacion(request):
                 descripcion = request.POST.get('descripcion')
                 categoria = request.POST.get('categoriaPublicacion')
                 imagen_portada = request.FILES.get('imagenPortadaPublicacion')
-                fecha_publicacion = date.today()
 
-                ### obtenemos las imagenes extras de la publicacion
                 imagenesExtras = [
                     request.FILES.get('imagenExtra1'),
                     request.FILES.get('imagenExtra2'),
@@ -248,17 +245,8 @@ def crear_publicacion(request):
                     tipo_publicacion = False
                 
                 escuelaOpcional = request.POST.get('institucion-opcion')
-
-                print("actor -->", id_actor)
-                print("titulo --> ",titulo)
-                print("descripcion -->", descripcion)
-                print("categoria -->", categoria)
-                print("imagenPortada -->", imagen_portada)
-                print("fechaPublicacion-->", fecha_publicacion)
-                print("escuelaOpcional -->", escuelaOpcional)
                 
                 ## CREACION DE LA PUBLIACION DEPENDIENDO DEL TIPO DE PUBLICACION
-                
                 if tipo_publicacion:
                     nueva_publicacion = publicacionObras(
                         id_actor_id = id_actor,
@@ -282,7 +270,6 @@ def crear_publicacion(request):
                     )
                     nueva_publicacion.save()
                 
-
                 # obtencio del contentType de la publicacion
                 content_type = ContentType.objects.get_for_model(publicacionObras)
 
@@ -294,6 +281,99 @@ def crear_publicacion(request):
                             object_id = nueva_publicacion.id,
                             url_imagen = imagenE
                         )
+
+                messages.success(request, "Publicación creada exitosamente.")
+                return redirect('PerfilActor', pk=actor.id)
+        except Exception as e:
+            messages.error(request, f"Ocurrió un error: {str(e)}")
+
+    return redirect('PerfilActor', pk=actor.id)
+
+def crear_publicacion_evento(request):
+    actor = Actor.objects.get(user = request.user)
+
+    if request.method == "POST":
+        try:
+            if actor.user == request.user:
+                id_actor = actor.id
+
+                titulo_evento = request.POST.get('titulo')
+                descripcion_evento = request.POST.get('descripcion')
+                categoria_evento = request.POST.get('categoriaEvento')
+                clasificacion_evento = request.POST.get('clasificacionEvento')
+                fecha_del_evento = request.POST.get('fecha_evento')
+                hora_del_evento = request.POST.get('hora_Evento')
+                imagen_portada_evento = request.FILES.get('imagenPortada')
+                ubicacion_del_evento = request.POST.get('ubicacionEvento')
+
+                ##validacion para saber las opciones del evento
+                evento_paga = request.POST.get('evento_paga')
+                precioGeneral = request.POST.get('precioGeneral')
+                punto_venta = request.POST.get('puntoVenta')
+                url_ventaDigital = request.POST.get('URLPuntoVenta')
+
+                print("id_Actor --> ", id_actor)
+                print("titulo --> ", titulo_evento)
+                print("descripcion -->", descripcion_evento)
+                print("categoria --> ", categoria_evento)
+                print("clasificacion -->", clasificacion_evento)
+                print("fecha_del_evento -->", fecha_del_evento)
+                print("hora del evento --> ", hora_del_evento)
+                print("imagen Portada --> ", imagen_portada_evento)
+                print("ubicacion -->", ubicacion_del_evento)
+
+                if not titulo_evento or not descripcion_evento or not imagen_portada_evento:
+                    messages.error(request, "Todos los campos son obligatorios.")
+                    return redirect('PerfilActor', pk=actor.id)
+
+                if evento_paga == None:
+                    evento_paga = True
+                    print("EL EVENTO ES GRATIS")
+                    print("punto de venta --> ", punto_venta)
+                else:
+                    evento_paga = False
+                    print("EL EVENTO ES DE PAGA")
+                    print("Precio General --> ", precioGeneral)
+
+                    if punto_venta != "presencial":
+                        print("PUNTO DE VENTA NO PRESENCIAL")
+                        print("punto de venta --> ", punto_venta)
+                        print("url_venta", url_ventaDigital)
+                    else:
+                        print("punto de venta --> ", punto_venta)
+
+                ## CREACION DE LA PUBLIACION DEPENDIENDO DEL TIPO DE PUBLICACION
+               
+                if evento_paga:
+                    nueva_publicacion = publicacionEventos(
+                        id_actor_id = id_actor,
+                        titulo_publicacion = titulo_evento,
+                        descripcion_publicacion = descripcion_evento,
+                        fecha_inicio = fecha_del_evento,
+                        hora_inicio = hora_del_evento,
+                        precio_evento = 0,
+                        puntoVenta = "presencial",
+                        id_clasificacion_id = clasificacion_evento,
+                        id_disciplina_id = categoria_evento,
+                        id_ubicacionesComunes_id = ubicacion_del_evento
+
+                    )
+                    nueva_publicacion.save()
+                else:
+                    nueva_publicacion = publicacionEventos(
+                        id_actor_id = id_actor,
+                        titulo_publicacion = titulo_evento,
+                        descripcion_publicacion = descripcion_evento,
+                        fecha_inicio = fecha_del_evento,
+                        hora_inicio = hora_del_evento,
+                        precio_evento = precioGeneral,
+                        puntoVenta = punto_venta,
+                        enlace_venta = url_ventaDigital,
+                        id_clasificacion_id = clasificacion_evento,
+                        id_disciplina_id = categoria_evento,
+                        id_ubicacionesComunes_id = ubicacion_del_evento
+                    )
+                    nueva_publicacion.save()
 
                 messages.success(request, "Publicación creada exitosamente.")
                 return redirect('PerfilActor', pk=actor.id)
@@ -568,8 +648,6 @@ def get_Escuelas(request):
         data = {'message': "Not Found"}
     
     return JsonResponse(data)
-
-from django.http import JsonResponse
 
 def get_escuelas_por_actor(request, pk):
     try:

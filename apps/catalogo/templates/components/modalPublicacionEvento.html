@@ -4,7 +4,9 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Nuevo Evento</h2>
-        <form action="#">
+        <form method="POST" action="{% url 'crear_publicacion_evento' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+
             <label for="titulo">
                 Titulo del Evento:
                 <input
@@ -18,18 +20,24 @@
 
             <label for="descripcion">
                 Descripción:
-                <textarea rows="5" cols="30" name="descripcion" id="descripcion" class="inputs" required></textarea>
+                <textarea
+                rows="5"
+                cols="30"
+                name="descripcion"
+                id="descripcion"
+                class="inputs"
+                required></textarea>
             </label>
 
             <label for="categoria">
                 Categoría:
-                <select name="categoria" id="Listacategoria" required>
+                <select name="categoriaEvento" id="Listacategoria" required>
                 </select>
             </label>
 
             <label for="clasificacion">
                 Clasificación:
-                <select name="clasificacion" id="Listaclasificacion" required>
+                <select name="clasificacionEvento" id="Listaclasificacion" required>
                 </select>
             </label>
 
@@ -47,7 +55,7 @@
                 Hora de inicio del evento:
                 <input
                 id="horaInicioEvento"
-                name="hora_inicio"
+                name="hora_Evento"
                 type="time"
                 class="inputs"
                 required>
@@ -59,7 +67,7 @@
                 type="checkbox"
                 name="evento_paga"
                 id="eventoPaga"
-                required>
+                >
             </label>
 
             <label class="precioUnitario" for="precioCU">
@@ -67,7 +75,7 @@
                 <input
                 id="precioCU"
                 type="number"
-                name="precioCU"
+                name="precioGeneral"
                 placeholder="Mayor a $10"
                 class="inputs"
                 min="1">
@@ -91,14 +99,14 @@
                 type="radio"
                 id="puntoVentaDigital"
                 name="puntoVenta"
-                value="Digital" />
+                value="digital" />
                 <label for="puntoVentaDigital">Digital</label>
 
                 <input
                 type="radio"
                 id="puntoVentaDigital"
                 name="puntoVenta"
-                value="Ambas" />
+                value="ambas" />
                 <label for="puntoVentaDigital">Ambas</label>
             </div>
             <br>
@@ -126,7 +134,7 @@
 
             <label for="ubicacion">
                 Ubicaciones comunes:
-                <select name="ubicacion" id="ListaUbicaciones" required>
+                <select name="ubicacionEvento" id="ListaUbicaciones" required>
                 </select>
             </label>
 

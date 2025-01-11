@@ -160,6 +160,13 @@ class publicacionObras(models.Model):
         db_table = "PublicacionObras"
 
 class publicacionEventos(models.Model):
+
+    PUNTO_TYPE_CHOICES = [
+        ('presencial', 'Presencial'),
+        ('digital', 'Digital'),
+        ('ambos', 'Ambos'),
+    ]
+
     url_imagen_publicacion = models.ImageField(upload_to="imagenes/")
     fecha_creacion_publicacion = models.DateField(auto_now_add=True, verbose_name="Fecha de creacion", null=True, blank=True)
     publicacion_aprobada = models.BooleanField(default=False, verbose_name="Aprobado")
@@ -167,8 +174,15 @@ class publicacionEventos(models.Model):
     descripcion_publicacion = models.TextField(verbose_name="Descripcion")
     fecha_inicio = models.DateField(verbose_name="Fecha de inicio", null=True, blank=True)
     hora_inicio = models.TimeField(verbose_name="hora Inicio", null=True, blank=True)
-    precio_evento = models.DecimalField(max_digits=5, decimal_places=2,verbose_name="Precio por Persona")
-    puntoVenta = models.BooleanField(default=False)
+    precio_evento = models.CharField(max_length=5, verbose_name="Precio por Persona", null=True, blank=True)
+    puntoVenta = models.CharField(
+        max_length=50, 
+        choices=PUNTO_TYPE_CHOICES, 
+        default="presencial", 
+        verbose_name="Punto de Venta", 
+        null=True, 
+        blank=True,
+    )
     enlace_venta = models.URLField(verbose_name="URL del punto de venta", null=True, blank=True)
     id_clasificacion = models.ForeignKey(Audiencia, on_delete=models.CASCADE, related_name="clasificacion")
     id_actor = models.ForeignKey(Actor, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Actor")

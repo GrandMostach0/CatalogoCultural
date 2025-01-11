@@ -29,10 +29,10 @@ urlpatterns = [
     # PERFIL DEL ACTOR CON SUS RESPECTIVAS OPERACIONES
     path("PerfilActor/<int:pk>/", ActoresDetailView.as_view(), name="PerfilActor"),
     path("editarPerfil/", views.editarPerfil, name="editarPerfil"),
+    
+    # -> CREAR EVENTOS
     path("crear_publicacion/", views.crear_publicacion, name="crear_publicacion"),
-
-    # -> CREAR EVENTO
-
+    path("crear_publicacionEvento/", views.crear_publicacion_evento, name="crear_publicacion_evento"),
 
     path("DirectorioEscuelas/", EscuelaListView.as_view(), name="DirectorioEscuelas"),
     #path("viewEscuela/", views.viewEscuela, name="viewEscuela"),
