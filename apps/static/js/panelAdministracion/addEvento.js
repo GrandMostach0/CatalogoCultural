@@ -75,6 +75,7 @@ const listarUbicaciones = async () => {
     }
 };
 
+
 document.addEventListener("DOMContentLoaded", async () => {
     const modalEventoEdit = document.getElementById("modalEventoEdit");
     const abrirModalEventoEdit = document.querySelectorAll(".btnAbrirModalEditEvento");
@@ -103,25 +104,55 @@ document.addEventListener("DOMContentLoaded", async () => {
     abrirModalEventoEdit.forEach(btn =>{
         btn.addEventListener("click", async (event) =>{
             event.preventDefault();
-            modalEventoEdit.style.display = "block";
-            document.body.style.overflow = "hidden";
+            const data_id = event.target.getAttribute("data-id");
+            const data_autor = event.target.getAttribute("data-autor");
+
+            console.log(data_id)
             // --- Cargar clasificaciones ---
-            await listarClasificaciones();
-            await listarDisciplinas();
-            await listarUbicaciones();
+            //await listarClasificaciones();
+            //await listarDisciplinas();
+            //await listarUbicaciones();
+            try{
+                const response = await fetch(`/obtenerPublicacionEvento/${data_id}`)
+                const data = await response.json();
+
+                if (data.message === "Success"){
+                    console.log(data)
+
+                    modalEventoEdit.style.display = "block";
+                    document.body.style.overflow = "hidden";
+
+                    data.publicaciones.forEach(publicacion => {
+                        document.getElementById("id_publicacion").value = data_id;
+                        document.getElementById("titulo_evento").value = publicacion.titulo_publicacion;
+                        document.getElementById("autor_publicacion").value = data_autor;
+                        document.getElementById("decripcion_evento_edit").value = publicacion.descripcion_publicacion;
+                        document.getElementById("fecha_evento_edit").value = publicacion.fecha_publicacion;
+                        document.getElementById("horaInicioEvento_edit")
+                        document.getElementById("eventoPaga_edit")
+                        document.getElementById("precioCU_edit")
+                    });
+                }else{
+                    console.log("Ocurrio un error al obtener el dato")
+                    console.log(data)
+                }
+
+            }catch (e){
+                console.log("Error", e)
+            }
         
         })
     });
 
-    cerrarModal.onclick = function () {
-        modal.style.display = "none";
+    cerrarModalEventoEdit.onclick = function () {
+        modalEventoEdit.style.display = "none";
         urlinput.style.display = 'none';
         precioUnitario.style.display = 'none';
         document.body.style.overflow = "auto";
     };
 
-    btnCancelar.onclick = function () {
-        modal.style.display = "none";
+    btnCancelarEventoEdit.onclick = function () {
+        modalEventoEdit.style.display = "none";
         urlinput.style.display = 'none';
         precioUnitario.style.display = 'none';
         document.body.style.overflow = "auto";
@@ -129,7 +160,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Función para cerrar y restablecer estado
     const resetModalState = () => {
-        modal.style.display = "none";
+        modalEventoEdit.style.display = "none";
         urlinput.style.display = 'none';
         precioUnitario.style.display = 'none';
         subOpciones.style.display = 'none';
@@ -137,8 +168,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.body.style.overflow = "auto";
     };
 
-    cerrarModal.onclick = resetModalState;
-    btnCancelar.onclick = resetModalState;
+    cerrarModalEventoEdit.onclick = resetModalState;
+    btnCancelarEventoEdit.onclick = resetModalState;
 
     // --- Funcionalidades dinámicas ---
     eventoPaga.addEventListener("change", () => {
