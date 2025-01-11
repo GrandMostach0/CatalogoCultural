@@ -217,6 +217,14 @@ def crear_publicacion(request):
                 imagen_portada = request.FILES.get('imagenPortadaPublicacion')
                 fecha_publicacion = date.today()
 
+                ### obtenemos las imagenes extras de la publicacion
+                imagenesExtras = [
+                    request.FILES.get('imagenExtra1'),
+                    request.FILES.get('imagenExtra2'),
+                    request.FILES.get('imagenExtra3'),
+                    request.FILES.get('imagenExtra4')
+                ]
+
                 if not titulo or not descripcion or not imagen_portada:
                     messages.error(request, "Todos los campos son obligatorios.")
                     return redirect('PerfilActor', pk=actor.id)
@@ -266,6 +274,20 @@ def crear_publicacion(request):
                     )
                     nueva_publicacion.save()
                 
+
+                # obtencio del contentType de la publicacion
+                content_type = ContentType.objects.get_for_model(publicacionObras)
+
+                # guardamos 
+                for imagenE in imagenesExtras:
+                    if imagenE:
+                        Imagenes_publicaciones.objects.create(
+                            content_type = content_type,
+                            object_id = nueva_publicacion.id,
+                            url_imagen = imagenE
+
+                        )
+
                 messages.success(request, "Publicación creada exitosamente.")
                 return redirect('PerfilActor', pk=actor.id)
         except Exception as e:

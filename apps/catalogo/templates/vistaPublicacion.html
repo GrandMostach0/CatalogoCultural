@@ -114,7 +114,7 @@
     <script>
         // Lista de las imagenés del slider
         const imagenes = [
-            "{% static 'assets/images/Institucion1.jpg' %}",
+            "{{ publicacion.url_imagen_publicacion.url }}",
             "{% static 'assets/images/Institucion2.png' %}",
             "{% static 'assets/images/Institucion3.jpg' %}"
         ];
