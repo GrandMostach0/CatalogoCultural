@@ -1,18 +1,23 @@
-const listarEscuelas = async () => {
+const listarEscuelas = async (id_actorEscuela, id_EscuelaActual) => {
     try{
-        const response = await fetch('/escuelas/')
+        const response = await fetch(`/escuelaActor/${id_actorEscuela}`)
         const data = await response.json();
+        console.log(data);
 
         if (data.message === 'Success'){
             // Limpi el contenido previo del select
-            const setEscuelas = document.getElementById('listarEscuelas');
+            const setEscuelas = document.getElementById('listarEscuelasEdit');
             setEscuelas.innerHTML = '<option value="0">Seleccione una Escuela</option>';
 
-            // Agrega las nuevas opciones
             data.escuelas.forEach(escuela =>{
                 const option = document.createElement('option');
                 option.value = escuela.id;
                 option.textContent = escuela.nombre_escuela;
+
+                if(escuela.id === id_EscuelaActual){
+                    option.selected = true;
+                }
+
                 setEscuelas.appendChild(option);
             });
         } else {
@@ -127,6 +132,13 @@ document.addEventListener("DOMContentLoaded", async () =>{
     var cerrarModalEditPublicacion = document.getElementsByClassName("clsModalEditPublicacion")[0];
     var btnCancelarModalEditPublicacion = document.getElementById("btnCancelarEditPublicacion");
 
+    //seccion para saber si es una publicacion personal o institucional
+    const radioPersonalEdit = document.getElementById("publicacionPersonalEdit");
+    const radioInstitutoEdit = document.getElementById("publicacionInstitutoEdit");
+    const institucionOpcionalEdit = document.querySelector(".institucion-opcionalEdit");
+
+    institucionOpcionalEdit.style.display = "none";
+
     abrirModalEditPublicacion.forEach(btn => {
         btn.addEventListener("click", async (event) => {
             event.preventDefault();
@@ -140,11 +152,27 @@ document.addEventListener("DOMContentLoaded", async () =>{
                 console.log(data)
                 await listarDisciplinasPublicaciones(data.publicaciones[0].id_Disciplina_id);
 
+                if (data.publicaciones[0].tipo_publicacion){
+                    const id_Actor_Escuela = data.publicaciones[0].id_actor_id;
+                    const id_EscuelaActual = data.publicaciones[0].id_Escuela_id;
+                    await listarEscuelas(id_Actor_Escuela, id_EscuelaActual);
+                }
+
                 data.publicaciones.forEach(publicacion => {
                     document.getElementById("publicacion_id").value = publicacion.id;
                     document.getElementById("titulo_publicacion").value = publicacion.titulo_publicacion;
                     document.getElementById("autor_de_publicacion").value = data_autor;
                     document.getElementById("descripcion_publicacion").value = publicacion.descripcion_publicacion;
+                    
+                    if(publicacion.tipo_publicacion){
+                        document.getElementById("publicacionInstitutoEdit").checked = true;
+                        institucionOpcionalEdit.style.display = "block";
+                    }else{
+                        document.getElementById("publicacionPersonalEdit").checked = true;
+                        institucionOpcionalEdit.style.display = "none";
+                    }
+
+                    // VALIDAR SI ESTA APROBADO O NO
                     if (publicacion.publicacion_aprobada){
                         document.getElementById("aprobarPublicacion").checked = true;
                     }else{
@@ -163,14 +191,25 @@ document.addEventListener("DOMContentLoaded", async () =>{
 
     cerrarModalEditPublicacion.onclick = function(){
         modalEditPublicacion.style.display = "none";
+        institucionOpcionalEdit.style.display = "none";
         document.body.style.overflow = "auto";
     }
 
     btnCancelarModalEditPublicacion.onclick = function(){
         modalEditPublicacion.style.display = "none";
+        institucionOpcionalEdit.style.display = "none"; 
         document.body.style.overflow = "auto";
     }
 
-    
+    function toggleInstitucionOpcionalEdit(){
+        if  (radioInstitutoEdit.checked){
+            institucionOpcionalEdit.style.display = "block";
+        }else{
+            console.log(institucionOpcionalEdit.style.display);
+        }
+    }
+
+    radioPersonalEdit.addEventListener("change", toggleInstitucionOpcionalEdit);
+    radioInstitutoEdit.addEventListener("change", toggleInstitucionOpcionalEdit);
 
 });

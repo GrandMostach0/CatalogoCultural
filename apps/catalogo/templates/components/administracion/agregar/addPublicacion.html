@@ -9,22 +9,17 @@
 
             <label for="titulo">
                 Titulo de la Publicación:
-                <input id="titulo" class="inputs" type="text" name="titulo" placeholder="Titulo">
-            </label>
-
-            <label for="autor">
-                Autor de Publicación:
-                <select name="autor_publicacion" id="autor"></select>
+                <input id="titulo" class="inputs" type="text" name="titulo" placeholder="Titulo" required>
             </label>
 
             <label for="descripcion">
                 Descripción:
-                <textarea rows="5" cols="30" class="inputs" name="descripcion" id="descripcion"></textarea>
+                <textarea rows="5" cols="30" class="inputs" name="descripcion" id="descripcion" required></textarea>
             </label>
 
             <label for="catagoria">
                 Categoria:
-                <select name="catagoria" id="listaCatagoriaPublicacion"></select>
+                <select name="categoriaPublicacion" id="listaCategoriaPublicacion" required></select>
             </label>
 
             <div class="subOpciones">
@@ -33,7 +28,7 @@
                 </label>
                 <br>
                 
-                <input type="radio" id="publicacionPersonal" name="tipoPublicacion" value="personal" checked />
+                <input type="radio" id="publicacionPersonal" name="tipoPublicacion" value="personal" checked required/>
                 <label for="tipoPublicacion">Personal</label>
 
                 <input type="radio" id="publicacionInstituto" name="tipoPublicacion" value="institucional" />
@@ -50,16 +45,21 @@
 
             <label for="imagenPortada">
                 Imagen de Portada:
-                <input id="imagenPortada" class="inputs" type="file">
+                <input
+                id="imagenPortada"
+                class="inputs"
+                type="file"
+                name="imagenPortadaPublicacion"
+                required>
             </label>
 
             <div class="imagenesExtras">
                 <label for="imagenExtra1">
                     Imagenes Extras:
-                    <input id="imagenExtra1" class="inputs" type="file">
-                    <input id="imagenExtra1" class="inputs" type="file">
-                    <input id="imagenExtra1" class="inputs" type="file">
-                    <input id="imagenExtra1" class="inputs" type="file">
+                    <input id="imagenExtra1" name="imagenExtra1" class="inputs" type="file">
+                    <input id="imagenExtra2" name="imagenExtra2" class="inputs" type="file">
+                    <input id="imagenExtra3" name="imagenExtra3" class="inputs" type="file">
+                    <input id="imagenExtra4" name="imagenExtra4" class="inputs" type="file">
                 </label>
             </div>
 

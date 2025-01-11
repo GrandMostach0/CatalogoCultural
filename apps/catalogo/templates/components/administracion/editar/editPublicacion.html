@@ -9,7 +9,7 @@
 
             <input
             id="publicacion_id"
-            type="text"
+            type="hidden"
             class="inputs"
             name="publicacion_id"
             readonly>
@@ -44,7 +44,7 @@
                 <select name="catagoria" id="listaCatagoriaPublicacionEdit"></select>
             </label>
 
-            <div class="subOpciones">
+            <div class="subOpcionesEdit">
                 <label for="tipoPublicacion">
                     Tipo de Publicación:
                 </label>
@@ -52,24 +52,24 @@
                 
                 <input
                 type="radio"
-                id="publicacionPersonal"
+                id="publicacionPersonalEdit"
                 name="tipoPublicacion"
                 value="personal"/>
                 <label for="tipoPublicacion">Personal</label>
 
                 <input
                 type="radio"
-                id="publicacionInstituto"
+                id="publicacionInstitutoEdit"
                 name="tipoPublicacion"
                 value="institucional" />
                 <label for="tipoPublicacion">De alguna escuela</label>
             </div>
             <br>
 
-            <div class="institucion-opcional">
+            <div class="institucion-opcionalEdit">
                 <label for="institucion-opcional">Institución:</label>
                 <br>
-                <select name="institucion-opcion" id="listarEscuelas" ></select>
+                <select name="institucion-opcion" id="listarEscuelasEdit" ></select>
             </div>
 
             <label for="imagenPortada">
