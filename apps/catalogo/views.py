@@ -224,7 +224,7 @@ def crear_publicacion(request):
                 # datos opcionales
                 tipo_publicacion = request.POST.get('tipoPublicacion')
                 
-                if tipo_publicacion == 'Institucional':
+                if tipo_publicacion == 'institucional':
                     print("PUBLIAION DE UNA ESCUELA GENIAL")
                     tipo_publicacion = True
                 else:
@@ -232,9 +232,17 @@ def crear_publicacion(request):
                     tipo_publicacion = False
                 
                 escuelaOpcional = request.POST.get('institucion-opcion')
+
+                print("actor -->", id_actor)
+                print("titulo --> ",titulo)
+                print("descripcion -->", descripcion)
+                print("categoria -->", categoria)
+                print("imagenPortada -->", imagen_portada)
+                print("fechaPublicacion-->", fecha_publicacion)
+                print("escuelaOpcional -->", escuelaOpcional)
                 
                 ## CREACION DE LA PUBLIACION DEPENDIENDO DEL TIPO DE PUBLICACION
-
+                
                 if tipo_publicacion:
                     nueva_publicacion = publicacionObras(
                         id_actor_id = id_actor,
@@ -242,9 +250,8 @@ def crear_publicacion(request):
                         descripcion_publicacion = descripcion,
                         tipo_publicacion = tipo_publicacion,
                         url_imagen_publicacion = imagen_portada,
-                        fecha_creacion_publicacion = date.today(),
-                        id_Disciplina = categoria,
-                        id_Escuela = escuelaOpcional
+                        id_Disciplina_id = categoria,
+                        id_Escuela_id = escuelaOpcional
                     )
                     nueva_publicacion.save()
                 else:
@@ -254,12 +261,11 @@ def crear_publicacion(request):
                         descripcion_publicacion = descripcion,
                         tipo_publicacion = tipo_publicacion,
                         url_imagen_publicacion = imagen_portada,
-                        fecha_creacion_publicacion = date.today(),
-                        id_Disciplina = categoria,
-                        id_Escuela = None
+                        id_Disciplina_id = categoria,
+                        id_Escuela_id = None
                     )
                     nueva_publicacion.save()
-
+                
                 messages.success(request, "Publicación creada exitosamente.")
                 return redirect('PerfilActor', pk=actor.id)
         except Exception as e:

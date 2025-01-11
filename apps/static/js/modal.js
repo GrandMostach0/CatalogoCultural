@@ -33,7 +33,8 @@ const listarDisciplinasProyecto = async () => {
 
         if (data.message === 'Success') {
             // Limpia el contenido previo del select
-            const setDisciplinas = document.getElementById('listaCatagoriaPublicacion');
+            const setDisciplinas = document.getElementById('listaCategoriaPublicacion');
+            console.log(setDisciplinas)
             setDisciplinas.innerHTML = '<option value="0">Seleccione una Categoria</option>';
 
             data.Disciplinas.forEach(disciplina => {
