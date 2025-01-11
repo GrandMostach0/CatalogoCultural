@@ -30,7 +30,7 @@
                 <th>Fecha Publicada</th>
                 <th>Autor</th>
                 <th>Estatus</th>
-                <th>Acciones</th>
+                <th colspan="2">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -42,8 +42,13 @@
                 <td>NO SE SABE</td>
                 <td>Aceptado</td> 
                 <td>
-                    <a href="#" class="botonesTablas">Editar</a>
-                    <a href="#" class="botonesTablas">Eliminar</a>
+                    <a href="#"
+                    class="botonesTablas btnEditar btnAbrirModalEditEvento"
+                    data-id="{{ evento.id }}">Editar</a>
+                </td>
+                <td>
+                    <a href="#" 
+                    class="botonesTablas">Eliminar</a>
                 </td>
             </tr>
             {% empty %}
@@ -68,7 +73,7 @@
                 <th>Fecha Publicada</th>
                 <th>Autor</th>
                 <th>Estatus</th>
-                <th>Acciones</th>
+                <th colspan="2">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -80,8 +85,13 @@
                 <td>Pendiente</td>
                 <td>{{ evento.id_actor.nombre_completo }}</td>
                 <td>
-                    <a href="#" class="botones">Editar</a>
-                    <a href="#" class="botones">Eliminar</a>
+                    <a href="#"
+                    class="botonesTablas btnEditar btnAbrirModalEditEvento"
+                    data-id="{{ evento.id }}">Editar</a>
+                </td>
+                <td>
+                    <a href="#" 
+                    class="botonesTablas">Eliminar</a>
                 </td>
             </tr>
             {% empty %}
@@ -96,5 +106,7 @@
 
   {% include 'components/administracion/agregar/addEvento.html' %}
   {% include 'components/administracion/editar/editEvento.html' %}
+
+  <script src="{% static 'js/panelAdministracion/addEvento.js' %}"></script>
 
 {% endblock contenido_administrativo %}
