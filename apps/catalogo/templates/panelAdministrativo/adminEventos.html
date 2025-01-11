@@ -48,7 +48,7 @@
                     data-autor="{{ evento.id_actor.nombre_completo }}" >Editar</a>
                 </td>
                 <td>
-                    <a href="#" 
+                    <a href="{% url 'eliminarPublicacionEvento' evento.pk %}" 
                     class="botonesTablas">Eliminar</a>
                 </td>
             </tr>
@@ -91,7 +91,7 @@
                     data-id="{{ evento.id }}">Editar</a>
                 </td>
                 <td>
-                    <a href="#" 
+                    <a href="{% url 'eliminarPublicacionEvento' evento.pk %}" 
                     class="botonesTablas">Eliminar</a>
                 </td>
             </tr>

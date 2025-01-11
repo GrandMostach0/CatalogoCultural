@@ -708,22 +708,7 @@ def get_Publicaciones(request, pk):
 
     return JsonResponse(data)
 
-def get_Publicaciones_Eventos(request, pk):
-    try:
-        # Filtrar la publiacion especifica
-        publicacion = publicacionObras.objects.filter(id = pk).values().first()
 
-        if publicacion:
-            data = {
-                'message' : "Success",
-                'publicaciones' : [publicacion]
-            }
-        else:
-            data = {"message" : "Not Found"}
-    except Exception as e:
-        data = {"message" : "Error", "details" : str(e)}
-    
-    return JsonResponse(data)
 # -----------------------------
 #  SECCION PANEL ADMINSTRATIVO
 # -----------------------------
@@ -992,6 +977,29 @@ class panelAdministracionEventos(LoginRequiredMixin, ListView):
         context['eventos_no_aprobados'] = publicacionEventos.objects.filter(publicacion_aprobada=False)
 
         return context
+
+def get_Publicaciones_Eventos(request, pk):
+    try:
+        # Filtrar la publiacion especifica
+        publicacion = publicacionObras.objects.filter(id = pk).values().first()
+
+        if publicacion:
+            data = {
+                'message' : "Success",
+                'publicaciones' : [publicacion]
+            }
+        else:
+            data = {"message" : "Not Found"}
+    except Exception as e:
+        data = {"message" : "Error", "details" : str(e)}
+    
+    return JsonResponse(data)
+
+def eliminarPublicacionEvento(request, pk):
+    publicacion = publicacionEventos.objects.get(id = pk)
+    publicacion.delete()
+    messages.success(request, f'La publicacion" {publicacion.titulo_publicacion}" ha sido eliminado con éxito')
+    return redirect('PanelAdministracionEventos')
 
 #
 # MODULO DE UBICACIONES
