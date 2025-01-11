@@ -1,0 +1,25 @@
+<div class="container-swiper-Publicaciones">
+    <span id="cerrarContainerSwiper">Cerrar</span>
+
+    <div class="container-content-swiper-publicaciones">
+        <div class="swiper">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="{{ publicacion.url_imagen_publicacion.url }}" alt="Imagen Extra">
+                    </div>
+                    {% for imagenExtra in imagenes_Extras %}
+                        <div class="swiper-slide ">
+                            <img src="{{ imagenExtra.url_imagen.url }}" alt="Imagen Extra">
+                        </div>
+                    {% endfor %}
+                </div>
+                 <!-- Botones de navegacion -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+</div>
