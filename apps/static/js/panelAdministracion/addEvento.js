@@ -17,7 +17,7 @@ const listarClasificaciones = async (clasificacionPublicacion) => {
                 if(clasificacion.id === clasificacionPublicacion){
                     option.selected = true;
                 }
-                
+
                 setClasificaciones.appendChild(option);
             });
             // console.log("Opciones cargadas correctamente.");
@@ -98,9 +98,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const btnCancelarEventoEdit = document.getElementById("btnCancelarEditEvento");
 
     // --- Dinámica para saber si es de paga ---
-    const eventoPaga = document.getElementById("eventoPaga");
-    const precioUnitario = document.querySelector('.precioUnitario');
-    const subOpciones = document.querySelector('.subOpciones2');
+    const eventoPaga = document.getElementById("eventoPaga_edit");
+    const precioUnitario = document.querySelector('.precioUnitarioEdit');
+    const subOpciones = document.querySelector('.subOpciones4');
 
     precioUnitario.style.display = 'none';
     subOpciones.style.display = 'none';
@@ -109,9 +109,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log("SUB OPCIONES DEPENDIENTES DEL ANTERIOR " + subOpciones.style.display);
 
     // --- Dinámica del punto de venta ---
-    const presencial = document.getElementById('puntoVentaPresencial');
-    const digital = document.getElementById('puntoVentaDigital');
-    const urlinput = document.querySelector('.URLPuntoVentalbl');
+    const presencial = document.getElementById('puntoVentaPresencial_edit');
+    const digital = document.getElementById('puntoVentaDigital_edit');
+    const urlinput = document.querySelector('.URLPuntoVentalblEdit');
 
     urlinput.style.display = 'none';
 
@@ -149,11 +149,38 @@ document.addEventListener("DOMContentLoaded", async () => {
                         if(precio > 0){
                             document.getElementById("eventoPaga_edit").checked = true;
                             document.getElementById("precioCU_edit").value = precio;
+                            precioUnitario.style.display = "block";
+                            subOpciones.style.display = "block";
                         }else{
                             document.getElementById("eventoPaga_edit").checked = false;
                             document.getElementById("precioCU_edit").value = 0;
+                            precioUnitario.style.display = "none";
+                            subOpciones.style.display = "none";
+                            urlinput.style.display = 'none';
                         }
-                        
+
+                        const lugarVenta = publicacion.puntoVenta;
+                        console.log(lugarVenta)
+                        if(lugarVenta === "digital"){
+                            document.getElementById("puntoVentaDigital_edit").checked = true;
+                            document.getElementById("URLPuntoVenta_edit").value = publicacion.enlace_venta;
+                            urlinput.style.display = 'block';
+                        }else if(lugarVenta === "presencial"){
+                            document.getElementById("puntoVentaPresencial_edit").checked = true;
+                            document.getElementById("URLPuntoVenta_edit").value = publicacion.enlace_venta;
+                            urlinput.style.display = 'block';
+                        }else{
+                            document.getElementById("puntoVentaDigital_edit").value = true;
+                        }
+
+                        if(publicacion.publicacion_aprobada = false){
+                            document.getElementById("noAprobarPublicacion").checked = false;
+                            document.getElementById("aprobarPublicacion").checked = true;
+                        }else{
+                            document.getElementById("aprobarPublicacion").checked = false;
+                            document.getElementById("noAprobarPublicacion").checked = true;
+                        }
+
                     });
                 }else{
                     console.log("Ocurrio un error al obtener el dato")
@@ -186,7 +213,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         urlinput.style.display = 'none';
         precioUnitario.style.display = 'none';
         subOpciones.style.display = 'none';
-        eventoPaga.checked = false; // Restablece el checkbox
         document.body.style.overflow = "auto";
     };
 

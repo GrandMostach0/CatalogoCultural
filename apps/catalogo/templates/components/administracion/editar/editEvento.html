@@ -87,7 +87,7 @@
                 >
             </label>
 
-            <label class="precioUnitario" for="precioCU_edit">
+            <label class="precioUnitarioEdit" for="precioCU_edit">
                 Precio General:
                 <input
                 id="precioCU_edit"
@@ -98,7 +98,7 @@
                 min="1">
             </label>
 
-            <div class="subOpciones subOpciones2">
+            <div class="subOpciones subOpciones4">
                 <label for="puntoVenta">
                     Punto de Venta:
                 </label>
@@ -128,7 +128,7 @@
             </div>
             <br>
 
-            <label class="URLPuntoVentalbl" for="URLPuntoVenta_edit">
+            <label class="URLPuntoVentalblEdit" for="URLPuntoVenta_edit">
                 Enlace del punto de Venta:
                 <input 
                 placeholder="Ej:https://chat.whatsapp.com/invitacionAlGrupo"
@@ -153,6 +153,24 @@
                 <select name="ubicacionEvento" id="listaUbicacionesEdit" required>
                 </select>
             </label>
+
+            <div class="subOpciones subOpcionAprobar">
+                <input
+                type="radio"
+                id="aprobarPublicacion"
+                name="aprobarPublicacion"
+                value="True"/>
+                <label for="aprobarPublicacion">Aprobar</label>
+
+                <input
+                type="radio"
+                id="noAprobarPublicacion"
+                name="aprobarPublicacion"
+                value="False" />
+                <label for="noAprobarPublicacion">No Aprobar</label>
+            </div>
+            
+            <br>
 
             <button type="submit">Modificar</button>
             <button id="btnCancelarEditEvento" type="reset" >Cancelar</button>
