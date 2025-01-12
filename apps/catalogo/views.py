@@ -420,9 +420,18 @@ def content_type(request, publicacion_id):
 #   LISTADO DE LOS EVENTOS
 # ----------------------------
 def vistaEvento(request):
-
     fecha_actual = datetime.now().strftime("%d de %B del %Y")
-    return render(request, "vistaEvento.html", {"fecha_actual": fecha_actual})
+
+    if request.user.is_authenticated:
+        #actor = Actor.objects.filter(user=request.user).first()
+        actor = Actor.objects.filter(user = request.user).first()
+
+    context = {
+        "actor": actor,
+        "fecha_actual": fecha_actual
+    }
+
+    return render(request, "vistaEvento.html", context)
 
 class EventosListView(FilterView):
     model = publicacionEventos
@@ -451,8 +460,19 @@ class EventosDetailView(DetailView):
     template_name = "vistaEvento.html"
     context_object_name = "evento"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)  # Obtén el contexto base
+
+        if self.request.user.is_authenticated:
+            actor = Actor.objects.filter(user=self.request.user).first()
+            context["actor"] = actor  # Agrega el actor al contexto existente
+
+        return context
+
+
 # TEMPLATE QUE SIRVE COMO BASE PARA LA LISTA DE EVENTOS Y LA LISTA DE LOS ACTORES
 def baseCatalogo(request):
+
     return render(request, 'CatalogoBase.html');
 
 def viewPageCartelera(request):

@@ -127,7 +127,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const data = await response.json();
 
                 if (data.message === "Success"){
-                    console.log(data)
 
                     // --- Cargar clasificaciones ---
                     await listarClasificaciones(data.publicaciones[0].id_clasificacion_id);
@@ -161,7 +160,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                         }
 
                         const lugarVenta = publicacion.puntoVenta;
-                        console.log(lugarVenta)
                         if(lugarVenta === "digital"){
                             document.getElementById("puntoVentaDigital_edit").checked = true;
                             document.getElementById("URLPuntoVenta_edit").value = publicacion.enlace_venta;
@@ -181,7 +179,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                             document.getElementById("aprobarPublicacion").checked = false;
                             document.getElementById("noAprobarPublicacion").checked = true;
                         }
-                        console.log("que pedo panita: " + urlinput.style.display);
                     });
                 }else{
                     console.log("Ocurrio un error al obtener el dato")

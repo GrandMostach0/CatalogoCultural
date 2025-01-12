@@ -17,7 +17,7 @@
         {% include 'components/navbar.html' %}
 
         <div class="RutaPagina">
-            <p>Inicio/{{ evento.titulo_publicacion }}</p>
+            <p>Cartelera/ <strong>{{ evento.titulo_publicacion }}</strong> </p>
             <a style="font-weight: bold;" href="{% url 'carteleraEventos' %}"> &larr; Volver Página</a>
             <div class="fechaPublicacion">
                 <p class="fecha">{{ evento.fecha_creacion_publicacion }}</p>
