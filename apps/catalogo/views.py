@@ -707,7 +707,11 @@ class EscuelaDetailView(DetailView):
         # Agregamos la variable 'redes' al contexto para usarla en la plantilla
         context['redes_sociales'] = redes
         context['tiene_redes'] = redes.exists()
-        context['actor'] = Actor
+
+        if self.request.user.is_authenticated:
+            actor = Actor.objects.filter(user=self.request.user).first()
+            context["actor"] = actor
+
         return context
 
 # -----------------------------
