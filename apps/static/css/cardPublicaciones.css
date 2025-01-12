@@ -83,14 +83,6 @@
     justify-content: center;
 }
 
-.bolita{
-    border: 1px solid black;
-    margin-right: 5px;
-    border-radius: 50%;
-    padding: 5px;
-    cursor: pointer;
-}
-
 /* ESTILO DEL FILTRO*/
 .container-filtro {
     padding: 10px;

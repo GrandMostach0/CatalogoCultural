@@ -461,11 +461,18 @@ class EventosDetailView(DetailView):
     context_object_name = "evento"
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)  # Obtén el contexto base
+        context = super().get_context_data(**kwargs)
 
         if self.request.user.is_authenticated:
             actor = Actor.objects.filter(user=self.request.user).first()
-            context["actor"] = actor  # Agrega el actor al contexto existente
+            context["actor"] = actor
+
+        # Convierte precio_evento a entero si es necesario
+        evento = context["evento"]
+        try:
+            evento.precio_evento = int(evento.precio_evento)
+        except (ValueError, TypeError):
+            evento.precio_evento = 0 
 
         return context
 

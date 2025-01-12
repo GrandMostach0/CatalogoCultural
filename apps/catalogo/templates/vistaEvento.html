@@ -29,36 +29,56 @@
         <main class="container-escuela">
             <div class="escuela-imagen">
                 <div class="escuelaImagen">
-                    <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen de la escuela">
+
+                    <!-- VALIDA SI TIENE IMAGEN EN CASO DE NO TENER COLOCA UNO DE BASE -->
+                    {% if evento.url_imagen_publicacion %}
+                        <img src="{{ evento.url_imagen_publicacion.url }}" alt="Imagen Publicación">
+                    {% else %}
+                        <img src="{% static 'assets/images/imgPublicacion1.jpg' %}" alt="Imagen de la escuela">
+                    {% endif %}
+
                 </div>
                 <br>
-                <a href="#">
+                <a href="{% url 'PerfilActor' evento.id_actor.id %}">
                     <div class="card-publicacion-usuario">
                         <h4>Autor </h4>
                         <img src="{{ evento.id_actor.url_image_actor.url }}" alt="Imagen Avatar">
-                        <p>Hola</p>
+                        <p>{{ evento.id_actor.nombre_completo }}</p>
                     </div>
                 </a>
                 <br>
                 <h3 style="text-align: left;">Etiqueta</h3>
                 <br>
-                <div class="tag">
-                    <p>{{evento.id_disciplina.nombre_disciplina}}</p>
+                <div class="conainer-tags_publicaciones">
+                    <div class="tag">
+                        <p>{{ evento.id_disciplina.nombre_disciplina }}</p>
+                    </div>
+                    <div class="tag">
+                        <p>{{ evento.id_clasificacion }}</p>
+                    </div>
                 </div>
                 <div class="detallesEvento">
                     <hr>
                     <h2>Detalles del Evento</h2>
-                    {% if evento.precio_evento > 0 %}
-                    <p><strong>Precio por persona:</strong> ${{evento.precio_evento}}</p>
-                    {% else %}
-                    <p><strong>Precio:</strong> GRATIS</p>
-                    {% endif %}
+                    <br>
 
+                    {% if evento.precio_evento > 0 %}
+                        <p><strong>Evento de : PAGA </strong></p>
+                        <p><strong>Precio por persona:</strong> ${{evento.precio_evento}}</p>
+                        {% if evento.puntoVenta != "presencial" %}
+                            <p><strong>Punto Venta:</strong> {{evento.PuntoVenta}}</p>
+                            <p><strong>Enlace: </strong> <a href="{{ evento.enlace_venta }}"> {{ evento.enlace_venta }}</a></p>
+                        {% else %}
+                            <p><strong>Punto Venta:</strong> {{evento.PuntoVenta}}</p>
+                        {% endif %}
+                    {% else %}
+                        <p><strong>Evento: GRATIS </strong></p>
+                    {% endif %}
                     <p><strong>Clasificación:</strong>        {{ evento.id_clasificacion }}</p>
                     <p><strong>Fecha de Inicio:</strong>       {{ evento.fecha_inicio }} </p>
                     <p><strong>Hora de Inicio:</strong>       {{ evento.hora_inicio }} p.m </p>
                     <p><strong>Ubicacion:</strong>            {{ evento.id_ubicacionesComunes }}</p>
-                    <p><strong>Direccion:</strong>            {{ evento.id_ubicacionesComunes.direccion_ubicacion }}</p>
+                    <p class="evento_datos"><strong>Direccion:</strong>            {{ evento.id_ubicacionesComunes.direccion_ubicacion }}</p>
                 </div>
             </div>
 
@@ -68,8 +88,6 @@
                     <br>
                     <p style="text-align: justify;">{{ evento.descripcion_publicacion }}</p>
                 </div>
-
-                
 
                 <div>
                     <br>
