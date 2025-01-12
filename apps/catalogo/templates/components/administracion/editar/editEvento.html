@@ -4,13 +4,14 @@
     <div class="modal-content">
         <span class="close clsModalEditEvento">&times;</span>
         <h2>Editar Evento</h2>
-        <form method="POST" action="#" enctype="multipart/form-data">
+        <form method="POST" action="{% url 'actualizarPublicacionEvento' %}" enctype="multipart/form-data">
             {% csrf_token %}
             
             <input
             id="id_publicacion"
             type="text"
             class="inputs"
+            name="id_publicacion"
             readonly
             required>
 
@@ -94,8 +95,7 @@
                 type="number"
                 name="precioGeneral"
                 placeholder="Mayor a $10"
-                class="inputs"
-                min="1">
+                class="inputs">
             </label>
 
             <div class="subOpciones subOpciones4">
@@ -145,7 +145,7 @@
                 type="file"
                 id="imagenPortadaEvento_edit"
                 name="imagenPortada"
-                required>
+                >
             </label>
 
             <label for="listaUbicacionesEdit">

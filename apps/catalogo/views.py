@@ -1003,6 +1003,28 @@ def eliminarPublicacionEvento(request, pk):
     messages.success(request, f'La publicacion" {publicacion.titulo_publicacion}" ha sido eliminado con éxito')
     return redirect('PanelAdministracionEventos')
 
+def update_publicacion_evento(request):
+    try:
+        # obtencion de los datos
+        id_publicacion = request.POST.get('id_publicacion')
+        aprobar_publicacion = request.POST.get('aprobarPublicacion')
+
+        if aprobar_publicacion == "True":
+            aprobar_publicacion = True
+        else:
+            aprobar_publicacion = False
+        
+        publicacionEvento = publicacionEventos.objects.get(id = id_publicacion)
+        publicacionEvento.publicacion_aprobada = aprobar_publicacion
+        publicacionEvento.save()
+
+        messages.success(request, "La publicacion se actualizó correctamente.")
+    except publicacionEventos.DoesNotExist:
+        messages.error(request, "La publicación no existe.")
+    except Exception as e:
+        messages.error((request, f'Ocurrió un error al actualizar la publicación: {str(e)}'))
+    
+    return redirect('PanelAdministracionEventos')
 #
 # MODULO DE UBICACIONES
 #

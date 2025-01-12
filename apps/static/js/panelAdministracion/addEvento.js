@@ -157,6 +157,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             precioUnitario.style.display = "none";
                             subOpciones.style.display = "none";
                             urlinput.style.display = 'none';
+                            
                         }
 
                         const lugarVenta = publicacion.puntoVenta;
@@ -168,7 +169,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         }else if(lugarVenta === "presencial"){
                             document.getElementById("puntoVentaPresencial_edit").checked = true;
                             document.getElementById("URLPuntoVenta_edit").value = publicacion.enlace_venta;
-                            urlinput.style.display = 'block';
+                            urlinput.style.display = 'none';
                         }else{
                             document.getElementById("puntoVentaDigital_edit").value = true;
                         }
@@ -180,7 +181,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             document.getElementById("aprobarPublicacion").checked = false;
                             document.getElementById("noAprobarPublicacion").checked = true;
                         }
-
+                        console.log("que pedo panita: " + urlinput.style.display);
                     });
                 }else{
                     console.log("Ocurrio un error al obtener el dato")

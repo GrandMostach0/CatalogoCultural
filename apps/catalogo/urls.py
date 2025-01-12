@@ -79,6 +79,7 @@ urlpatterns = [
     path("panelAdministracion/Eventos", panelAdministracionEventos.as_view(), name="PanelAdministracionEventos"),
     path("obtenerPublicacionEvento/<int:pk>/", views.get_Publicaciones_Eventos, name="obtenerPublicacionEvento"),
     path("eliminarPublicacionEvento/<int:pk>/", views.eliminarPublicacionEvento, name="eliminarPublicacionEvento"),
+    path("updatePublicacionEvento", views.update_publicacion_evento, name="actualizarPublicacionEvento"),
 
     #--- ADMIN. UBICACIONES ---
     path("panelAdministracion/Ubicaciones", panelAdministracionUbicaciones.as_view(), name="PanelAdministracionUbicaciones"),
