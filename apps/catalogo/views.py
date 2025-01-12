@@ -692,19 +692,29 @@ class EscuelaDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        Escuela = self.object  # El actor ya está en el contexto
+        Escuela = self.object  # referencia la escuela
 
         Escuela_content_type = ContentType.objects.get_for_model(Escuelas)
 
         # Verificamos si la escuela tiene redes sociales
         redes = RedSocial.objects.filter(content_type=Escuela_content_type, object_id=Escuela.id)
-        # Verificamos si la escuela tiene mas de 1 imagen
-        imagenes = Imagenes_publicaciones.objects.filter(content_type=Escuela_content_type, object_id=Escuela.id)
-        # Crear una lista de URLs de las imágenes
-        imagenes_urls = [imagen.url_imagen.url for imagen in imagenes]
-        # Pasar las URLs de las imágenes al contexto
-        context['imagenes_urls'] = json.dumps(imagenes_urls)
-        # Agregamos la variable 'redes' al contexto para usarla en la plantilla
+        
+        content_type2 = ContentType.objects.get_for_model(Escuelas)
+
+        escuela_prueba = 1
+
+        imagenes_Extras = Imagenes_publicaciones.objects.filter(
+            content_type = content_type2,
+            object_id = Escuela.id,
+        )
+
+        print("ID ESCUELA: ", Escuela.id)
+
+        for imge in imagenes_Extras:
+            print("object_id: ", imge.object_id)
+            print("content_type: ", imge.content_type)
+
+        context['imagenes_Extras'] = imagenes_Extras
         context['redes_sociales'] = redes
         context['tiene_redes'] = redes.exists()
 
@@ -1031,9 +1041,9 @@ def crearEscuela(request):
                 tipo_escuela = False
 
             imagenesExtras = [
-                request.POST.get("imagenesExtra1"),
-                request.POST.get("imagenesExtra2"),
-                request.POST.get("imagenesExtra3")
+                request.FILES.get("imagenExtra1"),
+                request.FILES.get("imagenExtra2"),
+                request.FILES.get("imagenExtra3")
             ]
 
             if not nombreEscuela or not descripcion_escuela or not imagen_portada:
@@ -1056,13 +1066,22 @@ def crearEscuela(request):
 
             for imagenE in imagenesExtras:
                 if imagenE:
-                    Imagenes_publicaciones.objects.create(
-                        content_type = content_type,
-                        object_id = nueva_escuela.id,
-                        url_imagen = imagenE
-                    )
-            
-            messages.success(request, "Nueva Escuela creada exitosamente")
+                    try:
+                        escuelaCreada = Imagenes_publicaciones.objects.create(
+                            content_type = content_type,
+                            object_id = nueva_escuela.id,
+                            url_imagen = imagenE
+                        )
+
+                        if escuelaCreada:
+                            print("escuela creada correctamente")
+                        else:
+                            print("error al crear la escuela")
+                    except Exception as e:
+                        messages.error(request, f"Error al crear la escuela: {str(e)}")
+                        print(e)
+
+            messages.success(request, f"Nueva Escuela creada exitosamente{nueva_escuela.id}")
     except Escuelas.DoesNotExist:
         messages.error(request, f"No se encontro la escuela.")
     except Exception as e:

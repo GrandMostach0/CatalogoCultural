@@ -8,6 +8,7 @@ const listadoLocalidades = async (id_localidad) => {
 
             // Limpiar las opciones existentes
             setListaLocalidades.innerHTML = "";
+            setListaLocalidadesEdit.innerHTML = "";
 
             result.Localidad.forEach(local => {
                 const option = document.createElement("option");
