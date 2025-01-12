@@ -91,12 +91,36 @@ document.addEventListener("DOMContentLoaded", function() {
     const btnCancelarEditUsuario = document.getElementById("btnCancelarEditUsuario");
 
     abrirModalEditUsuario.forEach(btn => {
-        btn.addEventListener("click", (event) => {
+        btn.addEventListener("click", async (event) => {
             event.preventDefault();
             const data_id = event.target.getAttribute("data-id");
+            const nombre_completo = event.target.getAttribute("data-nombre");
 
+            try{
+                const response = await fetch(`/getUsuario/${data_id}`);
+                const data = await response.json();
+
+                console.log(data);
+
+                if (data.message === "Success"){
+                    document.getElementById("actor_id").value = data.Actor.id;
+                    document.getElementById("nombre_edit").value = data.Actor.nombre_Actor;
+                    document.getElementById("primerApellido").value = data.Actor.primer_apellido_Actor;
+                    document.getElementById("segundoApellido").value = data.Actor.segundo_apellido_Actor;
+                    document.getElementById("biografia").value = data.Actor.biografia_Actor;
+                    document.getElementById("correo_publico_edit").value = data.Actor.correo_publico_Actor;
+                    document.getElementById("correo_privado_edit").value = data.Actor.correo_privado_actor;
+                    document.getElementById("telefono_publico_edit").value = data.Actor.Telefono_publico_Actor;
+                    document.getElementById("telefono_privado_edit").value = data.Actor.Telefono_privado_actor;
+                }
+                
+            }catch(e){
+                console.log("Error:" + e)
+            }
+            
             modalEditUsuario.style.display = "block";
             document.body.style.overflow = "hidden";
+
         })
     })
 

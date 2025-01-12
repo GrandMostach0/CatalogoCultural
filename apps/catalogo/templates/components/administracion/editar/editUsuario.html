@@ -9,8 +9,7 @@
             <input
             id="actor_id"
             class="inputs"
-            type="hidden"
-            value="{{ actor.pk }}"
+            type="text"
             name="actor_id"
             readonly>
 
@@ -23,14 +22,14 @@
                 type="file">
             </label>
 
-            <label for="nombre">
+            <label for="nombre_edit">
                 Nombres:
                 <input
                 class="inputs"
                 type="text"
                 placeholder="Juan Carlos"
                 name="nombre"
-                id="nombre"
+                id="nombre_edit"
                 required>
             </label>
 
@@ -69,25 +68,25 @@
                 </textarea>
             </label>
 
-            <label for="correo_publico">
+            <label for="correo_publico_edit">
                 Correo Eléctronico <strong>Público</strong>:
                 <input
                 class="inputs"
                 placeholder="correo@gmail.com"
                 type="email"
                 name="correo_publico"
-                id="correo_publico"
+                id="correo_publico_edit"
                 required>
             </label>
 
-            <label for="correo_privado">
+            <label for="correo_privado_edit">
                 Correo Eléctronico <strong>Privado</strong>:
                 <input
                 class="inputs"
                 placeholder="correo@gmail.com"
                 type="email"
                 name="correo_privado"
-                id="correo_privado"
+                id="correo_privado_edit"
                 required>
             </label>
 
@@ -98,7 +97,7 @@
                 type="text"
                 maxlength="10"
                 placeholder="9994550000"
-                id="telefono_publico"
+                id="telefono_publico_edit"
                 name="telefono_publico"
                 required>
             </label>
@@ -110,7 +109,7 @@
                 type="text"
                 maxlength="10"
                 placeholder="9994550000"
-                id="telefono_privado"
+                id="telefono_privado_edit"
                 name="telefono_privado"
                 required>
             </label>

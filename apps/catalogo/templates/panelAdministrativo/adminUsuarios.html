@@ -44,7 +44,8 @@
             <td>
                 <a href="#"
                 class="botonesTablas btnEditar abrirModalEditUsuario"
-                data-id="{{ actor.id }}">Editar</a>
+                data-id="{{ actor.id }}"
+                data-nombre = "{{ actor.nombre_completo }}">Editar</a>
             </td>
             <td>
                 <a href="{% url 'eliminarActor' actor.pk %}" 
