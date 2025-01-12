@@ -1028,6 +1028,7 @@ def crearEscuela(request):
         if request.method == 'POST':
             nombreEscuela = request.POST.get('nombre_escuela')
             direccion = request.POST.get("direccion_escuela")
+            ubicacion = request.POST.get("id_ubicacion")
             tipo_escuela = request.POST.get("tipo_escuela")
             correo_escuela = request.POST.get("correo")
             telefono_escuela = request.POST.get("telefono")
@@ -1058,7 +1059,8 @@ def crearEscuela(request):
                 telefono_escuela = telefono_escuela,
                 correo_escuela = correo_escuela,
                 ubicacion_escuela = direccion,
-                hora_atencion = hora_atencion
+                hora_atencion = hora_atencion,
+                id_localidad = ubicacion
             )
             nueva_escuela.save()
 
