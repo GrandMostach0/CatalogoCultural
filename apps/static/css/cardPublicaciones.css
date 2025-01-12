@@ -61,6 +61,7 @@
     background-color: #ccc;
     border-radius: 10px;
     margin-bottom: 10px;
+    margin-left: 5px;
 
     & p{
         color: #333;
@@ -70,10 +71,29 @@
     }
 }
 
+.conainer-tags_publicaciones{
+    display: flex;
+    align-items: center;
+}
+
 .button-publicacion{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.detallesEvento p{
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.detallesEventoResponsive{
+    display: none;
+}
+
+.detallesEventoResponsive p{
+    margin-bottom: 5px;
+    color: #333;
 }
 
 /* estilo de la páginacion */
@@ -110,4 +130,14 @@ select{
     padding: 4px 8px;
     color: white;
     margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+    .detallesEvento{
+        display: none;
+    }
+    
+    .detallesEventoResponsive{
+        display: block;
+    }
 }

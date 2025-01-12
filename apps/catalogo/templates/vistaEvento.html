@@ -7,11 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vista Evento</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    
     {% include 'style.html' %}
 
 </head>
 
 <body>
+
     <div class="ancho">
         <!---- SECCION MENÚ ---->
         {% include 'components/navbar.html' %}
@@ -60,16 +62,14 @@
                 <div class="detallesEvento">
                     <hr>
                     <h2>Detalles del Evento</h2>
-                    <br>
-
                     {% if evento.precio_evento > 0 %}
                         <p><strong>Evento de : PAGA </strong></p>
                         <p><strong>Precio por persona:</strong> ${{evento.precio_evento}}</p>
                         {% if evento.puntoVenta != "presencial" %}
-                            <p><strong>Punto Venta:</strong> {{evento.PuntoVenta}}</p>
+                            <p><strong>Punto Venta:</strong> {{evento.puntoVenta}}</p>
                             <p><strong>Enlace: </strong> <a href="{{ evento.enlace_venta }}"> {{ evento.enlace_venta }}</a></p>
                         {% else %}
-                            <p><strong>Punto Venta:</strong> {{evento.PuntoVenta}}</p>
+                            <p><strong>Punto Venta:</strong> {{evento.puntoVenta}}</p>
                         {% endif %}
                     {% else %}
                         <p><strong>Evento: GRATIS </strong></p>
@@ -78,7 +78,7 @@
                     <p><strong>Fecha de Inicio:</strong>       {{ evento.fecha_inicio }} </p>
                     <p><strong>Hora de Inicio:</strong>       {{ evento.hora_inicio }} p.m </p>
                     <p><strong>Ubicacion:</strong>            {{ evento.id_ubicacionesComunes }}</p>
-                    <p class="evento_datos"><strong>Direccion:</strong>            {{ evento.id_ubicacionesComunes.direccion_ubicacion }}</p>
+                    <p><strong>Direccion:</strong>            {{ evento.id_ubicacionesComunes.direccion_ubicacion }}</p>
                 </div>
             </div>
 
@@ -87,6 +87,28 @@
                     <h1>{{ evento.titulo_publicacion }}</h1>
                     <br>
                     <p style="text-align: justify;">{{ evento.descripcion_publicacion }}</p>
+                </div>
+
+                <div class="detallesEventoResponsive">
+                    <hr>
+                    <h2>Detalles del Evento</h2>
+                    {% if evento.precio_evento > 0 %}
+                        <p><strong>Evento de : PAGA </strong></p>
+                        <p><strong>Precio por persona:</strong> ${{evento.precio_evento}}</p>
+                        {% if evento.puntoVenta != "presencial" %}
+                            <p><strong>Punto Venta:</strong> {{evento.puntoVenta}}</p>
+                            <p><strong>Enlace: </strong> <a href="{{ evento.enlace_venta }}"> {{ evento.enlace_venta }}</a></p>
+                        {% else %}
+                            <p><strong>Punto Venta:</strong> {{evento.puntoVenta}}</p>
+                        {% endif %}
+                    {% else %}
+                        <p><strong>Evento: GRATIS </strong></p>
+                    {% endif %}
+                    <p><strong>Clasificación:</strong>        {{ evento.id_clasificacion }}</p>
+                    <p><strong>Fecha de Inicio:</strong>       {{ evento.fecha_inicio }} </p>
+                    <p><strong>Hora de Inicio:</strong>       {{ evento.hora_inicio }} p.m </p>
+                    <p><strong>Ubicacion:</strong>            {{ evento.id_ubicacionesComunes }}</p>
+                    <p><strong>Direccion:</strong>            {{ evento.id_ubicacionesComunes.direccion_ubicacion }}</p>
                 </div>
 
                 <div>
@@ -136,7 +158,8 @@
             </div>
         </div>
 
-
+        <br>
+        <br><br>
         <!----- FOOTER DE LA PÁGINA -->
         {% include 'components/footer.html' %}
 
@@ -146,9 +169,7 @@
 
         // Lista de las imagenés del slider
         const imagenes = [
-            "{% static 'assets/images/Institucion1.jpg' %}",
-            "{% static 'assets/images/Institucion2.png' %}",
-            "{% static 'assets/images/Institucion3.jpg' %}"
+            "{{ evento.url_imagen_publicacion.url }}"
         ];
 
         let currentIndex = 0;
