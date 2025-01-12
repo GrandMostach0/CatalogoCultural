@@ -4,7 +4,7 @@
     <div class="modal-content">
         <span class="close clsModEscuela">&times;</span>
         <h2>Nueva Escuela</h2>
-        <form method="POST" action="{% url 'agregarUbicacion' %}">
+        <form method="POST" action="{% url 'crearEscuela' %}" enctype="multipart/form-data">
             {% csrf_token %}
             
             <label for="nombre_escuela">
@@ -24,7 +24,7 @@
                 type="text"
                 class="inputs"
                 id="direccion"
-                name="direccion"
+                name="direccion_escuela"
                 placeholder="CALLE No ETC.."
                 required>
             </label>
@@ -58,7 +58,7 @@
                 <input type="text"
                 id="corre"
                 class="inputs"
-                name="corre"
+                name="correo"
                 required>
             </label>
 
@@ -67,6 +67,7 @@
                 <input
                 id="telefono" 
                 type="text"
+                name="telefono"
                 class="inputs"
                 required>
             </label>
@@ -88,7 +89,9 @@
                 id="responsable_escuela"
                 type="text"
                 class="inputs"
-                placeholder="ingrese el nombre del responsable">
+                placeholder="ingrese el nombre del responsable"
+                disabled
+                readonly>
             </label>
 
             <label for="descripcion_escuela">
@@ -107,6 +110,7 @@
                 <input
                 id="imagen_portada"
                 type="file"
+                name="imagen_portada"
                 class="inputs"
                 required>
             </label>

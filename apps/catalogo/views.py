@@ -1013,6 +1013,62 @@ class panelAdministracionEscuelas(LoginRequiredMixin, ListView):
     context_object_name = 'escuelas'
     paginate_by = 10
 
+def crearEscuela(request):
+    try:
+        if request.method == 'POST':
+            nombreEscuela = request.POST.get('nombre_escuela')
+            direccion = request.POST.get("direccion_escuela")
+            tipo_escuela = request.POST.get("tipo_escuela")
+            correo_escuela = request.POST.get("correo")
+            telefono_escuela = request.POST.get("telefono")
+            hora_atencion = request.POST.get("hora_atencion")
+            descripcion_escuela = request.POST.get("descripcion")
+            imagen_portada = request.FILES.get("imagen_portada")
+
+            if tipo_escuela == "publica":
+                tipo_escuela = True
+            else:
+                tipo_escuela = False
+
+            imagenesExtras = [
+                request.POST.get("imagenesExtra1"),
+                request.POST.get("imagenesExtra2"),
+                request.POST.get("imagenesExtra3")
+            ]
+
+            if not nombreEscuela or not descripcion_escuela or not imagen_portada:
+                    messages.error(request, "Todos los campos son obligatorios.")
+                    return redirect('/panelAdministracion/Escuelas')
+            
+            nueva_escuela = Escuelas(
+                url_imagen_escuela = imagen_portada,
+                nombre_escuela = nombreEscuela,
+                tipo_escuela = tipo_escuela,
+                descripcion = descripcion_escuela,
+                telefono_escuela = telefono_escuela,
+                correo_escuela = correo_escuela,
+                ubicacion_escuela = direccion,
+                hora_atencion = hora_atencion
+            )
+            nueva_escuela.save()
+
+            content_type = ContentType.objects.get_for_model(Escuelas)
+
+            for imagenE in imagenesExtras:
+                if imagenE:
+                    Imagenes_publicaciones.objects.create(
+                        content_type = content_type,
+                        object_id = nueva_escuela.id,
+                        url_imagen = imagenE
+                    )
+            
+            messages.success(request, "Nueva Escuela creada exitosamente")
+    except Escuelas.DoesNotExist:
+        messages.error(request, f"No se encontro la escuela.")
+    except Exception as e:
+        messages.error(request, f"Error al crear la escuela: {str(e)}")
+    
+    return redirect('/panelAdministracion/Escuelas')
 
 def eliminarEscuela(request, pk):
     escuela = Escuelas.objects.get(id = pk)
@@ -1139,7 +1195,6 @@ def get_Publicaciones_Eventos(request, pk):
         data = {"message" : "Error", "details" : str(e)}
     
     return JsonResponse(data)
-
 
 def eliminarPublicacionEvento(request, pk):
     publicacion = publicacionEventos.objects.get(id = pk)

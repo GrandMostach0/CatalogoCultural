@@ -68,6 +68,7 @@ urlpatterns = [
 
     #--- ADMIN. ESCUELAS ---
     path("panelAdministracion/Escuelas", panelAdministracionEscuelas.as_view(), name="PanelAdministracionEscuelas"),
+    path("crearEscuela", views.crearEscuela, name="crearEscuela"),
     path("eliminarEscuela/<int:pk>", views.eliminarEscuela, name="eliminarEscuela"),
     path("editarEscuela/<int:pk>", views.editarEscuela, name="editarEscuela"),
     path("updateEscuela", views.updateEscuela, name="actualizarEscuela"),
