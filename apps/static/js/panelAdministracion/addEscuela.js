@@ -1,14 +1,15 @@
-const listadoLocalidades = async (id_localidad) => {
+const listadoLocalidades = async (id_localidad, nameSelect) => {
     try {
         const response = await fetch('/municipios/');
         const result = await response.json();
+        console.log(result);
 
         if (result.message === 'Success') {
-            const setListaLocalidades = document.getElementById("ListadoUbicaciones");
+            const setListaLocalidades = document.getElementById(nameSelect);
+            console.log(setListaLocalidades);
 
             // Limpiar las opciones existentes
             setListaLocalidades.innerHTML = "";
-            setListaLocalidadesEdit.innerHTML = "";
 
             result.Localidad.forEach(local => {
                 const option = document.createElement("option");
@@ -41,9 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         modal.style.display = "block";
         document.body.style.overflow = "hidden";
-
-        // Cargar las localidades al abrir el modal
-        await listadoLocalidades(null); // Si no hay una localidad específica, se pasa `null`
+        await listadoLocalidades(null, "ListadoUbicaciones");
     };
 
     cerrarModal.onclick = function () {
@@ -74,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log(result);
 
                     // Cargar localidades con la localidad seleccionada
-                    await listadoLocalidades(result.Escuela.id_localidad_id);
+                    await listadoLocalidades(result.Escuela.id_localidad_id, "ListadoUbicacionesEdit");
 
                     document.getElementById("escuela_id").value = result.Escuela.id;
                     document.getElementById("nombre_escuela_edit").value = result.Escuela.nombre_escuela;
