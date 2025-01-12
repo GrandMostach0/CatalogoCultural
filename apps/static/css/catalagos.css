@@ -47,30 +47,40 @@
     position: relative;
 }
 
-.evento::before{
+.evento_precio, .evento_tag{
     position: absolute;
-    top: 2%;
-    right: 2%;
-    content: 'pago/gratis';
-    width: auto;
-    padding: 4px 8px;
-    font-weight: bold;
-    color: white;
-    background-color: red;
-    border-radius: 10px;
+    padding: 2px 3px;
+    border-radius: 8px;
+
+    & p{
+        margin-bottom: 0px;
+        font-weight: bold;
+    }
 }
 
-.evento::after{
-    position: absolute;
-    bottom: 5%;
-    left: 2%;
-    content: 'categoria';
-    width: auto;
-    padding: 4px 8px;
-    font-weight: bold;
-    color: white;
-    background-color: green;
-    border-radius: 10px;
+.evento_precio{
+    top: 5px;
+    right: 5px;
+}
+
+.precio-gratis {
+    background-color: #b4dea1;
+    border: 1px solid #307d24;
+}
+
+.precio-paga {
+    background-color: #b5a3f5;
+    border: 1px solid #0000ae;
+}
+
+.evento_tag{
+    background-color: #dbd8d8;
+    border: 1px solid #000;
+    bottom: 10px;
+    left: 5px;
+    max-width: 90%;
+    max-height: 30px;
+    overflow: hidden;
 }
 
 .evento img{

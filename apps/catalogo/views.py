@@ -438,18 +438,24 @@ class EventosListView(FilterView):
     template_name = "cartelera.html"
     context_object_name = "eventos"
     filterset_class = EventosFilter
-
-    #paginacion
     paginate_by = 9
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         if self.request.user.is_authenticated:
-            actor = Actor.objects.filter(user = self.request.user).first()
+            actor = Actor.objects.filter(user=self.request.user).first()
             context['actor'] = actor
-        
+
+        # Convertir precio_evento a entero para cada evento
+        for evento in context["eventos"]:
+            try:
+                evento.precio_evento = float(evento.precio_evento)
+            except (ValueError, TypeError):
+                evento.precio_evento = 0  # Default a 0 si no es válido
+
         return context
+
 
     def get_queryset(self):
         queryset = super().get_queryset()

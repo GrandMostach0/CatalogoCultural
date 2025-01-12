@@ -24,8 +24,26 @@
     {% for evento in eventos %}
     <div class="card-catalogo">
         <div class="card-catalogo-imagen evento">
-            <img loading="lazy" src="{% static 'assets/images/Cartelera1.jpeg' %}" alt="Imagen de la card">
+            
+            <div class="evento_precio {% if evento.precio_evento > 0 %}precio-paga{% else %}precio-gratis{% endif %}">
+                {% if evento.precio_evento > 0 %}
+                    <p>PAGA</p>
+                {% else %}
+                    <p>GRATIS</p>
+                {% endif %}
+            </div>
+
+            <img
+            loading="lazy" 
+            src="{{ evento.url_imagen_publicacion.url }}" 
+            alt="Imagen de la card">
+
+            <div class="evento_tag">
+                <p>{{ evento.id_clasificacion }}</p>
+            </div>
+
         </div>
+
         <div class="card-catalogo-contenido">
             <h3>{{ evento.titulo_publicacion }}</h3>
             <p class="etiqueta">Espectaculo</p>
@@ -35,7 +53,7 @@
         </div>
     </div>
     {% empty %}
-    <p>no hay eventos</p>
+        <p>no hay eventos</p>
     {% endfor %}
 </section>
 {% endblock %}
