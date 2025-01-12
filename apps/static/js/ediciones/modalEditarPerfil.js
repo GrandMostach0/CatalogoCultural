@@ -85,11 +85,11 @@ document.addEventListener("DOMContentLoaded", async function () {
                             await listaRedes(selectId, redSocial.id_redSocial_id);
                             document.getElementById(`redSocial0${i + 1}`).value = redSocial.enlace_redSocial;
                         }else{
-                            console.log("nadota")
+                            const selectId = `listaRedSocial0${i + 1}`;
+                            await listaRedes(selectId, 0);
                         }
                     }
                 }else if(dataRedes.message === "Not Found"){
-                    console.log("No se encontro las redes sociales del pana")
                     for (let i = 0; i < 3; i++){
                         const selectId = `listaRedSocial0${i + 1}`;
                         await listaRedes(selectId, 0);

@@ -205,6 +205,56 @@ def editarPerfil(request):
                 actor.user.username = correo_privado
                 actor.user.save()
                 actor.save()
+
+                # paso para obtener las redes sociales y actualizarlas
+
+                content_type = ContentType.objects.get_for_model(Actor)
+
+                redes_sociales = [
+                    {"tipo": request.POST.get("tipoRedSocial1"), "url": request.POST.get("redSocial1")},
+                    {"tipo": request.POST.get("tipoRedSocial2"), "url": request.POST.get("redSocial2")},
+                    {"tipo": request.POST.get("tipoRedSocial3"), "url": request.POST.get("redSocial3")},
+                ]
+
+                for red in redes_sociales:
+                    tipo = red["tipo"]
+                    url = red["url"]
+
+                    if tipo != "0":
+                        
+                        red_Social_existe = RedSocial.objects.filter(
+                            content_type = content_type,
+                            object_id = actor.id,
+                            id_redSocial_id = tipo
+                        ).first()
+
+                        if red_Social_existe or red_Social_existe != None:
+                            # red_Social_existe.enlace_redSocial = url
+                            # red_Social_existe.save()
+                            print("Red social actualizada.")
+
+                        else:
+                            cantidad = RedSocial.objects.filter(
+                                content_type = content_type,
+                                object_id = actor.id
+                            ).count()
+                            
+                            print(" ENTRO EN CREAR RED SOCIAL YUPII :)")
+
+                            if cantidad != 3:
+                                RedSocial.objects.create(
+                                    content_type = content_type,
+                                    object_id = actor.id,
+                                    enlace_redSocial = url,
+                                    id_redSocial_id = tipo
+                                )
+
+                                print("Registrado")
+                            else:
+                                
+                                print("EXCESO DE REDES REGISTRADOS")
+
+
                 return redirect('PerfilActor', pk=actor.id)
         except Exception as e:
             messages.error(request, f"Ocurrió un error: {str(e)}")
@@ -270,7 +320,7 @@ def crear_publicacion(request):
                     )
                     nueva_publicacion.save()
                 
-                # obtencio del contentType de la publicacion
+                # obtencion del contentType de la publicacionR
                 content_type = ContentType.objects.get_for_model(publicacionObras)
 
                 # guardamos 

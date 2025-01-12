@@ -6,9 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vista Escuela</title>
     {% include 'style.html' %}
-
+    {% include 'Librerias.html' %}
+    <link rel="stylesheet" href="{% static 'css/sliderPublicaciones.css' %}">
+    
 </head>
 <body>
+
+    {% include 'components/swiperImagenesEscuelas.html' %}
+
     <div class="ancho">
         <!---- SECCION MENÚ ---->
         {% include 'components/navbar.html' %}
@@ -25,7 +30,7 @@
         <!----- SECCION DEL CONTENIDO DE LA ESCUELA ----->
         <main class="container-escuela">
             <div class="escuela-imagen">
-                <div class="escuelaImagen">
+                <div class="escuelaImagen" id="imagenPortada">
                     <img loading="lazy" src="{{ Escuela.url_imagen_escuela.url }}" alt="Imagen de la escuela">
                 </div>
                 <br>
@@ -103,58 +108,7 @@
         
     </div>
 
-    
-
-    <script type="text/javascript">
-        // Lista de las imagenés del slider
-            const imagenes = JSON.parse('{{ imagenes_urls|escapejs }}');
-
-            if (imagenes.length === 0) {
-                // Agregar una imagen por defecto si no hay imágenes
-                imagenes.push("{% static 'assets/images/default/noFotos.avif' %}");
-            }
-
-            let currentIndex = 0;
-            const escuelaImagen = document.querySelector('.escuelaImagen img');
-
-            const modal_slider = document.getElementById('modalSliderImagen');
-            const modal_imagen = document.getElementById('modalImagen');
-            const close_slider = document.getElementById('close-slider');
-            const prev = document.querySelector('.prev');
-            const next = document.querySelector('.next');
-
-            // Función para mostrar una imagen en el modal
-            function showImage(index) {
-                modal_imagen.src = imagenes[index];
-            }
-
-            escuelaImagen.addEventListener('click', function () {
-                modal_slider.style.display = 'flex';
-                currentIndex = 0;
-                showImage(currentIndex);
-            });
-
-            close_slider.addEventListener('click', function () {
-                modal_slider.style.display = 'none';
-                console.log('click close');
-            });
-
-            prev.addEventListener('click', function () {
-                currentIndex = (currentIndex > 0) ? currentIndex - 1 : imagenes.length - 1;
-                showImage(currentIndex);
-            });
-
-            next.addEventListener('click', function () {
-                currentIndex = (currentIndex < imagenes.length - 1) ? currentIndex + 1 : 0;
-                showImage(currentIndex);
-            });
-
-            window.addEventListener('click', function (event) {
-                if (event.target === modal_slider) {
-                    modal_slider.style.display = 'none';
-                }
-            });
-    </script>
+    <script src="{% static 'js/scriptSliderEscuela.js' %}" ></script
 
 </body>
 </html>
