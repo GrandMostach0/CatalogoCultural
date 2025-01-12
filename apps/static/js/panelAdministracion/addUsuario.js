@@ -83,4 +83,30 @@ document.addEventListener("DOMContentLoaded", function() {
         modal.style.display = "none";
         document.body.style.overflow = "auto";
     }
+
+    /* SECCION PARA LA EDICION DE LOS DATOS DEL USUARIO */
+    const modalEditUsuario = document.getElementById("modalEditUsuario");
+    const abrirModalEditUsuario = document.querySelectorAll(".abrirModalEditUsuario");
+    const cerrarModalEditUsuario = document.getElementsByClassName("clsModalEditUsuario")[0];
+    const btnCancelarEditUsuario = document.getElementById("btnCancelarEditUsuario");
+
+    abrirModalEditUsuario.forEach(btn => {
+        btn.addEventListener("click", (event) => {
+            event.preventDefault();
+            const data_id = event.target.getAttribute("data-id");
+
+            modalEditUsuario.style.display = "block";
+            document.body.style.overflow = "hidden";
+        })
+    })
+
+    cerrarModalEditUsuario.onclick  = function(){
+        modalEditUsuario.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+
+    btnCancelarEditUsuario.onclick = function(){
+        modalEditUsuario.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
 });

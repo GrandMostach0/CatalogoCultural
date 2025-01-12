@@ -1,0 +1,167 @@
+<div id="modalEditUsuario" class="modal">
+    <div class="modal-content">
+        <span class="close clsModalEditUsuario">&times;</span>
+        <h2>Editar Información</h2>
+
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <input
+            id="actor_id"
+            class="inputs"
+            type="hidden"
+            value="{{ actor.pk }}"
+            name="actor_id"
+            readonly>
+
+            <label for="imagenPerfil">
+                Imagen de Perfil:
+                <input
+                id="imagenPerfil"
+                name="imagenPerfil"
+                class="inputs"
+                type="file">
+            </label>
+
+            <label for="nombre">
+                Nombres:
+                <input
+                class="inputs"
+                type="text"
+                placeholder="Juan Carlos"
+                name="nombre"
+                id="nombre"
+                required>
+            </label>
+
+            <div class="dosOpciones">
+                <label for="primerApellido">
+                    Primer Apellido:
+                    <input
+                    class="inputs"
+                    class="labelMitad"
+                    placeholder="Uc"
+                    type="text"
+                    name="primerApellido"
+                    id="primerApellido"
+                    required>
+                </label>
+
+                <label for="segundoApellido">
+                    Segundo Apellido:
+                    <input
+                    class="inputs labelMitad"
+                    placeholder="Canul"
+                    type="text"
+                    name="segundoApellido"
+                    id="segundoApellido"
+                    required>
+                </label> 
+            </div>
+
+            <label for="biografia">
+                Biografía:
+                <textarea cols="30"
+                class="inputs"
+                name="biografia"
+                id="biografia"
+                placeholder="Ingresa una biografia">
+                </textarea>
+            </label>
+
+            <label for="correo_publico">
+                Correo Eléctronico <strong>Público</strong>:
+                <input
+                class="inputs"
+                placeholder="correo@gmail.com"
+                type="email"
+                name="correo_publico"
+                id="correo_publico"
+                required>
+            </label>
+
+            <label for="correo_privado">
+                Correo Eléctronico <strong>Privado</strong>:
+                <input
+                class="inputs"
+                placeholder="correo@gmail.com"
+                type="email"
+                name="correo_privado"
+                id="correo_privado"
+                required>
+            </label>
+
+            <label for="telefono_publico">
+                Télefono Público:
+                <input
+                class="inputs"
+                type="text"
+                maxlength="10"
+                placeholder="9994550000"
+                id="telefono_publico"
+                name="telefono_publico"
+                required>
+            </label>
+
+            <label for="telefono_privado">
+                Télefono <strong>Privado</strong>:
+                <input
+                class="inputs"
+                type="text"
+                maxlength="10"
+                placeholder="9994550000"
+                id="telefono_privado"
+                name="telefono_privado"
+                required>
+            </label>
+
+            <div class="contenedor-redesSociales">
+                <p style="text-align: center; font-weight: bold;">Redes Sociales:</p>
+
+                <label for="redSocial1" style="font-weight: bold;">Red social 1:</label>
+                <div class="containerRedSocial">
+                    <select
+                    name="tipoRedSocial1"
+                    id="listaRedSocial01"></select>
+
+                    <input
+                    type="url"
+                    id="redSocial01"
+                    name="redSocial1"
+                    class="inputs"
+                    placeholder="ingrese una URL">
+                </div>
+
+                <label for="redSocial2" style="font-weight: bold;">Red social 2:</label>
+                <div class="containerRedSocial">
+                    <select name="tipoRedSocial2" id="listaRedSocial02">
+                    </select>
+
+                    <input
+                    type="url"
+                    id="redSocial02"
+                    name="redSocial2"
+                    class="inputs"
+                    placeholder="ingrese una URL">
+                </div>
+
+                <label for="redSocial3" style="font-weight: bold;">Red social 3:</label>
+                <div class="containerRedSocial">
+                    <select name="tipoRedSocial3" id="listaRedSocial03">
+                    </select>
+
+                    <input
+                    type="url"
+                    id="redSocial03"
+                    name="redSocial3"
+                    class="inputs"
+                    placeholder="ingrese una URL">
+                </div>
+            </div>
+            
+            <button type="submit">Modificar</button>
+            <button id="btnCancelarEditUsuario" type="reset">Cancelar</button>
+        </form>
+
+    </div>
+</div>
