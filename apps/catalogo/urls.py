@@ -30,7 +30,7 @@ urlpatterns = [
     path("PerfilActor/<int:pk>/", ActoresDetailView.as_view(), name="PerfilActor"),
     path("editarPerfil/", views.editarPerfil, name="editarPerfil"),
     path("solicitarEscuela/<int:pk>", views.solicitarEscuela, name="solicitarEscuela"),
-    
+    path('quitarEscuela/<int:pk>/<int:pkEscuela>/', views.quiarEscuelaRelaionada, name='quitarEscuela'),
 
     # -> CREAR EVENTOS
     path("crear_publicacion/", views.crear_publicacion, name="crear_publicacion"),

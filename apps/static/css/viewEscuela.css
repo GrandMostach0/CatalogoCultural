@@ -102,6 +102,25 @@
     justify-content: space-between;
 }
 
+.listadoEscuelaRegistrados li{
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.listadoEscuelaRegistrados li span{
+    margin-left: 10px;
+    padding: 2px 3px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    color: rgb(178, 251, 89);
+    font-weight: bold;
+}
+
+.listadoEscuelaRegistrados li span:hover{
+    background-color: rgba(255, 0, 0, 0.436);
+}
 
 .seccion-informacion{
     flex: 1;

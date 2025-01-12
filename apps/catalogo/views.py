@@ -477,15 +477,23 @@ def solicitarEscuela(request, pk):
     # Redirigir al panel de administración
     return redirect('PerfilActor', pk=actor.id)
 
+def quiarEscuelaRelaionada(request, pk, pkEscuela):
+    try:
+        # Obtención de los datos
+        actor_id = pk
+        id_escuela_quitar = pkEscuela
 
-# -----------------------------
-#   LISTADO DE LAS PUBLICACIONES
-# ----------------------------
-    model = publicacionObras
-    template_name = "index.html"
-    context_object_name = "publicaciones"
-    paginate_by = 6
+        actor = Actor.objects.get(id = actor_id)
 
+        actor.id_escuela.remove(id_escuela_quitar)
+        messages.success(request, 'Escuela removida')
+    except Actor.DoesNotExist:
+        messages.error(request, 'No existe el actor.')
+    except Exception as e:
+        messages.error(request, f'Ocurrió un error al Remover: {str(e)}')
+
+    # Redirigir al panel de administración
+    return redirect('PerfilActor', pk=actor.id)
 # -----------------------------
 #   LISTADO DE LOS EVENTOS
 # ----------------------------
