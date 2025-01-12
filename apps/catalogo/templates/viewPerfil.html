@@ -99,15 +99,24 @@
                                         <li><a href="{% url 'PerfilEscuela' escuela.pk %}">{{ escuela.nombre_escuela }}</a></li>
                                     {% endfor %}
                                 </ul>
+
+                                <form action="{% url 'solicitarEscuela' actor.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <label for="listaEscuelasRegistradas">
+                                        <select name="escuelaSolicitar" id="listaEscuelasRegistradas"></select>
+                                        <button type="submit">Solicitar</button>
+                                    </label>
+                                </form>
+                                
                             </div>
                             {% else %}
                             <div class="informacion">
                                 <p>No trabaja en niguna escuela</p>
 
-                                <form action="#" method="POST">
+                                <form action="{% url 'solicitarEscuela' actor.pk %}" method="POST">
                                     {% csrf_token %}
                                     <label for="listaEscuelasRegistradas">
-                                        <select name="escuelaSolicitada" id="listaEscuelasRegistradas"></select>
+                                        <select name="escuelaSolicitar" id="listaEscuelasRegistradas"></select>
                                         <button type="submit">Solicitar</button>
                                     </label>
                                 </form>

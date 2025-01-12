@@ -462,10 +462,11 @@ def solicitarEscuela(request, pk):
     try:
         # Obtención de los datos
         actor_id = pk
-        id_escuela_solicitar = request.POST.get('aprobarPublicacion')
+        id_escuela_solicitar = request.POST.get('escuelaSolicitar')
 
         actor = Actor.objects.get(id = actor_id)
-        actor.id_escuela = id_escuela_solicitar
+
+        actor.id_escuela.add(id_escuela_solicitar)
 
         messages.success(request, 'Solicitud Registrado')
     except Actor.DoesNotExist:
