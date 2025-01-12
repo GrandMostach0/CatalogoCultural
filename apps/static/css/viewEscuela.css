@@ -40,16 +40,30 @@
 
 /* Estilos para ver las redes sociales de la escuela */
 .escuela-imagen-redSocial{
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .escuela-imagen-redSocial a img{
-    margin: 0px 5px;
+    margin: 0px 10px;
     width: 120%;
     height: auto;
+}
+
+.quitarRedSocial{
+    border: 1px solid #ccc;
+    margin-left: 20px;
+    padding: 2px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+
+.quitarRedSocial:hover{
+    background-color: rgba(246, 121, 121, 0.658);
+    font-weight: bold;
 }
 
 /* estilo de la imagen de la escuela */

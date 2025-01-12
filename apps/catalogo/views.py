@@ -494,6 +494,32 @@ def quiarEscuelaRelaionada(request, pk, pkEscuela):
 
     # Redirigir al panel de administración
     return redirect('PerfilActor', pk=actor.id)
+
+def quitarRedSocialRelacionada(request, pk, pkRedSocial):
+
+    try:
+        actor = Actor.objects.get(id=pk)
+        actor_content_type = ContentType.objects.get_for_model(Actor)
+
+        red_social = RedSocial.objects.filter(
+            id = pkRedSocial,
+            content_type=actor_content_type,
+            object_id = actor.id
+        )
+
+        if red_social:
+            red_social.delete()
+            messages.success(request, "Red Social eliminada correctamente.")
+        else:
+            messages.error(request, "La red social no está asociada a este actor.")
+
+    except Actor.DoesNotExist:
+        messages.error(request, "Actor no encontrado.")
+    except Exception as e:
+        messages.error(request, f"Error al intentar eliminar la red social: {str(e)}")
+    return redirect('PerfilActor', pk=actor.id)
+    
+
 # -----------------------------
 #   LISTADO DE LOS EVENTOS
 # ----------------------------
