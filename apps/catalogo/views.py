@@ -766,7 +766,10 @@ def get_municipios(request):
 
 def get_RedesSociales(request, pk):
 
-    redesSociales = RedSocial.objects.filter(content_type_id = pk).values()
+    redesSociales = RedSocial.objects.filter(
+        content_type_id = 14,
+        object_id = pk
+        ).values()
 
     if redesSociales:
         data = {'message': "Success", "RedSocial" : list(redesSociales)}
