@@ -98,11 +98,22 @@
                                     {% for escuela in escuelas_asociadas %}
                                         <li>
                                             <a href="{% url 'PerfilEscuela' escuela.pk %}">{{ escuela.nombre_escuela }}</a>
-                                            <span><a href="{% url 'quitarEscuela' pk=actor.pk pkEscuela=escuela.pk %}">X</a></span>
+
+                                            {% if actor.user == request.user %}
+                                                <span>
+                                                    <a 
+                                                    href="{%
+                                                    url 'quitarEscuela'
+                                                    pk=actor.pk
+                                                    pkEscuela=escuela.pk
+                                                    %}"> X </a>
+                                                </span>
+                                            {% endif %}
                                         </li>
                                     {% endfor %}
                                 </ul>
 
+                                {% if actor.user == request.user %}
                                 <form action="{% url 'solicitarEscuela' actor.pk %}" method="POST">
                                     {% csrf_token %}
                                     <label for="listaEscuelasRegistradas">
@@ -110,12 +121,14 @@
                                         <button type="submit">Solicitar</button>
                                     </label>
                                 </form>
+                                {% endif %}
 
                             </div>
                             {% else %}
                             <div class="informacion">
                                 <p>No trabaja en niguna escuela</p>
 
+                                {% if actor.user == request.user %}
                                 <form action="{% url 'solicitarEscuela' actor.pk %}" method="POST">
                                     {% csrf_token %}
                                     <label for="listaEscuelasRegistradas">
@@ -123,6 +136,7 @@
                                         <button type="submit">Solicitar</button>
                                     </label>
                                 </form>
+                                {% endif %}
 
                             </div>
                             {% endif %}
