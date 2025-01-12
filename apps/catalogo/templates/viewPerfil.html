@@ -90,6 +90,7 @@
                     <br>
                     <div class="container-informacion">
                         <div class="seccion-informacion">
+
                             {% if es_docente %}
                             <div class="informacion">
                                 <p style="font-weight: bold;">Docente en:</p>
@@ -102,6 +103,15 @@
                             {% else %}
                             <div class="informacion">
                                 <p>No trabaja en niguna escuela</p>
+
+                                <form action="#" method="POST">
+                                    {% csrf_token %}
+                                    <label for="listaEscuelasRegistradas">
+                                        <select name="escuelaSolicitada" id="listaEscuelasRegistradas"></select>
+                                        <button type="submit">Solicitar</button>
+                                    </label>
+                                </form>
+
                             </div>
                             {% endif %}
 
@@ -157,6 +167,32 @@
     <script src="{% static 'js/modalProyecto.js' %}"></script>
     <script src="{% static 'js/ediciones/modalEditarPerfil.js' %}" ></script>
     
+    <script>
+            const listadoEscuela = async () => {
+                const response = await fetch('/escuelas/')
+                const data = await response.json()
+
+                if(data.message === "Success"){
+
+                    const setListaEscuelas = document.getElementById("listaEscuelasRegistradas");
+                    setListaEscuelas.innerHTML = '<option value="0">Selecciona una Escuela</option>';
+
+                    data.escuelas.forEach(escuela => {
+                        const option = document.createElement('option');
+                        option.value = escuela.id;
+                        option.textContent = escuela.nombre_escuela;
+                        setListaEscuelas.appendChild(option);
+                    })
+                }
+
+                console.log("LISTA DE LAS ESCUELA")
+                console.log(data)
+            }
+
+            document.addEventListener('DOMContentLoaded', async () => {
+                await listadoEscuela()
+            });
+    </script>
     
 </body>
 

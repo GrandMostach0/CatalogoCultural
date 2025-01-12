@@ -458,6 +458,25 @@ def content_type(request, publicacion_id):
         return JsonResponse
 
 
+def solicitarEscuela(request, pk):
+    try:
+        # Obtención de los datos
+        actor_id = pk
+        id_escuela_solicitar = request.POST.get('aprobarPublicacion')
+
+        actor = Actor.objects.get(id = actor_id)
+        actor.id_escuela = id_escuela_solicitar
+
+        messages.success(request, 'Solicitud Registrado')
+    except Actor.DoesNotExist:
+        messages.error(request, 'No existe el actor.')
+    except Exception as e:
+        messages.error(request, f'Ocurrió un error solicitar: {str(e)}')
+
+    # Redirigir al panel de administración
+    return redirect('PerfilActor', pk=actor.id)
+
+
 # -----------------------------
 #   LISTADO DE LAS PUBLICACIONES
 # ----------------------------
@@ -752,7 +771,6 @@ def get_escuelas_por_actor(request, pk):
 
     return JsonResponse(data)
 
-
 def get_municipios(request):
 
     localidades = list(Localidad.objects.values())
@@ -794,6 +812,7 @@ def get_Publicaciones(request, pk):
         data = {"message": "Error", "details": str(e)}
 
     return JsonResponse(data)
+
 
 
 # -----------------------------

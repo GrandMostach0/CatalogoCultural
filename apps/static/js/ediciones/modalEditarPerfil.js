@@ -42,6 +42,7 @@ const listaRedes = async (selectId, red_actor) =>{
     }
 }
 
+
 document.addEventListener("DOMContentLoaded", async function () {
     // Manejo del modal
     var modal = document.getElementById("editarPerfilModal");
@@ -61,10 +62,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             const responseRedes = await fetch(`/getRedesSociales/${data_atribute}`)
             const dataRedes = await responseRedes.json();
-            console.log(dataRedes)
+            //console.log(dataRedes)
             
             if(data.message === "Success"){
-                console.log(data)
+                //console.log(data)
                 /* INGRENSANDO LOS DATOS DEL PERFIL */
                 document.getElementById("nombre").value = data.Actor.nombre_Actor;
                 document.getElementById("primerApellido").value = data.Actor.primer_apellido_Actor;
@@ -79,7 +80,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 if(dataRedes.message === "Success"){
                     for (let i = 0; i < 3; i++){
                         const redSocial = dataRedes.RedSocial[i];
-                        console.log(redSocial)
                         if(redSocial){
                             const selectId = `listaRedSocial0${i + 1}`;
                             await listaRedes(selectId, redSocial.id_redSocial_id);

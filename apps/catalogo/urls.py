@@ -29,6 +29,8 @@ urlpatterns = [
     # PERFIL DEL ACTOR CON SUS RESPECTIVAS OPERACIONES
     path("PerfilActor/<int:pk>/", ActoresDetailView.as_view(), name="PerfilActor"),
     path("editarPerfil/", views.editarPerfil, name="editarPerfil"),
+    path("solicitarEscuela/<int:pk>", views.solicitarEscuela, name="solicitarEscuela"),
+    
 
     # -> CREAR EVENTOS
     path("crear_publicacion/", views.crear_publicacion, name="crear_publicacion"),
