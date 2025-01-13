@@ -1013,6 +1013,29 @@ def get_usuario(request, pk):
     
     return JsonResponse(data)
 
+def update_usuario(request):
+    try:
+        id_usuario = request.POST.get('actor_id')
+        tipo_usuario = request.POST.get('tipo_usuario')
+
+        print("------------")
+        print("TIPO USUARIO OBTENIDO", tipo_usuario)
+        print("------------")
+
+        usuarioActualizar = Actor.objects.get(id = id_usuario)
+        usuarioActualizar.tipo_usuario = tipo_usuario
+        usuarioActualizar.save()
+
+        if usuarioActualizar:
+            print("SE GUARDO CORRECTAMENTE")
+        else:
+            print("NO SE GUARDO CORRECTAMENTE")
+
+        messages.success(request, f"Usuario {usuarioActualizar.nombre_completo()} actualizado")
+    except Exception as e:
+        messages.error(request, f"Error al actualizar el usuario: {str(e)}")
+    
+    return redirect('/panelAdministracion/Usuarios')
 #
 # MODULO DE ESCUELAS
 #

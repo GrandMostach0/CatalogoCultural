@@ -137,8 +137,8 @@ document.addEventListener("DOMContentLoaded", function() {
             try{
                 const response = await fetch(`/getUsuario/${data_id}`);
                 const data = await response.json();
-                //console.log("-- INFO USUARIO ---")
-                //console.log(data);
+                console.log("-- INFO USUARIO ---")
+                console.log(data);
 
                 const responseRedes = await fetch(`/getRedesSociales/${data_id}`);
                 const dataRedes = await responseRedes.json();
