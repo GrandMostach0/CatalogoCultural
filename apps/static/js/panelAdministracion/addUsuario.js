@@ -147,6 +147,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 if (data.message === "Success"){
                     document.getElementById("actor_id").value = data.Actor.id;
+
+                    const tipoUsuario = data.Actor.tipo_usuario;
+                    if(tipoUsuario === "administrador"){
+                        document.getElementById("tipo_usuario_admin_edit").checked = true;
+                    }else if (tipoUsuario === "ambos"){
+                        document.getElementById("tipo_usuario_ambos_edit").checked = true;
+                    }else{
+                        document.getElementById("tipo_usuario_edit").checked = true;
+                    }
+
                     document.getElementById("nombre_edit").value = data.Actor.nombre_Actor;
                     document.getElementById("primerApellido").value = data.Actor.primer_apellido_Actor;
                     document.getElementById("segundoApellido").value = data.Actor.segundo_apellido_Actor;
