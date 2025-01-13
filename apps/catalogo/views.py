@@ -1,4 +1,4 @@
-import json
+import csv
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
 from datetime import datetime
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from datetime import date
@@ -1480,3 +1480,80 @@ def update_redSocial(request):
 
     # Redirigir al panel de administración
     return redirect('PanelAdministracionRedesSociales')
+
+def descargar_actores_csv(request):
+    # Configurar la respuesta HTTP como un archivo CSV
+    response = HttpResponse(content_type='text/csv; charset= utf-8-sig')
+    response['Content-Disposition'] = 'attachment; filename="actores.csv"'
+
+    # Crear el escritor CSV
+    writer = csv.writer(response, quoting=csv.QUOTE_MINIMAL)
+
+    # Escribir los encabezados de las columnas
+    writer.writerow([
+        'No', 
+        'Nombre Completo', 
+        'Correo Privado', 
+        'Teléfono Privado', 
+        'Tipo de Usuario'
+    ])
+
+    # Obtener los datos desde la base de datos
+    actores = Actor.objects.all()
+
+    # Escribir las filas con los datos de los actores
+    for idx, actor in enumerate(actores, start=1):
+        writer.writerow([
+            idx, 
+            actor.nombre_completo(),
+            actor.correo_privado_actor,
+            actor.Telefono_privado_actor,
+            actor.tipo_usuario
+        ])
+
+    return response
+
+
+#### descargar archivo csv de escuelas ###
+
+def descargar_escuelas_csv(request):
+    # Configurar la respuesta HTTP como un archivo CSV
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="escuelas.csv"'
+
+    # Crear el escritor CSV
+    writer = csv.writer(response)
+
+    # Escribir los encabezados de las columnas
+    writer.writerow([
+        'No',
+        'Nombre',
+        'Es Público',
+        'Descripción',
+        'Teléfono',
+        'Correo',
+        'Ubicación',
+        'Horario de Atención',
+        'Página Oficial',
+        'Localidad'
+    ])
+
+    # Obtener los datos desde la base de datos
+    escuelas = Escuelas.objects.all()
+
+    # Escribir las filas con los datos de las escuelas
+    for idx, escuela in enumerate(escuelas, start=1):
+        writer.writerow([
+            idx,
+            escuela.nombre_escuela,
+            "Sí" if escuela.tipo_escuela else "No",
+            escuela.descripcion,
+            escuela.telefono_escuela,
+            escuela.correo_escuela,
+            escuela.ubicacion_escuela or "No especificada",
+            escuela.hora_atencion,
+            escuela.paginaOficial or "No disponible",
+            escuela.id_localidad if escuela.id_localidad else "No especificada"
+        ])
+
+    return response

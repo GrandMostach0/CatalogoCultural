@@ -105,6 +105,9 @@ urlpatterns = [
     path("eliminarRedSocial/<int:pk>", views.eliminar_redSocial, name="eliminarRedSocial"),
     path("updateRedSocial/", views.update_redSocial, name="actualizarRedSocial"),
 
+    # DESCARGAR CSVS
+    path("panelAdministracion/Usuarios/descargar-actores/", views.descargar_actores_csv, name="descargar_actores"),
+    path("panelAdministracion/Escuelas/descargar-escuelas/", views.descargar_escuelas_csv, name="descargar_escuelas"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
