@@ -59,6 +59,44 @@ const cargaInicial = async() => {
     })
 }
 
+const listaRedes = async (selectId, red_actor) => {
+    try{
+        const response = await fetch('/listaCatalogoRedes/');
+        const data = await response.json();
+        //console.log("--- CATALOGO REDES SOCIALES ---")
+        //console.log(data);
+
+        const setListaRedes = document.getElementById(selectId)
+        setListaRedes.innerHTML = '<option value="0"> Seleccione una Red Social </option>'
+
+        if (data.message === "Success"){
+
+            data.NombreRedesSociales.forEach(red => {
+                const option = document.createElement("option");
+                option.value = red.id;
+                option.textContent = red.nombre_redSocial;
+
+                if(red.id === red_actor){
+                    option.selected = true;
+                }
+                setListaRedes.appendChild(option);
+            })
+
+        }else if (data.message === "Not Found"){
+            const option = document.createElement("option");
+                option.value = red.id;
+                option.textContent = red.nombre_redSocial;
+
+                setListaRedes.appendChild(option);
+        }else{
+            console.log("Error: Respuesta inesperada dela API")
+        }
+
+    }catch(e){
+        console.log("Error: ", e)
+    }
+}
+
 // Esperar a que el DOM se cargue
 document.addEventListener("DOMContentLoaded", function() {
     var modal = document.getElementById("modalAddUsuario");
@@ -99,8 +137,13 @@ document.addEventListener("DOMContentLoaded", function() {
             try{
                 const response = await fetch(`/getUsuario/${data_id}`);
                 const data = await response.json();
+                //console.log("-- INFO USUARIO ---")
+                //console.log(data);
 
-                console.log(data);
+                const responseRedes = await fetch(`/getRedesSociales/${data_id}`);
+                const dataRedes = await responseRedes.json();
+                //console.log("-- REDES SOCIALES ---")
+                //console.log(dataRedes);
 
                 if (data.message === "Success"){
                     document.getElementById("actor_id").value = data.Actor.id;
@@ -112,6 +155,27 @@ document.addEventListener("DOMContentLoaded", function() {
                     document.getElementById("correo_privado_edit").value = data.Actor.correo_privado_actor;
                     document.getElementById("telefono_publico_edit").value = data.Actor.Telefono_publico_Actor;
                     document.getElementById("telefono_privado_edit").value = data.Actor.Telefono_privado_actor;
+
+                    /* LISTAR LAS REDES SOCIALES DEL PERFIL */
+                    if(dataRedes.message === "Success"){
+                        for (let i = 0; i < 3; i++){
+                            const redSocial = dataRedes.RedSocial[i];
+                            if(redSocial){
+                                const selectId = `listaRedSocial0${i + 1}`;
+                                await listaRedes(selectId, redSocial.id_redSocial_id);
+                                document.getElementById(`redSocial0${i + 1}`).value = redSocial.enlace_redSocial;
+                            }else{
+                                const selectId = `listaRedSocial0${i + 1}`;
+                                await listaRedes(selectId, 0);
+                            }
+                        }
+                    }else if(dataRedes.message === "Not Found"){
+                        for (let i = 0; i < 3; i++){
+                            const selectId = `listaRedSocial0${i + 1}`;
+                            await listaRedes(selectId, 0);
+                        }
+                    }
+
                 }
                 
             }catch(e){
