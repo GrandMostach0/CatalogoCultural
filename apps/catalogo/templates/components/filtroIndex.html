@@ -1,23 +1,6 @@
 <div class="container-filtro">
-    <h2>Filtro</h2>
-    <div class="container-filtro-opciones">
-        <p>Categorías:</p>
-        <select name="disciplina" id="disciplina">
-        </select>
-    </div>
-
-    <div class="container-filtro-opciones">
-        <p>Fecha de Publicación:</p>
-        <select name="discilinas" id="Subdisciplinas">
-            <option value="0">Todos</option>
-            <option value="1">Esta Semana</option>
-            <option value="2">Ultimas dos semanas</option>
-            <option value="3">Todos</option>
-        </select>
-    </div>
-
-    <div class="container-filtro-opciones filtro-botones">
-        <a href="#" class="botones">Aplicar Cambios</a>
-        <a href="#" class="botones">Restablecer</a>
-    </div>
+    <form method="get">
+        {{ filtro.form.as_p }}
+        <button type="submit">Filtrar</button>
+    </form>
 </div>

@@ -20,7 +20,7 @@ from django.views.generic import ListView, DetailView
 
 ## filtros
 from django_filters.views import FilterView
-from .filters import ActorFilter, EscuelaFilter, EventosFilter
+from .filters import ActorFilter, EscuelaFilter, EventosFilter, PublicacionObrasFilter
 
 # PRUEBA
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -37,9 +37,13 @@ def Inicio(request):
     if request.user.is_authenticated:
         actor = Actor.objects.filter(user=request.user).first()
 
+    # Aplicar Filtro
+    filtro = PublicacionObrasFilter(request.GET, queryset=publicacionesObras)
+    publicaciones_filtradas = filtro.qs
+
     # Lógica de paginación
     page = request.GET.get('page', 1)
-    paginator = Paginator(publicacionesObras, 4)  # 5 publicaciones por página
+    paginator = Paginator(publicaciones_filtradas, 4)  # 5 publicaciones por página
 
     try:
         publicaciones_paginadas = paginator.page(page)
@@ -52,8 +56,9 @@ def Inicio(request):
         'actores': actores_pupulares,
         'escuelas': escuelas_populares,
         'publicaciones': publicaciones_paginadas,
-        'actor': actor
-    }
+        'actor': actor,
+        'filtro': filtro
+        }
     return render(request, 'index.html', context)
 
 

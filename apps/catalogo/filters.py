@@ -1,6 +1,6 @@
 from django import forms
 from django_filters import FilterSet, ModelChoiceFilter, BooleanFilter, DateFilter, ChoiceFilter
-from .models import Actor, Subdisciplinas, Localidad, Escuelas, Ubicaciones_Comunes, publicacionEventos, Disciplinas, Audiencia
+from .models import Actor, Subdisciplinas, Localidad, Escuelas, Ubicaciones_Comunes, publicacionEventos, Disciplinas, Audiencia, publicacionObras
 
 class ActorFilter(FilterSet):
     # Filtro para seleccionar la subdisciplina
@@ -117,3 +117,15 @@ class EventosFilter(FilterSet):
             return queryset.filter(precio_evento__gt=0)
         return queryset
 
+
+class PublicacionObrasFilter(FilterSet):
+    # Campo personalizado para disciplina con la opción "Todos"
+    id_Disciplina = ModelChoiceFilter(
+        queryset=Disciplinas.objects.all(),
+        empty_label="Todos",  # Esto establece "Todos" como la opción por defecto
+        label="Disciplina"
+    )
+
+    class Meta:
+        model = publicacionObras
+        fields = ['id_Disciplina']
