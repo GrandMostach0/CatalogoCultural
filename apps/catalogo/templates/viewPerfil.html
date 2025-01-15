@@ -63,7 +63,7 @@
                             <a href="{{ red.enlace_redSocial }}" target="_blank">
                                 <img src="{{ red.id_redSocial.logo.url }}" alt="{{ red.id_redSocial.nombre_redSocial }}">
                             </a>
-                            <a href="{% url 'quitarRedSocial' pk=actor.pk pkRedSocial=red.id %}">
+                            <a href="{% url 'quitarRedSocial' actor.pk red.id %}">
                                 Quitar
                             </a>
                             
@@ -106,11 +106,7 @@
                                             {% if actor.user == request.user %}
                                                 <span>
                                                     <a 
-                                                    href="{%
-                                                    url 'quitarEscuela'
-                                                    pk=actor.pk
-                                                    pkEscuela=escuela.pk
-                                                    %}"> X </a>
+                                                    href="{%url 'quitarEscuela' pk=actor.pk pkEscuela=escuela.pk %}"> X </a>
                                                 </span>
                                             {% endif %}
                                         </li>

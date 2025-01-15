@@ -412,7 +412,6 @@ def crear_publicacion_evento(request):
                         id_disciplina_id = categoria_evento,
                         id_ubicacionesComunes_id = ubicacion_del_evento,
                         url_imagen_publicacion = imagen_portada_evento
-
                     )
                     nueva_publicacion.save()
                 else:
@@ -427,7 +426,8 @@ def crear_publicacion_evento(request):
                         enlace_venta = url_ventaDigital,
                         id_clasificacion_id = clasificacion_evento,
                         id_disciplina_id = categoria_evento,
-                        id_ubicacionesComunes_id = ubicacion_del_evento
+                        id_ubicacionesComunes_id = ubicacion_del_evento,
+                        url_imagen_publicacion = imagen_portada_evento
                     )
                     nueva_publicacion.save()
 
