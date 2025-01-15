@@ -3,7 +3,7 @@
     <!-- Contenido del Modal -->
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h2>Nueva Publicación de Obra o Trabajo</h2>
+        <h2>Nueva Publicación</h2>
         <form method="POST" enctype="multipart/form-data" action="{% url 'crear_publicacion' %}">
             {% csrf_token %}
 
@@ -50,16 +50,17 @@
                 class="inputs"
                 type="file"
                 name="imagenPortadaPublicacion"
+                accept=".jpg, .png, .jpeg"
                 required>
             </label>
 
             <div class="imagenesExtras">
                 <label for="imagenExtra1">
                     Imagenes Extras:
-                    <input id="imagenExtra1" name="imagenExtra1" class="inputs" type="file">
-                    <input id="imagenExtra2" name="imagenExtra2" class="inputs" type="file">
-                    <input id="imagenExtra3" name="imagenExtra3" class="inputs" type="file">
-                    <input id="imagenExtra4" name="imagenExtra4" class="inputs" type="file">
+                    <input id="imagenExtra1" name="imagenExtra1" class="inputs" type="file" accept=".jpg, .jpeg, .pnh">
+                    <input id="imagenExtra2" name="imagenExtra2" class="inputs" type="file" accept=".jpg, .jpeg, .pnh">
+                    <input id="imagenExtra3" name="imagenExtra3" class="inputs" type="file" accept=".jpg, .jpeg, .pnh">
+                    <input id="imagenExtra4" name="imagenExtra4" class="inputs" type="file" accept=".jpg, .jpeg, .pnh">
                 </label>
             </div>
 

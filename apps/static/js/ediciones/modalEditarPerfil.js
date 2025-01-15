@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     var cerrarModal = document.getElementsByClassName("close")[2];
     var btnCerrarModal = document.getElementById("btnCancelar3");
 
+
     abrirModal.addEventListener("click", async function(event){
         event.preventDefault();
         modal.style.display = "block";
@@ -59,6 +60,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         try{
             const response = await fetch(`/getUsuario/${data_atribute}`);
             const data = await response.json();
+            console.log(data);
 
             const responseRedes = await fetch(`/getRedesSociales/${data_atribute}`)
             const dataRedes = await responseRedes.json();
@@ -67,6 +69,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             if(data.message === "Success"){
                 //console.log(data)
                 /* INGRENSANDO LOS DATOS DEL PERFIL */
+                const baseUrl = "http://127.0.0.1:8000/imagenes";
+                document.getElementById("vistaPrevia").src = `${baseUrl}/${data.Actor.url_image_actor}`;
                 document.getElementById("nombre").value = data.Actor.nombre_Actor;
                 document.getElementById("primerApellido").value = data.Actor.primer_apellido_Actor;
                 document.getElementById("segundoApellido").value = data.Actor.segundo_apellido_Actor;
@@ -105,7 +109,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
         
     });
-
 
     cerrarModal.onclick = function () {
         modal.style.display = "none";
