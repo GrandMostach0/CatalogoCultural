@@ -521,8 +521,11 @@ def solicitarEscuela(request, pk):
         actor_id = pk
         id_escuela_solicitar = request.POST.get('escuelaSolicitar')
 
-        actor = Actor.objects.get(id = actor_id)
+        if id_escuela_solicitar == "0":
+            messages.error(request, "Porfavor seleccione una escuela")
+            return redirect('PerfilActor', pk=actor_id)
 
+        actor = Actor.objects.get(id = actor_id)
         actor.id_escuela.add(id_escuela_solicitar)
 
         messages.success(request, 'Solicitud Registrado')
