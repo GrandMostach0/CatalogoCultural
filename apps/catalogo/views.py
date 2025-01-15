@@ -614,6 +614,11 @@ class ActoresListView(FilterView):
     # paginacion
     paginate_by = 9
 
+    def get_queryset(self):
+        # Usa tipo_usuario en lugar de tipo_actor
+        queryset = super().get_queryset()
+        return queryset.filter(tipo_usuario__in=["actor", "ambos"])
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         actores = context['Actor']

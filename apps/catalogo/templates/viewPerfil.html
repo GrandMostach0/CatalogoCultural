@@ -63,7 +63,7 @@
                             <a href="{{ red.enlace_redSocial }}" target="_blank">
                                 <img src="{{ red.id_redSocial.logo.url }}" alt="{{ red.id_redSocial.nombre_redSocial }}">
                             </a>
-                            <a href="{% url 'quitarRedSocial' actor.pk red.id %}">
+                            <a class="quitarRedSocial"  href="{% url 'quitarRedSocial' actor.pk red.id %}">
                                 Quitar
                             </a>
                             
