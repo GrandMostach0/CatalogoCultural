@@ -196,18 +196,42 @@ def editarPerfil(request):
     if request.method == 'POST':
         try:
             if actor.user == request.user:
-                actor.url_image_actor = request.FILES.get('imagenPerfil', actor.url_image_actor)
-                actor.nombre_Actor = request.POST.get('nombre', actor.nombre_Actor)
-                actor.primer_apellido_Actor = request.POST.get('primerApellido', actor.primer_apellido_Actor)
-                actor.segundo_apellido_Actor = request.POST.get('segundoApellido', actor.segundo_apellido_Actor)
-                actor.biografia_Actor = request.POST.get('biografia', actor.biografia_Actor)
-                correo_privado = request.POST.get('correo_privado', actor.correo_privado_actor)
-                actor.correo_privado_actor = correo_privado
-                actor.correo_publico_Actor = request.POST.get('correo_publico', actor.correo_publico_Actor)
-                actor.Telefono_privado_actor = request.POST.get('telefono_privado', actor.Telefono_publico_Actor)
-                actor.Telefono_publico_Actor = request.POST.get('telefono_publico', actor.Telefono_privado_actor)
 
+                imagen_perfil = request.FILES.get("imagenPerfil")
+                nombre = request.POST.get("nombre", '').strip()
+                primer_apellido = request.POST.get("primerApellido", '').strip()
+                segundo_apellido = request.POST.get("segundoApellido", '').strip()
+                biografia = request.POST.get("biografia").strip()
+                correo_privado = request.POST.get("correo_privado", '').strip()
+                correo_publico = request.POST.get("correo_publico", '').strip()
+                telefono_privado = request.POST.get("telefono_privado", '').strip()
+                telefono_publico = request.POST.get("telefono_publico", '').strip()
+
+                if not nombre or not primer_apellido or not segundo_apellido or not correo_privado or not biografia or not telefono_privado:
+                    messages.error(request, "Los campos no pueden estar vacios o tener espacios")
+                    return redirect('PerfilActor', pk=actor.id)
+                
+                if imagen_perfil:
+                    valid_image_type = ['image/jpeg', 'image/jpg', 'image/png']
+                    if imagen_perfil.content_type not in valid_image_type:
+                        imagen_perfil = actor.url_image_actor
+                        messages.error(request, "La imagen del perfil debe ser tipo JPEG, JPG o PNG")
+                        return redirect('PerfilActor', pk=actor.id)
+
+                if not imagen_perfil:
+                    return redirect('PerfilActor', pk=actor.id)
+                
+                actor.url_image_actor = imagen_perfil
+                actor.nombre_Actor = nombre
+                actor.primer_apellido_Actor = primer_apellido
+                actor.segundo_apellido_Actor = segundo_apellido
+                actor.biografia_Actor = biografia
+                actor.correo_privado_actor = correo_privado
+                actor.correo_publico_Actor = correo_publico
+                actor.Telefono_privado_actor = telefono_privado
+                actor.Telefono_publico_Actor = telefono_publico
                 actor.user.username = correo_privado
+
                 actor.user.save()
                 actor.save()
 
@@ -216,9 +240,9 @@ def editarPerfil(request):
                 content_type = ContentType.objects.get_for_model(Actor)
 
                 redes_sociales = [
-                    {"tipo": request.POST.get("tipoRedSocial1"), "url": request.POST.get("redSocial1")},
-                    {"tipo": request.POST.get("tipoRedSocial2"), "url": request.POST.get("redSocial2")},
-                    {"tipo": request.POST.get("tipoRedSocial3"), "url": request.POST.get("redSocial3")},
+                    {"tipo": request.POST.get("tipoRedSocial1").strip(), "url": request.POST.get("redSocial1").strip()},
+                    {"tipo": request.POST.get("tipoRedSocial2").strip(), "url": request.POST.get("redSocial2").strip()},
+                    {"tipo": request.POST.get("tipoRedSocial3").strip(), "url": request.POST.get("redSocial3").strip()},
                 ]
 
                 for red in redes_sociales:
@@ -234,8 +258,6 @@ def editarPerfil(request):
                         ).first()
 
                         if red_Social_existe or red_Social_existe != None:
-                            # red_Social_existe.enlace_redSocial = url
-                            # red_Social_existe.save()
                             print("Red social actualizada.")
 
                         else:
@@ -243,8 +265,6 @@ def editarPerfil(request):
                                 content_type = content_type,
                                 object_id = actor.id
                             ).count()
-                            
-                            print(" ENTRO EN CREAR RED SOCIAL YUPII :)")
 
                             if cantidad != 3:
                                 RedSocial.objects.create(
@@ -253,8 +273,6 @@ def editarPerfil(request):
                                     enlace_redSocial = url,
                                     id_redSocial_id = tipo
                                 )
-
-                                print("Registrado")
                             else:
                                 
                                 print("EXCESO DE REDES REGISTRADOS")
