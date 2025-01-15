@@ -18,12 +18,12 @@
     flex: 2;
     padding: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-template-rows: repeat(auto-fill, minmax(200px, 290px));
-    grid-auto-flow: dense;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    grid-template-rows: auto; /* Deja que las filas se ajusten automáticamente */
     gap: 30px;
-    max-height: 100%;
 }
+
+
 
 /* estilos de las cards del catalogo*/
 .card-catalogo{
@@ -39,7 +39,7 @@
 
 .card-catalogo img{
     width: 100%;
-    height: 150px;
+    min-height: 50px;
 }
 
 
