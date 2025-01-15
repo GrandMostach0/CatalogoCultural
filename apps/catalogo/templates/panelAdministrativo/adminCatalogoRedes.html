@@ -13,6 +13,27 @@
 
 {% block contenido_administrativo %}
 
+{% if request.GET.success %}
+    <script>
+        Swal.fire({
+            title: '¡Éxito!',
+            text: 'La red social ha sido eliminada con éxito.',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+{% elif request.GET.error %}
+    <script>
+        Swal.fire({
+            title: '¡Error!',
+            text: 'Hubo un problema al eliminar la red social.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+{% endif %}
+
+
 <table>
     <thead>
         <tr>

@@ -87,7 +87,7 @@ def login_view(request):
                     return redirect('PanelAdministracion')
 
             else:
-                messages.error(request, 'Contraseñia incorrecta.')
+                messages.error(request, 'Contraseña incorrecta.')
         except User.DoesNotExist:
             messages.error(request, 'No existe un usuario con este correo.')
 
@@ -1452,12 +1452,24 @@ def agregar_redSocial(request):
     else:
         print("no es POST")
 
-def eliminar_redSocial(request, pk):
-    redSocial = Cat_redSocial.objects.get(id = pk)
-    redSocial.delete()
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from urllib.parse import urlencode
 
-    messages.success(request, f'La red Social "{redSocial.nombre_redSocial}" ha sido eliminada con éxito.')
-    return redirect('PanelAdministracionRedesSociales')
+def eliminar_redSocial(request, pk):
+    try:
+        redSocial = Cat_redSocial.objects.get(id=pk)
+        redSocial.delete()
+        
+        # Redirigir con éxito pasando un parámetro en la URL
+        query_params = urlencode({'success': 'true'})
+        return HttpResponseRedirect(f'{reverse("PanelAdministracionRedesSociales")}?{query_params}')
+    except Cat_redSocial.DoesNotExist:
+        # Redirigir con error pasando un parámetro en la URL
+        query_params = urlencode({'error': 'true'})
+        return HttpResponseRedirect(f'{reverse("PanelAdministracionRedesSociales")}?{query_params}')
+
+    
 
 def update_redSocial(request):
     try:
