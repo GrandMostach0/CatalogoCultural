@@ -221,6 +221,11 @@ def editarPerfil(request):
                 if not imagen_perfil:
                     return redirect('PerfilActor', pk=actor.id)
                 
+                if User.objects.filter(username = correo_privado).exists():
+                    correo_privado = actor.user.username
+                    messages.error(request, 'El correo ya existe')
+                    return redirect('PerfilActor', pk=actor.id)
+                
                 actor.url_image_actor = imagen_perfil
                 actor.nombre_Actor = nombre
                 actor.primer_apellido_Actor = primer_apellido
