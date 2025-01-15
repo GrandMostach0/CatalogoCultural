@@ -1,13 +1,19 @@
 from rest_framework import serializers
-from .models import publicacionEventos
+from .models import publicacionEventos, Ubicaciones_Comunes
+
+class ubicacionesComunesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ubicaciones_Comunes
+        fields = ["nombre_ubicacion", "direccion_ubicacion", "latitud", "longitud"]
 
 class EventoSerializer(serializers.ModelSerializer):
+
+    ubicacion = ubicacionesComunesSerializer(source="id_ubicacionesComunes", read_only=True)
 
     # Extraer datos de relaciones
     id_clasificacion_nombre = serializers.ReadOnlyField(source="id_clasificacion.nombre_clasificacion")
     id_actor_nombre = serializers.ReadOnlyField(source="id_actor.nombre_Actor")
     id_disciplina_nombre = serializers.ReadOnlyField(source="id_disciplina.nombre_disciplina")
-    id_ubicacionesComunes_nombre = serializers.ReadOnlyField(source="id_ubicacionesComunes.nombre_ubicacion")
 
     class Meta:
         model = publicacionEventos
@@ -26,5 +32,5 @@ class EventoSerializer(serializers.ModelSerializer):
             "id_clasificacion_nombre",
             "id_actor_nombre",
             "id_disciplina_nombre",
-            "id_ubicacionesComunes_nombre",
+            "ubicacion",
         ]
