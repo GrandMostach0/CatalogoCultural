@@ -273,9 +273,9 @@ def crear_publicacion(request):
             if actor.user == request.user:
                 id_actor = actor.id
 
-                titulo = request.POST.get('titulo')
-                descripcion = request.POST.get('descripcion')
-                categoria = request.POST.get('categoriaPublicacion')
+                titulo = request.POST.get('titulo', '').strip()
+                descripcion = request.POST.get('descripcion', '').strip()
+                categoria = request.POST.get('categoriaPublicacion', '').strip()
                 imagen_portada = request.FILES.get('imagenPortadaPublicacion')
 
                 imagenesExtras = [
@@ -287,6 +287,10 @@ def crear_publicacion(request):
 
                 if not titulo or not descripcion or not imagen_portada:
                     messages.error(request, "Todos los campos son obligatorios.")
+                    return redirect('PerfilActor', pk=actor.id)
+                
+                if categoria == "0":
+                    messages.error(request, "Seleccione una categoria")
                     return redirect('PerfilActor', pk=actor.id)
 
                 # datos opcionales
@@ -303,16 +307,20 @@ def crear_publicacion(request):
                 
                 ## CREACION DE LA PUBLIACION DEPENDIENDO DEL TIPO DE PUBLICACION
                 if tipo_publicacion:
-                    nueva_publicacion = publicacionObras(
-                        id_actor_id = id_actor,
-                        titulo_publicacion = titulo,
-                        descripcion_publicacion = descripcion,
-                        tipo_publicacion = tipo_publicacion,
-                        url_imagen_publicacion = imagen_portada,
-                        id_Disciplina_id = categoria,
-                        id_Escuela_id = escuelaOpcional
-                    )
-                    nueva_publicacion.save()
+                    if escuelaOpcional != "0":
+                        nueva_publicacion = publicacionObras(
+                            id_actor_id = id_actor,
+                            titulo_publicacion = titulo,
+                            descripcion_publicacion = descripcion,
+                            tipo_publicacion = tipo_publicacion,
+                            url_imagen_publicacion = imagen_portada,
+                            id_Disciplina_id = categoria,
+                            id_Escuela_id = escuelaOpcional
+                        )
+                        nueva_publicacion.save()
+                    else:
+                        messages.error(request, "Seleccione una Escuela")
+                        return redirect('PerfilActor', pk=actor.id)
                 else:
                     nueva_publicacion = publicacionObras(
                         id_actor_id = id_actor,
