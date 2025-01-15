@@ -389,36 +389,45 @@ def crear_publicacion_evento(request):
             if actor.user == request.user:
                 id_actor = actor.id
 
-                titulo_evento = request.POST.get('titulo')
-                descripcion_evento = request.POST.get('descripcion')
-                categoria_evento = request.POST.get('categoriaEvento')
-                clasificacion_evento = request.POST.get('clasificacionEvento')
-                fecha_del_evento = request.POST.get('fecha_evento')
-                hora_del_evento = request.POST.get('hora_Evento')
+                titulo_evento = request.POST.get('titulo', "").strip()
+                descripcion_evento = request.POST.get('descripcion', "").strip()
+                categoria_evento = request.POST.get('categoriaEvento', "").strip()
+                clasificacion_evento = request.POST.get('clasificacionEvento', "").strip()
+                fecha_del_evento = request.POST.get('fecha_evento', "").strip()
+                hora_del_evento = request.POST.get('hora_Evento', "").strip()
                 imagen_portada_evento = request.FILES.get('imagenPortada')
-                ubicacion_del_evento = request.POST.get('ubicacionEvento')
+                ubicacion_del_evento = request.POST.get('ubicacionEvento', "").strip()
 
                 ##validacion para saber las opciones del evento
-                evento_paga = request.POST.get('evento_paga')
-                precioGeneral = request.POST.get('precioGeneral')
-                punto_venta = request.POST.get('puntoVenta')
-                url_ventaDigital = request.POST.get('URLPuntoVenta')
+                evento_paga = request.POST.get('evento_paga', "")
+                precioGeneral = request.POST.get('precioGeneral', "").strip()
+                punto_venta = request.POST.get('puntoVenta', "").strip()
+                url_ventaDigital = request.POST.get('URLPuntoVenta', "").strip()
 
-                print("id_Actor --> ", id_actor)
-                print("titulo --> ", titulo_evento)
-                print("descripcion -->", descripcion_evento)
-                print("categoria --> ", categoria_evento)
-                print("clasificacion -->", clasificacion_evento)
-                print("fecha_del_evento -->", fecha_del_evento)
-                print("hora del evento --> ", hora_del_evento)
-                print("imagen Portada --> ", imagen_portada_evento)
-                print("ubicacion -->", ubicacion_del_evento)
+                valid_image_types = ['image/jpeg', 'image/jpg', 'image/png']
+                if imagen_portada_evento.content_type not in valid_image_types:
+                    messages.error(request, "La imagen de portada debe ser de tipo JPEG, JPG o PNG.")
+                    return redirect('PerfilActor', pk=actor.id)
 
-                if not titulo_evento or not descripcion_evento or not imagen_portada_evento:
+                if not titulo_evento or not descripcion_evento or not imagen_portada_evento or not fecha_del_evento or not hora_del_evento:
                     messages.error(request, "Todos los campos son obligatorios.")
                     return redirect('PerfilActor', pk=actor.id)
 
-                if evento_paga == None:
+                if categoria_evento == "0":
+                    messages.error(request, "Seleccione una categoría")
+                    return redirect('PerfilActor', pk=actor.id)
+                
+                if clasificacion_evento == "0":
+                    messages.error(request, "Seleccione una clasificación")
+                    return redirect('PerfilActor', pk=actor.id)
+                
+                if ubicacion_del_evento == "0":
+                    messages.error(request, "No seleccion una ubicación")
+                    return redirect('PerfilActor', pk=actor.id)
+                
+                print("Evento pago: ", evento_paga)
+
+                if evento_paga == None or evento_paga == "":
                     evento_paga = True
                     print("EL EVENTO ES GRATIS")
                     print("punto de venta --> ", punto_venta)
@@ -426,11 +435,17 @@ def crear_publicacion_evento(request):
                     evento_paga = False
                     print("EL EVENTO ES DE PAGA")
                     print("Precio General --> ", precioGeneral)
+                    if not precioGeneral:
+                        messages.error(request, "El campo del Precio esta vacio")
+                        return redirect('PerfilActor', pk=actor.id)
 
                     if punto_venta != "presencial":
                         print("PUNTO DE VENTA NO PRESENCIAL")
                         print("punto de venta --> ", punto_venta)
                         print("url_venta", url_ventaDigital)
+                        if not url_ventaDigital:
+                            messages.error(request, "El campo de la URL esta vacía")
+                            return redirect('PerfilActor', pk=actor.id)
                     else:
                         print("punto de venta --> ", punto_venta)
 

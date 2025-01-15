@@ -95,6 +95,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // --- Dinámica del punto de venta ---
     const presencial = document.getElementById('puntoVentaPresencial');
     const digital = document.getElementById('puntoVentaDigital');
+    const ambos = document.getElementById('puntoVentaAmbos');
     const urlinput = document.querySelector('.URLPuntoVentalbl');
 
     urlinput.style.display = 'none';
@@ -155,6 +156,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     digital.addEventListener("change", () => {
+        urlinput.style.display = "block";
+    });
+    
+    ambos.addEventListener("change", () => {
         urlinput.style.display = "block";
     });
 });
