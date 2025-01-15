@@ -2,6 +2,13 @@ const listarEscuelas = async (id_actor) => {
     try{
         const response = await fetch(`/escuelaActor/${id_actor}`)
         const data = await response.json();
+        console.log(data);
+        
+        const radioPersonal = document.getElementById("publicacionPersonal");
+        console.log(radioPersonal);
+        const radioInstituto = document.getElementById("publicacionInstituto");
+        console.log(radioInstituto);
+        const institucionOpcional = document.querySelector(".institucion-opcional");
 
         if (data.message === 'Success'){
             // Limpi el contenido previo del select
@@ -18,6 +25,9 @@ const listarEscuelas = async (id_actor) => {
             });
             console.log("Opciones cargadas correctamente.");
         } else {
+            radioInstituto.disabled = true;
+            radioPersonal.checked = true;
+            institucionOpcional.style.display = "none";
             console.log("Error: Respuesta inesperada de la API")
         }
 
@@ -62,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const radioInstituto = document.getElementById("publicacionInstituto");
     const institucionOpcional = document.querySelector(".institucion-opcional");
 
-    institucionOpcional.style.display = "none";  // Asegúrate de que esté oculto al inicio
+    institucionOpcional.style.display = "none";
 
     abrirModal.addEventListener("click", async function(event){
         event.preventDefault();
