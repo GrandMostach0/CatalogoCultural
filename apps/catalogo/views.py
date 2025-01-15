@@ -286,9 +286,15 @@ def crear_publicacion(request):
                 ]
 
                 if not titulo or not descripcion or not imagen_portada:
-                    messages.error(request, "Todos los campos son obligatorios.")
+                    messages.error(request, "Todos los campos son obligatorios y no pueden contener solo espacios en blanco.")
                     return redirect('PerfilActor', pk=actor.id)
                 
+                # Validar que la portada sea de tipo jpeg, jpg o png
+                valid_image_types = ['image/jpeg', 'image/jpg', 'image/png']
+                if imagen_portada.content_type not in valid_image_types:
+                    messages.error(request, "La imagen de portada debe ser de tipo JPEG, JPG o PNG.")
+                    return redirect('PerfilActor', pk=actor.id)
+
                 if categoria == "0":
                     messages.error(request, "Seleccione una categoria")
                     return redirect('PerfilActor', pk=actor.id)
@@ -339,10 +345,15 @@ def crear_publicacion(request):
                 # guardamos 
                 for imagenE in imagenesExtras:
                     if imagenE:
+                        # Validar tipo de archivo para imágenes adicionales
+                        if imagenE.content_type not in valid_image_types:
+                            messages.error(request, f"Una imagen adicional no tiene el formato permitido. Se omitió: {imagenE.name}")
+                            continue
+
                         Imagenes_publicaciones.objects.create(
-                            content_type = content_type,
-                            object_id = nueva_publicacion.id,
-                            url_imagen = imagenE
+                            content_type=content_type,
+                            object_id=nueva_publicacion.id,
+                            url_imagen=imagenE
                         )
 
                 messages.success(request, "Publicación creada exitosamente.")
