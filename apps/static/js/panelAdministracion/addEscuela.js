@@ -36,10 +36,69 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("modalAddEscuela");
     const abrirModal = document.getElementById("abrirModalEscuela");
     const cerrarModal = document.getElementsByClassName("clsModEscuela")[0];
-    const btnCancelar = document.getElementById("btnCancelar");
+    const btnCancelar = document.getElementById("btnCancelar"); 
 
     abrirModal.onclick = async function (event) {
         event.preventDefault();
+
+        const portadaInput = document.getElementById("imagen_portada");
+        const portadaPreview = document.getElementById("previewImagen");
+
+        portadaInput.addEventListener("change", function (e) {
+            const file = e.target.files[0]; // Obtén el archivo seleccionado
+
+            if (file) {
+                // Valida el tipo de archivo
+                if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
+                    alert("Solo se permiten archivos de tipo JPG, JPEG y PNG");
+                    e.target.value = ""; // Limpia el input
+                    return;
+                }
+
+                // Crear una vista previa con FileReader
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    portadaPreview.src = e.target.result; // Asigna la imagen al src
+                };
+                reader.readAsDataURL(file);
+            } else {
+                portadaPreview.src = "#"; // Limpia la vista previa si no hay archivo
+            }
+        });
+
+        const inputs = document.querySelectorAll('input[type="file"]');
+
+        inputs.forEach(input => {
+        input.addEventListener("change", function (e) {
+                const file = e.target.files[0]; // Obtiene el archivo seleccionado
+                const previewId = `preview${input.id.charAt(0).toUpperCase() + input.id.slice(1)}`; 
+                const previewImg = document.getElementById(previewId);
+
+                if (!previewImg) {
+                    console.error(`No se encontró un elemento con el ID: ${previewId}`);
+                    return; // Evita continuar si no existe el elemento
+                }
+
+                if (file) {
+                    // Validar el tipo de archivo
+                    if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
+                        alert("Solo se permiten archivos de tipo JPG, JPEG y PNG");
+                        e.target.value = ""; // Limpia el input
+                        return;
+                    }
+
+                    // Crear una vista previa con FileReader
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImg.src = e.target.result; // Asigna la imagen al src
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    previewImg.src = "#"; // Limpia la vista previa si no hay archivo
+                }
+            });
+        });
+
         modal.style.display = "block";
         document.body.style.overflow = "hidden";
         await listadoLocalidades(null, "ListadoUbicaciones");

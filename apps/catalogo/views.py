@@ -282,7 +282,6 @@ def editarPerfil(request):
                                     id_redSocial_id = tipo
                                 )
                             else:
-                                
                                 print("EXCESO DE REDES REGISTRADOS")
 
 
@@ -786,6 +785,7 @@ class EscuelaDetailView(DetailView):
         for imge in imagenes_Extras:
             print("object_id: ", imge.object_id)
             print("content_type: ", imge.content_type)
+            print("url_imagen: ", imge.url_imagen)
 
         context['imagenes_Extras'] = imagenes_Extras
         context['redes_sociales'] = redes
@@ -1263,7 +1263,6 @@ def updateEscuela(request):
             if imagen_portada.content_type not in valid_image_types:
                 messages.error(request, "La imagen de portada debe ser de tipo JPEG, JPG o PNG")
                 return redirect('/panelAdministracion/Escuelas')
-
         
         escuela.url_imagen_escuela = imagen_portada
         escuela.nombre_escuela = nombre_escuela
@@ -1271,11 +1270,54 @@ def updateEscuela(request):
         escuela.descripcion = descripcion
         escuela.telefono_escuela = telefono
         escuela.correo_escuela = correo
-        escuela.ubicacion_escuela = ubicacion
+        escuela.ubicacion_escuela = direccion
         escuela.hora_atencion = hora_atencion
         escuela.id_localidad_id = ubicacion
-
         escuela.save()
+
+        # Actualizar imágenes extras
+        imagenesExtras = [
+            request.FILES.get("imagenExtra1"),
+            request.FILES.get("imagenExtra2"),
+            request.FILES.get("imagenExtra3"),
+        ]
+
+        content_type = ContentType.objects.get_for_model(Escuelas)
+
+        imagen_extraCombo = Imagenes_publicaciones.objects.filter(
+            content_type=content_type,
+            object_id=escuela.id,
+        )
+
+        for index, imE in enumerate(imagen_extraCombo, start=1):
+            print(f"indice: {index}, Objecto: {imE}")
+
+        # Iterar sobre las imágenes extras y actualizarlas
+        """"
+        for index, imagenE in enumerate(imagenesExtras, start=1):
+            if imagenE:
+                if imagenE.content_type not in valid_image_types:
+                    messages.error(request, f"La imagen {imagenE.name} se omitió porque no es válida.")
+                    continue
+
+                if not imagen_extra.url_imagen:
+                    cantidad = Imagenes_publicaciones.objects.filter(
+                        content_type = content_type,
+                        object_id = escuela.id
+                    ).count()
+
+                    if cantidad != 3:
+                        Imagenes_publicaciones.objects.create(
+                            content_type=content_type,
+                            object_id=escuela.id,
+                            url_imagen=imagenE
+                        )
+                        messages.success(request, f"Se agregó la imagen extra {index}.")
+                
+                    imagen_extra.url_imagen = imagenE
+                    imagen_extra.save()
+                    messages.success(request, f"Se actualizó la imagen extra {index}.")
+                """
 
         messages.success(request, f'La Escuela {escuela.nombre_escuela} se actualizo correctamente.')
     except Escuelas.DoesNotExist:
