@@ -1786,8 +1786,8 @@ def update_redSocial(request):
 
 def descargar_actores_csv(request):
     # Configurar la respuesta HTTP como un archivo CSV
-    response = HttpResponse(content_type='text/csv; charset= utf-8-sig')
-    response['Content-Disposition'] = 'attachment; filename="actores.csv"'
+    response = HttpResponse(content_type='text/csv; charset=utf-8-sig')
+    response['Content-Disposition'] = 'attachment; filename="actores_basicos.csv"'
 
     # Crear el escritor CSV
     writer = csv.writer(response, quoting=csv.QUOTE_MINIMAL)
@@ -1797,24 +1797,35 @@ def descargar_actores_csv(request):
         'No', 
         'Nombre Completo', 
         'Correo Privado', 
+        'Correo Público',
         'Teléfono Privado', 
-        'Tipo de Usuario'
+        'Teléfono Público', 
+        'Tipo de Usuario', 
+        'Estado', 
+        'Biografía'
     ])
 
-    # Obtener los datos desde la base de datos
+    # Obtener solo los datos básicos de los actores
     actores = Actor.objects.all()
 
-    # Escribir las filas con los datos de los actores
+    # Escribir las filas con los datos básicos de los actores
     for idx, actor in enumerate(actores, start=1):
         writer.writerow([
             idx, 
             actor.nombre_completo(),
             actor.correo_privado_actor,
+            actor.correo_publico_Actor,
             actor.Telefono_privado_actor,
-            actor.tipo_usuario
+            actor.Telefono_publico_Actor,
+            actor.tipo_usuario,
+            'Activo' if actor.is_active else 'Inactivo',
+            actor.biografia_Actor
         ])
 
     return response
+
+
+
 
 
 def descargar_escuelas_csv(request):
