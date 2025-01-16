@@ -122,7 +122,7 @@ class Actor(models.Model):
     correo_privado_actor = models.CharField(max_length=100, null=True, blank=True, verbose_name="Correo Privado", default="...")
     Telefono_publico_Actor = models.CharField(max_length=10, null=True, blank=True, verbose_name="Telefono Publico", default="...")
     Telefono_privado_actor = models.CharField(max_length=10, null=True, blank=True, verbose_name="Telefono Privado", default="...")
-    id_subdisciplina = models.ForeignKey(Subdisciplinas, on_delete = models.CASCADE, related_name = "subdisciplinas")
+    id_subdisciplina = models.ForeignKey(Subdisciplinas, on_delete = models.CASCADE, related_name = "subdisciplinas", null=True, blank=True)
     id_escuela = models.ManyToManyField(Escuelas, related_name="actores", blank=True)
 
     def __str__(self):

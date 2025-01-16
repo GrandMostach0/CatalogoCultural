@@ -5,8 +5,38 @@
         <span class="close clsModUsuario">&times;</span>
         <h2>Nuevo Usuario</h2>
 
-        <form method="POST" action="#">
+        <form method="POST" action="{% url 'agregarUsuario' %}">
             {% csrf_token %}
+
+            <div class="subOpciones subOpciones2">
+                <label for="tipo_usuario">
+                    <strong>Tipo Usuario:</strong>
+                </label>
+                <br>
+                <input
+                type="radio"
+                id="tipo_usuario"
+                name="tipo_usuario"
+                value="actor"
+                />
+                <label for="tipo_usuario">Actor</label>
+
+                <input
+                type="radio"
+                id="tipo_usuario_admin"
+                name="tipo_usuario"
+                value="administrador" />
+                <label for="tipo_usuario_admin">Administrador</label>
+
+                <input
+                type="radio"
+                id="tipo_usuario_ambos"
+                name="tipo_usuario"
+                value="ambos" />
+                <label for="tipo_usuario_ambos">Ambos</label>
+            </div>
+            <br>
+
             <label for="nombre_usuario">
                 Nombre Usuario:
                 <input 
@@ -39,61 +69,6 @@
                 required>
             </label>
 
-            <div class="subOpciones subOpciones2">
-                <label for="tipo_usuario">
-                    Tipo Usuario:
-                </label>
-                <br>
-                <input
-                type="radio"
-                id="tipo_usuario"
-                name="tipo_usuario"
-                value="actor"
-                />
-                <label for="tipo_usuario">Actor</label>
-
-                <input
-                type="radio"
-                id="tipo_usuario_admin"
-                name="tipo_usuario"
-                value="administrador" />
-                <label for="tipo_usuario_admin">Administrador</label>
-
-                <input
-                type="radio"
-                id="tipo_usuario_ambos"
-                name="tipo_usuario"
-                value="Ambos" />
-                <label for="tipo_usuario_ambos">Ambos</label>
-            </div>
-
-            <br>
-
-            <div class="dosOpciones">
-                <label for="disciplina">
-                    Disclipina principal:
-                    <select name="disciplina" id="listaDisciplinasUsuario">
-                    </select>
-                </label>
-            
-                <label for="subDisciplina">
-                    Subdisciplina:
-                    <select name="subDisciplina" id="listaSubDisciplinaUsuario">
-                    </select>
-                </label>
-                <br>
-            </div>
-
-            <label for="correo_publico">
-                Correo <strong>Público</strong>:
-                <input
-                id="correo_publico"
-                type="email"
-                class="inputs"
-                name="correo_publico"
-                required>
-            </label>
-
             <label for="correo_privado">
                 Correo <strong>Privado</strong>:
                 <input
@@ -101,9 +76,22 @@
                 type="email"
                 class="inputs"
                 name="correo_privado"
+                placeholder="correo@gmail.com"
                 required>
             </label>
-
+            
+            <label for="telefono_privado">
+                Telefono <strong>Privado</strong>:
+                <input
+                id="telefono_privado"
+                type="text"
+                class="inputs"
+                name="telefono_privado"
+                pattern="[0-9]{10}"
+                maxlength="10" 
+                placeholder="9994552020"
+                required>
+            </label>
 
             <label for="contrasenia">
                 Contraseña:
@@ -112,6 +100,7 @@
                 type="password"
                 class="inputs"
                 name="contrasenia"
+                placeholder="contraseña"
                 required>
             </label>
 
@@ -122,6 +111,7 @@
                 type="password"
                 class="inputs"
                 name="confcontrasenia"
+                placeholder="contraseña"
                 required>
             </label>
 

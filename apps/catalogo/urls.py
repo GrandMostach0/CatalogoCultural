@@ -63,6 +63,7 @@ urlpatterns = [
 
     #--- ADMIN. ACTORES ---
     path("panelAdministracion/Usuarios", panelAdministracionUsuarios.as_view(), name="PanelAdministracionUsuarios"),
+    path("agregarUsuario", views.agregarUsuario, name="agregarUsuario"),
     path("eliminarActor/<int:pk>", views.eliminar_actor, name="eliminarActor"),
     path("getUsuario/<int:pk>", views.get_usuario, name="getUsuario"),
     path("updateUsuario/", views.update_usuario, name="actualizarUsuario"),

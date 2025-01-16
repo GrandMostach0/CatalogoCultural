@@ -108,8 +108,6 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault();
         modal.style.display = "block";
         document.body.style.overflow = "hidden";
-
-        await cargaInicial();
     });
 
     cerrarModal.onclick = function() {
