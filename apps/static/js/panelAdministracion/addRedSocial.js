@@ -6,6 +6,28 @@ document.addEventListener("DOMContentLoaded", function(){
 
     abrirModal.onclick = function(event){
         event.preventDefault();
+        var btnFileImage = document.getElementById("imagenRedSocialSubir");
+        var imagenPreview = document.getElementById("previewImagen")
+
+        btnFileImage.addEventListener("change", function(event){
+            const file = event.target.files[0];
+
+            if (file){
+                if(file.type !== "image/svg+xml"){
+                    alert("Solo se permite archivos de tipo SVG");
+                    event.target.value = "";
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e){
+                    imagenPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }else{
+                imagenPreview.src = "#"
+            }
+        });
         modal.style.display = "block";
         document.body.style.overflow = "hidden";
     }
@@ -35,9 +57,15 @@ document.addEventListener("DOMContentLoaded", function(){
             try{
                 const response = await fetch(`/ConsultalistaCatalogoRedes/${data_id_atribute}`);
                 const data = await response.json();
+                console.log(data);
 
                 if (data.message === 'Success'){
+                    
                     data.NombreRedesSociales.forEach(red => {
+                        var baseURL = window.location.origin;
+                        document.getElementById("previewImagenEdit").src = `${baseURL}/imagenes/${red.logo}`;
+                        console.log(document.getElementById("previewImagen"))
+                        document.getElementById("previewImagen").style.display = "block";
                         document.getElementById("redSocial_id").value = red.id;
                         document.getElementById("edit_nombre_redSocial").value = red.nombre_redSocial;
                     });

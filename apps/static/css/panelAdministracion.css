@@ -143,25 +143,37 @@ tr:hover{
     display: flex;
     cursor: pointer;
     margin-bottom: 1rem;
-  }
-  .tab {
+}
+
+.tab {
     margin-right: 1rem;
     padding: 0.5rem 1rem;
     border-bottom: 2px solid transparent;
-  }
-  .tab.active {
+}
+.tab.active {
     /*font-weight: bold;*/
     border-bottom: 2px solid #006eff;
     color: #006eff;
-  }
-  /* Contenido de las pestañas */
-  .tab-content {
+}
+/* Contenido de las pestañas */
+.tab-content {
     display: none;
-  }
-  .tab-content.active {
+}
+.tab-content.active {
     display: block;
-  }
+}
 
+#previewContainer{
+    margin: auto;
+    width: 100%;
+    height: 50px;
+}
+
+#previewContainer img {
+    width: 100px;
+    height: 50px;
+    object-fit: contain;
+}
 
 
   /* RESPONSIVE DATA 

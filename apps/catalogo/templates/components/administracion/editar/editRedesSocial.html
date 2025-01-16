@@ -22,16 +22,25 @@
                 class="inputs" 
                 type="text" 
                 name="nombre_redSocial" 
-                placeholder="nombre" required>
+                placeholder="nombre"
+                maxlength="20"
+                required>
             </label>
 
+            <div id="previewContainer">
+                <span><strong>Logo: </strong></s>
+                <img id="previewImagenEdit" src="#" alt="Vista previa de la imagen"/>
+            </div>
+            <br>
+
             <label for="edit_imagenRedSocial">
-                Ingresa la imagen <strong>CSV</strong>:
+                Ingresa la imagen <strong>SVG</strong>:
                 <input
                 id="edit_imagenRedSocial"
                 type="file"
                 class="inputs"
                 name="imagenRedSocial"
+                accept="image/svg+xml"
                 >
             </label>
 

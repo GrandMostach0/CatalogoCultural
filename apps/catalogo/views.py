@@ -1,18 +1,21 @@
-import csv
+import csv, os
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from urllib.parse import urlencode
 
 from datetime import datetime
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from datetime import date
+from django.conf import settings
 
 ### IMPORTACION DE LOS MODULOS
-from django.http import JsonResponse
 from .models import Disciplinas, Subdisciplinas, Escuelas, Actor, RedSocial, Cat_redSocial, Imagenes_publicaciones, publicacionEventos, publicacionObras, Audiencia, Ubicaciones_Comunes, Localidad
 
 #### LISTVIEW PARA MOSTRAR CARDS
@@ -222,8 +225,8 @@ def editarPerfil(request):
                     return redirect('PerfilActor', pk=actor.id)
                 
                 if User.objects.filter(username = correo_privado).exists():
-                    correo_privado = actor.user.username
                     messages.error(request, 'El correo ya existe')
+                    correo_privado = actor.user.username
                     return redirect('PerfilActor', pk=actor.id)
                 
                 actor.url_image_actor = imagen_perfil
@@ -1504,26 +1507,45 @@ class panelAdministracionRedesSociales(LoginRequiredMixin, ListView):
     paginate_by = 10
 
 def agregar_redSocial(request):
-    if request.method == 'POST':
-        nombre_redSocial = request.POST['nombre_redSocial']
-        logo = request.FILES['imagenRedSocial']
+    try:
+        if request.method == 'POST':
+            nombre_redSocial = request.POST.get('nombre_redSocial', "").strip()
+            logo = request.FILES.get('imagenRedSocial', "")
 
-        ubicacion = Cat_redSocial.objects.create(
-            nombre_redSocial = nombre_redSocial,
-            logo = logo
-        )
-        
-        return redirect('PanelAdministracionRedesSociales')
-    else:
-        print("no es POST")
+            if not nombre_redSocial or not logo:
+                messages.error(request, "No puede dejar datos vacios!")
+                return redirect('PanelAdministracionRedesSociales')
+            
+            if logo:
+                if logo.content_type != 'image/svg+xml':
+                    messages.error(request, "Solo permite archivos SVG")
+                    return redirect('PanelAdministracionRedesSociales')
+            else:
+                messages.error(request, "Debes subir un archivo SVG")
+                return redirect('PanelAdministracionRedesSociales')
 
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from urllib.parse import urlencode
+            logoNuevo = Cat_redSocial.objects.create(
+                nombre_redSocial = nombre_redSocial,
+                logo = logo
+            )
+
+            if logoNuevo:
+                messages.success(request, "Nueva Red Social Registrada")
+
+            return redirect('PanelAdministracionRedesSociales')
+    except Exception as e:
+        messages.error(request,f'Error al agregar la red Social: {str(e)}')
+    
+    return redirect('PanelAdministracionRedesSociales')
 
 def eliminar_redSocial(request, pk):
     try:
         redSocial = Cat_redSocial.objects.get(id=pk)
+
+        if redSocial.logo and os.path.isfile(os.path.join(settings.MEDIA_ROOT, redSocial.logo.name)):
+            os.remove(os.path.join(settings.MEDIA_ROOT, redSocial.logo.name))
+
+
         redSocial.delete()
         
         # Redirigir con éxito pasando un parámetro en la URL
@@ -1534,24 +1556,29 @@ def eliminar_redSocial(request, pk):
         query_params = urlencode({'error': 'true'})
         return HttpResponseRedirect(f'{reverse("PanelAdministracionRedesSociales")}?{query_params}')
 
-    
-
 def update_redSocial(request):
     try:
-        redSocial_id = request.POST['redSocial_id']
-        nombre_redSocial= request.POST['nombre_redSocial']
+        redSocial_id = request.POST.get('redSocial_id', "").strip()
+        nombre_redSocial= request.POST.get('nombre_redSocial', "").strip()
         logo = request.FILES.get('imagenRedSocial')
 
         redSocial = Cat_redSocial.objects.get(id = redSocial_id)
-        redSocial.nombre_redSocial = nombre_redSocial
 
-        print(logo)
-
+        if not nombre_redSocial or not logo:
+            messages.error(request, "Los datos son obligatorios")
+            return redirect('PanelAdministracionRedesSociales')
+        
         if logo:
-            redSocial.logo = logo
+            if logo.content_type != 'image/svg+xml':
+                messages.error(request, "Solo permite archivos SVG.")
+                logo = redSocial.logo
+                return redirect('PanelAdministracionRedesSociales')
         else:
-            print("NO SE QUE PASA MANO")
+            messages.error(request, "Debes subir una imagen SVG.")
+            return redirect('PanelAdministracionRedesSociales')
 
+        redSocial.nombre_redSocial = nombre_redSocial
+        redSocial.logo = logo
         redSocial.save()
 
         messages.success(request, f'La Red Social {redSocial.nombre_redSocial} actualizó correctamente.')
