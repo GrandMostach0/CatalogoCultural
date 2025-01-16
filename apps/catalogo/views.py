@@ -1029,7 +1029,7 @@ def eliminar_actor(request, pk):
 
     try:
         usuario.delete()
-        messages.success(request, f"Actor {actor.nombre_Actor} y su usuario fueron eliminados")
+        messages.success(request, f"Actor {actor.nombre_Actor} fue eliminado")
         return redirect('/panelAdministracion/Usuarios')
     except Exception as e:
         messages.error(request, f"Hubo un error al eliminar el actor: {e}")
