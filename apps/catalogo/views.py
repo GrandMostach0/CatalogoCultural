@@ -1445,16 +1445,24 @@ class panelAdministracionMunicipios(LoginRequiredMixin, ListView):
     paginate_by = 10
 
 def agregar_localidad(request):
-    if request.method == 'POST':
-        nombre_ubicacion = request.POST['nombre_Localidad']
+    try:
+        if request.method == 'POST':
+            nombre_ubicacion = request.POST.get('nombre_Localidad', "").strip()
 
-        ubicacion = Localidad.objects.create(
-            nombre_ubicacion = nombre_ubicacion
-        )
+            if not nombre_ubicacion:
+                messages.error(request, "El nombre no puede estar vacio")
+                return redirect('/panelAdministracion/Localidades')
+        
+            ubicacion = Localidad.objects.create(
+                nombre_ubicacion = nombre_ubicacion
+            )
 
-        return redirect('/panelAdministracion/Localidades')
-    else:
-        print("no es POST")
+            if ubicacion:
+                messages.success(request, "Nueva Ubicación Registrada")
+
+            return redirect('/panelAdministracion/Localidades')
+    except Exception as e:
+        messages.error(request, f'Error al agregar el nuevo regisro: {str(e)}')
 
 def eliminar_localidad(request, pk):
     localidad = Localidad.objects.get(id=pk)
@@ -1477,9 +1485,13 @@ def get_localidad(request, id):
 
 def update_localidad(request):
     try:
-        localidad_id = request.POST['localidad_id']
-        nombre_localidad = request.POST['nombre_Localidad']
+        localidad_id = request.POST.get('localidad_id', "").strip()
+        nombre_localidad = request.POST.get('nombre_Localidad', "").strip()
 
+        if not nombre_localidad or not localidad_id:
+            messages.error(request, "El nombre no puede estar vacio")
+            return redirect('/panelAdministracion/Localidades')
+        
         localidad = Localidad.objects.get(id = localidad_id)
         localidad.nombre_ubicacion = nombre_localidad
         localidad.save()
@@ -1492,8 +1504,6 @@ def update_localidad(request):
 
     # Redirigir al panel de administración
     return redirect('/panelAdministracion/Localidades')
-
-
 
 
 #
