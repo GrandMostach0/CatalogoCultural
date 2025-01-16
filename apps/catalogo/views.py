@@ -978,12 +978,13 @@ class panelAdministracionUsuarios(LoginRequiredMixin, ListView):
         primer_apellido = request.POST.get('primer_apellido')
         segundo_apellido = request.POST.get('segundo_apellido')
         tipo_usuario = request.POST.get('tipo_usuario')
-        disciplina = request.POST.get('disciplina')
         subdisciplina = request.POST.get('subDisciplina')
         correo_publico = request.POST.get('correo_publico')
         correo_privado = request.POST.get('correo_privado')
         contrasenia = request.POST.get('contrasenia')
         confir_contrasenia = request.POST.get('confcontrasenia')
+
+        print("tipo usuario", tipo_usuario)
         
         # validacion simple de contraseña
         if contrasenia != confir_contrasenia:
@@ -1067,7 +1068,6 @@ def agregarUsuario(request):
     
     return redirect('/panelAdministracion/Usuarios')
 
-
 def eliminar_actor(request, pk):
     actor = Actor.objects.get(id = pk)
     usuario = actor.user
@@ -1096,15 +1096,116 @@ def get_usuario(request, pk):
 def update_usuario(request):
     try:
         id_usuario = request.POST.get('actor_id')
-        tipo_usuario = request.POST.get('tipo_usuario')
-
-        print("------------")
-        print("TIPO USUARIO OBTENIDO", tipo_usuario)
-        print("------------")
-
         usuarioActualizar = Actor.objects.get(id = id_usuario)
-        usuarioActualizar.tipo_usuario = tipo_usuario
+
+        tipo_usuario = request.POST.get('tipo_usuario')
+        nombre = request.POST.get("nombre", '').strip()
+        primer_apellido = request.POST.get("primerApellido", '').strip()
+        segundo_apellido = request.POST.get("segundoApellido", '').strip()
+        biografia = request.POST.get("biografia").strip()
+        correo_privado = request.POST.get("correo_privado", '').strip()
+        correo_publico = request.POST.get("correo_publico", '').strip()
+        telefono_privado = request.POST.get("telefono_privado", '').strip()
+        telefono_publico = request.POST.get("telefono_publico", '').strip()
+        imagen_perfil = request.FILES.get("imagenPerfil")
+
+        if not nombre or not primer_apellido or not segundo_apellido or not correo_privado or not biografia or not telefono_privado:
+            messages.error(request, "Los campos no pueden estar vacios o tener espacios")
+            return redirect('/panelAdministracion/Usuarios')
+        
+        if imagen_perfil:
+            valid_image_type = ['image/jpeg', 'image/jpg', 'image/png']
+            if imagen_perfil.content_type not in valid_image_type:
+                imagen_perfil = usuarioActualizar.url_image_actor
+                messages.error(request, "La imagen del perfil debe ser tipo JPEG, JPG o PNG")
+                return redirect('/panelAdministracion/Usuarios')
+
+        if not imagen_perfil:
+            return redirect('/panelAdministracion/Usuarios')
+        
+        if usuarioActualizar.user.username != correo_privado:
+            if User.objects.filter(username = correo_privado).exists():
+                messages.error(request, 'El correo ya existe')
+                correo_privado = usuarioActualizar.user.username
+                return redirect('/panelAdministracion/Usuarios')
+        
+        print("------")
+        print("tipo usuario = ", tipo_usuario)
+        print("------")
+        print("------")
+        print("tipo usuario = ", tipo_usuario)
+        print("------")
+        print("------")
+        print("tipo usuario = ", tipo_usuario)
+        print("------")
+        print("------")
+        print("tipo usuario = ", tipo_usuario)
+        print("------")
+        print("------")
+        print("tipo usuario = ", tipo_usuario)
+        print("------")
+
+        if not tipo_usuario or tipo_usuario == "" or tipo_usuario == None:
+                messages.error(request, "No selecciono el tipo de usuario")
+                return redirect('/panelAdministracion/Usuarios')
+        else:
+            print("puta ataoche de mierdaaaaaaaa")
+
+        usuarioActualizar.tipo_usuario= tipo_usuario
+        usuarioActualizar.url_image_actor = imagen_perfil
+        usuarioActualizar.nombre_Actor = nombre
+        usuarioActualizar.primer_apellido_Actor = primer_apellido
+        usuarioActualizar.segundo_apellido_Actor = segundo_apellido
+        usuarioActualizar.biografia_Actor = biografia
+        usuarioActualizar.correo_privado_actor = correo_privado
+        usuarioActualizar.correo_publico_Actor = correo_publico
+        usuarioActualizar.Telefono_privado_actor = telefono_privado
+        usuarioActualizar.Telefono_publico_Actor = telefono_publico
+        usuarioActualizar.user.username = correo_privado
+
+        usuarioActualizar.user.save()
         usuarioActualizar.save()
+
+        # paso para obtener las redes sociales y actualizarlas
+
+        content_type = ContentType.objects.get_for_model(Actor)
+
+        redes_sociales = [
+            {"tipo": request.POST.get("tipoRedSocial1").strip(), "url": request.POST.get("redSocial1").strip()},
+            {"tipo": request.POST.get("tipoRedSocial2").strip(), "url": request.POST.get("redSocial2").strip()},
+            {"tipo": request.POST.get("tipoRedSocial3").strip(), "url": request.POST.get("redSocial3").strip()},
+        ]
+
+        for red in redes_sociales:
+            tipo = red["tipo"]
+            url = red["url"]
+
+            if tipo != "0":
+                
+                red_Social_existe = RedSocial.objects.filter(
+                    content_type = content_type,
+                    object_id = usuarioActualizar.id,
+                    id_redSocial_id = tipo
+                ).first()
+
+                if red_Social_existe or red_Social_existe != None:
+                    print("Red social actualizada.")
+
+                else:
+                    cantidad = RedSocial.objects.filter(
+                        content_type = content_type,
+                        object_id = usuarioActualizar.id
+                    ).count()
+
+                    if cantidad != 3:
+                        RedSocial.objects.create(
+                            content_type = content_type,
+                            object_id = usuarioActualizar.id,
+                            enlace_redSocial = url,
+                            id_redSocial_id = tipo
+                        )
+                    else:
+                        print("EXCESO DE REDES REGISTRADOS")
 
         if usuarioActualizar:
             print("SE GUARDO CORRECTAMENTE")

@@ -155,6 +155,33 @@ document.addEventListener("DOMContentLoaded", function() {
                         document.getElementById("tipo_usuario_edit").checked = true;
                     }
 
+                    var baseURL = window.location.origin;
+                    var viewImagenPerfil = document.getElementById("imagenPerfilActor");
+                    var btnFileImage = document.getElementById("imagenPerfil");
+
+                    viewImagenPerfil.src = `${baseURL}/imagenes/${data.Actor.url_image_actor}`;
+
+                    btnFileImage.addEventListener("change", function(event){
+                        const file = event.target.files[0];
+
+                        if (file){
+                            if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png" ){
+                                alert("Solo se permiten archivos de tipo JPEG, JPEG o PNG");
+                                event.target.value = ""
+                                return;
+                            }
+
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                viewImagenPerfil.src = e.target.result;
+                            }
+                            reader.readAsDataURL(file)
+                        }else{
+                            viewImagenPerfil.src ="#"
+                        }
+                    })
+
+
                     document.getElementById("nombre_edit").value = data.Actor.nombre_Actor;
                     document.getElementById("primerApellido").value = data.Actor.primer_apellido_Actor;
                     document.getElementById("segundoApellido").value = data.Actor.segundo_apellido_Actor;
