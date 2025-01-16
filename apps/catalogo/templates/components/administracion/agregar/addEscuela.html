@@ -64,6 +64,7 @@
                 id="corre"
                 class="inputs"
                 name="correo"
+                placeholder="escuela@gmail.com"
                 required>
             </label>
 
@@ -74,6 +75,8 @@
                 type="text"
                 name="telefono"
                 class="inputs"
+                maxlength="10"
+                placeholder="99933334444"
                 required>
             </label>
 
@@ -110,6 +113,12 @@
                 required></textarea>
             </label>
 
+            <div id="previewContainer">
+                <span><strong>Imagen Portada: </strong></s>
+                <br>
+                <img id="previewImagen" src="#" alt="Vista previa de la imagen"/>
+            </div>
+
             <label for="imagen_portada">
                 Imagen de Portada:
                 <input
@@ -117,10 +126,17 @@
                 type="file"
                 name="imagen_portada"
                 class="inputs"
+                accept=".jpg, .jpeg, .png"
                 required>
             </label>
 
             <p style="text-align: center; font-weight: bold;"> Imagenes Extras:</p>
+
+            <div id="previewContainerExtra2">
+                <span><strong>Imagen extra 1: </strong></s>
+                <br>
+                <img id="previewContainerExtra2" src="#" alt="Vista previa de la imagen"/>
+            </div>
 
             <label for="imagenExtra1">
                 Imagen extra 1:
@@ -128,8 +144,15 @@
                 id="imagenExtra1"
                 type="file"
                 name="imagenExtra1"
+                accept=".jpg, .jpeg, .png"
                 class="inputs">
             </label>
+
+            <div id="previewContainerExtra2">
+                <span><strong>Imagen extra 2: </strong></s>
+                <br>
+                <img id="previewContainerExtra2" src="#" alt="Vista previa de la imagen"/>
+            </div>
 
             <label for="imagenExtra2">
                 Imagen extra 2:
@@ -137,8 +160,15 @@
                 id="imagenExtra2"
                 type="file"
                 name="imagenExtra2"
+                accept=".jpg, .jpeg, .png"
                 class="inputs">
             </label>
+
+            <div id="previewContainerExtra3">
+                <span><strong>Imagen extra 3: </strong></s>
+                <br>
+                <img id="previewContainerExtra3" src="#" alt="Vista previa de la imagen"/>
+            </div>
 
             <label for="imagenExtra3">
                 Imagen extra 3:
@@ -146,6 +176,7 @@
                 id="imagenExtra3"
                 type="file"
                 name="imagenExtra3"
+                accept=".jpg, .jpeg, .png"
                 class="inputs">
             </label>
 

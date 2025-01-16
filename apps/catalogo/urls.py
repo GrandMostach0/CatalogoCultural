@@ -86,13 +86,14 @@ urlpatterns = [
     path("eliminarPublicacionEvento/<int:pk>/", views.eliminarPublicacionEvento, name="eliminarPublicacionEvento"),
     path("updatePublicacionEvento", views.update_publicacion_evento, name="actualizarPublicacionEvento"),
 
-    #--- ADMIN. UBICACIONES ---
+    #--- ADMIN. UBICACIONES COMUNES ---
     path("panelAdministracion/Ubicaciones", panelAdministracionUbicaciones.as_view(), name="PanelAdministracionUbicaciones"),
     path("agregarUbicacion/", views.agregarUbicacion, name="agregarUbicacion"),
     path("eliminarUbicacion/<int:pk>/", views.eliminarUbicacion, name="eliminarUbicacion"),
     path("getUbicacionRegistro/<int:pk>/", views.editarUbicacion, name="editarUbicacion"),
     path("updateUbicacion/", views.updateUbicacion, name="actualizarUbicacion"),
-
+    
+    #--- ADMIN. CATALOGO DE LOCALIDADES ---
     path("panelAdministracion/Localidades", panelAdministracionMunicipios.as_view(), name="PanelAdministracionMunicipios"),
     path("agregarLocalidad", views.agregar_localidad, name="agregarLocalidad"),
     path("eliminarLocalidad/<int:pk>", views.eliminar_localidad, name="eliminarLocalidad"),

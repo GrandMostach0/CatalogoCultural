@@ -9,10 +9,9 @@
             
             <input
             id="escuela_id"
-            type="text"
+            type="hidden"
             class="inputs"
             name="escuela_id"
-            value="{{ escuela.id }}"
             readonly>
             
             <label for="nombre_escuela_edit">
@@ -71,7 +70,7 @@
                 <input type="text"
                 id="correo_edit"
                 class="inputs"
-                name="corre"
+                name="correo"
                 required>
             </label>
 
@@ -82,6 +81,7 @@
                 type="text"
                 class="inputs"
                 name="telefono"
+                maxlength="10"
                 required>
             </label>
 
@@ -122,11 +122,11 @@
                     id="imagen_portada_edit"
                     type="file"
                     class="inputs"
-                    required>
+                    name="imagen_portada"
+                    accept=".jpg, .jpeg, .png"
+                    >
             </label>
-            <img id="imagen_portada_preview" src="" alt="Previsualización de la Imagen" style="max-width: 200px; display: block; margin-top: 10px;">
             
-
             <p style="text-align: center; font-weight: bold;"> Imagenes Extras:</p>
 
             <label for="imagenExtra1_edit">
@@ -135,6 +135,7 @@
                 id="imagenExtra1_edit"
                 type="file"
                 name="imagenExtra1"
+                accept=".jpg, .jpeg, .png"
                 class="inputs">
             </label>
 
@@ -144,6 +145,7 @@
                 id="imagenExtra2_edit"
                 type="file"
                 name="imagenExtra2"
+                accept=".jpg, .jpeg, .png"
                 class="inputs">
             </label>
 
@@ -153,6 +155,7 @@
                 id="imagenExtra3_edit"
                 type="file"
                 name="imagenExtra3"
+                accept=".jpg, .jpeg, .png"
                 class="inputs">
             </label>
 

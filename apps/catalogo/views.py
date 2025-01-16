@@ -1109,10 +1109,11 @@ def update_usuario(request):
         messages.error(request, f"Error al actualizar el usuario: {str(e)}")
     
     return redirect('/panelAdministracion/Usuarios')
+
 #
 # MODULO DE ESCUELAS
 #
-
+#
 class panelAdministracionEscuelas(LoginRequiredMixin, ListView):
     model = Escuelas
     template_name = 'panelAdministrativo/adminEscuelas.html'
@@ -1122,20 +1123,35 @@ class panelAdministracionEscuelas(LoginRequiredMixin, ListView):
 def crearEscuela(request):
     try:
         if request.method == 'POST':
-            nombreEscuela = request.POST.get('nombre_escuela')
-            direccion = request.POST.get("direccion_escuela")
+            nombreEscuela = request.POST.get("nombre_escuela", '').strip()
+            direccion = request.POST.get("direccion_escuela", '').strip()
             ubicacion = request.POST.get("id_ubicacion")
             tipo_escuela = request.POST.get("tipo_escuela")
-            correo_escuela = request.POST.get("correo")
-            telefono_escuela = request.POST.get("telefono")
-            hora_atencion = request.POST.get("hora_atencion")
-            descripcion_escuela = request.POST.get("descripcion")
+            correo_escuela = request.POST.get("correo", '').strip()
+            telefono_escuela = request.POST.get("telefono", '').strip()
+            hora_atencion = request.POST.get("hora_atencion", '').strip()
+            descripcion_escuela = request.POST.get("descripcion", '').strip()
             imagen_portada = request.FILES.get("imagen_portada")
-
-            if tipo_escuela == "publica":
-                tipo_escuela = True
+            
+            if tipo_escuela == "" or tipo_escuela == None:
+                messages.error(request, "Seleccione el tipo de escuela")
+                return redirect('/panelAdministracion/Escuelas')
             else:
-                tipo_escuela = False
+                if tipo_escuela == "publica":
+                    tipo_escuela = True
+                else:
+                    tipo_escuela = False
+            
+            if not nombreEscuela or not direccion or not correo_escuela or not telefono_escuela or not hora_atencion or not descripcion_escuela:
+                messages.error(request, "Todos los campos son obligatorios")
+                return redirect('/panelAdministracion/Escuelas')
+            
+            valid_image_types = ['image/jpeg', 'image/png', 'image/jpg']
+
+            if imagen_portada:
+                if imagen_portada.content_type not in valid_image_types:
+                    messages.error(request, "La imagen de portada debe ser de tipo JPEG, JPG, PNG")
+                    return redirect('/panelAdministracion/Escuelas')
 
             imagenesExtras = [
                 request.FILES.get("imagenExtra1"),
@@ -1143,9 +1159,6 @@ def crearEscuela(request):
                 request.FILES.get("imagenExtra3")
             ]
 
-            if not nombreEscuela or not descripcion_escuela or not imagen_portada:
-                    messages.error(request, "Todos los campos son obligatorios.")
-                    return redirect('/panelAdministracion/Escuelas')
             
             nueva_escuela = Escuelas(
                 url_imagen_escuela = imagen_portada,
@@ -1156,7 +1169,7 @@ def crearEscuela(request):
                 correo_escuela = correo_escuela,
                 ubicacion_escuela = direccion,
                 hora_atencion = hora_atencion,
-                id_localidad = ubicacion
+                id_localidad_id = ubicacion
             )
             nueva_escuela.save()
 
@@ -1165,6 +1178,11 @@ def crearEscuela(request):
             for imagenE in imagenesExtras:
                 if imagenE:
                     try:
+
+                        if imagenE.content_type not in valid_image_types:
+                            messages.error(request, f"Una imgen adicional no tiene el formato permitido. Se omitió: {imagenE.name}")
+                            continue
+
                         escuelaCreada = Imagenes_publicaciones.objects.create(
                             content_type = content_type,
                             object_id = nueva_escuela.id,
@@ -1179,7 +1197,7 @@ def crearEscuela(request):
                         messages.error(request, f"Error al crear la escuela: {str(e)}")
                         print(e)
 
-            messages.success(request, f"Nueva Escuela creada exitosamente{nueva_escuela.id}")
+            messages.success(request, f"Nueva Escuela creada exitosamente")
     except Escuelas.DoesNotExist:
         messages.error(request, f"No se encontro la escuela.")
     except Exception as e:
@@ -1211,24 +1229,55 @@ def editarEscuela(request,pk):
 def updateEscuela(request):
     try:
         #obtencion de los datos
-        escuela_id = request.POST['escuela_id']
-        nombre_escuela = request.POST['nombre_escuela']
-        direccion = request.POST['direccion']
-        correo = request.POST['corre']
-        telefono = request.POST['telefono']
-        tipo_escuela = request.POST['tipo_escuela']
-        # conversion a booleano
-        tipo_escuela_boolean = True if tipo_escuela == "publica" else False
+        escuela_id = request.POST.get('escuela_id')
+        nombre_escuela = request.POST.get('nombre_escuela', "").strip()
+        direccion = request.POST.get('direccion', "").strip()
+        ubicacion = request.POST.get('id_ubicacion', "")
+        tipo_escuela = request.POST.get('tipo_escuela')
+        correo = request.POST.get('correo', "").strip()
+        telefono = request.POST.get('telefono', "").strip()
+        hora_atencion = request.POST.get('hora_atencion', "").strip()
+        descripcion = request.POST.get('descripcion', "").strip()
+        imagen_portada = request.FILES.get('imagen_portada')
 
         escuela = Escuelas.objects.get(id = escuela_id)
+
+        if tipo_escuela == "" or tipo_escuela == None:
+                messages.error(request, "Seleccione el tipo de escuela")
+                return redirect('/panelAdministracion/Escuelas')
+        else:
+            if tipo_escuela == "publica":
+                tipo_escuela = True
+            else:
+                tipo_escuela = False
+            
+        if not nombre_escuela or not direccion or not correo or not telefono or not hora_atencion or not descripcion:
+                messages.error(request, "Todos los campos son obligatorios")
+                return redirect('/panelAdministracion/Escuelas')
+        
+        valid_image_types = ['image/jpeg', 'image/png', 'image/jpg']
+
+        if not imagen_portada:
+            imagen_portada = escuela.url_imagen_escuela
+        else:
+            if imagen_portada.content_type not in valid_image_types:
+                messages.error(request, "La imagen de portada debe ser de tipo JPEG, JPG o PNG")
+                return redirect('/panelAdministracion/Escuelas')
+
+        
+        escuela.url_imagen_escuela = imagen_portada
         escuela.nombre_escuela = nombre_escuela
-        escuela.tipo_escuela = tipo_escuela_boolean
-        escuela.ubicacion_escuela = direccion
-        escuela.correo_escuela = correo
+        escuela.tipo_escuela = tipo_escuela
+        escuela.descripcion = descripcion
         escuela.telefono_escuela = telefono
+        escuela.correo_escuela = correo
+        escuela.ubicacion_escuela = ubicacion
+        escuela.hora_atencion = hora_atencion
+        escuela.id_localidad_id = ubicacion
+
         escuela.save()
 
-        messages.success(request, 'La Escuela se actualizo correctamente.')
+        messages.success(request, f'La Escuela {escuela.nombre_escuela} se actualizo correctamente.')
     except Escuelas.DoesNotExist:
         messages.error(request, 'La Escuela no éxite')
 
@@ -1237,6 +1286,11 @@ def updateEscuela(request):
     
     return redirect('/panelAdministracion/Escuelas')
 
+
+#
+# MODULO DE PUBLICACION OBRAS
+#
+#
 class panelAdministracionPublicaciones(LoginRequiredMixin, ListView):
     model = publicacionObras
     template_name = 'panelAdministrativo/adminPublicaciones.html'
@@ -1258,6 +1312,7 @@ def eliminar_publicacionesObras(request, pk):
     return redirect('PanelAdministracionPublicaciones')
 
 def update_publicacion(request):
+
     try:
         # Obtención de los datos
         publicacion_id = request.POST.get('publicacion_id')
@@ -1283,6 +1338,11 @@ def update_publicacion(request):
     # Redirigir al panel de administración
     return redirect('PanelAdministracionPublicaciones')
 
+
+#
+# MODULO DE PUBLICACION DE EVENTOS
+#
+#
 class panelAdministracionEventos(LoginRequiredMixin, ListView):
     model = publicacionEventos
     template_name = 'panelAdministrativo/adminEventos.html'
