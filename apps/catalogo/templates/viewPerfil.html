@@ -52,7 +52,11 @@
                 {% if es_docente %}
                     <p>{{ actor.id_subdisciplina }} - Docente</p>
                 {% else %}
-                    <p>{{ actor.id_subdisciplina }}</p>
+                    {% if actor.id_subdisciplina != None %}
+                        <p>{{ actor.id_subdisciplina }}</p>
+                    {% else %}
+                        <p>Ninguna</p>
+                    {% endif %}
                 {% endif %}
 
                 <!-- Validacion para saber si tiene redes sociales -->

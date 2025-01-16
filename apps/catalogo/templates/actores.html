@@ -38,7 +38,11 @@
             {% if actor.es_docente %}
                 <p>{{ actor.id_subdisciplina }} - Docente</p>
             {% else %}
-                <p class="etiqueta">{{ actor.id_subdisciplina }}</p>
+                {% if actor.id_subdisciplina != None %}
+                    <p class="etiqueta">{{ actor.id_subdisciplina }}</p>
+                {% else %}
+                    <p>Ninguna</p>
+                {% endif %}
             {% endif %}
 
             <div class="card-catalogo-contenido-boton">
