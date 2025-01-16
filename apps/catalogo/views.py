@@ -973,51 +973,6 @@ class panelAdministracionUsuarios(LoginRequiredMixin, ListView):
     context_object_name = 'actores'
     paginate_by = 10
 
-    def post(self, request, *args, **kwargs):
-        nombre = request.POST.get('nombre_usuario')
-        primer_apellido = request.POST.get('primer_apellido')
-        segundo_apellido = request.POST.get('segundo_apellido')
-        tipo_usuario = request.POST.get('tipo_usuario')
-        subdisciplina = request.POST.get('subDisciplina')
-        correo_publico = request.POST.get('correo_publico')
-        correo_privado = request.POST.get('correo_privado')
-        contrasenia = request.POST.get('contrasenia')
-        confir_contrasenia = request.POST.get('confcontrasenia')
-
-        print("tipo usuario", tipo_usuario)
-        
-        # validacion simple de contraseña
-        if contrasenia != confir_contrasenia:
-            messages.error(request, 'Las contraseñas con coinciden')
-            return redirect('/panelAdministracion/Usuarios')
-        
-        # validacion para ver si ya existe el usuario
-        if User.objects.filter(username = correo_privado).exists():
-            messages.error(request, 'El correo ya existe')
-            return redirect('/panelAdministracion/Usuarios')
-
-        usuario = User.objects.create_user(username=correo_privado, password=contrasenia)
-
-        # creacion del usuario en django
-        try:
-            subdisciplina_obj = Subdisciplinas.objects.get(id=subdisciplina)
-            actor = Actor.objects.create(
-                tipo_usuario = tipo_usuario,
-                user = usuario,
-                nombre_Actor = nombre,
-                primer_apellido_Actor = primer_apellido,
-                segundo_apellido_Actor = segundo_apellido,
-                correo_publico_Actor = correo_publico,
-                correo_privado_actor = correo_privado,
-                id_subdisciplina = subdisciplina_obj,
-            )
-
-            messages.success(request, 'Registro exitoso')
-            return redirect('/panelAdministracion/Usuarios')
-        except Subdisciplinas.DoesNotExist:
-            messages.error(request, 'Subdisciplinas no encontradas')
-            return redirect('/panelAdministracion/Usuarios')
-
 def agregarUsuario(request):
 
     try:
@@ -1098,7 +1053,7 @@ def update_usuario(request):
         id_usuario = request.POST.get('actor_id')
         usuarioActualizar = Actor.objects.get(id = id_usuario)
 
-        tipo_usuario = request.POST.get('tipo_usuario')
+        tipo_usuario = request.POST.get('tipo_usuario_edit')
         nombre = request.POST.get("nombre", '').strip()
         primer_apellido = request.POST.get("primerApellido", '').strip()
         segundo_apellido = request.POST.get("segundoApellido", '').strip()
@@ -1113,45 +1068,31 @@ def update_usuario(request):
             messages.error(request, "Los campos no pueden estar vacios o tener espacios")
             return redirect('/panelAdministracion/Usuarios')
         
-        if imagen_perfil:
-            valid_image_type = ['image/jpeg', 'image/jpg', 'image/png']
+        valid_image_type = ['image/jpeg', 'image/jpg', 'image/png']
+        
+        if not imagen_perfil:
+            imagen_perfil = usuarioActualizar.url_image_actor
+        else:
             if imagen_perfil.content_type not in valid_image_type:
-                imagen_perfil = usuarioActualizar.url_image_actor
                 messages.error(request, "La imagen del perfil debe ser tipo JPEG, JPG o PNG")
                 return redirect('/panelAdministracion/Usuarios')
-
-        if not imagen_perfil:
-            return redirect('/panelAdministracion/Usuarios')
+        
         
         if usuarioActualizar.user.username != correo_privado:
             if User.objects.filter(username = correo_privado).exists():
                 messages.error(request, 'El correo ya existe')
                 correo_privado = usuarioActualizar.user.username
                 return redirect('/panelAdministracion/Usuarios')
-        
-        print("------")
-        print("tipo usuario = ", tipo_usuario)
-        print("------")
-        print("------")
-        print("tipo usuario = ", tipo_usuario)
-        print("------")
-        print("------")
-        print("tipo usuario = ", tipo_usuario)
-        print("------")
-        print("------")
-        print("tipo usuario = ", tipo_usuario)
-        print("------")
-        print("------")
-        print("tipo usuario = ", tipo_usuario)
-        print("------")
 
         if not tipo_usuario or tipo_usuario == "" or tipo_usuario == None:
                 messages.error(request, "No selecciono el tipo de usuario")
                 return redirect('/panelAdministracion/Usuarios')
-        else:
-            print("puta ataoche de mierdaaaaaaaa")
+        
+        print("Datos recibidos:")
+        print(f"Tipo usuario: {tipo_usuario}")
+        print(f"Actor ID: {id_usuario}")
 
-        usuarioActualizar.tipo_usuario= tipo_usuario
+
         usuarioActualizar.url_image_actor = imagen_perfil
         usuarioActualizar.nombre_Actor = nombre
         usuarioActualizar.primer_apellido_Actor = primer_apellido
@@ -1161,10 +1102,16 @@ def update_usuario(request):
         usuarioActualizar.correo_publico_Actor = correo_publico
         usuarioActualizar.Telefono_privado_actor = telefono_privado
         usuarioActualizar.Telefono_publico_Actor = telefono_publico
+        usuarioActualizar.tipo_usuario = tipo_usuario
         usuarioActualizar.user.username = correo_privado
 
         usuarioActualizar.user.save()
         usuarioActualizar.save()
+
+        if usuarioActualizar :
+            messages.success(request, "perfecto")
+        else:
+            messages.error(request, "MIERDA")
 
         # paso para obtener las redes sociales y actualizarlas
 
@@ -1240,6 +1187,15 @@ def crearEscuela(request):
             hora_atencion = request.POST.get("hora_atencion", '').strip()
             descripcion_escuela = request.POST.get("descripcion", '').strip()
             imagen_portada = request.FILES.get("imagen_portada")
+
+            print("Solicitud POST recibida")  # Confirma si entra aquí
+            print("Datos recibidos:", request.POST)  # Verifica los datos recibidos
+
+            id_usuario = request.POST.get('actor_id')
+            print(f"ID del usuario a actualizar: {id_usuario}")  # Verifica el ID
+
+            usuarioActualizar = Actor.objects.get(id=id_usuario)
+            print(f"Usuario encontrado: {usuarioActualizar}") 
             
             if tipo_escuela == "" or tipo_escuela == None:
                 messages.error(request, "Seleccione el tipo de escuela")
@@ -1798,18 +1754,17 @@ def update_redSocial(request):
 
         redSocial = Cat_redSocial.objects.get(id = redSocial_id)
 
-        if not nombre_redSocial or not logo:
-            messages.error(request, "Los datos son obligatorios")
+        if not nombre_redSocial:
+            messages.error(request, "El nombre es obligatorio")
             return redirect('PanelAdministracionRedesSociales')
-        
+
         if logo:
             if logo.content_type != 'image/svg+xml':
-                messages.error(request, "Solo permite archivos SVG.")
-                logo = redSocial.logo
+                messages.error(request, "Solo se permiten archivos SVG.")
                 return redirect('PanelAdministracionRedesSociales')
         else:
-            messages.error(request, "Debes subir una imagen SVG.")
-            return redirect('PanelAdministracionRedesSociales')
+            logo = redSocial.logo
+        
 
         redSocial.nombre_redSocial = nombre_redSocial
         redSocial.logo = logo
