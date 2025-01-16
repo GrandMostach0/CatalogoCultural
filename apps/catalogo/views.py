@@ -1341,8 +1341,10 @@ def update_publicacion_evento(request):
         messages.error((request, f'Ocurrió un error al actualizar la publicación: {str(e)}'))
     
     return redirect('PanelAdministracionEventos')
+
+
 #
-# MODULO DE UBICACIONES
+# MODULO DE UBICACIONES TEATROS O EVENTOS COMUNES
 #
 class panelAdministracionUbicaciones(LoginRequiredMixin, ListView):
     model = Ubicaciones_Comunes
@@ -1366,22 +1368,33 @@ class panelAdministracionUbicaciones(LoginRequiredMixin, ListView):
         return redirect('/panelAdministracion/Ubicaciones')
 
 def agregarUbicacion(request):
-    if request.method == 'POST':
-        nombre_ubicacion = request.POST['nombre_Ubicacion']
-        direccion = request.POST['direccion']
-        latitud = request.POST['latitud']
-        longitud = request.POST['longitud']
+    try:
+        if request.method == 'POST':
+            nombre_ubicacion = request.POST.get('nombre_Ubicacion', "").strip()
+            direccion = request.POST.get('direccion', "").strip()
+            latitud = request.POST.get('latitud', "").strip()
+            longitud = request.POST.get('longitud', "").strip()
 
-        ubicacion = Ubicaciones_Comunes.objects.create(
-            nombre_ubicacion = nombre_ubicacion,
-            direccion_ubicacion = direccion,
-            latitud = latitud,
-            longitud = longitud
-        )
+            if not nombre_ubicacion or not direccion or not latitud or not longitud:
+                messages.error(request, "Todos los campo son obligatorios!")
+                return redirect('/panelAdministracion/Ubicaciones')
+            
+            nuevaUbicacionComun = Ubicaciones_Comunes.objects.create(
+                nombre_ubicacion = nombre_ubicacion,
+                direccion_ubicacion = direccion,
+                latitud = latitud,
+                longitud = longitud
 
-        return redirect('/panelAdministracion/Ubicaciones')
-    else:
-        print("no es POST")
+            )
+
+            if nuevaUbicacionComun:
+                messages.success(request, "Nueva Ubicacion registrada")
+
+            return redirect('/panelAdministracion/Ubicaciones')
+    except Exception as e:
+        messages.error(request, f'No se pudo agregar el nuevo registro: {str(e)}')
+    
+    return redirect('/panelAdministracion/Ubicaciones')
 
 def eliminarUbicacion(request, pk):
     ubicacion = Ubicaciones_Comunes.objects.get(id=pk)
@@ -1405,14 +1418,15 @@ def editarUbicacion(request, pk):
 
 def updateUbicacion(request):
     try:
-        # Obtención de los datos
-        ubicacion_id = request.POST['ubicacion_id']
-        nombre_ubicacion = request.POST['nombre_Ubicacion']
-        direccion = request.POST['direccion']
-        latitud = request.POST['latitud']
-        longitud = request.POST['longitud']
+        ubicacion_id = request.POST.get('ubicacion_id')
+        nombre_ubicacion = request.POST.get('nombre_Ubicacion', "").strip()
+        direccion = request.POST.get('direccion', "").strip()
+        latitud = request.POST.get('latitud', "").strip()
+        longitud = request.POST.get('longitud', "").strip()
 
-        print(f"Datos recibidos: ID={ubicacion_id}, Nombre={nombre_ubicacion}, Dirección={direccion}, Latitud={latitud}, Longitud={longitud}")
+        if not nombre_ubicacion or not direccion or not latitud or not longitud:
+            messages.error(request, "Todos los campos son obligatorios")
+            return redirect('/panelAdministracion/Ubicaciones')
 
         ubicacion = Ubicaciones_Comunes.objects.get(id=ubicacion_id)
         ubicacion.nombre_ubicacion = nombre_ubicacion
@@ -1421,12 +1435,12 @@ def updateUbicacion(request):
         ubicacion.longitud = longitud
         ubicacion.save()
 
-        messages.success(request, 'La ubicación se actualizó correctamente.')
-    except Ubicaciones_Comunes.DoesNotExist:
+        if ubicacion:
+            messages.success(request, f"La ubicacion: {ubicacion.nombre_ubicacion}, se actualizo")
 
+    except Ubicaciones_Comunes.DoesNotExist:
         messages.error(request, 'La ubicación no existe.')
     except Exception as e:
-
         messages.error(request, f'Ocurrió un error al actualizar la ubicación: {str(e)}')
 
     # Redirigir al panel de administración
@@ -1600,6 +1614,11 @@ def update_redSocial(request):
     # Redirigir al panel de administración
     return redirect('PanelAdministracionRedesSociales')
 
+
+
+
+#### descargar archivo csv de escuelas ###
+
 def descargar_actores_csv(request):
     # Configurar la respuesta HTTP como un archivo CSV
     response = HttpResponse(content_type='text/csv; charset= utf-8-sig')
@@ -1632,8 +1651,6 @@ def descargar_actores_csv(request):
 
     return response
 
-
-#### descargar archivo csv de escuelas ###
 
 def descargar_escuelas_csv(request):
     # Configurar la respuesta HTTP como un archivo CSV
