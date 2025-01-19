@@ -170,7 +170,31 @@ document.addEventListener("DOMContentLoaded", async () =>{
                     }
 
                     const urlOrigin = window.location.origin;
-                    document.getElementById("previewImagen_edit").src = `${urlOrigin}/imagenes/${publicacion.url_imagen_publicacion}`;
+                    const previewImagen_edit = document.getElementById("previewImagen_edit");
+                    const btnFileImagen = document.getElementById("imagenPortada_edit");
+
+                    previewImagen_edit.src = `${urlOrigin}/imagenes/${publicacion.url_imagen_publicacion}`;
+
+                    btnFileImagen.addEventListener("change", function(event){
+                        const file = event.target.files[0];
+
+                        if (file){
+                            if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png" ){
+                                alert("Solo se permiten archivos de tipo JPEG, JPEG o PNG");
+                                event.target.value = ""
+                                return;
+                            }
+
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                previewImagen_edit.src = e.target.result; // Mostrar la imagen seleccionada
+                            };
+                            reader.readAsDataURL(file);
+                        }else{
+                            previewImagen_edit.src = `${urlOrigin}/imagenes/${publicacion.url_imagen_publicacion}`;
+                        }
+                    });
+
 
                     data.ImagenesExtras.forEach((imgExtra, index) => {
                         const name = `previewImagenExtra_edit${index + 1}`;

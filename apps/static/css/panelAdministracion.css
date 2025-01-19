@@ -171,10 +171,16 @@ tr:hover{
 
 .previewContainer img {
     width: 100%;
-    height: 50%;
+    height: 65%;
     object-fit: contain;
+    margin-bottom: 10px;
 }
 
+.btnEliminar{
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
   /* RESPONSIVE DATA 
   @media (max-width: 840px) {
