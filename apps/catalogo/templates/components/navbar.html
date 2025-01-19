@@ -25,8 +25,21 @@
     <div class="hamburguesa" onclick="toggleMenu()">☰</div>
 </header>
 
+<div class="overlay"></div>
+
 <script>
+    // Función para abrir/cerrar el menú
     function toggleMenu() {
-        document.querySelector('.menu').classList.toggle('show');
+        const menu = document.querySelector('.menu');
+        const overlay = document.querySelector('.overlay');
+
+        menu.classList.toggle('show'); // Muestra/oculta el menú
+        overlay.style.display = menu.classList.contains('show') ? 'block' : 'none'; // Muestra/oculta el overlay
     }
+
+    // Cerrar el menú al hacer clic fuera de él
+    document.querySelector('.overlay').addEventListener('click', function() {
+        document.querySelector('.menu').classList.remove('show');
+        this.style.display = 'none'; // Ocultar overlay
+    });
 </script>

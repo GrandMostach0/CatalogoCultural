@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const inputs = document.querySelectorAll('input[type="file"]');
 
         inputs.forEach(input => {
-        input.addEventListener("change", function (e) {
+            input.addEventListener("change", function (e) {
                 const file = e.target.files[0]; // Obtiene el archivo seleccionado
                 const previewId = `preview${input.id.charAt(0).toUpperCase() + input.id.slice(1)}`; 
                 const previewImg = document.getElementById(previewId);

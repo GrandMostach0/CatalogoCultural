@@ -1,4 +1,4 @@
-.container-swiper-Publicaciones{
+.container-swiper-Publicaciones {
     position: fixed;
     z-index: 999;
     width: 100%;
@@ -9,47 +9,67 @@
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-#cerrarContainerSwiper{
+#cerrarContainerSwiper {
     float: right;
-    margin-right: 40px;
+    margin-right: 20px;
     cursor: pointer;
-    color: #050505;
-    font-size: 28px;
+    color: white;
+    font-size: 20px;
     font-weight: bold;
-    background-color: aliceblue;
-    padding: 4px 8px;
+    background-color: rgb(0, 0, 0);
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#cerrarContainerSwiper:hover {
+    background-color: rgb(255, 255, 255);
+}
+
+.container-content-swiper-publicaciones {
+    width: 50%;
+    height: 50%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: rgba(8, 1, 8, 0.1);
     border-radius: 10px;
 }
 
-.container-content-swiper-publicaciones{
-    width: 80%;
-    height: 80%;
-    margin: auto;
-    overflow: hidden;
+.container-content-swiper-publicaciones img {
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
 }
 
-.swiper-slide img {
-    object-fit: cover; /* Mantiene las proporciones de la imagen */
-    width: 100%; /* Ajusta al ancho del contenedor */
-    height: auto; /* Calcula la altura automáticamente */
-    max-height: 100%; /* No excede la altura del contenedor */
+.swiper-button-next,
+.swiper-button-prev {
+    color: white;
+    font-size: 20px;
+    opacity: 0.8;
+}
+
+.swiper-pagination-bullet {
+    background-color: white;
+    opacity: 0.6;
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
 }
 
 @media (max-width: 768px) {
-    .container-content-swiper-publicaciones{
-        width: 100% !important;
-        height: 100% !important;
-        margin: auto !important;
+    .container-content-swiper-publicaciones {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        border-radius: 0; /* Sin bordes redondeados en móviles */
     }
 
-    #cerrarContainerSwiper{
-        float: right;
-        cursor: pointer;
-        color: #050505;
-        font-size: 12px;
-        font-weight: bold;
+    #cerrarContainerSwiper {
+        font-size: 16px;
         padding: 4px 8px;
-        border-radius: 10px;
     }
-    
 }

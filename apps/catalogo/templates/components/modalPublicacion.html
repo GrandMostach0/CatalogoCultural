@@ -43,6 +43,12 @@
                 </select>
             </div>
 
+            <div class="previewContainer">
+                <span><strong>Imagen de Portada Escuela</strong></span>
+                <br>
+                <img loading="lazy" id="previewImagen_edit" src="#" alt="Imagen Escuela">
+            </div>
+
             <label for="imagenPortada">
                 Imagen de Portada:
                 <input
@@ -54,15 +60,51 @@
                 required>
             </label>
 
-            <div class="imagenesExtras">
-                <label for="imagenExtra1">
-                    Imagenes Extras:
-                    <input id="imagenExtra1" name="imagenExtra1" class="inputs" type="file" accept=".jpg, .jpeg, .png">
-                    <input id="imagenExtra2" name="imagenExtra2" class="inputs" type="file" accept=".jpg, .jpeg, .png">
-                    <input id="imagenExtra3" name="imagenExtra3" class="inputs" type="file" accept=".jpg, .jpeg, .png">
-                    <input id="imagenExtra4" name="imagenExtra4" class="inputs" type="file" accept=".jpg, .jpeg, .png">
-                </label>
+            <p style="text-align: center;"><strong>Imagenes Extras</strong></p>
+
+            <div class="previewContainer">
+                <span><strong>Imagen extra 1: </strong></span>
+                <br>
+                <img loading="lazy" id="previewImagenExtra1" src="#" alt="Vista previa de la imagen"/>
             </div>
+
+            <label for="imagenExtra1">
+                Imagen extra 1:
+                <input id="imagenExtra1" name="imagenExtra1" class="inputs" type="file" accept=".jpg, .jpeg, .png">
+            </label>
+
+            <div class="previewContainer">
+                <span><strong>Imagen extra 2: </strong></span>
+                <br>
+                <img loading="lazy" id="previewImagenExtra2" src="#" alt="Vista previa de la imagen"/>
+            </div>
+
+            <label for="imagenExtra2">
+                Imagen extra 2:
+                <input id="imagenExtra2" name="imagenExtra2" class="inputs" type="file" accept=".jpg, .jpeg, .png">
+            </label>
+
+            <div class="previewContainer">
+                <span><strong>Imagen extra 3: </strong></span>
+                <br>
+                <img loading="lazy" id="previewImagenExtra3" src="#" alt="Vista previa de la imagen"/>
+            </div>
+            
+            <label for="imagenExtra3">
+                Imagen extra 3:
+                <input id="imagenExtra3" name="imagenExtra3" class="inputs" type="file" accept=".jpg, .jpeg, .png">
+            </label>
+
+            <div class="previewContainer">
+                <span><strong>Imagen extra 4: </strong></s>
+                <br>
+                <img loading="lazy" id="previewImagenExtra4" src="#" alt="Vista previa de la imagen"/>
+            </div>
+
+            <label for="imagenExtra4">
+                Imagen extra 4:
+                <input id="imagenExtra4" name="imagenExtra4" class="inputs" type="file" accept=".jpg, .jpeg, .png">
+            </label>
 
             <button type="submit">Publicar</button>
             <button id="btnCancelar" type="reset">Cancelar</button>

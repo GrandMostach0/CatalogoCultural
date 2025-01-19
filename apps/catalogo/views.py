@@ -436,24 +436,22 @@ def crear_publicacion_evento(request):
                     messages.error(request, "No seleccion una ubicación")
                     return redirect('PerfilActor', pk=actor.id)
                 
+                fecha_del_evento_date = datetime.strptime(fecha_del_evento, '%Y-%m-%d').date()
+                if fecha_del_evento_date < now().date():
+                    messages.error(request, "La fecha del evento es menor al del sistema")
+                    return redirect('PanelAdministracionEventos')
+                
                 print("Evento pago: ", evento_paga)
 
                 if evento_paga == None or evento_paga == "":
                     evento_paga = True
-                    print("EL EVENTO ES GRATIS")
-                    print("punto de venta --> ", punto_venta)
                 else:
                     evento_paga = False
-                    print("EL EVENTO ES DE PAGA")
-                    print("Precio General --> ", precioGeneral)
                     if not precioGeneral:
                         messages.error(request, "El campo del Precio esta vacio")
                         return redirect('PerfilActor', pk=actor.id)
 
                     if punto_venta != "presencial":
-                        print("PUNTO DE VENTA NO PRESENCIAL")
-                        print("punto de venta --> ", punto_venta)
-                        print("url_venta", url_ventaDigital)
                         if not url_ventaDigital:
                             messages.error(request, "El campo de la URL esta vacía")
                             return redirect('PerfilActor', pk=actor.id)

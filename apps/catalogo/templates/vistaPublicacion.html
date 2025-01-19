@@ -21,7 +21,7 @@
         {% include 'components/navbar.html' %}
 
         <div class="RutaPagina">
-            <p>Inicio/ {{ publicacion.titulo_publicacion }}</p>
+            <p>Inicio/ <strong>{{ publicacion.titulo_publicacion }}</strong></p>
             <a style="font-weight: bold;" href="{% url 'index' %}"> &larr; Volver Página</a>
             <div class="fechaPublicacion">
                 <p class="fecha">{{ publicacion.fecha_creacion_publicacion }}</p>
@@ -55,9 +55,12 @@
                             {% else %}
                                 <img src="{% static 'assets/images/AvatarImg.jpg' %}" alt="Imagen Avatar">
                             {% endif %}
-                            <p>{{ publicacion.id_actor.nombre_completo }} - </p>
+
+                            <p>{{ publicacion.id_actor.nombre_completo }}</p>
                         </div>
                         <div class="card-publicacion-usuario">
+                            <h4 style="text-align: center;"><strong>Escuela:</strong></h4>
+                            <br>
                             <p>{{ publicacion.id_Escuela.nombre_escuela }}</p>
                         </div>
                         {% else %}
@@ -76,23 +79,28 @@
                     <br>
                     <h3 style="text-align: left;">Etiqueta</h3>
                     <br>
-                    <div class="tag">
-                        {% if publicacion.id_Disciplina %}
-                            <p>{{ publicacion.id_Disciplina.nombre_disciplina }}</p>
-                        {% else %}
-                            {% if publicacion.publicacion_aprobada %}
-                            <p style="color: greenyellow;">Aprobado</p>
-                            {% else %}
-                            <p style="color: grey;">Pendiente</p>
+
+                    <div class="conainer-tags_publicaciones">
+                        <div class="tag">
+                            {% if publicacion.id_Disciplina %}
+                                <p>{{ publicacion.id_Disciplina.nombre_disciplina }}</p>
                             {% endif %}
-                        {% endif %}
+                        </div>
+                        <div class="tag">
+                            {% if publicacion.tipo_publicacion %}
+                                <p>Institucional</p>
+                            {% else %}
+                                <p>Personal</p>
+                            {% endif %}
+                        </div>
                     </div>
+
                 </div>
                 <div class="escuela-descripcion">
                     <div style="text-align: center;" class="descripcion-seccion">
                         <h1>{{ publicacion.titulo_publicacion }}</h1>
                         <br>
-                        <p style="text-align: justify;">{{ publicacion.descripcion_publicacion }}</p>
+                        <p style="text-align: justify;">{{ publicacion.descripcion_publicacion|linebreaks }}</p>
                     </div>
                 </div>
             {% else %}

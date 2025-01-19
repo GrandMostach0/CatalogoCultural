@@ -65,12 +65,19 @@
                     {% if evento.precio_evento > 0 %}
                         <p><strong>Evento de : PAGA </strong></p>
                         <p><strong>Precio por persona:</strong> ${{evento.precio_evento}}</p>
+
                         {% if evento.puntoVenta != "presencial" %}
-                            <p><strong>Punto Venta:</strong> {{evento.puntoVenta}}</p>
+
+                            {% if evento.puntoVenta == "ambas"%}
+                                <p><strong>Punto Venta:</strong> Presencial - Digital</p>
+                            {% else %}
+                                <p><strong>Punto Venta:</strong> {{evento.puntoVenta}}</p>
+                            {% endif%}
                             <p><strong>Enlace: </strong> <a href="{{ evento.enlace_venta }}"> {{ evento.enlace_venta }}</a></p>
                         {% else %}
                             <p><strong>Punto Venta:</strong> {{evento.puntoVenta}}</p>
                         {% endif %}
+
                     {% else %}
                         <p><strong>Evento: GRATIS </strong></p>
                     {% endif %}

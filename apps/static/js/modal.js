@@ -11,12 +11,10 @@ const listarEscuelas = async (id_actor) => {
         const institucionOpcional = document.querySelector(".institucion-opcional");
 
         if (data.message === 'Success'){
-            // Limpi el contenido previo del select
             const setEscuelas = document.getElementById('listarEscuelas');
             setEscuelas.innerHTML = '<option value="0">Seleccione una Escuela</option>';
 
             console.log(data);
-            // Agrega las nuevas opciones
             data.escuelas.forEach(escuela =>{
                 const option = document.createElement('option');
                 option.value = escuela.id;
@@ -84,6 +82,62 @@ document.addEventListener("DOMContentLoaded", async () => {
         // --- Cargar la lista de escuelas ---
         await listarEscuelas(data_id);
         await listarDisciplinasProyecto();
+
+        const imagenPreview = document.getElementById("previewImagen_edit");
+        const btnImagenPreview = document.getElementById("imagenPortada");
+
+        btnImagenPreview.addEventListener("change", function(event){
+            const file = event.target.files[0];
+
+            if(file){
+                if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
+                    alert("Solo se permiten archivos de tipo JPG, JPEG y PNG");
+                    event.target.value = ""; // Limpia el input correctamente
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagenPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file)
+            } else {
+                imagenPreview.src = "#";
+            }
+        });
+
+        const inputs = document.querySelectorAll('input[type="file"]');
+        inputs.forEach(input =>{
+            input.addEventListener("change", function(e){
+                const file = e.target.files[0]; // Obtiene el archivo seleccionado
+                const previewId = `preview${input.id.charAt(0).toUpperCase() + input.id.slice(1)}`; 
+                const previewImg = document.getElementById(previewId);
+
+                if (!previewImg) {
+                    console.error(`No se encontró un elemento con el ID: ${previewId}`);
+                    return; // Evita continuar si no existe el elemento
+                }
+
+                if (file) {
+                    // Validar el tipo de archivo
+                    if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
+                        alert("Solo se permiten archivos de tipo JPG, JPEG y PNG");
+                        e.target.value = ""; // Limpia el input
+                        return;
+                    }
+
+                    // Crear una vista previa con FileReader
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImg.src = e.target.result; // Asigna la imagen al src
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    previewImg.src = "#"; // Limpia la vista previa si no hay archivo
+                }
+            });
+        });
+
     });
 
     cerrarModal.onclick = function() {

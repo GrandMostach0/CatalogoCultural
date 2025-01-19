@@ -26,7 +26,8 @@
     & img{
         border-radius: 10px;
         width: 100%;
-        height: 250px;
+        height: 230px;
+        object-fit: cover;
     }
 
     & p{
@@ -47,10 +48,18 @@
     border-radius: 50%;
     width: 30px;
     height: 30px;
+    object-fit: cover;
 }
 
-.card-publicacion-usuario p {
-    margin: 0;
+.card-publicacion-descripcion{
+    border: 1px solid grey;
+    margin-bottom: 5px;
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* estilo de los tags */
@@ -84,6 +93,7 @@
 
 .detallesEvento p{
     margin-bottom: 5px;
+    text-align: left;
     color: #333;
 }
 
