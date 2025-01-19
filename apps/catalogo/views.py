@@ -369,7 +369,7 @@ def crear_publicacion(request):
                 content_type = ContentType.objects.get_for_model(publicacionObras)
 
                 # guardamos 
-                for imagenE in imagenesExtras:
+                for index, imagenE in enumerate(imagenesExtras, start = 1):
                     if imagenE:
                         # Validar tipo de archivo para imágenes adicionales
                         if imagenE.content_type not in valid_image_types:
@@ -379,7 +379,8 @@ def crear_publicacion(request):
                         Imagenes_publicaciones.objects.create(
                             content_type=content_type,
                             object_id=nueva_publicacion.id,
-                            url_imagen=imagenE
+                            url_imagen=imagenE,
+                            indice = index
                         )
 
                 messages.success(request, "Publicación creada exitosamente.")
@@ -1465,7 +1466,7 @@ def update_publicacion(request):
     try:
         # Obtención de los datos
         publicacion_id = request.POST.get('publicacion_id')
-        Publicacion = publicacionObras.objects.get(id=publicacion_id)
+        PublicacionModificacion = publicacionObras.objects.get(id=publicacion_id)
 
         titulo = request.POST.get('titulo', '').strip()
         descripcion = request.POST.get('descripcion', '').strip()
@@ -1474,7 +1475,7 @@ def update_publicacion(request):
         imagen_portada = request.FILES.get('imagenPortadaPublicacion')
         aprobar_publicacion = request.POST.get('aprobarPublicacion')
 
-        if not titulo or not descripcion or not imagen_portada:
+        if not titulo or not descripcion:
             messages.error(request, "Todos los campos son obligatorios y no pueden contener solo espacios en blanco")
             return redirect('PanelAdministracionPublicaciones')
 
@@ -1484,9 +1485,13 @@ def update_publicacion(request):
             aprobar_publicacion = False
 
         valid_image_types = ['image/jpeg', 'image/jpg', 'image/png']
-        if imagen_portada.content_type not in valid_image_types:
-            messages.error(request, "La imagen de portada debe ser de tipo JPEG, JPG o PNG.")
-            return redirect('PanelAdministracionPublicaciones')
+
+        if not imagen_portada:
+            imagen_portada = PublicacionModificacion.url_imagen_publicacion
+        else:
+            if imagen_portada.content_type not in valid_image_types:
+                messages.error(request, "La imagen de portada debe ser de tipo JPEG, JPG o PNG.")
+                return redirect('PanelAdministracionPublicaciones')
 
         if categoria == "0":
             messages.error(request, "Seleccione una categoria")
@@ -1504,30 +1509,22 @@ def update_publicacion(request):
         ## CREACION DE LA PUBLIACION DEPENDIENDO DEL TIPO DE PUBLICACION
         if tipo_publicacion:
             if escuelaOpcional != "0":
-                nueva_publicacion = publicacionObras(
-                    id_actor_id = id_actor,
-                    titulo_publicacion = titulo,
-                    descripcion_publicacion = descripcion,
-                    tipo_publicacion = tipo_publicacion,
-                    url_imagen_publicacion = imagen_portada,
-                    id_Disciplina_id = categoria,
-                    id_Escuela_id = escuelaOpcional
-                )
-                nueva_publicacion.save()
+                PublicacionModificacion.titulo_publicacion = titulo
+                PublicacionModificacion.descripcion_publicacion = descripcion
+                PublicacionModificacion.tipo_publicacion = tipo_publicacion
+                PublicacionModificacion.url_imagen_publicacion = imagen_portada
+                PublicacionModificacion.id_Disciplina_id = categoria
+                PublicacionModificacion.id_Escuela_id = escuelaOpcional
             else:
                 messages.error(request, "Seleccione una Escuela")
                 return redirect('PanelAdministracionPublicaciones')
         else:
-            nueva_publicacion = publicacionObras(
-                id_actor_id = id_actor,
-                titulo_publicacion = titulo,
-                descripcion_publicacion = descripcion,
-                tipo_publicacion = tipo_publicacion,
-                url_imagen_publicacion = imagen_portada,
-                id_Disciplina_id = categoria,
-                id_Escuela_id = None
-            )
-            nueva_publicacion.save()
+            PublicacionModificacion.titulo_publicacion = titulo
+            PublicacionModificacion.descripcion_publicacion = descripcion
+            PublicacionModificacion.tipo_publicacion = tipo_publicacion
+            PublicacionModificacion.url_imagen_publicacion = imagen_portada
+            PublicacionModificacion.id_Disciplina_id = categoria
+            PublicacionModificacion.id_Escuela_id = None
         
         imagenesExtras = [
             request.FILES.get('imagenExtra1'),
@@ -1540,26 +1537,44 @@ def update_publicacion(request):
         content_type = ContentType.objects.get_for_model(publicacionObras)
 
         # guardamos 
-        for imagenE in imagenesExtras:
+        for index, imagenE in enumerate(imagenesExtras, start = 1):
             if imagenE:
                 # Validar tipo de archivo para imágenes adicionales
                 if imagenE.content_type not in valid_image_types:
                     messages.error(request, f"Una imagen adicional no tiene el formato permitido. Se omitió: {imagenE.name}")
                     continue
 
-                Imagenes_publicaciones.objects.create(
-                    content_type=content_type,
-                    object_id=nueva_publicacion.id,
-                    url_imagen=imagenE
-                )
+                imagen_extra_exisente = Imagenes_publicaciones.objects.filter(
+                    content_type = content_type,
+                    object_id = PublicacionModificacion.id,
+                    indice = index
+                ).first()
 
-        messages.success(request, "Publicación creada exitosamente.")
+                if imagen_extra_exisente:
+                    imagen_extra_exisente.url_imagen = imagenE
+                    imagen_extra_exisente.save()
+                    messages.success(request, f'Imagen en el indice {index}, actualizada correctamente.')
+                else:
+                    cantidad = Imagenes_publicaciones.objects.filter(
+                        content_type = content_type,
+                        object_id = PublicacionModificacion.id,
+                    ).count()
 
-        Publicacion.publicacion_aprobada = aprobar_publicacion
-        
-        Publicacion.save()
+                    if cantidad != 4:
+                        Imagenes_publicaciones.objects.create(
+                            content_type=content_type,
+                            object_id=PublicacionModificacion.id,
+                            url_imagen=imagenE,
+                            indice = index
+                        )
+                        messages.success(request, f"Se agregó la imagen extra.")
+                    else:
+                        messages.error(request, 'Solo se puede agregar 4 imagenes Extras')
 
-        messages.success(request, 'La Publicación se actualizó correctamente.')
+        PublicacionModificacion.publicacion_aprobada = aprobar_publicacion
+        PublicacionModificacion.save()
+
+        messages.success(request, f'La Publicación {PublicacionModificacion.titulo_publicacion} se actualizó correctamente.')
     except publicacionObras.DoesNotExist:
         messages.error(request, 'La Publicación no existe.')
     except Exception as e:
