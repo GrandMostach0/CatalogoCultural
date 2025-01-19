@@ -164,11 +164,16 @@ document.addEventListener("DOMContentLoaded", function () {
                         const containerImagenExtra = imgElementPreview?.parentElement;
                     
                         if (imgElementPreview) {
-                            imgElementPreview.src = `${urlUbicado}/imagenes/${imgExtra}`;
+                            imgElementPreview.src = `${urlUbicado}/imagenes/${imgExtra.url_imagen}`;
+
+                            const botonesExistentes = containerImagenExtra.querySelector('.btnEliminar');
+                            if(botonesExistentes){
+                                botonesExistentes.remove();
+                            }
                     
                             // Crear el enlace "Eliminar"
                             const enlaceEliminar = document.createElement('a');
-                            enlaceEliminar.href = `/quitarImagenExtra/${data_id_atribute}/${encodeURIComponent(imgExtra)}/`; // URL codificada
+                            enlaceEliminar.href = `/quitarImagenExtra/${data_id_atribute}/${encodeURIComponent(imgExtra.url_imagen)}/`; // URL codificada
                             enlaceEliminar.textContent = 'Eliminar';
                             enlaceEliminar.classList.add('btnEliminar'); // Agregar estilos si es necesario
                     

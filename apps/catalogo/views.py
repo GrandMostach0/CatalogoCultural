@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from urllib.parse import urlencode
+from urllib.parse import urlencode, unquote
 
 from datetime import datetime
 from django.http import HttpResponse, JsonResponse
@@ -1280,7 +1280,7 @@ def editarEscuela(request,pk):
             imagenesExtras = Imagenes_publicaciones.objects.filter(
                 content_type = content_type,
                 object_id = escuela['id']
-            ).values_list('url_imagen', flat = True)
+            ).values('url_imagen',  'indice')
 
             lista_imagenesExtras = list(imagenesExtras)
 
@@ -1351,26 +1351,38 @@ def updateEscuela(request):
 
         content_type = ContentType.objects.get_for_model(Escuelas)
 
-        for imagenE in imagenesExtras:
+        for index, imagenE in enumerate(imagenesExtras, start=1):
             if imagenE:
                 if imagenE.content_type not in valid_image_types:
                     messages.error(request, f"La imagen {imagenE.name} se omitió porque no es válida.")
                     continue
                 
-                cantidad = Imagenes_publicaciones.objects.filter(
+                imagen_extra_exisente = Imagenes_publicaciones.objects.filter(
                     content_type = content_type,
-                    object_id = escuela.id
-                ).count()
+                    object_id = escuela.id,
+                    indice = index
+                ).first()
 
-                if cantidad != 3:
-                    Imagenes_publicaciones.objects.create(
-                        content_type=content_type,
-                        object_id=escuela.id,
-                        url_imagen=imagenE
-                    )
-                    messages.success(request, f"Se agregó la imagen extra.")
+                if imagen_extra_exisente:
+                    imagen_extra_exisente.url_imagen = imagenE
+                    imagen_extra_exisente.save()
+                    messages.success(request, f'Imagen en el indice {index}, actualizada correctamente.')
                 else:
-                    messages.error(request, 'Solo se puede agregar 3 imagenes Extras')
+                    cantidad = Imagenes_publicaciones.objects.filter(
+                        content_type = content_type,
+                        object_id = escuela.id
+                    ).count()
+
+                    if cantidad != 3:
+                        Imagenes_publicaciones.objects.create(
+                            content_type=content_type,
+                            object_id=escuela.id,
+                            url_imagen=imagenE,
+                            indice = index
+                        )
+                        messages.success(request, f"Se agregó la imagen extra.")
+                    else:
+                        messages.error(request, 'Solo se puede agregar 3 imagenes Extras')
 
         messages.success(request, f'La Escuela {escuela.nombre_escuela} se actualizo correctamente.')
     except Escuelas.DoesNotExist:
