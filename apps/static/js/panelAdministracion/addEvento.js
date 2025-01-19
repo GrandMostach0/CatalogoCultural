@@ -174,7 +174,31 @@ document.addEventListener("DOMContentLoaded", async () => {
                         }
 
                         var urlUbicacion = window.location.origin;
-                        document.getElementById("previewImagen_edit").src = `${urlUbicacion}/imagenes/${publicacion.url_imagen_publicacion}`;
+                        var previewiMAGEN_edit = document.getElementById("previewImagen_edit");
+                        var btnFileImage = document.getElementById("imagenPortadaEvento_edit");
+
+                        previewiMAGEN_edit.src = `${urlUbicacion}/imagenes/${publicacion.url_imagen_publicacion}`;
+
+                        btnFileImage.addEventListener("change", function(event){
+                            const file = event.target.files[0];
+
+                            if (file){
+                                if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png" ){
+                                    alert("Solo se permiten archivos de tipo JPEG, JPEG o PNG");
+                                    event.target.value = ""
+                                    return;
+                                }
+    
+                                const reader = new FileReader();
+                                reader.onload = function(e) {
+                                    previewiMAGEN_edit.src = e.target.result;
+                                }
+                                reader.readAsDataURL(file)
+                            }else{
+                                previewiMAGEN_edit.src = "#"
+                            }
+                        });
+
 
                         if(publicacion.publicacion_aprobada = false){
                             document.getElementById("noAprobarPublicacion").checked = true;
