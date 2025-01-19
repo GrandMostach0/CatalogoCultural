@@ -28,7 +28,7 @@
                 <th>Fecha Publicada</th>
                 <th>Autor</th>
                 <th>Estatus</th>
-                <th colspan="2">Acciones</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -50,10 +50,13 @@
                     data-autor = "{{ publicacion.id_actor.nombre_completo }}"
                     >Editar</a>
                 </td>
+                
+                <!--
                 <td>
                     <a href="{% url 'eliminarPublicacion' publicacion.pk %}" 
                     class="botonesTablas btnEliminar">Eliminar</a>
                 </td>
+                -->
             </tr>
             {% empty %}
             <tr>

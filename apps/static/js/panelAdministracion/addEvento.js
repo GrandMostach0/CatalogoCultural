@@ -127,6 +127,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const data = await response.json();
 
                 if (data.message === "Success"){
+                    console.log(data)
 
                     // --- Cargar clasificaciones ---
                     await listarClasificaciones(data.publicaciones[0].id_clasificacion_id);
@@ -172,12 +173,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                             document.getElementById("puntoVentaDigital_edit").value = true;
                         }
 
+                        var urlUbicacion = window.location.origin;
+                        document.getElementById("previewImagen_edit").src = `${urlUbicacion}/imagenes/${publicacion.url_imagen_publicacion}`;
+
                         if(publicacion.publicacion_aprobada = false){
-                            document.getElementById("noAprobarPublicacion").checked = false;
-                            document.getElementById("aprobarPublicacion").checked = true;
-                        }else{
-                            document.getElementById("aprobarPublicacion").checked = false;
                             document.getElementById("noAprobarPublicacion").checked = true;
+                            document.getElementById("aprobarPublicacion").checked = false;
+                        }else{
+                            document.getElementById("aprobarPublicacion").checked = true;
+                            document.getElementById("noAprobarPublicacion").checked = false;
                         }
                     });
                 }else{

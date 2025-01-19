@@ -9,7 +9,7 @@
             
             <input
             id="id_publicacion"
-            type="text"
+            type="hidden"
             class="inputs"
             name="id_publicacion"
             readonly
@@ -21,7 +21,7 @@
                 id="titulo_evento"
                 type="text"
                 class="inputs"
-                name="titulo_evento_edit"
+                name="titulo"
                 placeholder="Titulo"
                 required>
             </label>
@@ -41,7 +41,7 @@
                 <textarea
                 rows="5"
                 cols="30"
-                name="descripcion_evento_edit"
+                name="descripcion"
                 id="descripcion_evento_edit"
                 class="inputs"
                 required></textarea>
@@ -49,13 +49,13 @@
 
             <label for="Listacategoria_Edit">
                 Categoría:
-                <select name="categoriaEvento_edit" id="Listacategoria_Edit" required>
+                <select name="categoriaEvento" id="Listacategoria_Edit" required>
                 </select>
             </label>
 
             <label for="ListaClasificacion_Edit">
                 Clasificación:
-                <select name="clasificacionEvento_edit" id="ListaClasificacionEdit" required>
+                <select name="clasificacionEvento" id="ListaClasificacionEdit" required>
                 </select>
             </label>
 
@@ -65,7 +65,7 @@
                 id="fechaEvento_edit"
                 type="date"
                 class="inputs"
-                name="fecha_evento_edit"
+                name="fecha_evento"
                 required>
             </label>
 
@@ -73,7 +73,7 @@
                 Hora de inicio del evento:
                 <input
                 id="horaInicioEvento_edit"
-                name="horaEvento"
+                name="hora_evento"
                 type="time"
                 class="inputs"
                 required>
@@ -138,6 +138,12 @@
                 class="inputs">
             </label>
 
+            <div class="previewContainer">
+                <span><strong>Imagen de Portada:</strong></span>
+                <br>
+                <img loading="lazy" id="previewImagen_edit" src="#" alt="Portada Publicacion">
+            </div>
+
             <label for="imagenPortadaEvento_edit">
                 Imagen de Portada:
                 <input
@@ -145,7 +151,7 @@
                 type="file"
                 id="imagenPortadaEvento_edit"
                 name="imagenPortada"
-                >
+                accept=".jpeg, .jpg, .png">
             </label>
 
             <label for="listaUbicacionesEdit">

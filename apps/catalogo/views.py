@@ -1652,15 +1652,94 @@ def update_publicacion_evento(request):
         # obtencion de los datos
         id_publicacion = request.POST.get('id_publicacion')
         aprobar_publicacion = request.POST.get('aprobarPublicacion')
+        eventoModificar = publicacionEventos.objects.get(id = id_publicacion)
+
+        titulo_evento = request.POST.get('titulo', "").strip()
+        descripcion_evento = request.POST.get('descripcion', "").strip()
+        categoria_evento = request.POST.get('categoriaEvento', "").strip()
+        clasificacion_evento = request.POST.get('clasificacionEvento', "").strip()
+        fecha_del_evento = request.POST.get('fecha_evento', "").strip()
+        hora_del_evento = request.POST.get('hora_evento', "").strip()
+        imagen_portada_evento = request.FILES.get('imagenPortada')
+        ubicacion_del_evento = request.POST.get('ubicacionEvento', "").strip()
+
+        ##validacion para saber las opciones del evento
+        evento_paga = request.POST.get('evento_paga', "")
+        precioGeneral = request.POST.get('precioGeneral', "").strip()
+        punto_venta = request.POST.get('puntoVenta', "").strip()
+        url_ventaDigital = request.POST.get('URLPuntoVenta', "").strip()
+
+        if not titulo_evento or not descripcion_evento or not fecha_del_evento or not hora_del_evento:
+            messages.error(request, "Todos los campos son obligatorios.")
+            return redirect('PanelAdministracionEventos')
+        
+        valid_image_types = ['image/jpeg', 'image/jpg', 'image/png']
+
+        if not imagen_portada_evento:
+            imagen_portada_evento = eventoModificar.url_imagen_publicacion
+        else:
+            if imagen_portada_evento.content_type not in valid_image_types:
+                messages.error(request, "La imagen de portada debe ser de tipo JPEG, JPG o PNG.")
+                return redirect('PanelAdministracionEventos')
+        
+        if categoria_evento == "0":
+            messages.error(request, "Seleccione una categoría")
+            return redirect('PanelAdministracionEventos')
+        
+        if clasificacion_evento == "0":
+            messages.error(request, "Seleccione una clasificación")
+            return redirect('PanelAdministracionEventos')
+        
+        if ubicacion_del_evento == "0":
+            messages.error(request, "No seleccion una ubicación")
+            return redirect('PanelAdministracionEventos')
+
+        if evento_paga == None or evento_paga == "":
+            evento_paga = True
+        else:
+            evento_paga = False
+            if not precioGeneral:
+                messages.error(request, "El campo del Precio esta vacio")
+                return redirect('PanelAdministracionEventos')
+
+            if punto_venta != "presencial":
+                if not url_ventaDigital:
+                    messages.error(request, "El campo de la URL esta vacía")
+                    return redirect('PanelAdministracionEventos')
+            else:
+                print("punto de venta --> ", punto_venta)
+        
+        if evento_paga:
+            eventoModificar.titulo_publicacion = titulo_evento
+            eventoModificar.descripcion_publicacion = descripcion_evento
+            eventoModificar.fecha_inicio = fecha_del_evento
+            eventoModificar.hora_inicio = hora_del_evento
+            eventoModificar.precio_evento = 0
+            eventoModificar.puntoVenta = "presencial"
+            eventoModificar.id_clasificacion_id = clasificacion_evento
+            eventoModificar.id_disciplina_id = categoria_evento
+            eventoModificar.id_ubicacionesComunes_id = ubicacion_del_evento
+            eventoModificar.url_imagen_publicacion = imagen_portada_evento
+        else:
+            eventoModificar.titulo_publicacion = titulo_evento
+            eventoModificar.descripcion_publicacion = descripcion_evento
+            eventoModificar.fecha_inicio = fecha_del_evento
+            eventoModificar.hora_inicio = hora_del_evento
+            eventoModificar.precio_evento = precioGeneral
+            eventoModificar.puntoVenta = punto_venta
+            eventoModificar.enlace_venta = url_ventaDigital
+            eventoModificar.id_clasificacion_id = clasificacion_evento
+            eventoModificar.id_disciplina_id = categoria_evento
+            eventoModificar.id_ubicacionesComunes_id = ubicacion_del_evento
+            eventoModificar.url_imagen_publicacion = imagen_portada_evento
 
         if aprobar_publicacion == "True":
             aprobar_publicacion = True
         else:
             aprobar_publicacion = False
-        
-        publicacionEvento = publicacionEventos.objects.get(id = id_publicacion)
-        publicacionEvento.publicacion_aprobada = aprobar_publicacion
-        publicacionEvento.save()
+    
+        eventoModificar.publicacion_aprobada = aprobar_publicacion
+        eventoModificar.save()
 
         messages.success(request, "La publicacion se actualizó correctamente.")
     except publicacionEventos.DoesNotExist:
