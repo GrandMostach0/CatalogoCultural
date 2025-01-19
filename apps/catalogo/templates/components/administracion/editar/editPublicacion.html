@@ -72,20 +72,72 @@
                 <select name="institucion-opcion" id="listarEscuelasEdit" ></select>
             </div>
 
+            <div class="previewContainer">
+                <span><strong>Imagen de Portada:</strong></span>
+                <br>
+                <img loading="lazy" id="previewImagen_edit" src="#" alt="Portada Publicacion">
+            </div>
+
             <label for="imagenPortada">
                 Imagen de Portada:
-                <input id="imagenPortada" class="inputs" type="file">
+                <input
+                id="imagenPortada_edit"
+                class="inputs"
+                type="file"
+                name="imagenPortadaPublicacion"
+                accept=".jpeg, .jpg, .png">
+            </label>
+            
+            <p style="text-align: center;"><strong>Imagenes Extras:</strong></p>
+
+            <div class="previewContainer">
+                <span><strong>Imagen Extra 1</strong></span>
+                <br>
+                <img loading="lazy" id="previewImagenExtra_edit1" src="#" alt="Imagen Escuela">
+                <br>
+            </div>
+
+            <label for="imagenExtra1_edit">
+                Imagen extra 1:
+                <input
+                id="imagenExtra1_edit"
+                type="file"
+                name="imagenExtra1"
+                accept=".jpg, .jpeg, .png"
+                class="inputs">
             </label>
 
-            <div class="imagenesExtras">
-                <label for="imagenExtra1">
-                    Imagenes Extras:
-                    <input id="imagenExtra1" class="inputs" type="file">
-                    <input id="imagenExtra1" class="inputs" type="file">
-                    <input id="imagenExtra1" class="inputs" type="file">
-                    <input id="imagenExtra1" class="inputs" type="file">
-                </label>
+            <div class="previewContainer">
+                <span><strong>Imagen Extra 2</strong></span>
+                <br>
+                <img loading="lazy" id="previewImagenExtra_edit2" src="#" alt="Imagen Escuela">
             </div>
+
+            <label for="imagenExtra2_edit">
+                Imagen extra 2:
+                <input
+                id="imagenExtra2_edit"
+                type="file"
+                name="imagenExtra2"
+                accept=".jpg, .jpeg, .png"
+                class="inputs">
+            </label>
+
+            <div class="previewContainer">
+                <span><strong>Imagen Extra 3</strong></span>
+                <br>
+                <img loading="lazy" id="previewImagenExtra_edit3" src="#" alt="Imagen Escuela">
+            </div>
+
+            <label for="imagenExtra3_edit">
+                Imagen extra 3:
+                <input
+                id="imagenExtra3_edit"
+                type="file"
+                name="imagenExtra3"
+                accept=".jpg, .jpeg, .png"
+                class="inputs">
+            </label>
 
             <div class="subOpciones">
                 <input

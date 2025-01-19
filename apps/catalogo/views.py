@@ -925,9 +925,18 @@ def get_Publicaciones(request, pk):
         publicacion = publicacionObras.objects.filter(id=pk).values().first()
 
         if publicacion:
+
+            content_type = ContentType.objects.get_for_model(publicacionObras)
+
+            imagenesExtras = Imagenes_publicaciones.objects.filter(
+                content_type = content_type,
+                object_id = publicacion['id']
+            ).values('url_imagen', 'indice')
+            
+            lista_imagenesExtras = list(imagenesExtras)
+
             data = {
-                "message": "Success",
-                "publicaciones": [publicacion],
+                "message": "Success", "publicaciones": [publicacion], "ImagenesExtras" : lista_imagenesExtras
             }
         else:
             data = {"message": "Not Found"}
@@ -1393,7 +1402,6 @@ def updateEscuela(request):
     
     return redirect('/panelAdministracion/Escuelas')
 
-
 def quitarImagenExtraEscuela(request, pk, imagenUrl):
     try:
         # Decodificar la URL de la imagen
@@ -1457,14 +1465,95 @@ def update_publicacion(request):
     try:
         # Obtención de los datos
         publicacion_id = request.POST.get('publicacion_id')
+        Publicacion = publicacionObras.objects.get(id=publicacion_id)
+
+        titulo = request.POST.get('titulo', '').strip()
+        descripcion = request.POST.get('descripcion', '').strip()
+        categoria = request.POST.get('catagoria', '').strip()
+        tipo_publicacion = request.POST.get('tipoPublicacion')
+        imagen_portada = request.FILES.get('imagenPortadaPublicacion')
         aprobar_publicacion = request.POST.get('aprobarPublicacion')
+
+        if not titulo or not descripcion or not imagen_portada:
+            messages.error(request, "Todos los campos son obligatorios y no pueden contener solo espacios en blanco")
+            return redirect('PanelAdministracionPublicaciones')
 
         if aprobar_publicacion == "True":
             aprobar_publicacion = True
         else:
             aprobar_publicacion = False
 
-        Publicacion = publicacionObras.objects.get(id=publicacion_id)
+        valid_image_types = ['image/jpeg', 'image/jpg', 'image/png']
+        if imagen_portada.content_type not in valid_image_types:
+            messages.error(request, "La imagen de portada debe ser de tipo JPEG, JPG o PNG.")
+            return redirect('PanelAdministracionPublicaciones')
+
+        if categoria == "0":
+            messages.error(request, "Seleccione una categoria")
+            return redirect('PanelAdministracionPublicaciones')
+        
+        if tipo_publicacion == 'institucional':
+            print("PUBLIAION DE UNA ESCUELA GENIAL")
+            tipo_publicacion = True
+        else:
+            print("PUBLICACION PERSONAL DEL AUTOR FUCK")
+            tipo_publicacion = False
+        
+        escuelaOpcional = request.POST.get('institucion-opcion')
+        
+        ## CREACION DE LA PUBLIACION DEPENDIENDO DEL TIPO DE PUBLICACION
+        if tipo_publicacion:
+            if escuelaOpcional != "0":
+                nueva_publicacion = publicacionObras(
+                    id_actor_id = id_actor,
+                    titulo_publicacion = titulo,
+                    descripcion_publicacion = descripcion,
+                    tipo_publicacion = tipo_publicacion,
+                    url_imagen_publicacion = imagen_portada,
+                    id_Disciplina_id = categoria,
+                    id_Escuela_id = escuelaOpcional
+                )
+                nueva_publicacion.save()
+            else:
+                messages.error(request, "Seleccione una Escuela")
+                return redirect('PanelAdministracionPublicaciones')
+        else:
+            nueva_publicacion = publicacionObras(
+                id_actor_id = id_actor,
+                titulo_publicacion = titulo,
+                descripcion_publicacion = descripcion,
+                tipo_publicacion = tipo_publicacion,
+                url_imagen_publicacion = imagen_portada,
+                id_Disciplina_id = categoria,
+                id_Escuela_id = None
+            )
+            nueva_publicacion.save()
+        
+        imagenesExtras = [
+            request.FILES.get('imagenExtra1'),
+            request.FILES.get('imagenExtra2'),
+            request.FILES.get('imagenExtra3'),
+            request.FILES.get('imagenExtra4')
+        ]
+        
+        # obtencion del contentType de la publicacionR
+        content_type = ContentType.objects.get_for_model(publicacionObras)
+
+        # guardamos 
+        for imagenE in imagenesExtras:
+            if imagenE:
+                # Validar tipo de archivo para imágenes adicionales
+                if imagenE.content_type not in valid_image_types:
+                    messages.error(request, f"Una imagen adicional no tiene el formato permitido. Se omitió: {imagenE.name}")
+                    continue
+
+                Imagenes_publicaciones.objects.create(
+                    content_type=content_type,
+                    object_id=nueva_publicacion.id,
+                    url_imagen=imagenE
+                )
+
+        messages.success(request, "Publicación creada exitosamente.")
 
         Publicacion.publicacion_aprobada = aprobar_publicacion
         
@@ -1479,6 +1568,29 @@ def update_publicacion(request):
     # Redirigir al panel de administración
     return redirect('PanelAdministracionPublicaciones')
 
+def quitarImagenExtraPublicacion(request, pk, imagenUrl):
+    try:
+        imagenUrl = unquote(imagenUrl)
+
+        publicacion = publicacionObras.objects.get(id = pk)
+        content_type = ContentType.objects.get_for_model(publicacionObras)
+
+        imagenExtra = Imagenes_publicaciones.objects.filter(
+            content_type = content_type,
+            object_id = publicacion.id,
+            url_imagen = imagenUrl
+        ).first()
+
+        if imagenExtra:
+            imagenExtra.delete()
+            messages.success(request, f"Imagen Extra de {publicacion.titulo_publicacion} fue eliminada")
+        else:
+            messages.success(request, f"No se encontró la imagen")
+
+    except Exception as e:
+        messages.error(request, f"Ocurrio un error al elminar la imagen: {str(e)}")
+    
+    return redirect('PanelAdministracionPublicaciones')
 
 #
 # MODULO DE PUBLICACION DE EVENTOS

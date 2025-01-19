@@ -81,6 +81,7 @@ urlpatterns = [
     path("obtenerPublicacion/<int:pk>/", views.get_Publicaciones, name="obtenerPublicacion"),
     path("eliminarPublicacion/<int:pk>/", views.eliminar_publicacionesObras, name="eliminarPublicacion"),
     path("updatePublicacion/", views.update_publicacion, name="actualizarPublicacion"),
+    re_path(r'^quitarImagenExtraPublicacion/(?P<pk>\d+)/(?P<imagenUrl>.+)/$', views.quitarImagenExtraPublicacion, name='quitarImagenExtraPublicacion'),
 
     #--- ADMIN. PUBLICACIONES DE EVENTOS ---
     path("panelAdministracion/Eventos", panelAdministracionEventos.as_view(), name="PanelAdministracionEventos"),

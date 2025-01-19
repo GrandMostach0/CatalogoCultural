@@ -20,6 +20,7 @@ const listarEscuelas = async (id_actorEscuela, id_EscuelaActual) => {
                 setEscuelas.appendChild(option);
             });
         } else {
+            console.log(data)
             console.log("Error: Respuesta inesperada de la API")
         }
 
@@ -131,6 +132,9 @@ document.addEventListener("DOMContentLoaded", async () =>{
             const data = await response.json();
 
             if(data.message === "Success"){
+                modalEditPublicacion.style.display = "block";
+                document.body.style.overflow = "hidden";
+
                 console.log(data)
                 await listarDisciplinasPublicaciones(data.publicaciones[0].id_Disciplina_id);
 
@@ -153,6 +157,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
                         institucionOpcionalEdit.style.display = "block";
                     }else{
                         document.getElementById("publicacionPersonalEdit").checked = true;
+                        console.log("Publicacion de tipo personal")
                         institucionOpcionalEdit.style.display = "none";
                     }
 
@@ -163,13 +168,41 @@ document.addEventListener("DOMContentLoaded", async () =>{
                         document.getElementById("aprobarPublicacion").checked = false;
                         document.getElementById("noAprobarPublicacion").checked = true;
                     }
+
+                    const urlOrigin = window.location.origin;
+                    document.getElementById("previewImagen_edit").src = `${urlOrigin}/imagenes/${publicacion.url_imagen_publicacion}`;
+
+                    data.ImagenesExtras.forEach((imgExtra, index) => {
+                        const name = `previewImagenExtra_edit${index + 1}`;
+                        const imgElementPreview = document.getElementById(name);
+                        const containerImagenExtra = imgElementPreview?.parentElement;
+                    
+                        if (imgElementPreview) {
+                            imgElementPreview.src = `${urlOrigin}/imagenes/${imgExtra.url_imagen}`;
+
+                            const botonesExistentes = containerImagenExtra.querySelector('.btnEliminar');
+                            if(botonesExistentes){
+                                botonesExistentes.remove();
+                            }
+                    
+                            // Crear el enlace "Eliminar"
+                            const enlaceEliminar = document.createElement('a');
+                            enlaceEliminar.href = `/quitarImagenExtraPublicacion/${publicacion.id}/${encodeURIComponent(imgExtra.url_imagen)}/`; // URL codificada
+                            enlaceEliminar.textContent = 'Eliminar';
+                            enlaceEliminar.classList.add('btnEliminar'); // Agregar estilos si es necesario
+                    
+                            // Agregar el enlace al contenedor
+                            containerImagenExtra.appendChild(enlaceEliminar);
+                        } else {
+                            console.log(`Error: No se encontró el elemento con ID ${name}`);
+                        }
+                    });
+
                 });
+
             }else{
                 console.log("Ocurrio un error al realizar la consulta")
             }
-
-            modalEditPublicacion.style.display = "block";
-            document.body.style.overflow = "hidden";
         });
     });
 
@@ -189,6 +222,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
         if  (radioInstitutoEdit.checked){
             institucionOpcionalEdit.style.display = "block";
         }else{
+            institucionOpcionalEdit.style.display = "none";
             console.log(institucionOpcionalEdit.style.display);
         }
     }
