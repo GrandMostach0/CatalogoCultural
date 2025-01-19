@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from urllib.parse import urlencode, unquote
+from django.utils.timezone import now
+
 
 from datetime import datetime
 from django.http import HttpResponse, JsonResponse
@@ -1693,6 +1695,11 @@ def update_publicacion_evento(request):
         if ubicacion_del_evento == "0":
             messages.error(request, "No seleccion una ubicación")
             return redirect('PanelAdministracionEventos')
+        
+        fecha_del_evento_date = datetime.strptime(fecha_del_evento, '%Y-%m-%d').date()
+        if fecha_del_evento_date < now().date():
+            messages.error(request, "La fecha del evento es menor al del sistema")
+            return redirect('PanelAdministracionEventos')
 
         if evento_paga == None or evento_paga == "":
             evento_paga = True
@@ -1745,7 +1752,7 @@ def update_publicacion_evento(request):
     except publicacionEventos.DoesNotExist:
         messages.error(request, "La publicación no existe.")
     except Exception as e:
-        messages.error((request, f'Ocurrió un error al actualizar la publicación: {str(e)}'))
+        messages.error(request, f'Ocurrió un error al actualizar la publicación: {str(e)}')
     
     return redirect('PanelAdministracionEventos')
 
