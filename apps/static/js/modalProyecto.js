@@ -109,6 +109,30 @@ document.addEventListener("DOMContentLoaded", async () => {
         await listarClasificaciones();
         await listarDisciplinas();
         await listarUbicaciones();
+
+        const previewImagenPortada = document.getElementById("previewImagenEvento");
+        const btnImageFile = document.getElementById("imagenPortadaEvento");
+
+        btnImageFile.addEventListener("change", function(event){
+            const file = event.target.files[0];
+
+            if(file){
+                if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
+                    alert("Solo se permiten archivos de tipo JPG, JPEG y PNG");
+                    event.target.value = ""; // Limpia el input correctamente
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewImagenPortada.src = e.target.result;
+                };
+                reader.readAsDataURL(file)
+            }else{
+                previewImagenPortada.src = "#"
+            }
+        });
+
     });
 
     cerrarModal.onclick = function () {
