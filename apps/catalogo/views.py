@@ -1182,7 +1182,7 @@ def crearEscuela(request):
             direccion = request.POST.get("direccion_escuela", '').strip()
             ubicacion = request.POST.get("id_ubicacion")
             tipo_escuela = request.POST.get("tipo_escuela")
-            correo_escuela = request.POST.get("correo", '').strip()
+            correo_escuela = request.POST.get("correo", '').strip() 
             telefono_escuela = request.POST.get("telefono", '').strip()
             hora_atencion = request.POST.get("hora_atencion", '').strip()
             descripcion_escuela = request.POST.get("descripcion", '').strip()
@@ -1190,12 +1190,6 @@ def crearEscuela(request):
 
             print("Solicitud POST recibida")  # Confirma si entra aquí
             print("Datos recibidos:", request.POST)  # Verifica los datos recibidos
-
-            id_usuario = request.POST.get('actor_id')
-            print(f"ID del usuario a actualizar: {id_usuario}")  # Verifica el ID
-
-            usuarioActualizar = Actor.objects.get(id=id_usuario)
-            print(f"Usuario encontrado: {usuarioActualizar}") 
             
             if tipo_escuela == "" or tipo_escuela == None:
                 messages.error(request, "Seleccione el tipo de escuela")
@@ -1239,10 +1233,9 @@ def crearEscuela(request):
 
             content_type = ContentType.objects.get_for_model(Escuelas)
 
-            for imagenE in imagenesExtras:
+            for index, imagenE in enumerate(imagenesExtras, start=1):
                 if imagenE:
                     try:
-
                         if imagenE.content_type not in valid_image_types:
                             messages.error(request, f"Una imgen adicional no tiene el formato permitido. Se omitió: {imagenE.name}")
                             continue
@@ -1250,7 +1243,8 @@ def crearEscuela(request):
                         escuelaCreada = Imagenes_publicaciones.objects.create(
                             content_type = content_type,
                             object_id = nueva_escuela.id,
-                            url_imagen = imagenE
+                            url_imagen = imagenE,
+                            indice = index
                         )
 
                         if escuelaCreada:
@@ -1387,9 +1381,6 @@ def updateEscuela(request):
     
     return redirect('/panelAdministracion/Escuelas')
 
-from urllib.parse import unquote
-
-from urllib.parse import unquote
 
 def quitarImagenExtraEscuela(request, pk, imagenUrl):
     try:

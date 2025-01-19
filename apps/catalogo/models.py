@@ -205,6 +205,7 @@ class Imagenes_publicaciones(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     url_imagen = models.ImageField(upload_to="imagenesPublicadas/", null=True, blank=True, verbose_name="imageneURL")
+    indice = models.IntegerField(null=True, blank=True)
 
     class Meta:
         verbose_name = "imagenPublicacion"
