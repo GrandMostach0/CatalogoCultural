@@ -107,48 +107,6 @@ const listarDisciplinasPublicaciones = async (id_disciplina) => {
 };
 
 document.addEventListener("DOMContentLoaded", async () =>{
-    var modal = document.getElementById("myModalPublicacion");
-    var abrirModal = document.getElementById("abrirModalPublicacion");
-    var cerrarModal = document.getElementsByClassName("close")[0];
-    var btnCancelar = document.getElementById("btnCancelar");
-
-
-    const radioPersonal = document.getElementById("publicacionPersonal");
-    const radioInstituto = document.getElementById("publicacionInstituto");
-    const institucionOpcional = document.querySelector(".institucion-opcional");
-
-    institucionOpcional.style.display = "none";
-
-    abrirModal.addEventListener("click", async function(event){
-        event.preventDefault();
-        modal.style.display = "block";
-        document.body.style.overflow = "hidden";
-
-        // --- Cargar la lista de escuelas ---
-        await listarEscuelas();
-        await listarDisciplinasProyecto();
-    });
-
-    cerrarModal.onclick = function() {
-        modal.style.display = "none";
-        document.body.style.overflow = "auto";
-    }
-
-    btnCancelar.onclick = function() {
-        modal.style.display = "none";
-        document.body.style.overflow = "auto";
-    }
-
-    function toggleInstitucionOpcional(){
-        if(radioInstituto.checked){
-            institucionOpcional.style.display = "block";
-        } else {
-            institucionOpcional.style.display = "none";
-        }
-    }
-
-    radioPersonal.addEventListener("change", toggleInstitucionOpcional);
-    radioInstituto.addEventListener("change", toggleInstitucionOpcional);
 
     /* PARTE DE LA EDICION DE DATOS */
     var modalEditPublicacion = document.getElementById("modalEditPublicacion");

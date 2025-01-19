@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
@@ -74,6 +74,7 @@ urlpatterns = [
     path("eliminarEscuela/<int:pk>", views.eliminarEscuela, name="eliminarEscuela"),
     path("editarEscuela/<int:pk>", views.editarEscuela, name="editarEscuela"),
     path("updateEscuela", views.updateEscuela, name="actualizarEscuela"),
+    re_path(r'^quitarImagenExtra/(?P<pk>\d+)/(?P<imagenUrl>.+)/$', views.quitarImagenExtraEscuela, name='quitarImagenExtra'),
 
     #--- ADMIN. PUBLICACIONES DE OBRAS ---
     path("panelAdministracion/Publicaciones",panelAdministracionPublicaciones.as_view(), name="PanelAdministracionPublicaciones"),

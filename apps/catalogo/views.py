@@ -910,7 +910,7 @@ def get_RedesSociales(request, pk):
     redesSociales = RedSocial.objects.filter(
         content_type_id = 14,
         object_id = pk
-        ).values()
+    ).values()
 
     if redesSociales:
         data = {'message': "Success", "RedSocial" : list(redesSociales)}
@@ -1281,7 +1281,16 @@ def editarEscuela(request,pk):
         escuela = Escuelas.objects.filter(id=pk).values().first()
 
         if escuela:
-            data = {'message' : "Success", 'Escuela' : escuela}
+            content_type = ContentType.objects.get_for_model(Escuelas)
+            
+            imagenesExtras = Imagenes_publicaciones.objects.filter(
+                content_type = content_type,
+                object_id = escuela['id']
+            ).values_list('url_imagen', flat = True)
+
+            lista_imagenesExtras = list(imagenesExtras)
+
+            data = {'message' : "Success", 'Escuela' : escuela, 'ImagenesExtras' : lista_imagenesExtras}
         else:
             data = {'message' : "Not Found"}
 
@@ -1348,40 +1357,26 @@ def updateEscuela(request):
 
         content_type = ContentType.objects.get_for_model(Escuelas)
 
-        imagen_extraCombo = Imagenes_publicaciones.objects.filter(
-            content_type=content_type,
-            object_id=escuela.id,
-        )
-
-        for index, imE in enumerate(imagen_extraCombo, start=1):
-            print(f"indice: {index}, Objecto: {imE}")
-
-        # Iterar sobre las imágenes extras y actualizarlas
-        """"
-        for index, imagenE in enumerate(imagenesExtras, start=1):
+        for imagenE in imagenesExtras:
             if imagenE:
                 if imagenE.content_type not in valid_image_types:
                     messages.error(request, f"La imagen {imagenE.name} se omitió porque no es válida.")
                     continue
-
-                if not imagen_extra.url_imagen:
-                    cantidad = Imagenes_publicaciones.objects.filter(
-                        content_type = content_type,
-                        object_id = escuela.id
-                    ).count()
-
-                    if cantidad != 3:
-                        Imagenes_publicaciones.objects.create(
-                            content_type=content_type,
-                            object_id=escuela.id,
-                            url_imagen=imagenE
-                        )
-                        messages.success(request, f"Se agregó la imagen extra {index}.")
                 
-                    imagen_extra.url_imagen = imagenE
-                    imagen_extra.save()
-                    messages.success(request, f"Se actualizó la imagen extra {index}.")
-                """
+                cantidad = Imagenes_publicaciones.objects.filter(
+                    content_type = content_type,
+                    object_id = escuela.id
+                ).count()
+
+                if cantidad != 3:
+                    Imagenes_publicaciones.objects.create(
+                        content_type=content_type,
+                        object_id=escuela.id,
+                        url_imagen=imagenE
+                    )
+                    messages.success(request, f"Se agregó la imagen extra.")
+                else:
+                    messages.error(request, 'Solo se puede agregar 3 imagenes Extras')
 
         messages.success(request, f'La Escuela {escuela.nombre_escuela} se actualizo correctamente.')
     except Escuelas.DoesNotExist:
@@ -1392,7 +1387,44 @@ def updateEscuela(request):
     
     return redirect('/panelAdministracion/Escuelas')
 
+from urllib.parse import unquote
 
+from urllib.parse import unquote
+
+def quitarImagenExtraEscuela(request, pk, imagenUrl):
+    try:
+        # Decodificar la URL de la imagen
+        imagenUrl = unquote(imagenUrl)
+
+        # Obtener la escuela
+        escuela = Escuelas.objects.get(id=pk)
+
+        # Obtener el ContentType asociado al modelo Escuelas
+        content_type = ContentType.objects.get_for_model(Escuelas)
+
+        # Buscar la imagen extra
+        imagenExtra = Imagenes_publicaciones.objects.filter(
+            content_type=content_type,
+            object_id=escuela.id,
+            url_imagen=imagenUrl
+        ).first()
+
+        if imagenExtra:
+            # Eliminar la imagen
+            imagenExtra.delete()
+            messages.success(request, f"Imagen Extra de {escuela.nombre_escuela} fue eliminada")
+        else:
+            messages.error(request, "No se encontró la imagen para eliminar.")
+
+    except Exception as e:
+        messages.error(request, f"Ocurrió un error al eliminar la imagen: {str(e)}")
+
+    # Redirigir al panel de administración de escuelas
+    return redirect('/panelAdministracion/Escuelas')
+
+
+
+                    
 #
 # MODULO DE PUBLICACION OBRAS
 #

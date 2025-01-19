@@ -152,13 +152,40 @@ document.addEventListener("DOMContentLoaded", function () {
                     } else {
                         document.getElementById("direccion_edit_escuela").value = result.Escuela.ubicacion_escuela;
                     }
-
                     document.getElementById("hora_atencion_edit").value = result.Escuela.hora_atencion;
+
+                    var urlUbicado = window.location.origin;
+
+                    document.getElementById("previewImagen_edit").src = `${urlUbicado}/imagenes/${result.Escuela.url_imagen_escuela}`
+
+                    result.ImagenesExtras.forEach((imgExtra, index) => {
+                        const name = `previewImagenExtra_edit${index + 1}`;
+                        const imgElementPreview = document.getElementById(name);
+                        const containerImagenExtra = imgElementPreview?.parentElement;
+                    
+                        if (imgElementPreview) {
+                            imgElementPreview.src = `${urlUbicado}/imagenes/${imgExtra}`;
+                    
+                            // Crear el enlace "Eliminar"
+                            const enlaceEliminar = document.createElement('a');
+                            enlaceEliminar.href = `/quitarImagenExtra/${data_id_atribute}/${encodeURIComponent(imgExtra)}/`; // URL codificada
+                            enlaceEliminar.textContent = 'Eliminar';
+                            enlaceEliminar.classList.add('btnEliminar'); // Agregar estilos si es necesario
+                    
+                            // Agregar el enlace al contenedor
+                            containerImagenExtra.appendChild(enlaceEliminar);
+                        } else {
+                            console.log(`Error: No se encontró el elemento con ID ${name}`);
+                        }
+                    });
+                    
+                    
 
                     abrirModalEditEscuela.style.display = "block";
                     document.body.style.overflow = "hidden";
+
                 } else {
-                    console.log("Fallo la carga o no se que pasó");
+                    console.log(result);
                 }
             } catch (error) {
                 console.error("Error al obtener los datos", error);

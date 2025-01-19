@@ -171,7 +171,7 @@ tr:hover{
 
 .previewContainer img {
     width: 100%;
-    height: auto;
+    height: 50%;
     object-fit: contain;
 }
 
