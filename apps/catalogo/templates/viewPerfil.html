@@ -185,10 +185,12 @@
                 {% include 'components/modalPublicacionEvento.html' %}
                 {% include 'components/modalEditarPerfilActor.html' %}
 
+                {% if actor.user == request.user %}
                 <div class="listaPublicaionesAutor">
-                    
                     {% include 'components/listaPublicacionesAutor.html' %}
                 </div>
+                {% endif %}
+
 
             </div>
         </main>
