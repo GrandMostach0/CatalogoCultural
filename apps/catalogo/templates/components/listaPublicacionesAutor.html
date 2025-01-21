@@ -40,7 +40,7 @@
                 </td>
                 <td>
                     <a href="{% url 'eliminarObraPerfil' pk=publicacion.pk actor_pk=actor.id%}" 
-                    class="botonesTablas btnEliminar">Eliminar</a>
+                    class="botonesTablas">Eliminar</a>
                 </td>
             </tr>
             {% empty %}
@@ -89,7 +89,7 @@
                     data-autor="{{ publicacionE.id_actor.nombre_completo }}" >Editar</a>
                 </td>
                 <td>
-                    <a href="{% url 'eliminarPublicacionEvento' publicacionE.pk %}" 
+                    <a href="{% url 'eliminarPublicacionEventoPerfil' pk=publicacionE.id actor_pk=actor.id%}" 
                     class="botonesTablas">Eliminar</a>
                 </td>
             </tr>

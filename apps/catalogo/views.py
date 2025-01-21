@@ -1990,12 +1990,17 @@ def update_publicacion_evento_perfil(request):
         eventoModificar.publicacion_aprobada = aprobar_publicacion
         eventoModificar.save()
 
-        messages.success(request, "La publicacion se actualizó correctamente.")
+        messages.success(request, "El evento se actualizó correctamente.")
     except Exception as e:
         messages.error(request, f'Ocurrió un error al actualizar la publicación: {str(e)}')
     
     return redirect('PerfilActor', pk=id_autor)
 
+def eliminar_publicacion_evento_perfil(request, pk, actor_pk):
+    publicacion = publicacionEventos.objects.get(id = pk)
+    publicacion.delete()
+    messages.success(request, f'El evento" {publicacion.titulo_publicacion}" ha sido eliminado con éxito')
+    return redirect('PerfilActor', pk=actor_pk)
 #
 # MODULO DE UBICACIONES TEATROS O EVENTOS COMUNES
 #

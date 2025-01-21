@@ -39,6 +39,7 @@ urlpatterns = [
 
     # -> MODIFICACION DEL EVENTO
     path("modificarPublicacionEventoPerfil/", views.update_publicacion_evento_perfil, name="modificarPublicacionEventoPerfil"),
+    path("eliminarPublicacionEventoPerfil/<int:pk>/<int:actor_pk>", views.eliminar_publicacion_evento_perfil, name="eliminarPublicacionEventoPerfil"),
     path("modificarPublicacionPerfil/", views.update_publicacion_perfil, name="actualizarPublicacionPerfil"),
     path("eliminarPublicacionPerfil/<int:pk>/<int:actor_pk>", views.eliminar_publicacionesObras_perfil, name="eliminarObraPerfil"),
 
