@@ -209,6 +209,10 @@
     cursor: pointer;
 }
 
+.listaPublicaionesAutor{
+    overflow: auto;
+}
+
 
 @media (max-width: 768px) {
     .container-escuela, .container-informacion{
@@ -234,5 +238,10 @@
 
     .modal-content{
         max-width: 100%;
+    }
+
+    .escuela-descripcion{
+        padding: 0px 5px;
+        flex: 2;
     }
 }

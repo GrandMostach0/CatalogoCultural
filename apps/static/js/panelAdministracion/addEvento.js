@@ -1,4 +1,4 @@
-const listarClasificaciones = async (clasificacionPublicacion) => {
+const listarClasificaciones_admin = async (clasificacionPublicacion) => {
     try {
         const response = await fetch('/audiencia/');
         const data = await response.json();
@@ -29,7 +29,7 @@ const listarClasificaciones = async (clasificacionPublicacion) => {
     }
 };
 
-const listarDisciplinas = async (disciplinaPublicacion) => {
+const listarDisciplinas_admin = async (disciplinaPublicacion) => {
     try {
         const response = await fetch('/disciplinas/');
         const data = await response.json();
@@ -59,7 +59,7 @@ const listarDisciplinas = async (disciplinaPublicacion) => {
     }
 };
 
-const listarUbicaciones = async (ubicacionPublicacion) => {
+const listarUbicaciones_admin = async (ubicacionPublicacion) => {
     try {
         const response = await fetch('/ubicaciones/');
         const data = await response.json();
@@ -130,9 +130,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                     console.log(data)
 
                     // --- Cargar clasificaciones ---
-                    await listarClasificaciones(data.publicaciones[0].id_clasificacion_id);
-                    await listarDisciplinas(data.publicaciones[0].id_disciplina_id);
-                    await listarUbicaciones(data.publicaciones[0].id_ubicacionesComunes_id);
+                    await listarClasificaciones_admin(data.publicaciones[0].id_clasificacion_id);
+                    await listarDisciplinas_admin(data.publicaciones[0].id_disciplina_id);
+                    await listarUbicaciones_admin(data.publicaciones[0].id_ubicacionesComunes_id);
 
                     modalEventoEdit.style.display = "block";
                     document.body.style.overflow = "hidden";

@@ -1,4 +1,4 @@
-const listarEscuelas = async (id_actor) => {
+const listarEscuelasPerfil = async (id_actor) => {
     try{
         const response = await fetch(`/escuelaActor/${id_actor}`)
         const data = await response.json();
@@ -34,7 +34,7 @@ const listarEscuelas = async (id_actor) => {
     }
 }
 
-const listarDisciplinasProyecto = async () => {
+const listarDisciplinasProyectoPerfil = async () => {
     try {
         const response = await fetch('/disciplinas/');
         const data = await response.json();
@@ -80,8 +80,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         const data_id = event.target.getAttribute("data-id");
 
         // --- Cargar la lista de escuelas ---
-        await listarEscuelas(data_id);
-        await listarDisciplinasProyecto();
+        await listarEscuelasPerfil(data_id);
+        await listarDisciplinasProyectoPerfil();
 
         const imagenPreview = document.getElementById("previewImagen_edit");
         const btnImagenPreview = document.getElementById("imagenPortada");

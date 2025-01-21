@@ -439,7 +439,7 @@ def crear_publicacion_evento(request):
                 fecha_del_evento_date = datetime.strptime(fecha_del_evento, '%Y-%m-%d').date()
                 if fecha_del_evento_date < now().date():
                     messages.error(request, "La fecha del evento es menor al del sistema")
-                    return redirect('PanelAdministracionEventos')
+                    return redirect('PerfilActor', pk=actor.id)
                 
                 print("Evento pago: ", evento_paga)
 
@@ -722,6 +722,19 @@ class ActoresDetailView(DetailView):
 
         context['es_docente'] = es_docente
         context['escuelas_asociadas'] = escuelas_asociadas
+
+        publicacion_Actor = publicacionObras.objects.filter(
+            publicacion_aprobada = False,
+            id_actor = actor.id,
+        )
+
+        eventos_Actor = publicacionEventos.objects.filter(
+            publicacion_aprobada = False,
+            id_actor = actor.id
+        )
+
+        context['publicaciones_actor'] = publicacion_Actor
+        context['eventos_actor'] = eventos_Actor
 
         return context
 # -----------------------------
@@ -1455,7 +1468,6 @@ class panelAdministracionPublicaciones(LoginRequiredMixin, ListView):
         return context
 
 def eliminar_publicacionesObras(request, pk):
-
     publicacion = publicacionObras.objects.get(id = pk)
     publicacion.delete()
     messages.success(request, f'La publicacion" {publicacion.titulo_publicacion}" ha sido eliminado con éxito')
@@ -1498,10 +1510,8 @@ def update_publicacion(request):
             return redirect('PanelAdministracionPublicaciones')
         
         if tipo_publicacion == 'institucional':
-            print("PUBLIAION DE UNA ESCUELA GENIAL")
             tipo_publicacion = True
         else:
-            print("PUBLICACION PERSONAL DEL AUTOR FUCK")
             tipo_publicacion = False
         
         escuelaOpcional = request.POST.get('institucion-opcion')
@@ -1576,12 +1586,138 @@ def update_publicacion(request):
 
         messages.success(request, f'La Publicación {PublicacionModificacion.titulo_publicacion} se actualizó correctamente.')
     except publicacionObras.DoesNotExist:
-        messages.error(request, 'La Publicación no existe.')
+        messages.error(request, 'La Publicación obra no existe.')
     except Exception as e:
         messages.error(request, f'Ocurrió un error al actualizar la Publicación: {str(e)}')
 
     # Redirigir al panel de administración
     return redirect('PanelAdministracionPublicaciones')
+
+def update_publicacion_perfil(request):
+    try:
+        # Obtención de los datos
+        publicacion_id = request.POST.get('id_publicacion')
+        id_autor = request.POST.get('autor_id_publicacion')
+        PublicacionModificacion = publicacionObras.objects.get(id=publicacion_id)
+
+        titulo = request.POST.get('titulo', '').strip()
+        descripcion = request.POST.get('descripcion', '').strip()
+        categoria = request.POST.get('catagoria', '').strip()
+        tipo_publicacion = request.POST.get('tipoPublicacion')
+        imagen_portada = request.FILES.get('imagenPortadaPublicacion')
+        aprobar_publicacion = request.POST.get('aprobarPublicacion')
+
+        if not titulo or not descripcion:
+            messages.error(request, "Todos los campos son obligatorios y no pueden contener solo espacios en blanco")
+            return redirect('PerfilActor', pk=id_autor)
+
+        if aprobar_publicacion == "True":
+            aprobar_publicacion = True
+        else:
+            aprobar_publicacion = False
+
+        valid_image_types = ['image/jpeg', 'image/jpg', 'image/png']
+
+        if not imagen_portada:
+            imagen_portada = PublicacionModificacion.url_imagen_publicacion
+        else:
+            if imagen_portada.content_type not in valid_image_types:
+                messages.error(request, "La imagen de portada debe ser de tipo JPEG, JPG o PNG.")
+                return redirect('PerfilActor', pk=id_autor)
+
+        if categoria == "0":
+            messages.error(request, "Seleccione una categoria")
+            return redirect('PerfilActor', pk=id_autor)
+        
+        if tipo_publicacion == 'institucional':
+            tipo_publicacion = True
+        else:
+            tipo_publicacion = False
+        
+        escuelaOpcional = request.POST.get('institucion-opcion')
+        
+        ## CREACION DE LA PUBLIACION DEPENDIENDO DEL TIPO DE PUBLICACION
+        if tipo_publicacion:
+            if escuelaOpcional != "0":
+                PublicacionModificacion.titulo_publicacion = titulo
+                PublicacionModificacion.descripcion_publicacion = descripcion
+                PublicacionModificacion.tipo_publicacion = tipo_publicacion
+                PublicacionModificacion.url_imagen_publicacion = imagen_portada
+                PublicacionModificacion.id_Disciplina_id = categoria
+                PublicacionModificacion.id_Escuela_id = escuelaOpcional
+            else:
+                messages.error(request, "Seleccione una Escuela")
+                return redirect('PerfilActor', pk=id_autor)
+        else:
+            PublicacionModificacion.titulo_publicacion = titulo
+            PublicacionModificacion.descripcion_publicacion = descripcion
+            PublicacionModificacion.tipo_publicacion = tipo_publicacion
+            PublicacionModificacion.url_imagen_publicacion = imagen_portada
+            PublicacionModificacion.id_Disciplina_id = categoria
+            PublicacionModificacion.id_Escuela_id = None
+        
+        imagenesExtras = [
+            request.FILES.get('imagenExtra1'),
+            request.FILES.get('imagenExtra2'),
+            request.FILES.get('imagenExtra3'),
+            request.FILES.get('imagenExtra4')
+        ]
+        
+        # obtencion del contentType de la publicacionR
+        content_type = ContentType.objects.get_for_model(publicacionObras)
+
+        # guardamos 
+        for index, imagenE in enumerate(imagenesExtras, start = 1):
+            if imagenE:
+                # Validar tipo de archivo para imágenes adicionales
+                if imagenE.content_type not in valid_image_types:
+                    messages.error(request, f"Una imagen adicional no tiene el formato permitido. Se omitió: {imagenE.name}")
+                    continue
+
+                imagen_extra_exisente = Imagenes_publicaciones.objects.filter(
+                    content_type = content_type,
+                    object_id = PublicacionModificacion.id,
+                    indice = index
+                ).first()
+
+                if imagen_extra_exisente:
+                    imagen_extra_exisente.url_imagen = imagenE
+                    imagen_extra_exisente.save()
+                    messages.success(request, f'Imagen en el indice {index}, actualizada correctamente.')
+                else:
+                    cantidad = Imagenes_publicaciones.objects.filter(
+                        content_type = content_type,
+                        object_id = PublicacionModificacion.id,
+                    ).count()
+
+                    if cantidad != 4:
+                        Imagenes_publicaciones.objects.create(
+                            content_type=content_type,
+                            object_id=PublicacionModificacion.id,
+                            url_imagen=imagenE,
+                            indice = index
+                        )
+                        messages.success(request, f"Se agregó la imagen extra.")
+                    else:
+                        messages.error(request, 'Solo se puede agregar 4 imagenes Extras')
+
+        PublicacionModificacion.publicacion_aprobada = aprobar_publicacion
+        PublicacionModificacion.save()
+
+        messages.success(request, f'La Publicación {PublicacionModificacion.titulo_publicacion} se actualizó correctamente.')
+    except publicacionObras.DoesNotExist:
+        messages.error(request, 'La Publicación obra no existe.')
+    except Exception as e:
+        messages.error(request, f'Ocurrió un error al actualizar la Publicación: {str(e)}')
+
+    # Redirigir al panel de administración
+    return redirect('PerfilActor', pk=id_autor)
+
+def eliminar_publicacionesObras_perfil(request, pk, actor_pk):
+    publicacion = publicacionObras.objects.get(id = pk)
+    publicacion.delete()
+    messages.success(request, f'La publicacion" {publicacion.titulo_publicacion}" ha sido eliminado con éxito')
+    return redirect('PerfilActor', pk=actor_pk)
 
 def quitarImagenExtraPublicacion(request, pk, imagenUrl):
     try:
@@ -1747,13 +1883,124 @@ def update_publicacion_evento(request):
         eventoModificar.save()
 
         messages.success(request, "La publicacion se actualizó correctamente.")
-    except publicacionEventos.DoesNotExist:
-        messages.error(request, "La publicación no existe.")
+    except publicacionEventos as e:
+        messages.error(request, f"No se encontro la publicacio")
     except Exception as e:
         messages.error(request, f'Ocurrió un error al actualizar la publicación: {str(e)}')
     
     return redirect('PanelAdministracionEventos')
 
+def update_publicacion_evento_perfil(request):
+    try:
+        # obtencion de los datos
+        id_publicacion = request.POST.get('id_publicacion')
+        print("request.POST:", request.POST)
+        print("---------------------")
+        print("id_publicacion: ", id_publicacion)
+        id_autor = request.POST.get('autor_id_publicacion_evento')
+        aprobar_publicacion = request.POST.get('aprobarPublicacion')
+        eventoModificar = publicacionEventos.objects.get(id = id_publicacion)
+        
+        print("eventoModificar: ", eventoModificar)
+        print("--------")
+
+        titulo_evento = request.POST.get('titulo', "").strip()
+        descripcion_evento = request.POST.get('descripcion', "").strip()
+        categoria_evento = request.POST.get('categoriaEvento', "").strip()
+        clasificacion_evento = request.POST.get('clasificacionEvento', "").strip()
+        fecha_del_evento = request.POST.get('fecha_evento', "").strip()
+        hora_del_evento = request.POST.get('hora_evento', "").strip()
+        imagen_portada_evento = request.FILES.get('imagenPortada')
+        ubicacion_del_evento = request.POST.get('ubicacionEvento', "").strip()
+
+        ##validacion para saber las opciones del evento
+        evento_paga = request.POST.get('evento_paga', "")
+        precioGeneral = request.POST.get('precioGeneral', "").strip()
+        punto_venta = request.POST.get('puntoVenta', "").strip()
+        url_ventaDigital = request.POST.get('URLPuntoVenta', "").strip()
+
+        if not titulo_evento or not descripcion_evento or not fecha_del_evento or not hora_del_evento:
+            messages.error(request, "Todos los campos son obligatorios.")
+            return redirect('PerfilActor', pk=id_autor)
+        
+        valid_image_types = ['image/jpeg', 'image/jpg', 'image/png']
+
+        if not imagen_portada_evento:
+            imagen_portada_evento = eventoModificar.url_imagen_publicacion
+        else:
+            if imagen_portada_evento.content_type not in valid_image_types:
+                messages.error(request, "La imagen de portada debe ser de tipo JPEG, JPG o PNG.")
+                return redirect('PerfilActor', pk=id_autor)
+        
+        if categoria_evento == "0":
+            messages.error(request, "Seleccione una categoría")
+            return redirect('PerfilActor', pk=id_autor)
+        
+        if clasificacion_evento == "0":
+            messages.error(request, "Seleccione una clasificación")
+            return redirect('PerfilActor', pk=id_autor)
+        
+        if ubicacion_del_evento == "0":
+            messages.error(request, "No seleccion una ubicación")
+            return redirect('PerfilActor', pk=id_autor)
+        
+        fecha_del_evento_date = datetime.strptime(fecha_del_evento, '%Y-%m-%d').date()
+        if fecha_del_evento_date < now().date():
+            messages.error(request, "La fecha del evento es menor al del sistema")
+            return redirect('PerfilActor', pk=id_autor)
+
+        if evento_paga == None or evento_paga == "":
+            evento_paga = True
+        else:
+            evento_paga = False
+            if not precioGeneral:
+                messages.error(request, "El campo del Precio esta vacio")
+                return redirect('PerfilActor', pk=id_autor)
+
+            if punto_venta != "presencial":
+                if not url_ventaDigital:
+                    messages.error(request, "El campo de la URL esta vacía")
+                    return redirect('PerfilActor', pk=id_autor)
+            else:
+                print("punto de venta --> ", punto_venta)
+        
+        if evento_paga:
+            eventoModificar.titulo_publicacion = titulo_evento
+            eventoModificar.descripcion_publicacion = descripcion_evento
+            eventoModificar.fecha_inicio = fecha_del_evento
+            eventoModificar.hora_inicio = hora_del_evento
+            eventoModificar.precio_evento = 0
+            eventoModificar.puntoVenta = "presencial"
+            eventoModificar.id_clasificacion_id = clasificacion_evento
+            eventoModificar.id_disciplina_id = categoria_evento
+            eventoModificar.id_ubicacionesComunes_id = ubicacion_del_evento
+            eventoModificar.url_imagen_publicacion = imagen_portada_evento
+        else:
+            eventoModificar.titulo_publicacion = titulo_evento
+            eventoModificar.descripcion_publicacion = descripcion_evento
+            eventoModificar.fecha_inicio = fecha_del_evento
+            eventoModificar.hora_inicio = hora_del_evento
+            eventoModificar.precio_evento = precioGeneral
+            eventoModificar.puntoVenta = punto_venta
+            eventoModificar.enlace_venta = url_ventaDigital
+            eventoModificar.id_clasificacion_id = clasificacion_evento
+            eventoModificar.id_disciplina_id = categoria_evento
+            eventoModificar.id_ubicacionesComunes_id = ubicacion_del_evento
+            eventoModificar.url_imagen_publicacion = imagen_portada_evento
+
+        if aprobar_publicacion == "True":
+            aprobar_publicacion = True
+        else:
+            aprobar_publicacion = False
+    
+        eventoModificar.publicacion_aprobada = aprobar_publicacion
+        eventoModificar.save()
+
+        messages.success(request, "La publicacion se actualizó correctamente.")
+    except Exception as e:
+        messages.error(request, f'Ocurrió un error al actualizar la publicación: {str(e)}')
+    
+    return redirect('PerfilActor', pk=id_autor)
 
 #
 # MODULO DE UBICACIONES TEATROS O EVENTOS COMUNES

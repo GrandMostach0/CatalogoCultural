@@ -1,0 +1,168 @@
+<!-- MODAL DE LA VENTANA PARA LOS DATOS -->
+<div id="modalEditPublicacion" class="modal">
+    <!-- Contenido del Modal -->
+    <div class="modal-content">
+        <span class="close clsModalEditPublicacion">&times;</span>
+        <h2>Editar Publicación</h2>
+        <form method="POST" enctype="multipart/form-data" action="{% url 'actualizarPublicacionPerfil' %}">
+            {% csrf_token %}
+
+            <input
+            id="publicacion_id"
+            type="hidden"
+            class="inputs"
+            name="id_publicacion"
+            readonly>
+
+            <input type="text"
+            id="autor_id_publicacion_evento"
+            class="inputs"
+            name="autor_id_publicacion"
+            readonly>
+
+            <label for="titulo_publicacion">
+                Titulo de la Publicación:
+                <input
+                id="titulo_publicacion"
+                class="inputs"
+                type="text"
+                name="titulo"
+                placeholder="Titulo"
+                >
+            </label>
+
+            <label for="autor_de_publicacion">
+                Autor:
+                <input
+                id="autor_de_publicacion"
+                type="text"
+                class="inputs"
+                readonly>
+            </label>
+
+            <label for="descripcion_publicacion">
+                Descripción:
+                <textarea rows="5" cols="30" class="inputs" name="descripcion" id="descripcion_publicacion"></textarea>
+            </label>
+
+            <label for="catagoria">
+                Categoria:
+                <select name="catagoria" id="listaCatagoriaPublicacionEdit"></select>
+            </label>
+
+            <div class="subOpcionesEdit">
+                <label for="tipoPublicacion">
+                    Tipo de Publicación:
+                </label>
+                <br>
+                
+                <input
+                type="radio"
+                id="publicacionPersonalEdit"
+                name="tipoPublicacion"
+                value="personal"/>
+                <label for="tipoPublicacion">Personal</label>
+
+                <input
+                type="radio"
+                id="publicacionInstitutoEdit"
+                name="tipoPublicacion"
+                value="institucional" />
+                <label for="tipoPublicacion">De alguna escuela</label>
+            </div>
+            <br>
+
+            <div class="institucion-opcionalEdit">
+                <label for="institucion-opcional">Institución:</label>
+                <br>
+                <select name="institucion-opcion" id="listarEscuelasEdit" ></select>
+            </div>
+
+            <div class="previewContainer">
+                <span><strong>Imagen de Portada:</strong></span>
+                <br>
+                <img loading="lazy" id="previewImagen_edit" src="#" alt="Portada Publicacion">
+            </div>
+
+            <label for="imagenPortada">
+                Imagen de Portada:
+                <input
+                id="imagenPortada_edit"
+                class="inputs"
+                type="file"
+                name="imagenPortadaPublicacion"
+                accept=".jpeg, .jpg, .png">
+            </label>
+            
+            <p style="text-align: center;"><strong>Imagenes Extras:</strong></p>
+
+            <div class="previewContainer">
+                <span><strong>Imagen Extra 1</strong></span>
+                <br>
+                <img loading="lazy" id="previewImagenExtra_edit1" src="#" alt="IMAGEN EXTRA 1">
+                <br>
+            </div>
+
+            <label for="imagenExtra1_edit">
+                Imagen extra 1:
+                <input
+                id="imagenExtra1_edit"
+                type="file"
+                name="imagenExtra1"
+                accept=".jpg, .jpeg, .png"
+                class="inputs">
+            </label>
+
+            <div class="previewContainer">
+                <span><strong>Imagen Extra 2</strong></span>
+                <br>
+                <img loading="lazy" id="previewImagenExtra_edit2" src="#" alt="IMAGEN EXTRA 2">
+            </div>
+
+            <label for="imagenExtra2_edit">
+                Imagen extra 2:
+                <input
+                id="imagenExtra2_edit"
+                type="file"
+                name="imagenExtra2"
+                accept=".jpg, .jpeg, .png"
+                class="inputs">
+            </label>
+
+            <div class="previewContainer">
+                <span><strong>Imagen Extra 3</strong></span>
+                <br>
+                <img loading="lazy" id="previewImagenExtra_edit3" src="#" alt="IMAGEN EXTRA 3">
+            </div>
+            
+            <label for="imagenExtra3_edit">
+                Imagen extra 3:
+                <input
+                id="imagenExtra3_edit"
+                type="file"
+                name="imagenExtra3"
+                accept=".jpg, .jpeg, .png"
+                class="inputs">
+            </label>
+            
+            <div class="previewContainer">
+                <span><strong>Imagen Extra 4</strong></span>
+                <br>
+                <img loading="lazy" id="previewImagenExtra_edit4" src="#" alt="IMAGEN EXTRA 4">
+            </div>
+            
+            <label for="imagenExtra4_edit">
+                Imagen extra 4:
+                <input
+                id="imagenExtra4_edit"
+                type="file"
+                name="imagenExtra4"
+                accept=".jpg, .jpeg, .png"
+                class="inputs">
+            </label>
+            
+            <button type="submit">Modificar</button>
+            <button id="btnCancelarEditPublicacion" type="reset">Cancelar</button>
+        </form>
+    </div>
+</div>

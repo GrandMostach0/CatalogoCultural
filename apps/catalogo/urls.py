@@ -37,6 +37,11 @@ urlpatterns = [
     path("crear_publicacion/", views.crear_publicacion, name="crear_publicacion"),
     path("crear_publicacionEvento/", views.crear_publicacion_evento, name="crear_publicacion_evento"),
 
+    # -> MODIFICACION DEL EVENTO
+    path("modificarPublicacionEventoPerfil/", views.update_publicacion_evento_perfil, name="modificarPublicacionEventoPerfil"),
+    path("modificarPublicacionPerfil/", views.update_publicacion_perfil, name="actualizarPublicacionPerfil"),
+    path("eliminarPublicacionPerfil/<int:pk>/<int:actor_pk>", views.eliminar_publicacionesObras_perfil, name="eliminarObraPerfil"),
+
     path("DirectorioEscuelas/", EscuelaListView.as_view(), name="DirectorioEscuelas"),
     #path("viewEscuela/", views.viewEscuela, name="viewEscuela"),
     path("PerfilEscuela/<int:pk>/", EscuelaDetailView.as_view(), name="PerfilEscuela"),

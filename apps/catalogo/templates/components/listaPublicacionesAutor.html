@@ -1,0 +1,127 @@
+{% load static %}
+<br>
+<h3>Publicaciones / Eventos</h3>
+<div class="tabs">
+    <div class="tab active" data-target="aceptados">Eventos</div>
+    <div class="tab" data-target="pendientes">Publicaciones</div>
+</div>
+<br>
+<!-- Contenido de las pestañas -->
+<div id="aceptados" class="tab-content active">
+    <h4>Publicacion</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Titulo</th>
+                <th>Fecha</th>
+                <th>Estatus</th>
+                <th colspan="2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for publicacion in publicaciones_actor %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ publicacion.titulo_publicacion }}</td>
+                <td>{{ publicacion.fecha_creacion_publicacion }}</td>
+                {% if publicacion.publicacion_aprobada %}
+                    <td>Aprobado</td>
+                {% else %}
+                    <td>Pendiente</td>
+                {% endif %}
+                <td>
+                    <a href="" 
+                    class="botonesTablas btnEditar abrirModalEditPublicacion"
+                    data-id="{{ publicacion.pk }}"
+                    data-autor-id = "{{ actor.id }}"
+                    data-autor = "{{ publicacion.id_actor.nombre_completo }}"
+                    >Editar</a>
+                </td>
+                <td>
+                    <a href="{% url 'eliminarObraPerfil' pk=publicacion.pk actor_pk=actor.id%}" 
+                    class="botonesTablas btnEliminar">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+            <td colspan="6">No hay Publicaciones disponibles.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+  
+  
+<div id="pendientes" class="tab-content">
+    <h3>Publicaciones</h3>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Titulo</th>
+                <th>Fecha Publicada</th>
+                <th>Autor</th>
+                <th>Estatus</th>
+                <th colspan="2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for publicacionE in eventos_Actor %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ publicacionE.titulo_publicacion }}</td>
+                <td>{{ publicacionE.fecha_creacion_publicacion }}</td>
+                <td>{{ publicacionE.id_actor.nombre_completo }}</td>
+                {% if publicacion.publicacion_aprobada %}
+                    <td>Aprobado</td>
+                {% else %}
+                    <td>Pendiente</td>
+                {% endif %}
+                <td>
+                    <a href="" 
+                    class="botonesTablas btnEditar abrirModalEditPublicacion"
+                    data-id="{{ publicacion.pk }}"
+                    data-autor = "{{ publicacion.id_actor.nombre_completo }}"
+                    >Editar</a>
+                </td>
+                <td>
+                    <a href="{% url 'eliminarPublicacion' publicacion.pk %}" 
+                    class="botonesTablas btnEliminar">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No hay Publicaciones disponibles.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+  
+<script>
+    // Manejo de clics en pestañas
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        // Remover la clase activa de todas las pestañas y contenidos
+        tabs.forEach(t => t.classList.remove('active'));
+        tabContents.forEach(tc => tc.classList.remove('active'));
+
+        // Activar la pestaña y el contenido correspondiente
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.target).classList.add('active');
+    });
+    });
+</script>
+
+
+{% include 'components/administracion/editar/editPublicacionPerfil.html' %}
+<script src="{% static 'js/panelAdministracion/addPublicacion.js' %}"></script>
+
+{% include 'components/administracion/editar/editEvento.html' %}
+<script src="{% static 'js/panelAdministracion/addEvento.js' %}"></script>

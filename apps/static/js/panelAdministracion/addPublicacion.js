@@ -1,4 +1,4 @@
-const listarEscuelas = async (id_actorEscuela, id_EscuelaActual) => {
+const listarEscuelasEdit = async (id_actorEscuela, id_EscuelaActual) => {
     try{
         const response = await fetch(`/escuelaActor/${id_actorEscuela}`)
         const data = await response.json();
@@ -127,6 +127,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
             event.preventDefault();
             const data_id = event.target.getAttribute("data-id");
             const data_autor = event.target.getAttribute("data-autor");
+            let data_autor_id = event.target.getAttribute("data-autor-id");
 
             const response = await fetch(`/obtenerPublicacion/${data_id}`);
             const data = await response.json();
@@ -141,13 +142,16 @@ document.addEventListener("DOMContentLoaded", async () =>{
                 if (data.publicaciones[0].tipo_publicacion){
                     const id_Actor_Escuela = data.publicaciones[0].id_actor_id;
                     const id_EscuelaActual = data.publicaciones[0].id_Escuela_id;
-                    await listarEscuelas(id_Actor_Escuela, id_EscuelaActual);
+                    await listarEscuelasEdit(id_Actor_Escuela, id_EscuelaActual);
                 }else{
                     await listarEscuelasSin()
                 }
 
                 data.publicaciones.forEach(publicacion => {
                     document.getElementById("publicacion_id").value = publicacion.id;
+                    if(data_autor_id != null){
+                        document.getElementById("autor_id_publicacion_evento").value = data_autor_id;
+                    }
                     document.getElementById("titulo_publicacion").value = publicacion.titulo_publicacion;
                     document.getElementById("autor_de_publicacion").value = data_autor;
                     document.getElementById("descripcion_publicacion").value = publicacion.descripcion_publicacion;
