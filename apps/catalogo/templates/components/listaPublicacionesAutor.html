@@ -2,8 +2,8 @@
 <br>
 <h3>Publicaciones / Eventos</h3>
 <div class="tabs">
-    <div class="tab active" data-target="aceptados">Eventos</div>
-    <div class="tab" data-target="pendientes">Publicaciones</div>
+    <div class="tab active" data-target="aceptados">Publicaciones</div>
+    <div class="tab" data-target="pendientes">Eventos</div>
 </div>
 <br>
 <!-- Contenido de las pestañas -->
@@ -69,27 +69,28 @@
             </tr>
         </thead>
         <tbody>
-            {% for publicacionE in eventos_Actor %}
+            {% for publicacionE in eventos_actor %}
+            
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{ publicacionE.titulo_publicacion }}</td>
                 <td>{{ publicacionE.fecha_creacion_publicacion }}</td>
                 <td>{{ publicacionE.id_actor.nombre_completo }}</td>
-                {% if publicacion.publicacion_aprobada %}
+                {% if publicacionE.publicacion_aprobada %}
                     <td>Aprobado</td>
                 {% else %}
                     <td>Pendiente</td>
                 {% endif %}
                 <td>
-                    <a href="" 
-                    class="botonesTablas btnEditar abrirModalEditPublicacion"
-                    data-id="{{ publicacion.pk }}"
-                    data-autor = "{{ publicacion.id_actor.nombre_completo }}"
-                    >Editar</a>
+                    <a href="#"
+                    class="botonesTablas btnEditar btnAbrirModalEditEvento"
+                    data-id="{{ publicacionE.id }}"
+                    data-autor-id = "{{ actor.id }}"
+                    data-autor="{{ publicacionE.id_actor.nombre_completo }}" >Editar</a>
                 </td>
                 <td>
-                    <a href="{% url 'eliminarPublicacion' publicacion.pk %}" 
-                    class="botonesTablas btnEliminar">Eliminar</a>
+                    <a href="{% url 'eliminarPublicacionEvento' publicacionE.pk %}" 
+                    class="botonesTablas">Eliminar</a>
                 </td>
             </tr>
             {% empty %}
@@ -123,5 +124,5 @@
 {% include 'components/administracion/editar/editPublicacionPerfil.html' %}
 <script src="{% static 'js/panelAdministracion/addPublicacion.js' %}"></script>
 
-{% include 'components/administracion/editar/editEvento.html' %}
+{% include 'components/administracion/editar/editEventoPerfil.html' %}
 <script src="{% static 'js/panelAdministracion/addEvento.js' %}"></script>

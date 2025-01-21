@@ -121,6 +121,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             event.preventDefault();
             const data_id = event.target.getAttribute("data-id");
             const data_autor = event.target.getAttribute("data-autor");
+            const data_autor_id = event.target.getAttribute("data-autor-id");
+            console.log(data_autor_id)
 
             try{
                 const response = await fetch(`/obtenerPublicacionEvento/${data_id}`)
@@ -139,9 +141,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     data.publicaciones.forEach(publicacion => {
                         document.getElementById("id_publicacion").value = data_id;
+                        if(data_autor_id != null){
+                            document.getElementById("id_publicacion_evento_perfil").value = data_autor_id;
+                        }
                         document.getElementById("titulo_evento").value = publicacion.titulo_publicacion;
-                        document.getElementById("autor_publicacion").value = data_autor;
-                        document.getElementById("descripcion_evento_edit").value = publicacion.descripcion_publicacion;
+                        document.getElementById("autor_publicacion").value = data_autor;                        document.getElementById("descripcion_evento_edit").value = publicacion.descripcion_publicacion;
                         document.getElementById("fechaEvento_edit").value = publicacion.fecha_inicio;
                         document.getElementById("horaInicioEvento_edit").value = publicacion.hora_inicio;
 

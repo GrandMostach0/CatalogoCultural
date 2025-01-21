@@ -1894,15 +1894,9 @@ def update_publicacion_evento_perfil(request):
     try:
         # obtencion de los datos
         id_publicacion = request.POST.get('id_publicacion')
-        print("request.POST:", request.POST)
-        print("---------------------")
-        print("id_publicacion: ", id_publicacion)
-        id_autor = request.POST.get('autor_id_publicacion_evento')
+        id_autor = request.POST.get('id_publicacion_evento_perfil')
         aprobar_publicacion = request.POST.get('aprobarPublicacion')
         eventoModificar = publicacionEventos.objects.get(id = id_publicacion)
-        
-        print("eventoModificar: ", eventoModificar)
-        print("--------")
 
         titulo_evento = request.POST.get('titulo', "").strip()
         descripcion_evento = request.POST.get('descripcion', "").strip()

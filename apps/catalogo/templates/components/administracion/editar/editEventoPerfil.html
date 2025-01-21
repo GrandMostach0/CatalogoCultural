@@ -1,0 +1,174 @@
+<!-- MODAL DE LA VENTANA PARA LOS DATOS -->
+<div id="modalEventoEdit" class="modal">
+    <!-- Contenido del Modal -->
+    <div class="modal-content">
+        <span class="close clsModalEditEvento">&times;</span>
+        <h2>Editar Evento</h2>
+        <form method="POST" action="{% url 'modificarPublicacionEventoPerfil' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <input
+            id="id_publicacion"
+            type="hidden"
+            class="inputs"
+            name="id_publicacion"
+            readonly
+            required>
+
+            <input
+            id="id_publicacion_evento_perfil"
+            type="hidden"
+            class="inputs"
+            name="id_publicacion_evento_perfil"
+            readonly>
+
+            <label for="titulo_evento">
+                Titulo del Evento:
+                <input
+                id="titulo_evento"
+                type="text"
+                class="inputs"
+                name="titulo"
+                placeholder="Titulo"
+                required>
+            </label>
+
+            <label for="autor_publicacion">
+                Autor:
+                <input
+                id="autor_publicacion"
+                type="text"
+                class="inputs"
+                name="autor_publicacion"
+                readonly>
+            </label>
+
+            <label for="descripcion_evento_edit">
+                Descripción:
+                <textarea
+                rows="5"
+                cols="30"
+                name="descripcion"
+                id="descripcion_evento_edit"
+                class="inputs"
+                required></textarea>
+            </label>
+
+            <label for="Listacategoria_Edit">
+                Categoría:
+                <select name="categoriaEvento" id="Listacategoria_Edit" required>
+                </select>
+            </label>
+
+            <label for="ListaClasificacion_Edit">
+                Clasificación:
+                <select name="clasificacionEvento" id="ListaClasificacionEdit" required>
+                </select>
+            </label>
+
+            <label for="fechaEvento_edit">
+                Fecha del Evento:
+                <input
+                id="fechaEvento_edit"
+                type="date"
+                class="inputs"
+                name="fecha_evento"
+                required>
+            </label>
+
+            <label for="horaInicioEvento_edit">
+                Hora de inicio del evento:
+                <input
+                id="horaInicioEvento_edit"
+                name="hora_evento"
+                type="time"
+                class="inputs"
+                required>
+            </label>
+
+            <label for="eventoPaga_edit" class="inputs">
+                ¿El evento es de Paga?
+                <input
+                type="checkbox"
+                name="evento_paga"
+                id="eventoPaga_edit"
+                >
+            </label>
+
+            <label class="precioUnitarioEdit" for="precioCU_edit">
+                Precio General:
+                <input
+                id="precioCU_edit"
+                type="number"
+                name="precioGeneral"
+                placeholder="Mayor a $10"
+                class="inputs">
+            </label>
+
+            <div class="subOpciones subOpciones4">
+                <label for="puntoVenta">
+                    Punto de Venta:
+                </label>
+                <br>
+                <input
+                type="radio"
+                id="puntoVentaPresencial_edit"
+                name="puntoVenta"
+                value="presencial"
+                checked/>
+
+                <label for="puntoVentaPresencial_edit">Presencial</label>
+
+                <input
+                type="radio"
+                id="puntoVentaDigital_edit"
+                name="puntoVenta"
+                value="digital" />
+                <label for="puntoVentaDigital_edit">Digital</label>
+
+                <input
+                type="radio"
+                id="puntoVentaDigital_edit"
+                name="puntoVenta"
+                value="ambas" />
+                <label for="puntoVentaDigital_edit">Ambas</label>
+            </div>
+            <br>
+
+            <label class="URLPuntoVentalblEdit" for="URLPuntoVenta_edit">
+                Enlace del punto de Venta:
+                <input 
+                placeholder="Ej:https://chat.whatsapp.com/invitacionAlGrupo"
+                type="url" 
+                id="URLPuntoVenta_edit" 
+                name="URLPuntoVenta" 
+                class="inputs">
+            </label>
+
+            <div class="previewContainer">
+                <span><strong>Imagen de Portada:</strong></span>
+                <br>
+                <img loading="lazy" id="previewImagen_edit" src="#" alt="Portada Publicacion">
+            </div>
+
+            <label for="imagenPortadaEvento_edit">
+                Imagen de Portada:
+                <input
+                class="inputs"
+                type="file"
+                id="imagenPortadaEvento_edit"
+                name="imagenPortada"
+                accept=".jpeg, .jpg, .png">
+            </label>
+
+            <label for="listaUbicacionesEdit">
+                Ubicaciones comunes:
+                <select name="ubicacionEvento" id="listaUbicacionesEdit" required>
+                </select>
+            </label>
+
+            <button type="submit">Modificar</button>
+            <button id="btnCancelarEditEvento" type="reset" >Cancelar</button>
+        </form>
+    </div>
+</div>
