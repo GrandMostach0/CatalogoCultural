@@ -126,6 +126,16 @@ class PublicacionObrasFilter(FilterSet):
         label="Disciplina"
     )
 
+    tipo_publicacion = ChoiceFilter(
+        choices = [
+            (None, "Todos"),
+            (True, "Institucional"),
+            (False, "Personal")
+        ],
+        empty_label = "Todos",
+        label = "Tipo Publicación"
+    )
+
     class Meta:
         model = publicacionObras
-        fields = ['id_Disciplina']
+        fields = ['id_Disciplina', 'tipo_publicacion']

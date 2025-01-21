@@ -266,7 +266,7 @@ footer{
     justify-content: space-between;
 }
 
-* Estilo para el overlay */
+/* Estilo para el overlay */
 .overlay {
     position: fixed;
     top: 0;

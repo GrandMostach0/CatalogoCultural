@@ -52,7 +52,6 @@
 }
 
 .card-publicacion-descripcion{
-    border: 1px solid grey;
     margin-bottom: 5px;
     display: -webkit-box;
     line-clamp: 3;
