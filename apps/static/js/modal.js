@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         await listarEscuelasPerfil(data_id);
         await listarDisciplinasProyectoPerfil();
 
-        const imagenPreview = document.getElementById("previewImagen_edit");
+        const imagenPreview = document.getElementById("previewImagen_Portada");
         const btnImagenPreview = document.getElementById("imagenPortada");
 
         btnImagenPreview.addEventListener("change", function(event){
