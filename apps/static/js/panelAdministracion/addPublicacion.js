@@ -165,16 +165,10 @@ document.addEventListener("DOMContentLoaded", async () =>{
                         institucionOpcionalEdit.style.display = "none";
                     }
 
-                    // VALIDAR SI ESTA APROBADO O NO
-                    if (publicacion.publicacion_aprobada){
-                        document.getElementById("aprobarPublicacion").checked = true;
-                    }else{
-                        document.getElementById("aprobarPublicacion").checked = false;
-                        document.getElementById("noAprobarPublicacion").checked = true;
-                    }
 
                     const urlOrigin = window.location.origin;
-                    const previewImagen_edit = document.getElementById("previewImagen_edit");
+                    const previewImagen_edit = document.getElementById("previewImagenPublicacion_edit");
+                    console.log(previewImagen_edit);
                     const btnFileImagen = document.getElementById("imagenPortada_edit");
 
                     previewImagen_edit.src = `${urlOrigin}/imagenes/${publicacion.url_imagen_publicacion}`;
@@ -226,6 +220,14 @@ document.addEventListener("DOMContentLoaded", async () =>{
                         }
                     });
 
+                    // VALIDAR SI ESTA APROBADO O NO
+                    if (publicacion.publicacion_aprobada){
+                        document.getElementById("aprobarPublicacion").checked = true;
+                    }else{
+                        document.getElementById("aprobarPublicacion").checked = false;
+                        document.getElementById("noAprobarPublicacion").checked = true;
+                    }
+                    
                 });
 
             }else{
