@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 //console.log(data)
                 /* INGRENSANDO LOS DATOS DEL PERFIL */
                 const baseUrl = window.location.origin;
-                document.getElementById("vistaPrevia").src = `${baseUrl}/${data.Actor.url_image_actor}`;
+                document.getElementById("vistaPrevia").src = `${baseUrl}/imagenes/${data.Actor.url_image_actor}`;
                 document.getElementById("nombre").value = data.Actor.nombre_Actor;
                 document.getElementById("primerApellido").value = data.Actor.primer_apellido_Actor;
                 document.getElementById("segundoApellido").value = data.Actor.segundo_apellido_Actor;
