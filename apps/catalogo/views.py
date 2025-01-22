@@ -217,14 +217,17 @@ def editarPerfil(request):
                     return redirect('PerfilActor', pk=actor.id)
                 
                 if imagen_perfil:
-                    valid_image_type = ['image/jpeg', 'image/jpg', 'image/png']
-                    if imagen_perfil.content_type not in valid_image_type:
-                        imagen_perfil = actor.url_image_actor
-                        messages.error(request, "La imagen del perfil debe ser tipo JPEG, JPG o PNG")
+                    # Tipos de archivo permitidos
+                    valid_image_types = ['image/jpeg', 'image/jpg', 'image/png']
+                    
+                    # Validar el tipo de archivo
+                    if imagen_perfil.content_type not in valid_image_types:
+                        messages.error(request, "La imagen del perfil debe ser tipo JPEG, JPG o PNG.")
                         return redirect('PerfilActor', pk=actor.id)
 
+                # Si no se sube ninguna imagen, conserva la imagen actual
                 if not imagen_perfil:
-                    return redirect('PerfilActor', pk=actor.id)
+                    imagen_perfil = actor.url_image_actor
                 
                 if actor.user.username != correo_privado:
                     if User.objects.filter(username = correo_privado).exists():
@@ -251,41 +254,53 @@ def editarPerfil(request):
                 content_type = ContentType.objects.get_for_model(Actor)
 
                 redes_sociales = [
-                    {"tipo": request.POST.get("tipoRedSocial1").strip(), "url": request.POST.get("redSocial1").strip()},
-                    {"tipo": request.POST.get("tipoRedSocial2").strip(), "url": request.POST.get("redSocial2").strip()},
-                    {"tipo": request.POST.get("tipoRedSocial3").strip(), "url": request.POST.get("redSocial3").strip()},
+                    {"tipo": request.POST.get("tipoRedSocial1"), "url": request.POST.get("redSocial1", "").strip()},
+                    {"tipo": request.POST.get("tipoRedSocial2"), "url": request.POST.get("redSocial2", "").strip()},
+                    {"tipo": request.POST.get("tipoRedSocial3"), "url": request.POST.get("redSocial3", "").strip()},
                 ]
+
+                print("GOLAAAA")
 
                 for red in redes_sociales:
                     tipo = red["tipo"]
                     url = red["url"]
+                    print("Tipo", tipo)
+                    print("URL", url)
 
-                    if tipo != "0":
-                        
-                        red_Social_existe = RedSocial.objects.filter(
-                            content_type = content_type,
-                            object_id = actor.id,
-                            id_redSocial_id = tipo
-                        ).first()
+                    if not tipo or not url or tipo == "0":
+                        continue
 
-                        if red_Social_existe or red_Social_existe != None:
-                            print("Red social actualizada.")
+                    # Buscar si ya existe una red social con el mismo tipo para el actor
+                    red_social_existe = RedSocial.objects.filter(
+                        content_type=content_type,
+                        object_id=actor.id,
+                        id_redSocial_id=tipo
+                    ).first()
 
+                    if red_social_existe:
+                        # Actualizar URL de la red social existente
+                        red_social_existe.enlace_redSocial = url
+                        red_social_existe.save()
+                        print(f"Red social de tipo {tipo} actualizada con éxito.")
+                    else:
+                        # Verificar si se permite registrar una nueva red social (máximo 3)
+                        cantidad_redes = RedSocial.objects.filter(
+                            content_type=content_type,
+                            object_id=actor.id
+                        ).count()
+
+                        if cantidad_redes != 3:
+                            # Crear nueva red social
+                            RedSocial.objects.create(
+                                content_type=content_type,
+                                object_id=actor.id,
+                                enlace_redSocial=url,
+                                id_redSocial_id=tipo
+                            )
+                            print(f"Nueva red social de tipo {tipo} registrada con éxito.")
                         else:
-                            cantidad = RedSocial.objects.filter(
-                                content_type = content_type,
-                                object_id = actor.id
-                            ).count()
-
-                            if cantidad != 3:
-                                RedSocial.objects.create(
-                                    content_type = content_type,
-                                    object_id = actor.id,
-                                    enlace_redSocial = url,
-                                    id_redSocial_id = tipo
-                                )
-                            else:
-                                print("EXCESO DE REDES REGISTRADOS")
+                            # Límite de redes sociales alcanzado
+                            messages.error(request, "No puedes registrar más de 3 redes sociales.")
 
 
                 return redirect('PerfilActor', pk=actor.id)

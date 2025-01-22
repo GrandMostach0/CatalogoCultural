@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             const responseRedes = await fetch(`/getRedesSociales/${data_atribute}`)
             const dataRedes = await responseRedes.json();
-            //console.log(dataRedes)
+            console.log(dataRedes)
             
             if(data.message === "Success"){
                 //console.log(data)
