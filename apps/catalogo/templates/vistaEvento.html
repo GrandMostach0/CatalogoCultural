@@ -82,7 +82,15 @@
                         <p><strong>Evento: GRATIS </strong></p>
                     {% endif %}
                     <p><strong>Clasificación:</strong>        {{ evento.id_clasificacion }}</p>
-                    <p><strong>Fecha de Inicio:</strong>       {{ evento.fecha_inicio }} </p>
+
+                    {% if estado_evento == "hoy" %}
+                        <p><strong>Fecha Inicio: </strong> <strong>HOY</strong></p>
+                    {% elif estado_evento == "caducado" %}
+                        <p><strong>Fecha Inicio: </strong> El evento <strong> ya caducó</strong></p>
+                    {% else %}
+                        <p><strong>Fecha Inicio: </strong>{{ estado_evento|date:"d/m/Y" }}</p>
+                    {% endif %}
+
                     <p><strong>Hora de Inicio:</strong>       {{ evento.hora_inicio }} p.m </p>
                     <p><strong>Ubicacion:</strong>            {{ evento.id_ubicacionesComunes }}</p>
                     <p><strong>Direccion:</strong>            {{ evento.id_ubicacionesComunes.direccion_ubicacion }}</p>

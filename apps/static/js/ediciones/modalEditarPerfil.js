@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             if(data.message === "Success"){
                 //console.log(data)
                 /* INGRENSANDO LOS DATOS DEL PERFIL */
-                const baseUrl = "http://127.0.0.1:8000/imagenes";
+                const baseUrl = window.location.origin;
                 document.getElementById("vistaPrevia").src = `${baseUrl}/${data.Actor.url_image_actor}`;
                 document.getElementById("nombre").value = data.Actor.nombre_Actor;
                 document.getElementById("primerApellido").value = data.Actor.primer_apellido_Actor;

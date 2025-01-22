@@ -653,6 +653,18 @@ class EventosDetailView(DetailView):
         except (ValueError, TypeError):
             evento.precio_evento = 0 
 
+        hoy = date.today()
+        if evento.fecha_inicio:  # Verifica si fecha_inicio tiene un valor
+            if evento.fecha_inicio > hoy:
+                context["estado_evento"] = evento.fecha_inicio  # Solo la fecha futura
+            elif evento.fecha_inicio == hoy:
+                context["estado_evento"] = "hoy"
+            else:
+                context["estado_evento"] = "caducado"
+        else:
+            context["estado_evento"] = "Sin fecha definida"
+
+
         return context
 
 
