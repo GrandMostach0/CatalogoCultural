@@ -8,6 +8,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from urllib.parse import urlencode, unquote
 from django.utils.timezone import now
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
 
 
 from datetime import datetime
@@ -2344,9 +2346,6 @@ def descargar_actores_csv(request):
     return response
 
 
-
-
-
 def descargar_escuelas_csv(request):
     # Configurar la respuesta HTTP como un archivo CSV
     response = HttpResponse(content_type='text/csv')
@@ -2386,5 +2385,135 @@ def descargar_escuelas_csv(request):
             escuela.paginaOficial or "No disponible",
             escuela.id_localidad if escuela.id_localidad else "No especificada"
         ])
+
+    return response
+
+## descargar pdf para actores
+def descargar_actores_pdf(request):
+    # Configurar la respuesta HTTP como un archivo PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="actores.pdf"'
+
+    # Crear el objeto Canvas para generar el PDF
+    buffer = response
+    c = canvas.Canvas(buffer, pagesize=letter)
+    width, height = letter
+
+    # Configurar un título
+    c.setFont("Helvetica-Bold", 16)
+    c.drawString(50, height - 50, "Listado de Actores")
+
+    # Configurar encabezados de las columnas
+    encabezados = [
+        'No',
+        'Nombre Completo',
+        'Correo Privado',
+        'Teléfono Privado',
+        'Tipo de Usuario'
+    ]
+    x_offset = 50
+    y_offset = height - 100
+    line_height = 20
+
+    c.setFont("Helvetica-Bold", 10)
+    for col_idx, encabezado in enumerate(encabezados):
+        c.drawString(x_offset + col_idx * 100, y_offset, encabezado)
+
+    # Obtener los datos desde la base de datos
+    actores = Actor.objects.all()
+    y_offset -= line_height
+
+    # Escribir los datos en las filas
+    c.setFont("Helvetica", 9)
+    for idx, actor in enumerate(actores, start=1):
+        if y_offset < 50:  # Salto de página si el espacio se termina
+            c.showPage()
+            c.setFont("Helvetica", 9)
+            y_offset = height - 50
+
+        datos = [
+            idx,
+            actor.nombre_completo(),
+            actor.correo_privado_actor or "No disponible",
+            actor.Telefono_privado_actor or "No disponible",
+            actor.tipo_usuario or "No especificado",
+        ]
+
+        for col_idx, dato in enumerate(datos):
+            c.drawString(x_offset + col_idx * 100, y_offset, str(dato))
+        y_offset -= line_height
+
+    # Guardar el PDF
+    c.save()
+
+    return response
+
+#### descargar pdf escuelas
+def descargar_escuelas_pdf(request):
+    # Configurar la respuesta HTTP como un archivo PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="escuelas.pdf"'
+
+    # Crear el objeto Canvas para generar el PDF
+    buffer = response
+    c = canvas.Canvas(buffer, pagesize=letter)
+    width, height = letter
+
+    # Configurar un título
+    c.setFont("Helvetica-Bold", 16)
+    c.drawString(50, height - 50, "Listado de Escuelas")
+
+    # Configurar encabezados de las columnas
+    encabezados = [
+        'No',
+        'Nombre',
+        'Es Público',
+        'Descripción',
+        'Teléfono',
+        'Correo',
+        'Ubicación',
+        'Horario de Atención',
+        'Página Oficial',
+        'Localidad',
+    ]
+    x_offset = 50
+    y_offset = height - 100
+    line_height = 20
+
+    c.setFont("Helvetica-Bold", 10)
+    for col_idx, encabezado in enumerate(encabezados):
+        c.drawString(x_offset + col_idx * 100, y_offset, encabezado)
+
+    # Obtener los datos desde la base de datos
+    escuelas = Escuelas.objects.all()
+    y_offset -= line_height
+
+    # Escribir los datos en las filas
+    c.setFont("Helvetica", 9)
+    for idx, escuela in enumerate(escuelas, start=1):
+        if y_offset < 50:  # Salto de página si el espacio se termina
+            c.showPage()
+            c.setFont("Helvetica", 9)
+            y_offset = height - 50
+
+        datos = [
+            idx,
+            escuela.nombre_escuela,
+            "Sí" if escuela.tipo_escuela else "No",
+            escuela.descripcion or "No especificada",
+            escuela.telefono_escuela or "No disponible",
+            escuela.correo_escuela or "No disponible",
+            escuela.ubicacion_escuela or "No especificada",
+            escuela.hora_atencion or "No disponible",
+            escuela.paginaOficial or "No disponible",
+            escuela.id_localidad if escuela.id_localidad else "No especificada",
+        ]
+
+        for col_idx, dato in enumerate(datos):
+            c.drawString(x_offset + col_idx * 100, y_offset, str(dato))
+        y_offset -= line_height
+
+    # Guardar el PDF
+    c.save()
 
     return response

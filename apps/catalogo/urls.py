@@ -118,6 +118,8 @@ urlpatterns = [
     # DESCARGAR CSVS
     path("panelAdministracion/Usuarios/descargar-actores/", views.descargar_actores_csv, name="descargar_actores"),
     path("panelAdministracion/Escuelas/descargar-escuelas/", views.descargar_escuelas_csv, name="descargar_escuelas"),
+    path('descargar/actores/pdf/', views.descargar_actores_pdf, name='descargar_actores_pdf'),
+    path('descargar/escuelas/pdf/', views.descargar_escuelas_pdf, name='descargar_escuelas_pdf'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
